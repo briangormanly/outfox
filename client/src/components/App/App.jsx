@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { GlobalStyles } from '../../styles/globalStyles';
 
-import LandingPage from '../../pages/LandingPage/LandingPage';
+import HomePage from '../../pages/HomePage/HomePage';
 
 const App = () => {
 	return (
 		<Router>
 			<GlobalStyles />
 			<Switch>
-				<Route exact path="/" component={LandingPage} />
+				<Route exact path="/" component={HomePage} />
 			</Switch>
 		</Router>
 	);
