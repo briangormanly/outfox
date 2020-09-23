@@ -111,7 +111,7 @@ export const MobileMenu = styled.ul`
 export const MobileItem = styled.li`
 	height: 50px;
 	width: 100%;
-	margin-top: 5rem;
+	margin-top: 3rem;
 	text-align: center;
 `;
 

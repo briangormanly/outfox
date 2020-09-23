@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { HomeNavbar } from '../../components';
+import { HomeNavbar, Hero } from '../../components';
 
 const LandingPage = () => {
 	return (
 		<div>
 			<HomeNavbar />
+			<Hero />
 		</div>
 	);
 };
