@@ -22,7 +22,7 @@ export const SignUpSection = styled.section`
 `;
 
 export const SignUpContainer = styled(Container)`
-  height: 80rem;
+  /* height: 80rem; */
   max-width: 42rem;
   margin: 0 auto;
   padding: 1rem;
