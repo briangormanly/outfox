@@ -1,10 +1,24 @@
 import React from 'react';
 
-const Footer = () => {
+import FooterCard from '../Footer-Card/FooterCard';
+
+import {
+	FooterSection,
+	FooterContainer,
+	FooterCardContainer,
+	Trademark
+} from './Footer.elements';
+
+const Footer = ({ cards, trademark }) => {
 	return (
-		<div>
-			<div>Footer</div>
-		</div>
+		<FooterSection>
+			<FooterContainer>
+				<FooterCardContainer>
+					{cards.map((card, indx) => <FooterCard key={indx} {...card} />)}
+				</FooterCardContainer>
+				<Trademark>&#169;{trademark}</Trademark>
+			</FooterContainer>
+		</FooterSection>
 	);
 };
 

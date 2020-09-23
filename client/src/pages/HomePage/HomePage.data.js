@@ -49,3 +49,37 @@ export const infoObject = {
 	img         : require('../../assets/google_docs.svg'),
 	alt         : 'info section svg'
 };
+
+export const footerObject = {
+	cards     : [
+		{
+			header : 'Learn',
+			links  : [
+				{ label: 'Guides', ref: '/' },
+				{ label: 'Reference', ref: '/' },
+				{ label: 'Libraries', ref: '/' },
+				{ label: 'Github', ref: '/' }
+			]
+		},
+		{
+			header : 'Stay Connected',
+			links  : [
+				{ label: 'Blog', ref: '/' },
+				{ label: 'Twitter', ref: '/' },
+				{ label: 'Youtube', ref: '/' },
+				{ label: 'Facebook', ref: '/' }
+			]
+		},
+		{
+			header : 'Support',
+			links  : [
+				{ label: 'Contact Support', ref: '/' },
+				{ label: 'Stack Overflow', ref: '/' },
+				{ label: 'Release notes', ref: '/' },
+				{ label: 'FAQs', ref: '/' }
+			]
+		}
+	],
+	trademark :
+		' 2020 Outfox. Marist Fall Capping & Brian Gormanly. All rights reserved'
+};
