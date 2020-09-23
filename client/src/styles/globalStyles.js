@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
+import { FaFirefoxBrowser } from 'react-icons/fa';
 
 export const GlobalStyles = createGlobalStyle`
   html{
@@ -71,4 +72,34 @@ export const SignInButton = styled(Link)`
     color: ${colors.primary};
     border: 1px solid ${colors.primary};
   }
+`;
+
+export const Button = styled.button`
+	border-radius: 4px;
+	background: ${colors.primary};
+	white-space: nowrap;
+	padding: 1rem 2rem;
+	color: ${colors.white};
+	font-size: 1.6rem;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	transition: ${transition};
+`;
+
+export const LogoContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+export const LogoIcon = styled(FaFirefoxBrowser)`
+  font-size: 4.5rem;
+`;
+
+export const LogoText = styled.span`
+	display: inline-block;
+	font-size: 3rem;
+	font-weight: bold;
+	margin-left: 1rem;
 `;
