@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const GlobalStyles = createGlobalStyle`
   html{
@@ -36,9 +37,21 @@ export const colors = {
 	darkGrey     : '#a9a9a9'
 };
 
+export const transition = 'all 0.3s ease-out';
+
 export const Container = styled.div`
 	max-width: 1200px;
 	margin: 0 auto;
 	width: 100%;
 	padding: 0 3rem;
+`;
+
+export const Link = styled(RouterLink)`
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: ${colors.white};
+  cursor: pointer;
+  padding: 1rem;
+  border: none;
+  display: inline-block;
 `;
