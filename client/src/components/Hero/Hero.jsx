@@ -4,7 +4,8 @@ import {
 	HeroSection,
 	HeroContainer,
 	HeroRow,
-	HeroColumn,
+	HeroColumn1,
+	HeroColumn2,
 	Img,
 	ImgWrapper,
 	HeroHeader,
@@ -17,16 +18,16 @@ const Hero = ({ img, alt, header, description, buttonLabel }) => {
 		<HeroSection>
 			<HeroContainer>
 				<HeroRow>
-					<HeroColumn>
+					<HeroColumn1>
 						<HeroHeader>{header}</HeroHeader>
 						<HeroDescription>{description}</HeroDescription>
 						<HeroButton to="/signin">{buttonLabel}</HeroButton>
-					</HeroColumn>
-					<HeroColumn>
+					</HeroColumn1>
+					<HeroColumn2>
 						<ImgWrapper>
 							<Img src={img} alt={alt} />
 						</ImgWrapper>
-					</HeroColumn>
+					</HeroColumn2>
 				</HeroRow>
 			</HeroContainer>
 		</HeroSection>
