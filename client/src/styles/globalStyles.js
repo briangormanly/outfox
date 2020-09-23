@@ -55,3 +55,15 @@ export const Link = styled(RouterLink)`
   border: none;
   display: inline-block;
 `;
+
+export const SignInButton = styled(Link)`
+  background-color: ${colors.primary};
+  color: ${colors.white};
+  border-radius: 50px;
+
+  &:hover{
+    background-color: ${colors.white};
+    color: ${colors.primary};
+    border: 1px solid ${colors.primary};
+  }
+`;

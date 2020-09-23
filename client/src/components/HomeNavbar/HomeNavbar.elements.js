@@ -1,5 +1,11 @@
 import styled from 'styled-components';
-import { colors, Container, Link, transition } from '../../styles/globalStyles';
+import {
+	colors,
+	Container,
+	Link,
+	transition,
+	SignInButton
+} from '../../styles/globalStyles';
 import { FaFirefoxBrowser } from 'react-icons/fa';
 
 const { primary, white, primaryLight } = colors;
@@ -117,4 +123,9 @@ export const MobileNavLink = styled(Link)`
   &:hover{
     color:${primaryLight};
   }
+`;
+
+export const MobileButton = styled(SignInButton)`
+  width: 80%;
+  font-size: 3rem
 `;

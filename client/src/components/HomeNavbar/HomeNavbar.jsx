@@ -13,7 +13,8 @@ import {
 	MobileMenu,
 	MobileIcon,
 	MobileItem,
-	MobileNavLink
+	MobileNavLink,
+	MobileButton
 } from './HomeNavbar.elements';
 
 const HomeNavbar = () => {
@@ -69,10 +70,10 @@ const HomeNavbar = () => {
 						<MobileNavLink to="/">Resources</MobileNavLink>
 					</MobileItem>
 					<MobileItem>
-						<MobileNavLink to="/">Overview</MobileNavLink>
+						<MobileButton to="/login">Log In</MobileButton>
 					</MobileItem>
 					<MobileItem>
-						<MobileNavLink to="/">Overview</MobileNavLink>
+						<MobileButton to="/signup">Sign Up</MobileButton>
 					</MobileItem>
 				</MobileMenu>
 			</NavContainer>
