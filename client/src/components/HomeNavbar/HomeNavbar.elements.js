@@ -97,7 +97,7 @@ export const MobileMenu = styled.ul`
 
 	@media screen and (max-width: 900px) {
 		z-index: 10;
-		height: 80vh;
+		height: 100vh;
 		width: 100vw;
 		display: flex;
 		flex-direction: column;

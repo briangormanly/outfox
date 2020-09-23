@@ -2,11 +2,10 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles/globalStyles';
 
-const { black, primary } = colors;
+const { primary } = colors;
 
 export const Card = styled.div`
 	width: 23rem;
-	/* flex: 1 0 0; */
 	display: flex;
 	flex-direction: column;
 	text-align: center;
@@ -14,7 +13,7 @@ export const Card = styled.div`
 	padding: 0 1rem;
 
 	@media screen and (max-width: 1020px) {
-		width: 35rem;
+		width: 32rem;
 	}
 `;
 
@@ -32,7 +31,4 @@ export const Header = styled.h4`
 	margin-top: 2rem;
 `;
 
-export const Description = styled.p`
-	margin-top: 2rem;
-	/* font-size: 2rem;   */
-`;
+export const Description = styled.p`margin-top: 2rem;`;

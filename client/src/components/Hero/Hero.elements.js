@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
-import {
-	Container,
-	colors,
-	transition,
-	SignInButton
-} from '../../styles/globalStyles';
+import { Container, colors, SignInButton } from '../../styles/globalStyles';
 
 const { lightGrey, primary, black } = colors;
 
