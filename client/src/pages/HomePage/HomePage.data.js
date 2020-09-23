@@ -6,3 +6,5 @@ export const heroObject = {
 		'Manage, track, and achieve your learning goals with Outfox LMS. Group and share resources with friends. No cost, no expiration, a free lifetime of learning.',
 	buttonLabel : 'Get Started'
 };
+
+export const aboutObjects = [];
