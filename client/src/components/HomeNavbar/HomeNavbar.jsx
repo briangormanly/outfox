@@ -49,7 +49,7 @@ const HomeNavbar = () => {
 				</LinkContainer>
 				<LinkContainer>
 					<NavItem>
-						<NavLink to="/login">Log In</NavLink>
+						<NavLink to="/signin">Log In</NavLink>
 					</NavItem>
 					<NavItem>
 						<NavLink to="/signup">Sign Up</NavLink>
