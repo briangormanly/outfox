@@ -29,12 +29,13 @@ export const SignUpContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 export const HeaderContainer = styled(LogoContainer)`
   width: 25rem;
   height: 5.5rem;
+  color: ${primary};
 `;
 
 export const HeaderLogo = styled(LogoIcon)`
@@ -57,7 +58,6 @@ export const AuthButton = styled(Button)`
   width: 100%;
   background-color: ${lightGrey};
   color: ${black};
-  /* padding: 1rem 1rem; */
   font-size: 1.4rem;
   text-align: left;
   box-shadow: 0 0 0.1rem 0 rgba(0,0,0,.12), 0 0.1rem 0.3rem 0 rgba(0,0,0,.24);
