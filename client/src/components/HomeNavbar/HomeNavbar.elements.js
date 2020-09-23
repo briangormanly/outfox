@@ -12,6 +12,7 @@ const { primary, white, primaryLight } = colors;
 
 export const Nav = styled.nav`
 	height: 8rem;
+	z-index: 100;
 	position: sticky;
 	top: 0;
 	left: 0;
@@ -95,6 +96,7 @@ export const MobileMenu = styled.ul`
 	display: none;
 
 	@media screen and (max-width: 900px) {
+		z-index: 10;
 		height: 80vh;
 		width: 100vw;
 		display: flex;
@@ -127,5 +129,5 @@ export const MobileNavLink = styled(Link)`
 
 export const MobileButton = styled(SignInButton)`
   width: 80%;
-  font-size: 3rem
+  font-size: 3rem;
 `;

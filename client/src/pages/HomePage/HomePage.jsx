@@ -2,11 +2,13 @@ import React from 'react';
 
 import { HomeNavbar, Hero } from '../../components';
 
+import { heroObject } from './HomePage.data';
+
 const LandingPage = () => {
 	return (
 		<div>
 			<HomeNavbar />
-			<Hero />
+			<Hero {...heroObject} />
 		</div>
 	);
 };
