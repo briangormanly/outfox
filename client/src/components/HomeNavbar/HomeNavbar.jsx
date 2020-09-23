@@ -27,10 +27,12 @@ const HomeNavbar = () => {
 	return (
 		<Nav>
 			<NavContainer>
-				<LogoContainer>
-					<LogoIcon />
-					<LogoText>Outfox</LogoText>
-				</LogoContainer>
+				<NavLink to="/">
+					<LogoContainer>
+						<LogoIcon />
+						<LogoText>Outfox</LogoText>
+					</LogoContainer>
+				</NavLink>
 				<LinkContainer>
 					<NavItem>
 						<NavLink to="/">Overview</NavLink>
