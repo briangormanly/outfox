@@ -5,7 +5,7 @@ import { Container, colors } from '../../styles/globalStyles';
 const { primary, white, darkGrey } = colors;
 
 export const FeatureSection = styled.div`
-	height: 80vh;
+	min-height: 70vh;
 	width: 100%;
 	background-color: ${white};
 `;
@@ -19,7 +19,7 @@ export const FeaturesContainer = styled(Container)`
 
 export const Header = styled.h3`
 	font-size: 4rem;
-	margin-top: 5rem;
+	margin-top: 6rem;
 	color: ${primary};
 `;
 

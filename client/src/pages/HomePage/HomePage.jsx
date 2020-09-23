@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { HomeNavbar, Hero, Features } from '../../components';
+import { HomeNavbar, Hero, Features, InfoSection } from '../../components';
 
-import { heroObject, featureObject } from './HomePage.data';
+import { heroObject, featureObject, infoObject } from './HomePage.data';
 
 const LandingPage = () => {
 	return (
@@ -10,6 +10,7 @@ const LandingPage = () => {
 			<HomeNavbar />
 			<Hero {...heroObject} />
 			<Features {...featureObject} />
+			<InfoSection {...infoObject} />
 		</div>
 	);
 };

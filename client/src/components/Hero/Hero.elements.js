@@ -12,7 +12,6 @@ export const HeroSection = styled.section`
 export const HeroContainer = styled(Container)`
   display:flex;
   height: 100%;
-  /* background-color: pink; */
 `;
 
 export const HeroRow = styled.div`
@@ -50,7 +49,6 @@ export const ImgWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-image: image('../../assets/online_connection.svg') center center/cover;
 `;
 
 export const Img = styled.img`

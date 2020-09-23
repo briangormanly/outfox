@@ -41,3 +41,11 @@ export const featureObject = {
 		}
 	]
 };
+
+export const infoObject = {
+	header      : 'Bring your community together',
+	description :
+		'Learning is not just about teachers and students. Outfox allows you to bring everyone together—students, teachers, coaches, parents, administrators—with one communication and collaboration platform.',
+	img         : require('../../assets/google_docs.svg'),
+	alt         : 'info section svg'
+};
