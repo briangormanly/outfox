@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors, Container, Link, transition } from '../../styles/globalStyles';
 import { FaFirefoxBrowser } from 'react-icons/fa';
 
-const { primary, white, black } = colors;
+const { primary, white, primaryLight } = colors;
 
 export const Nav = styled.nav`
 	height: 8rem;
@@ -19,6 +19,7 @@ export const Nav = styled.nav`
 
 export const NavContainer = styled(Container)`
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   height: 8rem;
@@ -46,6 +47,10 @@ export const LinkContainer = styled.ul`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+
+	@media screen and (max-width: 900px) {
+		display: none;
+	}
 `;
 
 export const NavItem = styled.li`
@@ -63,4 +68,53 @@ export const NavItem = styled.li`
 
 export const NavLink = styled(Link)`
   margin: 1rem;
+`;
+
+export const MobileIcon = styled.div`
+	height: 8rem;
+	font-size: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 3rem;
+	cursor: pointer;
+	display: none;
+
+	@media screen and (max-width: 900px) {
+		display: flex;
+	}
+`;
+
+export const MobileMenu = styled.ul`
+	display: none;
+
+	@media screen and (max-width: 900px) {
+		height: 80vh;
+		width: 100vw;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: absolute;
+		background-color: ${white};
+		top: 8rem;
+		left: ${({ click }) => (click ? '0' : '-100%')};
+		transition: ${transition};
+	}
+`;
+
+export const MobileItem = styled.li`
+	height: 50px;
+	width: 100%;
+	margin-top: 5rem;
+	text-align: center;
+`;
+
+export const MobileNavLink = styled(Link)`
+  font-size: 3rem;
+  color: ${primary};
+  display: block;
+
+  &:hover{
+    color:${primaryLight};
+  }
 `;

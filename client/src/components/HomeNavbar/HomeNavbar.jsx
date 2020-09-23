@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 import {
 	Nav,
@@ -8,10 +9,20 @@ import {
 	LogoText,
 	LinkContainer,
 	NavItem,
-	NavLink
+	NavLink,
+	MobileMenu,
+	MobileIcon,
+	MobileItem,
+	MobileNavLink
 } from './HomeNavbar.elements';
 
 const HomeNavbar = () => {
+	const [ click, setClick ] = useState(false);
+
+	const handleClick = () => {
+		setClick(!click);
+	};
+
 	return (
 		<Nav>
 			<NavContainer>
@@ -41,6 +52,29 @@ const HomeNavbar = () => {
 						<NavLink to="/signup">Sign Up</NavLink>
 					</NavItem>
 				</LinkContainer>
+				<MobileIcon onClick={handleClick}>
+					{click ? <FaTimes /> : <FaBars />}
+				</MobileIcon>
+				<MobileMenu click={click}>
+					<MobileItem>
+						<MobileNavLink to="/">Overview</MobileNavLink>
+					</MobileItem>
+					<MobileItem>
+						<MobileNavLink to="/">Tour</MobileNavLink>
+					</MobileItem>
+					<MobileItem>
+						<MobileNavLink to="/">Docs</MobileNavLink>
+					</MobileItem>
+					<MobileItem>
+						<MobileNavLink to="/">Resources</MobileNavLink>
+					</MobileItem>
+					<MobileItem>
+						<MobileNavLink to="/">Overview</MobileNavLink>
+					</MobileItem>
+					<MobileItem>
+						<MobileNavLink to="/">Overview</MobileNavLink>
+					</MobileItem>
+				</MobileMenu>
 			</NavContainer>
 		</Nav>
 	);
