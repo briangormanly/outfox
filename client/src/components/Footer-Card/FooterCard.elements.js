@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors, Link } from '../../styles/globalStyles';
 
-const { white, primaryLight } = colors;
+const { white } = colors;
 
 export const Card = styled.div`
 	width: 16rem;
