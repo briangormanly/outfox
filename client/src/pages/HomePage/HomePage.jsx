@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { HomeNavbar, Hero } from '../../components';
+import { HomeNavbar, Hero, Features } from '../../components';
 
-import { heroObject } from './HomePage.data';
+import { heroObject, featureObject } from './HomePage.data';
 
 const LandingPage = () => {
 	return (
 		<div>
 			<HomeNavbar />
 			<Hero {...heroObject} />
+			<Features {...featureObject} />
 		</div>
 	);
 };

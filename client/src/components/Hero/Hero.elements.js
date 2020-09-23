@@ -10,7 +10,7 @@ import {
 const { lightGrey, primary, black } = colors;
 
 export const HeroSection = styled.section`
-	height: 80vh;
+	height: 85vh;
 	background-color: ${lightGrey};
 `;
 
@@ -36,8 +36,10 @@ export const HeroColumn1 = styled.div`
 	@media screen and (max-width: 900px) {
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
 		text-align: center;
 		align-items: center;
+		transform: translateY(-3.5rem);
 	}
 `;
 
