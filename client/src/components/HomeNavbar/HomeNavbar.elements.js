@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors, Container, Link } from '../../styles/globalStyles';
+import { colors, Container, Link, transition } from '../../styles/globalStyles';
 import { FaFirefoxBrowser } from 'react-icons/fa';
 
 const { primary, white, black } = colors;
@@ -49,14 +49,15 @@ export const LinkContainer = styled.ul`
 `;
 
 export const NavItem = styled.li`
-	height: 8rem;
+	height: 4rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-bottom: 3px solid transparent;
+	border-bottom: 1px solid transparent;
+	transition: ${transition};
 
 	&:hover {
-		border-bottom: 3px solid ${white};
+		border-bottom: 1px solid ${white};
 	}
 `;
 

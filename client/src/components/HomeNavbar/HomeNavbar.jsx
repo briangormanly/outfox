@@ -21,24 +21,24 @@ const HomeNavbar = () => {
 				</LogoContainer>
 				<LinkContainer>
 					<NavItem>
-						<NavLink>Overview</NavLink>
+						<NavLink to="/">Overview</NavLink>
 					</NavItem>
 					<NavItem>
-						<NavLink>Tour</NavLink>
+						<NavLink to="/">Tour</NavLink>
 					</NavItem>
 					<NavItem>
-						<NavLink>Docs</NavLink>
+						<NavLink to="/">Docs</NavLink>
 					</NavItem>
 					<NavItem>
-						<NavLink>Resources</NavLink>
+						<NavLink to="/">Resources</NavLink>
 					</NavItem>
 				</LinkContainer>
 				<LinkContainer>
 					<NavItem>
-						<NavLink>Log In</NavLink>
+						<NavLink to="/login">Log In</NavLink>
 					</NavItem>
 					<NavItem>
-						<NavLink>Sign Up</NavLink>
+						<NavLink to="/signup">Sign Up</NavLink>
 					</NavItem>
 				</LinkContainer>
 			</NavContainer>
