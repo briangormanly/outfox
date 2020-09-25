@@ -1,14 +1,23 @@
 import { users } from '../../../dummy data/users';
 import express from 'express';
 
+/**
+ * Our controller which will be responsible for managing the JSON controller object.
+ */
 class UsersController {
-    public path = '/api/users';
+
+    // Path that is required in order to access the api http://localhost:8080/routes/api/users
+    public path = '/routes/api/users';
     public router = express.Router();
 
     constructor() {
         this.initializeRoutes();
     }
 
+    /**
+     * Creates the routes for the User Controller
+     * Ex. GET, PUT, POST, UPDATE, etc
+     */
     public initializeRoutes() {
         this.router.route(this.path)
             .get(this.getAllUsers);

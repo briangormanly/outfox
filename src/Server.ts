@@ -1,7 +1,7 @@
 import App  from "./App";
 import UsersController from "./routes/api/controllers/UsersController";
 
-// We pass the controllers from the api and the port
+// Creates a new Express App that takes a list of Controllers and a port
 const app = new App(
     [
         new UsersController(),
@@ -9,4 +9,5 @@ const app = new App(
     8080,
 );
 
+// Utilize the listening method to see if the server if running
 app.listen();

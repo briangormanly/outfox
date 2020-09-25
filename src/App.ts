@@ -4,6 +4,9 @@ import cors from 'cors';
 // Using Morgan for middleware. At the moment for basic logging
 import morgan from 'morgan';
 
+/**
+ * Used as the primarily class for the express server
+ */
 class App {
     public app: express.Application;
     public port: number;
