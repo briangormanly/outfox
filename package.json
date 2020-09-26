@@ -2,7 +2,7 @@
   "name": "outfox",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/server.js",
+  "main": "./dist/Server.js",
   "scripts": {
     "build": "tsc",
     "dev:start": "npm-run-all build start",
