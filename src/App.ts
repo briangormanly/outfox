@@ -25,6 +25,7 @@ class App {
     }
 
     private initializeControllers(controllers: any) {
+        // Only here temp so we can get a home page instead of a 404
         this.app.get('/', (req, res) => {
            res.send('<h1>Hello world! </h1>'); 
         });

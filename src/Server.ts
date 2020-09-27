@@ -1,5 +1,5 @@
-import App  from "./App";
-import UsersController from "./routes/api/controllers/UsersController";
+import App  from './App';
+import UsersController from  './api/UsersController';
 
 // Creates a new Express App that takes a list of Controllers and a port
 const app = new App(

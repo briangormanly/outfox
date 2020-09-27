@@ -1,4 +1,4 @@
-import { users } from '../../../dummy data/users';
+import { users } from '../dummy data/users';
 import express from 'express';
 
 /**
@@ -7,7 +7,7 @@ import express from 'express';
 class UsersController {
 
     // Path that is required in order to access the api http://localhost:8080/routes/api/users
-    public path = '/routes/api/users';
+    public path = '/api/users';
     public router = express.Router();
 
     constructor() {
