@@ -30,8 +30,8 @@ class App {
            res.send('<h1>Hello world! </h1>'); 
         });
 
-        for(let i = 0; i < controllers.length; i++) {
-            this.app.use(controllers[i].router);
+        for (const iterator of controllers) {
+            this.app.use(iterator.router);
         }
     }
 

@@ -27,9 +27,9 @@ class UsersController {
     }
 
     getAUser = (request: express.Request, response: express.Response) => {
-        const found = users.some(user => user.userID === parseInt(request.params.id));
+        const found = users.some(user => user.userID === parseInt(request.params.id, 10));
         if (found) {
-            response.json(users.filter(user => user.userID === parseInt(request.params.id)));
+            response.json(users.filter(user => user.userID === parseInt(request.params.id, 10)));
         } else {
             response.status(400).json({message: `User with id ${request.params.id} not found`});    
         } 
