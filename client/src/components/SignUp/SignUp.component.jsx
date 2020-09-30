@@ -12,8 +12,12 @@ import {
 	OrContainer,
 	OrBorder,
 	OrText,
-	Form
+	Form,
+	SignUpButton,
+	LoginMessage
 } from './SignUp.elements';
+
+import { Link } from '../../styles';
 
 const initialState = {
 	firstName       : '',
@@ -63,6 +67,7 @@ const SignUpComponent = () => {
 						type="text"
 						value={firstName}
 						onChange={handleChange}
+						required
 					/>
 					<FormInput
 						label="Last Name"
@@ -70,6 +75,7 @@ const SignUpComponent = () => {
 						type="text"
 						value={lastName}
 						onChange={handleChange}
+						required
 					/>
 					<FormInput
 						label="Email"
@@ -77,22 +83,29 @@ const SignUpComponent = () => {
 						type="email"
 						value={email}
 						onChange={handleChange}
+						required
 					/>
 					<FormInput
 						label="Password"
 						name="password"
-						type="text"
+						type="password"
 						value={password}
 						onChange={handleChange}
+						required
 					/>
 					<FormInput
 						label="Confirm Password"
 						name="confirmPassword"
-						type="text"
+						type="password"
 						value={confirmPassword}
 						onChange={handleChange}
+						required
 					/>
+					<SignUpButton type="submit">Create a free account</SignUpButton>
 				</Form>
+				<LoginMessage>
+					Already have an Outfox account? <Link to="login">Log in</Link>
+				</LoginMessage>
 			</SignUpContainer>
 		</SignUpSection>
 	);

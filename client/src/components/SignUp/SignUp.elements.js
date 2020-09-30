@@ -16,13 +16,14 @@ export const SignUpSection = styled.section`
 	background-color: ${lightGrey};
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	/* align-items: center; */
 `;
 
 export const SignUpContainer = styled(Container)`
   /* height: 80rem; */
   max-width: 42rem;
   margin: 0 auto;
+	margin-top: 3rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -65,3 +66,24 @@ export const OrText = styled.p`
 `;
 
 export const Form = styled.form`width: 100%;`;
+
+export const SignUpButton = styled(Button)`
+	margin-top: 3rem;
+	width: 100%;
+
+	&:hover{
+		transform: translateY(-3px)
+	}
+`;
+
+export const LoginMessage = styled.p`
+	margin: 3rem 0;
+	text-align: center;
+	font-size: 1.8rem;
+
+	a {
+		color: ${primary};
+		font-size: 1.8rem;
+		padding: 0;
+	}
+`;

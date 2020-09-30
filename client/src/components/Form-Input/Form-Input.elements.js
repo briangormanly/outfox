@@ -2,23 +2,28 @@ import styled, { css } from 'styled-components';
 
 import { colors, transition } from '../../styles';
 
-const { darkGrey, black, mediumGrey } = colors;
+const { darkGrey, black, primaryLight } = colors;
 
 export const InputGroup = styled.div`
 	position: relative;
 	width: 100%;
-	margin-top: 3rem;
+	margin-top: 3.5rem;
 	height: 3.4rem;
 
 	input {
 		display: block;
 		width: 100%;
 		height: 100%;
-		padding: 1.4rem 1rem;
+		padding: 1.8rem 1rem;
 		font-size: 1.6rem;
 		z-index: 2;
 		border-color: rgba(0, 0, 0, .12);
 		border-radius: 5px;
+
+		&:focus {
+			outline: none;
+			border-color: ${primaryLight};
+		}
 
 		&:focus ~ label {
 			color: ${black};
@@ -30,7 +35,7 @@ export const InputGroup = styled.div`
 		font-size: 1.5rem;
 		position: absolute;
 		left: 8px;
-		top: 0.7rem;
+		top: 1rem;
 		color: ${darkGrey};
 		pointer-events: none;
 		transition: ${transition};
