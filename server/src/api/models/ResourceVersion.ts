@@ -1,27 +1,27 @@
 export class ResourseVersion {
-  resourceversionid: number;
-  resourceid: number;
-  versionid: number;
-  linkid: number;
+  resourceVersionId: number;
+  resourceId: number;
+  versionId: number;
+  linkId: number;
   mutable: boolean;
-  resourcename: string;
-  resourcelinkurl: string;
+  resourceName: string;
+  resourceLinkUrl: string;
   
   constructor(
-    resourceversionid: number,
-    resourceid: number,
-    versionid: number,
-    linkid: number,
+    resourceVersionId: number,
+    resourceId: number,
+    versionId: number,
+    linkId: number,
     mutable: boolean,
-    resourcename: string,
-    resourcelinkurl: string) {
+    resourceName: string,
+    resourceLinkUrl: string) {
       
-      this.resourceversionid = resourceversionid;
-      this.resourceid = resourceid;
-      this.versionid = versionid;
-      this.linkid = linkid;
+      this.resourceVersionId = resourceVersionId;
+      this.resourceId = resourceId;
+      this.versionId = versionId;
+      this.linkId = linkId;
       this.mutable = mutable;
-      this.resourcename = resourcename;
-      this.resourcelinkurl = resourcelinkurl;
+      this.resourceName = resourceName;
+      this.resourceLinkUrl = resourceLinkUrl;
     }
 }
