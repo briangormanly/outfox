@@ -40,7 +40,8 @@ export const colors = {
 	black        : '#000',
 	white        : '#fff',
 	lightGrey    : '#f4f4f4',
-	darkGrey     : '#333333'
+	darkGrey     : '#333333',
+	mediumGrey   : '#dedede'
 };
 
 export const transition = 'all 0.3s ease-out';

@@ -9,10 +9,10 @@ import {
 	Button
 } from '../../styles/globalStyles';
 
-const { primary, lightGrey, black, primaryLight, darkGrey } = colors;
+const { primary, lightGrey, darkGrey } = colors;
 
 export const SignUpSection = styled.section`
-	height: 100vh;
+	min-height: 100vh;
 	background-color: ${lightGrey};
 	display: flex;
 	justify-content: center;
