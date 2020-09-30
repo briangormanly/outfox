@@ -60,7 +60,7 @@ const SignUpComponent = () => {
 					<OrText>Or</OrText>
 					<OrBorder />
 				</OrContainer>
-				<Form onSubmit={handleSubmit} autoComplete="off">
+				<Form onSubmit={handleSubmit}>
 					<FormInput
 						label="First Name"
 						name="firstName"
