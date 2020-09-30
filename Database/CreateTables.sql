@@ -1,15 +1,17 @@
-CREATE DATABASE outfoxdb;
-DROP TABLE IF EXISTS user_t;
-DROP TABLE IF EXISTS group_t;
-DROP TABLE IF EXISTS linkownertype_t;
-DROP TABLE IF EXISTS link_t;
-DROP TABLE IF EXISTS resourceversion_t;
-DROP TABLE IF EXISTS resource_t;
-DROP TABLE IF EXISTS resourcetype_t;
-DROP TABLE IF EXISTS note_t;
-DROP TABLE IF EXISTS notetag_t;
-DROP TABLE IF EXISTS tag_t;
-DROP TABLE IF EXISTS resourcetag_t;
+DROP TABLE IF EXISTS user_t CASCADE;
+DROP TABLE IF EXISTS group_t CASCADE;
+DROP TABLE IF EXISTS linkownertype_t CASCADE;
+DROP TABLE IF EXISTS link_t CASCADE;
+DROP TABLE IF EXISTS resourceversion_t CASCADE;
+DROP TABLE IF EXISTS resource_t CASCADE;
+DROP TABLE IF EXISTS resourcetype_t CASCADE;
+DROP TABLE IF EXISTS note_t CASCADE;
+DROP TABLE IF EXISTS notetag_t CASCADE;
+DROP TABLE IF EXISTS tag_t CASCADE;
+DROP TABLE IF EXISTS resourcetag_t CASCADE;
+DROP TABLE IF EXISTS category_t CASCADE;
+DROP TABLE IF EXISTS groupcategory_t CASCADE;
+DROP TABLE IF EXISTS categorytag_t CASCADE;
 
 CREATE TABLE user_t (
     userid serial,
@@ -21,6 +23,15 @@ CREATE TABLE user_t (
     phonenum int,
     email varchar(255),
     PRIMARY KEY(userid)
+);
+
+CREATE TABLE resourcetype_t (
+    resourcetypeid serial,
+    resourcetypename varchar(255),
+    resourcetypedescription varchar(255),
+    resourcetypeapiurl varchar(255),
+    resourcetypeapikey varchar(255),
+    PRIMARY KEY(resourcetypeid)
 );
 
 CREATE TABLE group_t (
@@ -55,11 +66,24 @@ CREATE TABLE link_t (
     createdate timestamptz,
     PRIMARY KEY(linkid),
     CONSTRAINT fk_linkowner
-        FOREIGN KEY(linkowner)
+        FOREIGN KEY(linkownerid)
             REFERENCES user_t(userid),
     CONSTRAINT fk_linkownertype
         FOREIGN KEY(linkownertype)
             REFERENCES linkownertype_t(linkownertypeid)
+);
+
+CREATE TABLE resource_t (
+    resourceid serial,
+    resourcetype int,
+    creatorid int,
+    PRIMARY KEY (resourceid),
+    CONSTRAINT fk_resourcetype
+        FOREIGN KEY(resourcetype)
+            REFERENCES resourcetype_t(resourcetypeid),
+    CONSTRAINT fk_userid
+        FOREIGN KEY(creatorid)
+            REFERENCES user_t(userid)
 );
 
 CREATE TABLE resourceversion_t (
@@ -80,28 +104,6 @@ CREATE TABLE resourceversion_t (
             REFERENCES link_t(linkid)
 );
 
-CREATE TABLE resource_t (
-    resourceid serial,
-    resourcetype int,
-    creatorid int,
-    PRIMARY KEY (resourceid),
-    CONSTRAINT fk_resourcetype
-        FOREIGN KEY(resourcetype)
-            REFERENCES resourcetype_t(resourcetypeid),
-    CONSTRAINT fk_userid
-        FOREIGN KEY(creatorid)
-            REFERENCES user_t(userid)
-);
-
-CREATE TABLE resourcetype_t (
-    resourcetypeid serial,
-    resourcetypename varchar(255),
-    resourcetypedescription varchar(255),
-    resourcetypeapiurl varchar(255),
-    resourcetypeapikey varchar(255),
-    PRIMARY KEY(resourcetypeid)
-);
-
 CREATE TABLE note_t (
     noteid serial,
     resourceversionid int,
@@ -111,6 +113,13 @@ CREATE TABLE note_t (
     CONSTRAINT fk_resourceversionid
         FOREIGN KEY(resourceversionid)
             REFERENCES resourceversion_t(resourceversionid)
+);
+
+CREATE TABLE tag_t (
+    tagid serial,
+    tag varchar(255),
+    createdate timestamptz,
+    PRIMARY KEY(tagid)
 );
 
 CREATE TABLE notetag_t (
@@ -131,13 +140,6 @@ CREATE TABLE notetag_t (
             REFERENCES user_t(userid)
 );
 
-CREATE TABLE tag_t (
-    tagid serial,
-    tag varchar(255),
-    createdate timestamptz,
-    PRIMARY KEY(tagid)
-);
-
 CREATE TABLE resourcetag_t (
     resourcetagid serial,
     resourceversionid int,
@@ -156,7 +158,7 @@ CREATE TABLE category_t (
     PRIMARY KEY(categoryid)
 );
 
-CREATE TABLE groupcategory_t(
+CREATE TABLE groupcategory_t( 
     groupcategoryid serial,
     categoryid int,
     groupid int,
