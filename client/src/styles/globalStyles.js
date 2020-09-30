@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 import { FaFirefoxBrowser } from 'react-icons/fa';
 

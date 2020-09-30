@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styled from 'styled-components';
 
 import {
@@ -85,6 +83,7 @@ export const LogoImg = styled.img`
 export const ButtonText = styled.div``;
 
 export const OrContainer = styled.div`
+	width: 100%;
 	margin-top: 3rem;
 	display: flex;
 `;
