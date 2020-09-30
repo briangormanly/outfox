@@ -14,7 +14,9 @@ import {
 	OrText,
 	Form,
 	SignUpButton,
-	LoginMessage
+	LoginMessage,
+	InputRow,
+	InputItem
 } from './SignUp.elements';
 
 import { Link } from '../../styles';
@@ -61,46 +63,51 @@ const SignUpComponent = () => {
 					<OrBorder />
 				</OrContainer>
 				<Form onSubmit={handleSubmit}>
-					<FormInput
-						label="First Name"
-						name="firstName"
-						type="text"
-						value={firstName}
-						onChange={handleChange}
-						required
-					/>
-					<FormInput
-						label="Last Name"
-						name="lastName"
-						type="text"
-						value={lastName}
-						onChange={handleChange}
-						required
-					/>
-					<FormInput
-						label="Email"
-						name="email"
-						type="email"
-						value={email}
-						onChange={handleChange}
-						required
-					/>
-					<FormInput
-						label="Password"
-						name="password"
-						type="password"
-						value={password}
-						onChange={handleChange}
-						required
-					/>
-					<FormInput
-						label="Confirm Password"
-						name="confirmPassword"
-						type="password"
-						value={confirmPassword}
-						onChange={handleChange}
-						required
-					/>
+					<InputRow>
+						<InputItem>
+							<FormInput
+								label="First Name"
+								name="firstName"
+								type="text"
+								value={firstName}
+								onChange={handleChange}
+								required
+							/>
+						</InputItem>
+						<InputItem>
+							<FormInput
+								label="Last Name"
+								name="lastName"
+								type="text"
+								value={lastName}
+								onChange={handleChange}
+								required
+							/>
+						</InputItem>
+					</InputRow>
+					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+					<InputRow>
+						<InputItem>
+							<FormInput
+								label="Password"
+								name="password"
+								type="password"
+								value={password}
+								onChange={handleChange}
+								required
+							/>
+						</InputItem>
+						<InputItem>
+							<FormInput
+								label="Confirm Password"
+								name="confirmPassword"
+								type="password"
+								value={confirmPassword}
+								onChange={handleChange}
+								required
+							/>
+						</InputItem>
+					</InputRow>
 					<SignUpButton type="submit">Create a free account</SignUpButton>
 				</Form>
 				<LoginMessage>

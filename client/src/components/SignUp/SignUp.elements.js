@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 
-import {
-	colors,
-	Container,
-	LogoContainer,
-	LogoIcon,
-	LogoText,
-	Button
-} from '../../styles/globalStyles';
+import { colors, Container, LogoContainer, LogoIcon, LogoText, Button } from '../../styles/globalStyles';
 
 const { primary, lightGrey, darkGrey } = colors;
 
@@ -86,4 +79,19 @@ export const LoginMessage = styled.p`
 		font-size: 1.8rem;
 		padding: 0;
 	}
+`;
+
+export const InputRow = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+export const InputItem = styled.div`
+	width: 48%;
+	/*  */
+`;
+
+export const SecondInput = styled.div`
+	width: 45%;
+	/*  */
 `;
