@@ -1,15 +1,8 @@
 import styled from 'styled-components';
 
-import {
-	colors,
-	Container,
-	LogoContainer,
-	LogoIcon,
-	LogoText,
-	Button
-} from '../../styles/globalStyles';
+import { colors, Button } from '../../styles/globalStyles';
 
-const { primary, lightGrey, black, primaryLight, darkGrey } = colors;
+const { lightGrey, black } = colors;
 
 export const ButtonGroup = styled.div`
 	width: 100%;
