@@ -111,7 +111,7 @@ const SignUpComponent = () => {
 					<SignUpButton type="submit">Create a free account</SignUpButton>
 				</Form>
 				<LoginMessage>
-					Already have an Outfox account? <Link to="login">Log in</Link>
+					Already have an Outfox account? <Link to="signin">Log in</Link>
 				</LoginMessage>
 			</SignUpContainer>
 		</SignUpSection>
