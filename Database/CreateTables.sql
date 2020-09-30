@@ -25,6 +25,7 @@ CREATE TABLE user_t (
 
 CREATE TABLE group_t (
     groupid serial,
+    groupname varchar(255),
     resourcetype int,
     resourceapi varchar(255),
     datetimeadd timestamptz,
@@ -37,12 +38,13 @@ CREATE TABLE group_t (
 
 CREATE TABLE linkownertype_t (
     linkownertypeid serial,
-    linkowner int,
+    linkownername varchar(255),
     linkownerdescription varchar(255),
     createdate timestamptz,
-    PRIMARY KEY(linkownerid),
-    CONSTRAINT fk_linkowner
-        FOREIGN KEY(linkowner)
+    createdby int,
+    PRIMARY KEY(linkownertypeid),
+    CONSTRAINT fk_createdby
+        FOREIGN KEY(createdby)
             REFERENCES user_t(userid)
 );
 
@@ -67,6 +69,7 @@ CREATE TABLE resourceversion_t (
     linkid int,
     mutable boolean,
     resourcename varchar(255),
+    resourcedescription varchar(255),
     resourcelinkurl varchar(255),
     PRIMARY KEY(resourceversionid),
     CONSTRAINT fk_resourceid
@@ -145,4 +148,36 @@ CREATE TABLE resourcetag_t (
     CONSTRAINT fk_tagid
         FOREIGN KEY(createdby)
             REFERENCES user_t(userid)
+);
+
+CREATE TABLE category_t (
+    categoryid serial,
+    categoryname varchar(255),
+    PRIMARY KEY(categoryid)
+);
+
+CREATE TABLE groupcategory_t(
+    groupcategoryid serial,
+    categoryid int,
+    groupid int,
+    PRIMARY KEY(groupcategoryid),
+    CONSTRAINT fk_categoryid
+        FOREIGN KEY(categoryid)
+            REFERENCES category_t(categoryid),
+    CONSTRAINT fk_groupid
+        FOREIGN KEY(groupid)
+            REFERENCES group_t(groupid)
+);
+
+CREATE TABLE categorytag_t(
+    categorytagid serial,
+    categoryid int,
+    tagid int,
+    PRIMARY KEY(categorytagid),
+    CONSTRAINT fk_categoryid
+        FOREIGN KEY(categoryid)
+            REFERENCES category_t(categoryid),
+    CONSTRAINT fk_tagid
+        FOREIGN KEY(tagid)
+            REFERENCES tag_t(tagid)
 );
