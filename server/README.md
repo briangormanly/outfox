@@ -26,7 +26,7 @@ You will also see any errors in the console.
 Runs your TypeScript code against the TSLinter and tells you any suggestions on how to improve your code. An example would be using a standard for loop instead of for-of loop on an object that is iterable. It will display the suggestions in the log.
 
 ## Learn More
-TypeScript - https://www.typescriptlang.org/
-ExpressJS - https://expressjs.com/
-Sequelize - https://sequelize.org/
-PassportJS - http://www.passportjs.org/
+TypeScript - https://www.typescriptlang.org/ <br />
+ExpressJS - https://expressjs.com/ <br />
+Sequelize - https://sequelize.org/ <br />
+PassportJS - http://www.passportjs.org/ <br />
