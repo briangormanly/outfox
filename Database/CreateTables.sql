@@ -20,7 +20,7 @@ CREATE TABLE user_t (
     lastname varchar(255),
     country varchar(255),
     city varchar(255),
-    phonenum int,
+    phonenum bigint,
     email varchar(255),
     PRIMARY KEY(userid)
 );
@@ -37,7 +37,7 @@ CREATE TABLE resourcetype_t (
 CREATE TABLE group_t (
     groupid serial,
     groupname varchar(255),
-    resourcetype int,
+    resourcetype bigint,
     resourceapi varchar(255),
     datetimeadd timestamptz,
     datetimeremove timestamptz,
@@ -52,7 +52,7 @@ CREATE TABLE linkownertype_t (
     linkownername varchar(255),
     linkownerdescription varchar(255),
     createdate timestamptz,
-    createdby int,
+    createdby bigint,
     PRIMARY KEY(linkownertypeid),
     CONSTRAINT fk_createdby
         FOREIGN KEY(createdby)
@@ -61,8 +61,8 @@ CREATE TABLE linkownertype_t (
 
 CREATE TABLE link_t (
     linkid serial,
-    linkownerid int,
-    linkownertype int,
+    linkownerid bigint,
+    linkownertype bigint,
     createdate timestamptz,
     PRIMARY KEY(linkid),
     CONSTRAINT fk_linkowner
@@ -75,8 +75,8 @@ CREATE TABLE link_t (
 
 CREATE TABLE resource_t (
     resourceid serial,
-    resourcetype int,
-    creatorid int,
+    resourcetype bigint,
+    creatorid bigint,
     PRIMARY KEY (resourceid),
     CONSTRAINT fk_resourcetype
         FOREIGN KEY(resourcetype)
@@ -88,9 +88,9 @@ CREATE TABLE resource_t (
 
 CREATE TABLE resourceversion_t (
     resourceversionid serial,
-    resourceid int,
-    versionid int,
-    linkid int,
+    resourceid bigint,
+    versionid bigint,
+    linkid bigint,
     mutable boolean,
     resourcename varchar(255),
     resourcedescription varchar(255),
@@ -106,7 +106,7 @@ CREATE TABLE resourceversion_t (
 
 CREATE TABLE note_t (
     noteid serial,
-    resourceversionid int,
+    resourceversionid bigint,
     notename varchar(255),
     notebody varchar(255),
     PRIMARY KEY(noteid),
@@ -124,10 +124,10 @@ CREATE TABLE tag_t (
 
 CREATE TABLE notetag_t (
     notetagid serial,
-    noteid int,
-    tagid int,
+    noteid bigint,
+    tagid bigint,
     createdate timestamptz,
-    createdby int,
+    createdby bigint,
     PRIMARY KEY(notetagid),
     CONSTRAINT fk_noteid
         FOREIGN KEY(noteid)
@@ -142,10 +142,10 @@ CREATE TABLE notetag_t (
 
 CREATE TABLE resourcetag_t (
     resourcetagid serial,
-    resourceversionid int,
-    tagid int,
-    creatorid timestamptz,
-    createdby int,
+    resourceversionid bigint,
+    tagid bigint,
+    createdate timestamptz,
+    createdby bigint,
     PRIMARY KEY(resourcetagid),
     CONSTRAINT fk_tagid
         FOREIGN KEY(createdby)
@@ -160,8 +160,8 @@ CREATE TABLE category_t (
 
 CREATE TABLE groupcategory_t( 
     groupcategoryid serial,
-    categoryid int,
-    groupid int,
+    categoryid bigint,
+    groupid bigint,
     PRIMARY KEY(groupcategoryid),
     CONSTRAINT fk_categoryid
         FOREIGN KEY(categoryid)
@@ -173,8 +173,8 @@ CREATE TABLE groupcategory_t(
 
 CREATE TABLE categorytag_t(
     categorytagid serial,
-    categoryid int,
-    tagid int,
+    categoryid bigint,
+    tagid bigint,
     PRIMARY KEY(categorytagid),
     CONSTRAINT fk_categoryid
         FOREIGN KEY(categoryid)
