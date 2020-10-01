@@ -1,33 +1,43 @@
-export class User {
-    userID: number;
-    userName: string;
-    firstName: string;
-    lastName: string;
-    country: string;
-    city: string;
-    state: string;
-    phoneNumber: string;
-    email: string;
+import { Sequelize, DataTypes, Model } from 'sequelize';
+const sequelize = new Sequelize('outfoxdb', 'johngustafson', '', {
+    host: 'localhost',
+    dialect: 'postgres'
+});
+export class User extends Model {}
 
-    constructor(
-        userID: number, 
-        userName: string, 
-        firstName: string, 
-        lastName: string, 
-        country: string, 
-        city: string, 
-        state: string, 
-        phoneNumber: string, 
-        email: string) {
-
-        this.userID = userID;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.country = country;
-        this.city = city;
-        this.state = state;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
-}
+// Not going to add userid since its serial meaning it should increment in the database
+User.init({
+    userid: {
+        type: DataTypes.NUMBER,
+        primaryKey: true
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    firstname: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },    
+    lastname: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    country: {
+        type: DataTypes.STRING,
+    },
+    city: {
+        type: DataTypes.STRING,
+    },
+    phonenum: {
+        type: DataTypes.INTEGER,
+    },
+    email: {
+        type: DataTypes.STRING,
+    },
+}, {
+    // Other model options go here
+    sequelize, // We need to pass the connection instance
+    timestamps: false,
+    tableName: 'user_t' // We need to choose the table name it correlates to
+});
