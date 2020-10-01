@@ -39,6 +39,7 @@ class App {
 
     private initializeMiddlewares() {
         this.app.use(morgan('common'));
+        this.app.use(express.json());
         this.app.use(cors());
     }
 

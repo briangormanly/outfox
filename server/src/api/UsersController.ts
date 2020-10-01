@@ -51,23 +51,15 @@ class UsersController {
     }
 
     createAUser = async (request: express.Request, response: express.Response) => {
-        // Error catching will be added when we determine what is essentially
-        // At the moment its only for ideal post requests
-        //console.log(request);
-        console.log(request.params);
-        const user = await User.create({
-            userid: parseInt(request.body.userid, 10),
-            username: request.body.username,
-            firstname: request.body.firstname,
-            lastname: request.body.lastname,
-            country: request.body.country,
-            city: request.body.city,
-            phonenum: parseInt(request.body.phonenum, 10),
-            email: request.body.email
-        }).catch((err) => {
-            console.log(err);
-        });
-        response.status(201);
+        try {
+            // If missing non-nullable fields it will create an error
+            const user = await User.create(request.body);
+            response.status(201).json({
+                user,
+            });
+        } catch (err) {
+            response.status(500).json({error: err.message});
+        }
     }
 
 }
