@@ -24,7 +24,8 @@ class UsersController {
             .get(this.getAllUsers)
             .post(this.createAUser);
         this.router.route(this.path + '/:id')
-            .get(this.getAUser);
+            .get(this.getAUser)
+            .put(this.updateAUser);
     }
 
     /**
@@ -75,6 +76,24 @@ class UsersController {
             response.status(201).json({ user });
         } catch (err) {
             response.status(500).json({ error: err.message });
+        }
+    }
+
+    updateAUser = async (request: express.Request, response: express.Response) => {
+        try {
+            const { id } = request.params;
+            const [ updated ] = await User.update(request.body, {
+                where: { userid: id}
+            });
+
+            if (updated) {
+                const updatedUser = await User.findOne({where: {userid: id}});
+                response.status(200).json({user: updatedUser});
+            } else {
+                response.status(404).json({error: 'User not found'});
+            }
+        } catch (err) {
+            response.status(500).send(err.message);
         }
     }
 }
