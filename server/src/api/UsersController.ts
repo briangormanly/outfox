@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Router, Request, Response} from 'express';
 import { User } from './models/User';
 
 /**
@@ -9,7 +9,7 @@ class UsersController {
 
     // Path that is required in order to access the api http://localhost:8080/routes/api/users
     public path = '/api/users';
-    public router = express.Router();
+    public router = Router();
 
     constructor() {
         this.initializeRoutes();
@@ -22,11 +22,11 @@ class UsersController {
     public initializeRoutes() {
         this.router.route(this.path)
             .get(this.getAllUsers)
-            .post(this.createAUser);
+            .post(this.createUser);
         this.router.route(this.path + '/:id')
-            .get(this.getAUser)
-            .put(this.updateAUser)
-            .delete(this.deleteAUser);
+            .get(this.getUser)
+            .put(this.updateUser)
+            .delete(this.deleteUser);
     }
 
     // Goes to route /api/users
@@ -36,7 +36,7 @@ class UsersController {
      * @param request HTTP browser request
      * @param response HTTP browser response
      */
-    getAllUsers = async (request: express.Request, response: express.Response) => {
+    getAllUsers = async (request: Request, response: Response) => {
         try {
             const user = await User.findAll(); // Grabs all users
             response.json(user);
@@ -50,7 +50,7 @@ class UsersController {
      * @param request HTTP browser request
      * @param response HTTP browser response
      */
-    createAUser = async (request: express.Request, response: express.Response) => {
+    createUser = async (request: Request, response: Response) => {
         try {
             // If missing non-nullable fields it will create an error
             const user = await User.create(request.body);
@@ -67,7 +67,7 @@ class UsersController {
      * @param request HTTP browser request
      * @param response HTTP browser response
      */
-    getAUser = async (request: express.Request, response: express.Response) => {
+    getUser = async (request: Request, response: Response) => {
         try {
             const { id } = request.params; // Destructure the request.params object and grab only id
             const user = await User.findOne({
@@ -89,7 +89,7 @@ class UsersController {
      * @param request HTTP browser request
      * @param response HTTP browser response
      */
-    updateAUser = async (request: express.Request, response: express.Response) => {
+    updateUser = async (request: Request, response: Response) => {
         try {
             const { id } = request.params; // Destructure the object to only grab the id coming from the request
             const [ updated ] = await User.update(request.body, {
@@ -113,7 +113,7 @@ class UsersController {
      * @param request HTTP browser request
      * @param response HTTP browser response
      */
-    deleteAUser = async (request: express.Request, response: express.Response) => {
+    deleteUser = async (request: Request, response: Response) => {
         try {
             const { id } = request.params; // Destructure the object to only grab the id coming from the request
             const deleted = await User.destroy({
