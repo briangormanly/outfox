@@ -1,9 +1,9 @@
 import express from 'express';
-
 import { User } from './models/User';
 
 /**
- * Our controller which will be responsible for managing the JSON controller object.
+ * The user controller is responsible for handling the HTTP requests.
+ * Examples would be GET, POST, PUT, DELETE.
  */
 class UsersController {
 
@@ -25,30 +25,11 @@ class UsersController {
             .post(this.createAUser);
         this.router.route(this.path + '/:id')
             .get(this.getAUser)
-            .put(this.updateAUser);
+            .put(this.updateAUser)
+            .delete(this.deleteAUser);
     }
 
-    /**
-     * Grabs a specific user based off the ID provided
-     * @param request HTTP browser request
-     * @param response HTTP browser response
-     */
-    getAUser = async (request: express.Request, response: express.Response) => {
-        try {
-            const { id } = request.params;
-            const user = await User.findOne({
-                where: {userid: id},
-            });
-
-            if (user) {
-                response.status(200).json(user);
-            } else {
-                response.status(404).send('User with the specified ID does not exist');
-            }
-        } catch (err) {
-            response.status(500).send(err.message);
-        }
-    }
+    // Goes to route /api/users
 
     /**
      * Grabs all users in the database and sends them as a response in json
@@ -57,7 +38,7 @@ class UsersController {
      */
     getAllUsers = async (request: express.Request, response: express.Response) => {
         try {
-            const user = await User.findAll();
+            const user = await User.findAll(); // Grabs all users
             response.json(user);
         } catch (err) {
             response.status(400).json({ message: 'No registered users' });
@@ -74,26 +55,77 @@ class UsersController {
             // If missing non-nullable fields it will create an error
             const user = await User.create(request.body);
             response.status(201).json({ user });
-        } catch (err) {
-            response.status(500).json({ error: err.message });
+        } catch (error) {
+            response.status(500).send(error.message);
         }
     }
 
+    // Goes to route /api/users/:id
+
+    /**
+     * Grabs a specific user based off the ID provided
+     * @param request HTTP browser request
+     * @param response HTTP browser response
+     */
+    getAUser = async (request: express.Request, response: express.Response) => {
+        try {
+            const { id } = request.params; // Destructure the request.params object and grab only id
+            const user = await User.findOne({
+                where: {userid: id},
+            }); // Grabs the user where the id is 0
+
+            if (user) {
+                response.status(200).json(user);
+            } else {
+                response.status(404).send('User with the specified ID does not exist');
+            }
+        } catch (error) {
+            response.status(500).send(error.message);
+        }
+    }
+
+    /**
+     * Updates a user based off the ID provided
+     * @param request HTTP browser request
+     * @param response HTTP browser response
+     */
     updateAUser = async (request: express.Request, response: express.Response) => {
         try {
-            const { id } = request.params;
+            const { id } = request.params; // Destructure the object to only grab the id coming from the request
             const [ updated ] = await User.update(request.body, {
                 where: { userid: id}
-            });
+            }); // Destructure the array so we grab the updated version of our user
 
             if (updated) {
-                const updatedUser = await User.findOne({where: {userid: id}});
-                response.status(200).json({user: updatedUser});
+                const updatedUser = await User.findOne({where: {userid: id}}); // Grab the update user
+                response.status(200).json({user: updatedUser}); // Return the updated user
             } else {
-                response.status(404).json({error: 'User not found'});
+                response.status(404).send('User with the specified ID does not exist'); // User does not exist
             }
-        } catch (err) {
-            response.status(500).send(err.message);
+        } catch (error) {
+            response.status(500).send(error.message);
+        }
+    }
+
+
+    /**
+     * Deletes a user based off the ID provided
+     * @param request HTTP browser request
+     * @param response HTTP browser response
+     */
+    deleteAUser = async (request: express.Request, response: express.Response) => {
+        try {
+            const { id } = request.params; // Destructure the object to only grab the id coming from the request
+            const deleted = await User.destroy({
+                where: {userid: id}
+            }); // Delete the user with the specified id
+            if(deleted) {
+                response.status(204).send('User Deleted');
+            } else {
+                response.status(404).send('User with the specified ID does not exist');
+            }
+        } catch (error) {
+            response.status(500).send(error.message);
         }
     }
 }
