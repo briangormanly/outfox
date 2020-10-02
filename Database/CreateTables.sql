@@ -16,11 +16,12 @@ DROP TABLE IF EXISTS categorytag_t CASCADE;
 CREATE TABLE user_t (
     userid serial,
     username varchar(255),
+    hashpw varchar(255),
     firstname varchar(255),
     lastname varchar(255),
     country varchar(255),
     city varchar(255),
-    phonenum bigint,
+    phonenum varchar(255),
     email varchar(255),
     PRIMARY KEY(userid)
 );
