@@ -41,7 +41,7 @@ class UsersController {
             const user = await User.findAll(); // Grabs all users
             response.json(user);
         } catch (err) {
-            response.status(400).json({ message: 'No registered users' });
+            response.status(400).json({ message: 'Something went wrong' });
         }
     }
 

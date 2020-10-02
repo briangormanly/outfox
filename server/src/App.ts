@@ -4,7 +4,6 @@ import cors from 'cors';
 // Using Morgan for middleware. At the moment for basic logging
 import morgan from 'morgan';
 import { Sequelize } from 'sequelize';
-
 /**
  * Used as the primarily class for the express server
  */
@@ -37,6 +36,7 @@ class App {
         }
     }
 
+    // Application Level Middleware Initialization
     private initializeMiddlewares() {
         this.app.use(morgan('common'));
         this.app.use(express.json());

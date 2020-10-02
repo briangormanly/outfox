@@ -5,7 +5,6 @@ const sequelize = new Sequelize('outfoxdb', 'johngustafson', '', {
 });
 export class User extends Model {}
 
-// Not going to add userid since its serial meaning it should increment in the database
 User.init({
     userid: {
         type: DataTypes.NUMBER,
