@@ -20,7 +20,7 @@ CREATE TABLE user_t (
     lastname varchar(255),
     country varchar(255),
     city varchar(255),
-    phonenum int,
+    phonenum bigint,
     email varchar(255),
     PRIMARY KEY(userid)
 );
@@ -142,9 +142,9 @@ CREATE TABLE notetag_t (
 
 CREATE TABLE resourcetag_t (
     resourcetagid serial,
-    resourceversionid int,
+    resourceversionid bigint,
     tagid int,
-    creatorid timestamptz,
+    createdate timestamptz,
     createdby int,
     PRIMARY KEY(resourcetagid),
     CONSTRAINT fk_tagid
