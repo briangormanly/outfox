@@ -4,8 +4,8 @@ VALUES (1, 'Schmucklehead','gdkapsj13ds8889w2', 'Jean-Gabriel', 'Pageau', 'Canad
 INSERT INTO ResourceTypes (resourcetypeid, resourcetypename, resourcetypedescription, resourcetypeapiurl, resourcetypeapikey)
 VALUES (1, 'API Information', 'Webpage', 'https://developers.google.com/youtube/v3/getting-started', 'https://developers.google.com/youtube/v3/getting-started');
 
-INSERT INTO GroupsT (groupid, groupname, resourcetype, resourceapi, datetimeadd, datetimeremove)
-VALUES (1,'APIs', 1, 'youtube.com/usingAPIs', '2004-10-19 10:23:54+02', NULL);
+INSERT INTO GroupsT (groupid, groupname, resourcetype, resourceapi, datetimeadd, datetimeremove, createdby)
+VALUES (1,'APIs', 1, 'youtube.com/usingAPIs', '2004-10-19 10:23:54+02', NULL, 1);
 
 INSERT INTO LinkOwnerTypes (linkownertypeid, linkownerdescription, createdate, createdby)
 VALUES (1, 'User', '4-21-2020 04:44:44+02', 1);
