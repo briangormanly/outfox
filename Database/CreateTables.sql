@@ -38,15 +38,11 @@ CREATE TABLE ResourceTypes (
 CREATE TABLE GroupsT (
     groupid serial,
     groupname varchar(255),
-    resourcetype int,
     resourceapi varchar(255),
     datetimeadd timestamptz,
     datetimeremove timestamptz,
     createdby int,
     PRIMARY KEY (groupid),
-    CONSTRAINT fk_resourcetype
-        FOREIGN KEY(resourcetype)
-            REFERENCES resourcetype_t(resourcetypeid),
     CONSTRAINT fk_createdby
         FOREIGN KEY(createdby)
             REFERENCES Users(userid)
