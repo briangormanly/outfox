@@ -70,7 +70,7 @@ CREATE TABLE Links (
     linkownertype int,
     createdate timestamptz,
     PRIMARY KEY(linkid),
-    CONSTRAINT fk_linkowner
+    CONSTRAINT fk_linkownerid
         FOREIGN KEY(linkownerid)
             REFERENCES user_t(userid),
     CONSTRAINT fk_linkownertype
