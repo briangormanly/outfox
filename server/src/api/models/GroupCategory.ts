@@ -1,12 +1,9 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from "../databaseConnection.ts";
 
 import { Group } from './Group'
 import { Category } from './Category'
 
-const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
-    host: 'localhost',
-    dialect: 'postgres'
-});
 export class GroupCategory extends Model {}
 
 // Not going to add userid since its serial meaning it should increment in the database

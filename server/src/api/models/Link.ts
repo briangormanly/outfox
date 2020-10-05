@@ -1,12 +1,9 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from "../databaseConnection.ts";
 
 import { User } from './User'
 import { LinkOwnerType } from './LinkOwnerType'
 
-const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
-    host: 'localhost',
-    dialect: 'postgres'
-});
 export class Link extends Model {}
 
 Link.init({

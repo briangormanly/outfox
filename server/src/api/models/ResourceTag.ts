@@ -1,13 +1,10 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from "../databaseConnection.ts";
 
 import { ResourceVersion } from './ResourceVersion';
 import { Tag } from './Tag';
 import { User } from './User';
 
-const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
-    host: 'localhost',
-    dialect: 'postgres'
-});
 export class ResourceTag extends Model {}
 
 ResourceTag.init({
