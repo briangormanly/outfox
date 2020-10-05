@@ -3,13 +3,18 @@ import { sequelize } from '../databaseConnection';
 import GroupsController from '../controllers/GroupsController';
 import { User } from './User';
 
-export class Group extends Model {}
+export class Group extends Model { }
 
 Group.init({
-    groupid: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
-    },
+
+  /*
+  	 Primary keys are auto generated if left out, by default they are named 'id'
+  	 handeled by Sequelize.sync();
+  */
+    // groupid: {
+    //     type: DataTypes.INTEGER,
+    //     primaryKey: true
+    // },
     groupname: {
         type: DataTypes.STRING,
         allowNull: false
@@ -26,6 +31,13 @@ Group.init({
         type: DataTypes.DATE,
         defaultValue: null
     },
+    createdby: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: 'id'
+      }
+    },
 }, {
     // Other model options go here
     sequelize, // We need to pass the connection instance
@@ -33,11 +45,5 @@ Group.init({
     tableName: 'groups', // We need to choose the table name it correlates to
 });
 
-(async () => {
-  try {
-    await Group.sync();
-    console.log('Group synced with DB');
-  } catch (error) {
-    console.log(error.message);
-    }
-  })();
+User.hasMany(Group /*, {foreignKey: 'createdby', sourceKey: 'id'}*/);
+Group.belongsTo(User /*, {foreignKey: 'createdby', targetKey: 'id'}*/);

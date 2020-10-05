@@ -3,8 +3,12 @@ import { sequelize } from "../databaseConnection";
 
 export class ResourceType extends Model {}
 
-// Not going to add userid since its serial meaning it should increment in the database
 ResourceType.init({
+    // id: {
+    //   type:DataTypes.INTEGER,
+    //   autoIncrement:true,
+    //   primaryKey: true
+    // },
     resourcetypename: {
         type: DataTypes.STRING,
         allowNull: false
@@ -21,13 +25,8 @@ ResourceType.init({
         type: DataTypes.STRING,
     },
 }, {
-    // Other model options go here
+
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'ResourceTypes' // We need to choose the table name it correlates to
+    tableName: 'resourceTypes'
 });
-
-(async () => {
-	await ResourceType.sync();
-	console.log('ResourceType synced with DB')
-  })();
