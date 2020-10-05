@@ -23,11 +23,7 @@ class App {
     }
 
     private async initializeDatabaseConnection() {
-<<<<<<< HEAD
-        // outfoxdb is the database name, johngustafson (me) is the root user in my case. *It will be different for you*, third spot is for password (I don't have one), host is where its being hosted for me localhost or 127.0.0.1, dialect is postgres since that is the database type we are using.
-=======
         // outfoxdb is the database name, user (me) is the root user in my case. *It will be different for you*, third spot is for password (I don't have one), host is where its being hosted for me localhost or 127.0.0.1, dialect is postgres since that is the database type we are using.
->>>>>>> e75ebd141d4d5ef2013030f15247b9b8f02bace0
         this.sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
             host: 'localhost',
             dialect: 'postgres'
