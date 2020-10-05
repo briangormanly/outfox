@@ -15,3 +15,10 @@ Category.init({
     timestamps: false,
     tableName: 'category_t' // We need to choose the table name it correlates to
 });
+
+
+// Sync Model to Database
+(async () => {
+  await Category.sync({ force: true });
+  console.log('Category modle synced with DB')
+})();

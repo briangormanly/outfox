@@ -34,3 +34,9 @@ GroupCategory.init({
 
 Group.belongsToMany(Category, { through: GroupCategory });
 Category.belongsToMany(Group, { through: GroupCategory });
+
+// Sync Model to Database
+(async () => {
+  await GroupCategory.sync({ force: true });
+  console.log('GroupCategory modle synced with DB')
+})();

@@ -49,3 +49,9 @@ ResourceVersion.init({
 
 Resource.belongsToMany(Link, { through: ResourceVersion });
 Link.belongsToMany(Resource, { through: ResourceVersion });
+
+// Sync Model to Database
+(async () => {
+  await ResourceVersion.sync({ force: true });
+  console.log('ResourceVersion modle synced with DB')
+})();

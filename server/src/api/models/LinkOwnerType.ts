@@ -23,3 +23,9 @@ LinkOwnerType.init({
     timestamps: false,
     tableName: 'linkownertype_t' // We need to choose the table name it correlates to
 });
+
+// Sync Model to Database
+(async () => {
+  await LinkOwnerType.sync({ force: true });
+  console.log('LinkOwnerType modle synced with DB')
+})();

@@ -35,3 +35,10 @@ CategoryTag.init({
 
 Tag.belongsToMany(Category, { through: CategoryTag });
 Category.belongsToMany(Tag, { through: CategoryTag });
+
+
+// Sync Model to Database
+(async () => {
+  await CategoryTag.sync({ force: true });
+  console.log('CategoryTag modle synced with DB')
+})();

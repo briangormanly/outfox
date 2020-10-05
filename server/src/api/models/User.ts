@@ -36,7 +36,7 @@ User.init({
     tableName: 'user_t' // We need to choose the table name it correlates to
 });
 
-// (async () => {
-//   await User.sync({ force: true });
-//   console.log('User modle synced with DB')
-// })();
+(async () => {
+  await User.sync({ force: true });
+  console.log('User modle synced with DB')
+})();

@@ -29,3 +29,9 @@ Note.init({
 });
 
 ResourceVersion.hasMany(Note);
+
+// Sync Model to Database
+(async () => {
+  await Note.sync({ force: true });
+  console.log('Note modle synced with DB')
+})();

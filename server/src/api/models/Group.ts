@@ -27,3 +27,9 @@ Group.init({
     timestamps: false,
     tableName: 'group_t' // We need to choose the table name it correlates to
 });
+
+// Sync Model to Database
+(async () => {
+  await Group.sync({ force: true });
+  console.log('Group modle synced with DB')
+})();

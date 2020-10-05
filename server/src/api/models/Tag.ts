@@ -19,3 +19,9 @@ Tag.init({
     timestamps: false,
     tableName: 'tag_t' // We need to choose the table name it correlates to
 });
+
+// Sync Model to Database
+(async () => {
+  await Tag.sync({ force: true });
+  console.log('Tag modle synced with DB')
+})();

@@ -26,3 +26,9 @@ ResourceType.init({
     timestamps: false,
     tableName: 'resourcetype_t' // We need to choose the table name it correlates to
 });
+
+// Sync Model to Database
+(async () => {
+  await ResourceType.sync({ force: true });
+  console.log('ResourceType modle synced with DB')
+})();

@@ -49,3 +49,9 @@ ResourceTag.init({
 Tag.belongsToMany(ResourceVersion, { through: ResourceTag });
 ResourceVersion.belongsToMany(Tag, { through: ResourceTag });
 User.hasMany(ResourceTag);
+
+// Sync Model to Database
+(async () => {
+  await ResourceTag.sync({ force: true });
+  console.log('ResourceTag modle synced with DB')
+})();

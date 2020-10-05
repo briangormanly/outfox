@@ -41,3 +41,9 @@ NoteTag.init({
   Note.belongsToMany(Tag, { through: NoteTag });
   Tag.belongsToMany(Note, { through: NoteTag });
   User.hasMany(NoteTag);
+
+	// Sync Model to Database
+	(async () => {
+	  await NoteTag.sync({ force: true });
+	  console.log('NoteTag modle synced with DB')
+	})();
