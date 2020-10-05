@@ -18,6 +18,8 @@ User.init({
     hashpw: {
         type: DataTypes.STRING,
 
+
+// Code for the password getting and setting could be better in the Uesr controller
         get() {
             const passwd = this.getDataValue('hashpw');
             return passwd;
@@ -55,10 +57,7 @@ User.init({
     tableName: 'users' // We need to choose the table name it correlates to
 });
 
-    try {
-        await User.sync();
-        console.log('User synced with DB');
-    } catch (error) {
-        console.log(error.message);
-    }
- })();
+(async () => {
+	await User.sync();
+	console.log('User synced with DB')
+  })();
