@@ -36,15 +36,17 @@ var models =
 // Sync all tables to database
 
 export const sync = () => {
-  // (async () => {
-  //   await sequelize.sync({ force:true }).catch(err => {console.log('ERROR: ' + err)})
-  // })
+  var errorTest = false;
   for (let i = 0; i < models.length; i++) {
     (async () => {
     	await models[i].sync({ force:forceModels }).catch(
-        err => {console.log("\n\n\nERROR: " + err + "\n\n\n")
+        err => {
+          errorTest = true;
+          console.log("\n\nERROR: " + err + "\n\n")
       })
-    	console.log(models[i].name + ' synced with DB')
+      if (!errorTest) {
+        console.log('\nTABLE SYNCHRONIZED: ' + models[i].name + '\n')
+      }
       })();
   }
 }
