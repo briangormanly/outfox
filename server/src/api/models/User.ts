@@ -52,15 +52,9 @@ User.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'users' // We need to choose the table name it correlates to    
+    tableName: 'users' // We need to choose the table name it correlates to
 });
 
-(async () => {
-<<<<<<< HEAD
-  await User.sync({ force: true });
-  console.log('User modle synced with DB')
-})();
-=======
     try {
         await User.sync();
         console.log('User synced with DB');
@@ -68,4 +62,3 @@ User.init({
         console.log(error.message);
     }
  })();
->>>>>>> origin/backend

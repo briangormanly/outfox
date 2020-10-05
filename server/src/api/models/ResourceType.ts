@@ -27,15 +27,7 @@ ResourceType.init({
     tableName: 'ResourceTypes' // We need to choose the table name it correlates to
 });
 
-<<<<<<< HEAD
-// Sync Model to Database
-(async () => {
-  await ResourceType.sync({ force: true });
-  console.log('ResourceType modle synced with DB')
-})();
-=======
 (async () => {
 	await ResourceType.sync();
 	console.log('ResourceType synced with DB')
   })();
->>>>>>> origin/backend

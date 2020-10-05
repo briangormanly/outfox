@@ -33,13 +33,6 @@ Group.init({
     tableName: 'groups', // We need to choose the table name it correlates to
 });
 
-<<<<<<< HEAD
-// Sync Model to Database
-(async () => {
-  await Group.sync({ force: true });
-  console.log('Group modle synced with DB')
-})();
-=======
 (async () => {
     try {
         await Group.sync();
@@ -48,4 +41,3 @@ Group.init({
         console.log(error.message);
     }
  })();
->>>>>>> origin/backend

@@ -38,15 +38,7 @@ Link.init({
 LinkOwnerType.belongsToMany(User, { through: Link });
 User.belongsToMany(LinkOwnerType, { through: Link });
 
-<<<<<<< HEAD
-// Sync Model to Database
-(async () => {
-  await Link.sync({ force: true });
-  console.log('Link modle synced with DB')
-})();
-=======
 (async () => {
     await Link.sync();
     console.log('Link synced with DB')
   })();
->>>>>>> origin/backend

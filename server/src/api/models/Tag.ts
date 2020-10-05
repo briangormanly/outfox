@@ -20,16 +20,7 @@ Tag.init({
     tableName: 'Tags' // We need to choose the table name it correlates to
 });
 
-<<<<<<< HEAD
-// Sync Model to Database
-(async () => {
-  await Tag.sync({ force: true });
-  console.log('Tag modle synced with DB')
-})();
-=======
-
 (async () => {
 	await Tag.sync();
 	console.log('Tag synced with DB')
   })();
->>>>>>> origin/backend

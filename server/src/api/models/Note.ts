@@ -30,15 +30,7 @@ Note.init({
 
 ResourceVersion.hasMany(Note);
 
-<<<<<<< HEAD
-// Sync Model to Database
-(async () => {
-  await Note.sync({ force: true });
-  console.log('Note modle synced with DB')
-})();
-=======
 (async () => {
   await Note.sync();
   console.log('Note synced with DB')
 })();
->>>>>>> origin/backend
