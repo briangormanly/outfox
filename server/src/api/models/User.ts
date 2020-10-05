@@ -1,7 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 import bcrypt  from 'bcrypt';
-import { Group } from './Group';
 
 export class User extends Model {}
 
@@ -61,7 +60,7 @@ User.init({
     tableName: 'users' // We need to choose the table name it correlates to
 });
 
-(async () => {
-	await User.sync();
-	console.log('User synced with DB')
-  })();
+// (async () => {
+// 	await User.sync();
+// 	console.log('User synced with DB')
+//   })();

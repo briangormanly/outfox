@@ -9,7 +9,7 @@ export class CategoryTag extends Model {}
 CategoryTag.init({
 
     username: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         references: {
           model:Category,
           key: "id"
@@ -17,7 +17,7 @@ CategoryTag.init({
         allowNull: false
     },
     firstname: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         references: {
           model:Tag,
           key: "id"
@@ -29,13 +29,13 @@ CategoryTag.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'CategoryTags' // We need to choose the table name it correlates to
+    tableName: 'categoryTags' // We need to choose the table name it correlates to
 });
 
 Tag.belongsToMany(Category, { through: CategoryTag });
 Category.belongsToMany(Tag, { through: CategoryTag });
 
-(async () => {
-  await CategoryTag.sync();
-  console.log('CategoryTag synced with DB')
-})();
+// (async () => {
+//   await CategoryTag.sync();
+//   console.log('CategoryTag synced with DB')
+// })();

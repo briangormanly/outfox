@@ -8,22 +8,29 @@ import { User } from './User';
 export class ResourceTag extends Model {}
 
 ResourceTag.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+      unique: true
+    },
     //FK
     resourceversionid: {
         type: DataTypes.INTEGER,
         references:{
           model: ResourceVersion,
-          key: "id"
+          key: 'id'
         },
         allowNull: false
     },
     //FK
     tagid: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         references:
         {
           model: Tag,
-          key: "id"
+          key: 'id'
         },
         allowNull: false
     },
@@ -36,21 +43,16 @@ ResourceTag.init({
         references:
         {
           model: User,
-          key: "id"
+          key: 'id'
         }
     },
 }, {
 
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'ResourceTags' // We need to choose the table name it correlates to
+    tableName: 'resourceTags' // We need to choose the table name it correlates to
 });
 
 Tag.belongsToMany(ResourceVersion, { through: ResourceTag });
 ResourceVersion.belongsToMany(Tag, { through: ResourceTag });
 User.hasMany(ResourceTag);
-
-(async () => {
-	await ResourceTag.sync();
-	console.log('ResourceTag synced with DB')
-  })();

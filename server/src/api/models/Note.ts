@@ -1,7 +1,8 @@
 import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../databaseConnection';
+
 import { ResourceVersion } from './ResourceVersion';
 
-import { sequelize } from '../databaseConnection';
 export class Note extends Model{}
 
 Note.init({
@@ -32,10 +33,7 @@ Note.init({
 	}, {
 		sequelize,
 		timestamps: false,
-		tableName: 'notes'
+		tableName: 'Notes'
 	});
 
-(async () => {
-  await Note.sync();
-  console.log('Note synced with DB')
-})();
+ResourceVersion.hasMany(Note);

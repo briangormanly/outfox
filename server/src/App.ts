@@ -5,7 +5,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { Sequelize } from 'sequelize';
 
-//import { Associations } from './api/models/Associations';
+import { sync } from './api/syncDatabase';
 
 
 /**
@@ -19,7 +19,7 @@ class App {
     constructor(controllers: any, port: number) {
         this.app = express();
         this.port = port;
-      //  Associations();
+        sync();
         this.initializeDatabaseConnection();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);

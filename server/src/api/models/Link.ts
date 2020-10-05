@@ -7,6 +7,11 @@ import { LinkOwnerType } from './LinkOwnerType'
 export class Link extends Model {}
 
 Link.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
     //Foreign Key
     linkownertype: {
         type: DataTypes.INTEGER,
@@ -32,13 +37,13 @@ Link.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'Links' // We need to choose the table name it correlates to
+    tableName: 'links' // We need to choose the table name it correlates to
 });
 
 LinkOwnerType.belongsToMany(User, { through: Link });
 User.belongsToMany(LinkOwnerType, { through: Link });
 
-(async () => {
-    await Link.sync();
-    console.log('Link synced with DB')
-  })();
+// (async () => {
+//     await Link.sync();
+//     console.log('Link synced with DB')
+//   })();

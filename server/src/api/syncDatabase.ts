@@ -1,10 +1,7 @@
-// File to sync modles with database
-// NOT WORKING: ISSUE - Code will not run in file... I must be stupid.
-
-
 //Import Sequlize
-import sequelize, { Sequelize } from "sequelize";
-// Import all models
+//import { Sequelize } from "sequelize";
+import { sequelize } from './databaseConnection';
+// Import all models ['Modles' are 'Tables' in Sequelize ORM]
 import { Category } from "./models/Category";
 import { CategoryTag } from "./models/CategoryTag";
 import { Group } from "./models/Group";
@@ -20,92 +17,34 @@ import { ResourceVersion } from "./models/ResourceVersion";
 import { Tag } from "./models/Tag";
 import { User } from "./models/User";
 
+/* -------------------------------------------------------
 // Variable for forcing modles to sync
 // true -- force modles to sync with database - USE ONLY IN DEVOLOPMENT
 // false -- we dont lose data
+--------------------------------------------------------- */
+const forceModels = false;
 
-// const forceModels = true;
+// Array of all models [Tables]
+var modles =
+[
+  User, Group, Tag, Category,
+  CategoryTag, GroupCategory,
+  LinkOwnerType, Link, ResourceType,
+  Resource, ResourceVersion, Note,
+  NoteTag, ResourceTag
+]
+// Sync all tables to database
 
-// SYNC Individually - Not Running
-
-/*
-
-(async () => {
-  await Category.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await CategoryTag.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await Group.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await GroupCategory.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await Link.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await LinkOwnerType.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await Note.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await NoteTag.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await Resource.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await ResourceTag.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await ResourceType.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await ResourceVersion.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await Tag.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-(async () => {
-  await User.sync({ force: forceModels });
-  console.log('User modle synced with DB')
-})();
-
-*/
-
-
-// Sync All - NOT WORKING
-// (async () => {
-//   await sequelize.sync({ force: forceModels });
-//   console.log('All Models Synced Successfully');
-//   console.log('syncDatabase.ts');
-// })
+export const sync = () => {
+  // (async () => {
+  //   await sequelize.sync({ force:true }).catch(err => {console.log('ERROR: ' + err)})
+  // })
+  for (let i = 0; i < modles.length; i++) {
+    (async () => {
+    	await modles[i].sync({ force:forceModels }).catch(
+        err => {console.log("\n\n\nERROR: " + err + "\n\n\n")
+      })
+    	console.log(modles[i].name + ' synced with DB')
+      })();
+  }
+}
