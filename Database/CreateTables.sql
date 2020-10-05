@@ -143,7 +143,7 @@ CREATE TABLE NoteTags (
 
 CREATE TABLE ResourceTags (
     resourcetagid serial,
-    resourceversionid bigint,
+    resourceversionid int,
     tagid int,
     createdate timestamptz,
     createdby int,
