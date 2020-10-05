@@ -3,7 +3,6 @@ import { sequelize } from "../databaseConnection";
 
 export class LinkOwnerType extends Model {}
 
-// Not going to add userid since its serial meaning it should increment in the database
 LinkOwnerType.init({
     linkownername: {
         type: DataTypes.STRING,

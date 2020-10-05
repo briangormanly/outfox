@@ -3,7 +3,6 @@ import { sequelize } from "../databaseConnection";
 
 export class Tag extends Model {}
 
-// Not going to add userid since its serial meaning it should increment in the database
 Tag.init({
     tag: {
         type: DataTypes.STRING,

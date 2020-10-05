@@ -6,11 +6,15 @@ import { Group } from './Group';
 export class User extends Model {}
 
 User.init({
-    userid: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
+  /*
+  	 Primary keys are auto generated if left out, by default they are named 'id'
+  	 handeled by Sequelize.sync();
+  */
+    // userid: {
+    //     type: DataTypes.INTEGER,
+    //     autoIncrement: true,
+    //     primaryKey: true
+    // },
     username: {
         type: DataTypes.STRING,
         allowNull: false

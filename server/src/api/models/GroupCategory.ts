@@ -6,7 +6,6 @@ import { Category } from './Category'
 
 export class GroupCategory extends Model {}
 
-// Not going to add userid since its serial meaning it should increment in the database
 GroupCategory.init({
   categoryid: {
       type: DataTypes.INTEGER,
