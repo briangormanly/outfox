@@ -72,7 +72,7 @@ class GroupsController {
         try {
             const { id } = request.params; // Destructure the request.params object and grab only id
             const group = await Group.findOne({
-                where: {groupid: id},
+                where: {id: id},
             }); // Grabs the group where the id is 0
 
             if (group) {
@@ -94,11 +94,11 @@ class GroupsController {
         try {
             const { id } = request.params; // Destructure the object to only grab the id coming from the request
             const [ updated ] = await Group.update(request.body, {
-                where: { groupid: id}
+                where: { id: id}
             }); // Destructure the array so we grab the updated version of our group
 
             if (updated) {
-                const updatedGroup = await Group.findOne({where: {groupid: id}}); // Grab the update group
+                const updatedGroup = await Group.findOne({where: {id: id}}); // Grab the update group
                 response.status(200).json({group: updatedGroup}); // Return the updated group
             } else {
                 response.status(404).send('Group with the specified ID does not exist'); // group does not exist
@@ -118,7 +118,7 @@ class GroupsController {
         try {
             const { id } = request.params; // Destructure the object to only grab the id coming from the request
             const deleted = await Group.destroy({
-                where: {groupid: id}
+                where: {id: id}
             }); // Delete the group with the specified id
             if(deleted) {
                 response.status(204).send('Group Deleted');

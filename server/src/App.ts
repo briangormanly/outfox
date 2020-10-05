@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import { Sequelize } from 'sequelize';
 
 import { sync } from './api/syncDatabase';
-
+import { Associations } from './api/models/associations';
 
 /**
  * Used as the primarily class for the express server
@@ -19,6 +19,7 @@ class App {
     constructor(controllers: any, port: number) {
         this.app = express();
         this.port = port;
+        Associations();
         sync();
         this.initializeDatabaseConnection();
         this.initializeMiddlewares();

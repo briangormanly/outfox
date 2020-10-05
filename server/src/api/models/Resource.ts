@@ -7,12 +7,6 @@ import { ResourceType } from './ResourceType'
 export class Resource extends Model {}
 
 Resource.init({
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    //Foreign Key
     resourcetype: {
         type: DataTypes.INTEGER,
         references: {
@@ -20,7 +14,6 @@ Resource.init({
           key: "id"
         }
     },
-    //Foreign Key
     creatorid: {
         type: DataTypes.INTEGER,
         references:{
@@ -35,5 +28,3 @@ Resource.init({
     tableName: 'resources' // We need to choose the table name it correlates to
 });
 
-ResourceType.belongsToMany(User, { through: Resource });
-User.belongsToMany(ResourceType, { through: Resource });
