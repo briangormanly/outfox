@@ -28,6 +28,8 @@ class UsersController {
             .get(this.getUser)
             .put(this.updateUser)
             .delete(this.deleteUser);
+        this.router.route(this.path + '/userandgroups/' + ':id')
+            .get(this.getUserAndGroups);
     }
 
     // Goes to route /api/users

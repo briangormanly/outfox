@@ -1,6 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 import bcrypt  from 'bcrypt';
+import { Group } from './Group';
 
 export class User extends Model {}
 
@@ -18,13 +19,11 @@ User.init({
         type: DataTypes.STRING,
 
         get() {
-            const hi = this.getDataValue('hashpw');
-            console.log(hi);
-            return hi;
+            const passwd = this.getDataValue('hashpw');
+            return passwd;
         },
         set(value) {
             const hashed = bcrypt.hashSync(value, 10);
-            console.log(hashed);
             this.setDataValue('hashpw', hashed);
         }
 
@@ -53,7 +52,7 @@ User.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'Users' // We need to choose the table name it correlates to    
+    tableName: 'users' // We need to choose the table name it correlates to    
 });
 
 (async () => {
