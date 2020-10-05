@@ -1,5 +1,5 @@
 import express, { Router, Request, Response} from 'express';
-import { Group } from './models/Group';
+import { Group } from '../models/Group';
 
 /**
  * The group controller is responsible for handling the HTTP requests.
