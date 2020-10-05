@@ -4,6 +4,7 @@ import cors from 'cors';
 // Using Morgan for middleware. At the moment for basic logging
 import morgan from 'morgan';
 import { Sequelize } from 'sequelize';
+import { Associations } from './api/models/Associations';
 /**
  * Used as the primarily class for the express server
  */
@@ -15,7 +16,7 @@ class App {
     constructor(controllers: any, port: number) {
         this.app = express();
         this.port = port;
-
+        Associations();
         this.initializeDatabaseConnection();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);

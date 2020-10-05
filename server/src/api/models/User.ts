@@ -1,12 +1,33 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
+import bcrypt  from 'bcrypt';
 
 export class User extends Model {}
 
 User.init({
+    userid: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
     username: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    hashpw: {
+        type: DataTypes.STRING,
+
+        get() {
+            const hi = this.getDataValue('hashpw');
+            console.log(hi);
+            return hi;
+        },
+        set(value) {
+            const hashed = bcrypt.hashSync(value, 10);
+            console.log(hashed);
+            this.setDataValue('hashpw', hashed);
+        }
+
     },
     firstname: {
         type: DataTypes.STRING,
@@ -23,7 +44,7 @@ User.init({
         type: DataTypes.STRING,
     },
     phonenum: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
     },
     email: {
         type: DataTypes.STRING,
@@ -36,6 +57,10 @@ User.init({
 });
 
 (async () => {
-    await User.sync();
-    console.log('User modle synced with DB')
+    try {
+        await User.sync();
+        console.log('User synced with DB');
+    } catch (error) {
+        console.log(error.message);
+    }
  })();

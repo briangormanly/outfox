@@ -1,5 +1,5 @@
-INSERT INTO Users (userid, username, hashpw, firstname, lastname, country, city, phonenum, email)
-VALUES (1, 'Schmucklehead','gdkapsj13ds8889w2', 'Jean-Gabriel', 'Pageau', 'Canada', 'Ottawa', '9065553457', 'jgpageau@nnhl.com');
+INSERT INTO Users (username, hashpw, firstname, lastname, country, city, phonenum, email)
+VALUES ('Schmucklehead','joe', 'Jean-Gabriel', 'Pageau', 'Canada', 'Ottawa', '9065553457', 'jgpageau@nnhl.com');
 
 INSERT INTO ResourceTypes (resourcetypeid, resourcetypename, resourcetypedescription, resourcetypeapiurl, resourcetypeapikey)
 VALUES (1, 'API Information', 'Webpage', 'https://developers.google.com/youtube/v3/getting-started', 'https://developers.google.com/youtube/v3/getting-started');

@@ -1,4 +1,5 @@
 import express, { Router, Request, Response} from 'express';
+import { Group } from './models/Group';
 import { User } from './models/User';
 
 /**
@@ -54,6 +55,7 @@ class UsersController {
         try {
             // If missing non-nullable fields it will create an error
             const user = await User.create(request.body);
+            console.log(user);
             response.status(201).json({ user });
         } catch (error) {
             response.status(500).send(error.message);
@@ -62,6 +64,23 @@ class UsersController {
 
     // Goes to route /api/users/:id
 
+    getUserAndGroups = async (request: Request, response: Response) => {
+        try {
+            const { id } = request.params; // Destructure the request.params object and grab only id
+            const user = await User.findOne({
+                where: {userid: id},
+                include: Group
+            }); // Grabs the user where the id is 0
+
+            if (user) {
+                response.status(200).json(user);
+            } else {
+                response.status(404).send('User with the specified ID does not exist');
+            }
+        } catch (error) {
+            response.status(500).send(error.message);
+        }
+    }
     /**
      * Grabs a specific user based off the ID provided
      * @param request HTTP browser request
@@ -70,6 +89,7 @@ class UsersController {
     getUser = async (request: Request, response: Response) => {
         try {
             const { id } = request.params; // Destructure the request.params object and grab only id
+            
             const user = await User.findOne({
                 where: {userid: id},
             }); // Grabs the user where the id is 0
@@ -92,6 +112,7 @@ class UsersController {
     updateUser = async (request: Request, response: Response) => {
         try {
             const { id } = request.params; // Destructure the object to only grab the id coming from the request
+            
             const [ updated ] = await User.update(request.body, {
                 where: { userid: id}
             }); // Destructure the array so we grab the updated version of our user
