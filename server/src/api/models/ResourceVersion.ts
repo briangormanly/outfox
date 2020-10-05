@@ -1,27 +1,57 @@
-export class ResourseVersion {
-  resourceVersionId: number;
-  resourceId: number;
-  versionId: number;
-  linkId: number;
-  mutable: boolean;
-  resourceName: string;
-  resourceLinkUrl: string;
-  
-  constructor(
-    resourceVersionId: number,
-    resourceId: number,
-    versionId: number,
-    linkId: number,
-    mutable: boolean,
-    resourceName: string,
-    resourceLinkUrl: string) {
-      
-      this.resourceVersionId = resourceVersionId;
-      this.resourceId = resourceId;
-      this.versionId = versionId;
-      this.linkId = linkId;
-      this.mutable = mutable;
-      this.resourceName = resourceName;
-      this.resourceLinkUrl = resourceLinkUrl;
-    }
-}
+import { Sequelize, DataTypes, Model } from 'sequelize';
+
+import Resource from './Resource.ts'
+import Link from './Link.ts'
+
+const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
+    host: 'localhost',
+    dialect: 'postgres'
+});
+export class ResourceVersion extends Model {}
+
+ResourseVersion.init({
+  resourceid: {
+    type: DataTypes.INTEGER,
+    references:{
+      model: Resource,
+      key: "id"
+    },
+    allowNull: false
+  },
+  versionid: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  linkid: {
+    type: DataTypes.INTEGER,
+    references:{
+      model: Link,
+      key: "id"
+    },
+    allowNull: false
+  },
+  mutable: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false
+  },
+  resourcename: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  resourcelinkurl: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+
+}, {
+    // Other model options go here
+    sequelize, // We need to pass the connection instance
+    timestamps: false,
+    tableName: 'resourceversion_t' // We need to choose the table name it correlates to
+});
+
+Resource.belongsToMany(Link, { through: ResourceVersion });
+Link.belongsToMany(Resource, { through: ResourceVersion });
+
+
+console.log(ResourseVersion = sequelize.models.ResourceVersion);

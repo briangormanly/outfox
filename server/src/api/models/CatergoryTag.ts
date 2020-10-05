@@ -1,41 +1,43 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
+
+import Tag from './Tag.ts'
+import Category from './Category.ts'
+
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
     dialect: 'postgres'
 });
-export class User extends Model {}
+export class CategoryTag extends Model {}
 
 // Not going to add userid since its serial meaning it should increment in the database
-User.init({
+CategoryTag.init({
+
     username: {
         type: DataTypes.STRING,
+        references: {
+          model:Category,
+          key: "id"
+        },
         allowNull: false
     },
     firstname: {
         type: DataTypes.STRING,
+        references: {
+          model:Tag,
+          key: "id"
+        },
         allowNull: false
     },
-    lastname: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    country: {
-        type: DataTypes.STRING,
-    },
-    city: {
-        type: DataTypes.STRING,
-    },
-    phonenum: {
-        type: DataTypes.INTEGER,
-    },
-    email: {
-        type: DataTypes.STRING,
-    },
+
 }, {
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'user_t' // We need to choose the table name it correlates to
+    tableName: 'categorytag_t' // We need to choose the table name it correlates to
 });
 
-console.log(User = sequelize.models.User);
+Tag.belongsToMany(Category, { through: CategoryTag });
+Category.belongsToMany(Tag, { through: CategoryTag });
+
+
+console.log(CategoryTag = sequelize.models.CategoryTag);
