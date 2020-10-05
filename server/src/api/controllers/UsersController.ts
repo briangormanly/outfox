@@ -1,6 +1,6 @@
 import express, { Router, Request, Response} from 'express';
-import { Group } from './models/Group';
-import { User } from './models/User';
+import { Group } from '../models/Group';
+import { User } from '../models/User';
 
 /**
  * The user controller is responsible for handling the HTTP requests.
@@ -91,7 +91,7 @@ class UsersController {
     getUser = async (request: Request, response: Response) => {
         try {
             const { id } = request.params; // Destructure the request.params object and grab only id
-            
+
             const user = await User.findOne({
                 where: {userid: id},
             }); // Grabs the user where the id is 0
@@ -114,7 +114,7 @@ class UsersController {
     updateUser = async (request: Request, response: Response) => {
         try {
             const { id } = request.params; // Destructure the object to only grab the id coming from the request
-            
+
             const [ updated ] = await User.update(request.body, {
                 where: { userid: id}
             }); // Destructure the array so we grab the updated version of our user

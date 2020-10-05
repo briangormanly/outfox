@@ -33,6 +33,7 @@ Resource.init({
 ResourceType.belongsToMany(User, { through: Resource });
 User.belongsToMany(ResourceType, { through: Resource });
 
+
 (async () => {
 	await Resource.sync();
 	console.log('Resource synced with DB')

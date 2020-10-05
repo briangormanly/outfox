@@ -18,6 +18,8 @@ User.init({
     hashpw: {
         type: DataTypes.STRING,
 
+
+// Code for the password getting and setting could be better in the Uesr controller
         get() {
             const passwd = this.getDataValue('hashpw');
             return passwd;
@@ -52,14 +54,10 @@ User.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'users' // We need to choose the table name it correlates to    
+    tableName: 'users' // We need to choose the table name it correlates to
 });
 
 (async () => {
-    try {
-        await User.sync();
-        console.log('User synced with DB');
-    } catch (error) {
-        console.log(error.message);
-    }
- })();
+	await User.sync();
+	console.log('User synced with DB')
+  })();

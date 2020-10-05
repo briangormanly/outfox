@@ -1,6 +1,6 @@
 import { DataTypes, Model, Deferrable } from 'sequelize';
 import { sequelize } from '../databaseConnection';
-import GroupsController from '../GroupsController';
+import GroupsController from '../controllers/GroupsController';
 import { User } from './User';
 
 export class Group extends Model {}
@@ -34,10 +34,10 @@ Group.init({
 });
 
 (async () => {
-    try {
-        await Group.sync();
-        console.log('Group synced with DB');
-    } catch (error) {
-        console.log(error.message);
+  try {
+    await Group.sync();
+    console.log('Group synced with DB');
+  } catch (error) {
+    console.log(error.message);
     }
- })();
+  })();

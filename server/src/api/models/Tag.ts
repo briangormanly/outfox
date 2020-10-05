@@ -20,7 +20,6 @@ Tag.init({
     tableName: 'Tags' // We need to choose the table name it correlates to
 });
 
-
 (async () => {
 	await Tag.sync();
 	console.log('Tag synced with DB')

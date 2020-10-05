@@ -30,8 +30,7 @@ Note.init({
 		tableName: 'notes'
 	});
 
-	(async () => {
-		await Note.sync();
-		console.log('User modle synced with DB')
-	})()
-
+(async () => {
+  await Note.sync();
+  console.log('Note synced with DB')
+})();
