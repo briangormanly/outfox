@@ -3,7 +3,6 @@ import { sequelize } from "../databaseConnection";
 
 export class User extends Model {}
 
-// Not going to add userid since its serial meaning it should increment in the database
 User.init({
     username: {
         type: DataTypes.STRING,

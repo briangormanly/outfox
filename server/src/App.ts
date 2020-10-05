@@ -1,15 +1,14 @@
-import express from 'express';
+import express, { Application } from 'express';
 // Cors is only being used if we run React separately
 import cors from 'cors';
 // Using Morgan for middleware. At the moment for basic logging
 import morgan from 'morgan';
-import sequelize, { Sequelize } from 'sequelize';
-
+import { Sequelize } from 'sequelize';
 /**
  * Used as the primarily class for the express server
  */
 class App {
-    public app: express.Application;
+    public app: Application;
     public sequelize: Sequelize;
     public port: number;
 
@@ -37,6 +36,7 @@ class App {
         }
     }
 
+    // Application Level Middleware Initialization
     private initializeMiddlewares() {
         this.app.use(morgan('common'));
         this.app.use(express.json());
