@@ -1,28 +1,25 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../databaseConnection';
+
 import { Note } from './Note';
 import { Tag } from './Tag';
 import { User } from './User';
-import { sequelize } from '../databaseConnection';
 
 export class NoteTag extends Model { }
 
 NoteTag.init({
-	noteTagId: {
-		type: DataTypes.NUMBER,
-		primaryKey: true
-	},
 	noteId: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.INTEGER,
 		references: {
 			model: Note,
-			key: 'noteId'
+			key: 'id'
 		}
 	},
 	tagId: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.INTEGER,
 		references: {
 			model: Tag,
-			key: 'tagId'
+			key: 'id'
 		}
 	},
 	createDate: {
@@ -30,21 +27,18 @@ NoteTag.init({
 		allowNull: false
 	},
 	createdBy: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.INTEGER,
 		references: {
 			model: User,
-			key: 'userId'
+			key: 'id'
 		}
 	},
 },
 	{
 		sequelize,
 		timestamps: false,
-		tableName: 'notetags',
+		tableName: 'noteTags',
 	});
 
-
-(async () => {
-	await NoteTag.sync();
-	console.log('NoteTag model synced with DB')
-})()
+Note.belongsToMany(Tag, { through: NoteTag });
+Tag.belongsToMany(Note, { through: NoteTag });

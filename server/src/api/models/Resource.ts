@@ -7,11 +7,16 @@ import { ResourceType } from './ResourceType'
 export class Resource extends Model {}
 
 Resource.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
     //Foreign Key
     resourcetype: {
         type: DataTypes.INTEGER,
         references: {
-          model: ResourceType,
+          model:ResourceType,
           key: "id"
         }
     },
@@ -24,17 +29,11 @@ Resource.init({
         }
     },
 }, {
-    // Other model options go here
+
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'Resources' // We need to choose the table name it correlates to
+    tableName: 'resources' // We need to choose the table name it correlates to
 });
 
 ResourceType.belongsToMany(User, { through: Resource });
 User.belongsToMany(ResourceType, { through: Resource });
-
-
-(async () => {
-	await Resource.sync();
-	console.log('Resource synced with DB')
-  })();

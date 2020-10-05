@@ -1,19 +1,25 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../databaseConnection';
+
 import { ResourceVersion } from './ResourceVersion';
 
-import { sequelize } from '../databaseConnection';
 export class Note extends Model{}
 
 Note.init({
-	noteId: {
-		type: DataTypes.INTEGER,
-		primaryKey: true
-	},
+
+	/*
+		 Primary keys are auto generated if left out, by default they are named 'id'
+		 handeled by Sequelize.sync();
+	*/
+	// noteId: {
+	// 	type: DataTypes.INTEGER,
+	// 	primaryKey: true
+	// },
 	resourceVersionId: {
 		type: DataTypes.INTEGER,
 		references: {
 			model: ResourceVersion,
-			key: 'resourceVersionId'
+			key: 'id'
 		}
 	},
 	noteName: {
@@ -27,10 +33,7 @@ Note.init({
 	}, {
 		sequelize,
 		timestamps: false,
-		tableName: 'notes'
+		tableName: 'Notes'
 	});
 
-(async () => {
-  await Note.sync();
-  console.log('Note synced with DB')
-})();
+ResourceVersion.hasMany(Note);
