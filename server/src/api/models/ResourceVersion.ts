@@ -49,3 +49,8 @@ ResourceVersion.init({
 
 Resource.belongsToMany(Link, { through: ResourceVersion });
 Link.belongsToMany(Resource, { through: ResourceVersion });
+
+(async () => {
+	await ResourceVersion.sync();
+	console.log('ResourceVersion synced with DB')
+  })();

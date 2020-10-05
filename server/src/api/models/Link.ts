@@ -37,3 +37,8 @@ Link.init({
 
 LinkOwnerType.belongsToMany(User, { through: Link });
 User.belongsToMany(LinkOwnerType, { through: Link });
+
+(async () => {
+    await Link.sync();
+    console.log('Link synced with DB')
+  })();

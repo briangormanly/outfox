@@ -35,3 +35,8 @@ CategoryTag.init({
 
 Tag.belongsToMany(Category, { through: CategoryTag });
 Category.belongsToMany(Tag, { through: CategoryTag });
+
+(async () => {
+  await CategoryTag.sync();
+  console.log('CategoryTag synced with DB')
+})();

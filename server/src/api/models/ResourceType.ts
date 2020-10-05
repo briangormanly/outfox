@@ -26,3 +26,8 @@ ResourceType.init({
     timestamps: false,
     tableName: 'ResourceTypes' // We need to choose the table name it correlates to
 });
+
+(async () => {
+	await ResourceType.sync();
+	console.log('ResourceType synced with DB')
+  })();

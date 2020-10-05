@@ -27,3 +27,8 @@ Group.init({
     timestamps: false,
     tableName: 'Groups' // We need to choose the table name it correlates to
 });
+
+(async () => {
+    await Group.sync();
+    console.log('Group synced with DB')
+ })();

@@ -29,3 +29,8 @@ Note.init({
 });
 
 ResourceVersion.hasMany(Note);
+
+(async () => {
+  await Note.sync();
+  console.log('Note synced with DB')
+})();
