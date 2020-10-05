@@ -24,5 +24,5 @@ ResourceType.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'resourcetype_t' // We need to choose the table name it correlates to
+    tableName: 'ResourceTypes' // We need to choose the table name it correlates to
 });

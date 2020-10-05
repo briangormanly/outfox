@@ -44,7 +44,7 @@ ResourceVersion.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'resourceversion_t' // We need to choose the table name it correlates to
+    tableName: 'ResourceVersions' // We need to choose the table name it correlates to
 });
 
 Resource.belongsToMany(Link, { through: ResourceVersion });
