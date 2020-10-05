@@ -1,11 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import { ResourceVersion } from './ResourceVersion';
 
-const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
-    host: 'localhost',
-    dialect: 'postgres'
-});
-
+import { sequelize } from '../databaseConnection';
 export class Note extends Model{}
 
 Note.init({

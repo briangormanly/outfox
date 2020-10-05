@@ -2,10 +2,7 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import { Note } from './Note';
 import { Tag } from './Tag';
 import { User } from './User';
-const sequelize = new Sequelize('outfoxdb', 'colenielson', '', {
-	host: 'localhost',
-	dialect: 'postgres'
-});
+import { sequelize } from '../databaseConnection';
 
 export class NoteTag extends Model { }
 
