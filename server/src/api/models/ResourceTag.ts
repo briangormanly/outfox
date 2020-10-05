@@ -1,0 +1,51 @@
+import { Sequelize, DataTypes, Model } from 'sequelize';
+const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
+    host: 'localhost',
+    dialect: 'postgres'
+});
+export class ResourceTag extends Model {}
+
+ResourceTag.init({
+    //FK
+    resourceversionid: {
+        type: DataTypes.INTEGER,
+        references:{
+          model: ResourceVersion,
+          key: "id"
+        },
+        allowNull: false
+    },
+    //FK
+    tagid: {
+        type: DataTypes.STRING,
+        references:
+        {
+          model: Tag,
+          key: "id"
+        },
+        allowNull: false
+    },
+    createdate: {
+        type: DataTypes.DATETIME,
+    },
+    //FK
+    createdby: {
+        type: DataTypes.INTEGER,
+        references:
+        {
+          model: User,
+          key: "id"
+        }
+    },
+}, {
+    // Other model options go here
+    sequelize, // We need to pass the connection instance
+    timestamps: false,
+    tableName: 'resourcetag_t' // We need to choose the table name it correlates to
+});
+
+Tag.belongsToMany(ResourceVersion, { through: ResourceTag });
+ResourceVersion.belongsToMany(Tag, { through: ResourceTag });
+User.hasMany(ResourceTag);
+
+console.log(ResourceType = sequelize.models.ResourceType);
