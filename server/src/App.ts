@@ -24,7 +24,7 @@ class App {
 
     private async initializeDatabaseConnection() {
         // outfoxdb is the database name, johngustafson (me) is the root user in my case. *It will be different for you*, third spot is for password (I don't have one), host is where its being hosted for me localhost or 127.0.0.1, dialect is postgres since that is the database type we are using.
-        this.sequelize = new Sequelize('outfoxdb', 'johngustafson', '', {
+        this.sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
             host: 'localhost',
             dialect: 'postgres'
         });
@@ -46,7 +46,7 @@ class App {
     private initializeControllers(controllers: any) {
         // Only here temp so we can get a home page instead of a 404
         this.app.get('/', (req, res) => {
-           res.send('<h1>Hello world! </h1>'); 
+           res.send('<h1>Hello world! </h1>');
         });
 
         for (const iterator of controllers) {

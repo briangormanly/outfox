@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
-const sequelize = new Sequelize('outfoxdb', 'johngustafson', '', {
+const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
     dialect: 'postgres'
 });
@@ -7,10 +7,6 @@ export class User extends Model {}
 
 // Not going to add userid since its serial meaning it should increment in the database
 User.init({
-    userid: {
-        type: DataTypes.NUMBER,
-        primaryKey: true
-    },
     username: {
         type: DataTypes.STRING,
         allowNull: false
@@ -18,7 +14,7 @@ User.init({
     firstname: {
         type: DataTypes.STRING,
         allowNull: false
-    },    
+    },
     lastname: {
         type: DataTypes.STRING,
         allowNull: false
@@ -41,3 +37,8 @@ User.init({
     timestamps: false,
     tableName: 'user_t' // We need to choose the table name it correlates to
 });
+
+(async () => {
+  await User.sync({ force: true });
+  console.log('User modle synced with DB')
+})();
