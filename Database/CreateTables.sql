@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS Users CASCADE;
-DROP TABLE IF EXISTS GroupsT CASCADE;
+DROP TABLE IF EXISTS Groups CASCADE;
 DROP TABLE IF EXISTS LinkOwnerTypes CASCADE;
 DROP TABLE IF EXISTS Links CASCADE;
 DROP TABLE IF EXISTS ResourceVersions CASCADE;
@@ -35,7 +35,7 @@ CREATE TABLE ResourceTypes (
     PRIMARY KEY(resourcetypeid)
 );
 
-CREATE TABLE GroupsT (
+CREATE TABLE Groups (
     groupid serial,
     groupname varchar(255),
     resourceapi varchar(255),
@@ -57,7 +57,7 @@ CREATE TABLE LinkOwnerTypes (
     PRIMARY KEY(linkownertypeid),
     CONSTRAINT fk_createdby
         FOREIGN KEY(createdby)
-            REFERENCES user_t(userid)
+            REFERENCES Users(userid)
 );
 
 CREATE TABLE Links (
@@ -68,10 +68,10 @@ CREATE TABLE Links (
     PRIMARY KEY(linkid),
     CONSTRAINT fk_linkownerid
         FOREIGN KEY(linkownerid)
-            REFERENCES user_t(userid),
+            REFERENCES Users(userid),
     CONSTRAINT fk_linkownertype
         FOREIGN KEY(linkownertype)
-            REFERENCES linkownertype_t(linkownertypeid)
+            REFERENCES LinkOwnerTypes(linkownertypeid)
 );
 
 CREATE TABLE Resources (
@@ -81,10 +81,10 @@ CREATE TABLE Resources (
     PRIMARY KEY (resourceid),
     CONSTRAINT fk_resourcetype
         FOREIGN KEY(resourcetype)
-            REFERENCES resourcetype_t(resourcetypeid),
+            REFERENCES ResourceTypes(resourcetypeid),
     CONSTRAINT fk_userid
         FOREIGN KEY(creatorid)
-            REFERENCES user_t(userid)
+            REFERENCES Users(userid)
 );
 
 CREATE TABLE ResourceVersions (
@@ -99,10 +99,10 @@ CREATE TABLE ResourceVersions (
     PRIMARY KEY(resourceversionid),
     CONSTRAINT fk_resourceid
         FOREIGN KEY(resourceid)
-            REFERENCES resource_t(resourceid),
+            REFERENCES Resources(resourceid),
     CONSTRAINT fk_linkid
         FOREIGN KEY(linkid)
-            REFERENCES link_t(linkid)
+            REFERENCES Links(linkid)
 );
 
 CREATE TABLE Notes (
@@ -113,7 +113,7 @@ CREATE TABLE Notes (
     PRIMARY KEY(noteid),
     CONSTRAINT fk_resourceversionid
         FOREIGN KEY(resourceversionid)
-            REFERENCES resourceversion_t(resourceversionid)
+            REFERENCES ResourceVersions(resourceversionid)
 );
 
 CREATE TABLE Tags (
@@ -132,13 +132,13 @@ CREATE TABLE NoteTags (
     PRIMARY KEY(notetagid),
     CONSTRAINT fk_noteid
         FOREIGN KEY(noteid)
-            REFERENCES note_t(noteid),
+            REFERENCES Notes(noteid),
     CONSTRAINT fk_tagid
         FOREIGN KEY(tagid)
-            REFERENCES tag_t(tagid),
+            REFERENCES Tags(tagid),
     CONSTRAINT fk_creator
         FOREIGN KEY(createdby)
-            REFERENCES user_t(userid)
+            REFERENCES Users(userid)
 );
 
 CREATE TABLE ResourceTags (
@@ -150,7 +150,7 @@ CREATE TABLE ResourceTags (
     PRIMARY KEY(resourcetagid),
     CONSTRAINT fk_tagid
         FOREIGN KEY(createdby)
-            REFERENCES user_t(userid)
+            REFERENCES Users(userid)
 );
 
 CREATE TABLE Categories (
