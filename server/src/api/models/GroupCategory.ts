@@ -33,8 +33,3 @@ GroupCategory.init({
 
 Group.belongsToMany(Category, { through: GroupCategory });
 Category.belongsToMany(Group, { through: GroupCategory });
-
-// (async () => {
-//   await GroupCategory.sync();
-//   console.log('GroupCategory synced with DB')
-// })();

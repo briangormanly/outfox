@@ -47,12 +47,3 @@ Group.init({
 
 User.hasMany(Group /*, {foreignKey: 'createdby', sourceKey: 'id'}*/);
 Group.belongsTo(User /*, {foreignKey: 'createdby', targetKey: 'id'}*/);
-
-// (async () => {
-//   try {
-//     await Group.sync();
-//     console.log('Group synced with DB');
-//   } catch (error) {
-//     console.log(error.message);
-//     }
-//   })();

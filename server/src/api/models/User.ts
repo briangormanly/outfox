@@ -59,8 +59,3 @@ User.init({
     timestamps: false,
     tableName: 'users' // We need to choose the table name it correlates to
 });
-
-// (async () => {
-// 	await User.sync();
-// 	console.log('User synced with DB')
-//   })();

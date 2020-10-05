@@ -22,8 +22,3 @@ LinkOwnerType.init({
     timestamps: false,
     tableName: 'linkOwnerTypes' // We need to choose the table name it correlates to
 });
-
-// (async () => {
-//     await LinkOwnerType.sync();
-//     console.log('LinkOwnerType synced with DB')
-//   })();

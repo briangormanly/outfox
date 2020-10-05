@@ -15,8 +15,3 @@ Category.init({
     timestamps: false,
     tableName: 'categories' // We need to choose the table name it correlates to
 });
-
-// (async () => {
-//     await Category.sync();
-//     console.log('Category synced with DB')
-//  })();
