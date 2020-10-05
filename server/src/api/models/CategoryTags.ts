@@ -36,16 +36,7 @@ CategoryTag.init({
 Tag.belongsToMany(Category, { through: CategoryTag });
 Category.belongsToMany(Tag, { through: CategoryTag });
 
-<<<<<<< HEAD:server/src/api/models/CategoryTag.ts
-
-// Sync Model to Database
-(async () => {
-  await CategoryTag.sync({ force: true });
-  console.log('CategoryTag modle synced with DB')
-})();
-=======
 (async () => {
   await CategoryTag.sync();
   console.log('CategoryTag synced with DB')
 })();
->>>>>>> origin/backend:server/src/api/models/CategoryTags.ts
