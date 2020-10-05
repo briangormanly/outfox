@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-import ResourceVersion from './ResourceVersion.ts';
+import { ResourceVersion } from './ResourceVersion';
 
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
@@ -31,6 +31,4 @@ Note.init({
     tableName: 'note_t' // We need to choose the table name it correlates to
 });
 
-ResourseVersion.hasMany(Note);
-
-console.log(Note = sequelize.models.Note);
+ResourceVersion.hasMany(Note);

@@ -28,5 +28,3 @@ ResourceType.init({
     timestamps: false,
     tableName: 'resourcetype_t' // We need to choose the table name it correlates to
 });
-
-console.log(ResourceType = sequelize.models.ResourceType);

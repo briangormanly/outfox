@@ -1,4 +1,9 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
+
+import { ResourceVersion } from './ResourceVersion';
+import { Tag } from './Tag';
+import { User } from './User';
+
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
     dialect: 'postgres'
@@ -26,7 +31,7 @@ ResourceTag.init({
         allowNull: false
     },
     createdate: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
     },
     //FK
     createdby: {
@@ -47,5 +52,3 @@ ResourceTag.init({
 Tag.belongsToMany(ResourceVersion, { through: ResourceTag });
 ResourceVersion.belongsToMany(Tag, { through: ResourceTag });
 User.hasMany(ResourceTag);
-
-console.log(ResourceType = sequelize.models.ResourceType);

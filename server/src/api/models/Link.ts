@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-import User from './User.ts'
-import LinkOwnerType from './LinkOwnerType.ts'
+import { User } from './User'
+import { LinkOwnerType } from './LinkOwnerType'
 
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
@@ -24,11 +24,11 @@ Link.init({
         references:{
           model:User,
           key: "id"
-        }
+        },
         allowNull: false
     },
     createdate: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
 
     },
 }, {
@@ -40,5 +40,3 @@ Link.init({
 
 LinkOwnerType.belongsToMany(User, { through: Link });
 User.belongsToMany(LinkOwnerType, { through: Link });
-
-console.log(Link = sequelize.models.Link);

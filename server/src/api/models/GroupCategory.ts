@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-import Group from './Group.ts'
-import Category from './Category.ts'
+import { Group } from './Group'
+import { Category } from './Category'
 
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
@@ -37,6 +37,3 @@ GroupCategory.init({
 
 Group.belongsToMany(Category, { through: GroupCategory });
 Category.belongsToMany(Group, { through: GroupCategory });
-
-
-console.log(User = sequelize.models.User);

@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-import Tag from './Tag.ts'
-import Category from './Category.ts'
+import { Tag } from './Tag'
+import { Category } from './Category'
 
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
@@ -38,6 +38,3 @@ CategoryTag.init({
 
 Tag.belongsToMany(Category, { through: CategoryTag });
 Category.belongsToMany(Tag, { through: CategoryTag });
-
-
-console.log(CategoryTag = sequelize.models.CategoryTag);

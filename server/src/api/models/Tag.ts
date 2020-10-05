@@ -12,7 +12,7 @@ Tag.init({
         allowNull: false
     },
     createdate: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
         allowNull: false
     },
 }, {
@@ -21,5 +21,3 @@ Tag.init({
     timestamps: false,
     tableName: 'tag_t' // We need to choose the table name it correlates to
 });
-
-console.log(Tag = sequelize.models.Tag);

@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-import Resource from './Resource.ts'
-import Link from './Link.ts'
+import { Resource } from './Resource'
+import { Link } from './Link'
 
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
@@ -9,7 +9,7 @@ const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
 });
 export class ResourceVersion extends Model {}
 
-ResourseVersion.init({
+ResourceVersion.init({
   resourceid: {
     type: DataTypes.INTEGER,
     references:{
@@ -52,6 +52,3 @@ ResourseVersion.init({
 
 Resource.belongsToMany(Link, { through: ResourceVersion });
 Link.belongsToMany(Resource, { through: ResourceVersion });
-
-
-console.log(ResourseVersion = sequelize.models.ResourceVersion);

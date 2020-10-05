@@ -17,10 +17,10 @@ Group.init({
         allowNull: false
     },
     datetimeadd: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
     },
     datetimeremove: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
         defaultValue: null
     },
 }, {
@@ -29,6 +29,3 @@ Group.init({
     timestamps: false,
     tableName: 'group_t' // We need to choose the table name it correlates to
 });
-
-
-console.log(Group = sequelize.models.Group);

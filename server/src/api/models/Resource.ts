@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-import User from './User.ts'
-import ResourceType from './ResourceType.ts'
+import { User } from './User'
+import { ResourceType } from './ResourceType'
 
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
@@ -35,5 +35,3 @@ Resource.init({
 
 ResourceType.belongsToMany(User, { through: Resource });
 User.belongsToMany(ResourceType, { through: Resource });
-
-console.log(Resource = sequelize.models.Resource);

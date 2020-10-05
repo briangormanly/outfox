@@ -38,9 +38,7 @@ User.init({
     tableName: 'user_t' // We need to choose the table name it correlates to
 });
 
-(async () => {
-  await User.sync({ force: true });
-  console.log('User modle synced with DB')
-})();
-
-console.log(User = sequelize.models.User);
+// (async () => {
+//   await User.sync({ force: true });
+//   console.log('User modle synced with DB')
+// })();

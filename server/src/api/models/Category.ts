@@ -17,5 +17,3 @@ Category.init({
     timestamps: false,
     tableName: 'category_t' // We need to choose the table name it correlates to
 });
-
-console.log(Category = sequelize.models.Category);

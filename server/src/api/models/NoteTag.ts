@@ -1,8 +1,8 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-import User from './User.ts'
-import Tag from './Tag.ts'
-import Note from './Note.ts'
+import { User } from './User'
+import { Tag } from './Tag'
+import { Note } from './Note'
 
 const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     host: 'localhost',
@@ -26,7 +26,7 @@ NoteTag.init({
 		}
 	},
 	createDate: {
-		type: DataTypes.DATETIME,
+		type: DataTypes.DATE,
 	},
 	createdBy: {
 		type: DataTypes.INTEGER,
@@ -44,5 +44,3 @@ NoteTag.init({
   Note.belongsToMany(Tag, { through: NoteTag });
   Tag.belongsToMany(Note, { through: NoteTag });
   User.hasMany(NoteTag);
-
-console.log(NoteTag = sequelize.models.NoteTag);

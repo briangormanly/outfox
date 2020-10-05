@@ -17,7 +17,7 @@ LinkOwnerType.init({
         allowNull: false
     },
     createdate: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
         allowNull: false
     },
 }, {
@@ -26,6 +26,3 @@ LinkOwnerType.init({
     timestamps: false,
     tableName: 'linkownertype_t' // We need to choose the table name it correlates to
 });
-
-
-console.log(LinkOwnerType = sequelize.models.LinkOwnerType);
