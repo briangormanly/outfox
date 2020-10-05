@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from "../databaseConnection.ts";
+import { sequelize } from "../databaseConnection";
 
 import { Group } from './Group'
 import { Category } from './Category'
