@@ -1,36 +1,41 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from "../databaseConnection";
-
+import { Sequelize, DataTypes, Model } from 'sequelize';
 import { ResourceVersion } from './ResourceVersion';
 
-export class Note extends Model {}
-
-Note.init({
-  resourceversionid: {
-    type: DataTypes.INTEGER,
-    references:{
-      model: ResourceVersion,
-      key: "id"
-    }
-  },
-  notename: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  notebody: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-}, {
-    // Other model options go here
-    sequelize, // We need to pass the connection instance
-    timestamps: false,
-    tableName: 'Notes' // We need to choose the table name it correlates to
+const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
+    host: 'localhost',
+    dialect: 'postgres'
 });
 
-ResourceVersion.hasMany(Note);
+export class Note extends Model{}
 
-(async () => {
-  await Note.sync();
-  console.log('Note synced with DB')
-})();
+Note.init({
+	noteId: {
+		type: DataTypes.INTEGER,
+		primaryKey: true
+	},
+	resourceVersionId: {
+		type: DataTypes.INTEGER,
+		references: {
+			model: ResourceVersion,
+			key: 'resourceVersionId'
+		}
+	},
+	noteName: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	noteBody: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	}, {
+		sequelize,
+		timestamps: false,
+		tableName: 'notes'
+	});
+
+	(async () => {
+		await Note.sync();
+		console.log('User modle synced with DB')
+	})()
+

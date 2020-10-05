@@ -1,48 +1,53 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from "../databaseConnection";
+import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Note } from './Note';
+import { Tag } from './Tag';
+import { User } from './User';
+const sequelize = new Sequelize('outfoxdb', 'colenielson', '', {
+	host: 'localhost',
+	dialect: 'postgres'
+});
 
-import { User } from './User'
-import { Tag } from './Tag'
-import { Note } from './Note'
-
-export class NoteTag extends Model{}
+export class NoteTag extends Model { }
 
 NoteTag.init({
-	noteid: {
-		type: DataTypes.INTEGER,
+	noteTagId: {
+		type: DataTypes.NUMBER,
+		primaryKey: true
+	},
+	noteId: {
+		type: DataTypes.NUMBER,
 		references: {
 			model: Note,
-			key: 'id'
+			key: 'noteId'
 		}
 	},
-	tagid: {
-		type: DataTypes.INTEGER,
+	tagId: {
+		type: DataTypes.NUMBER,
 		references: {
 			model: Tag,
-			key: 'id'
+			key: 'tagId'
 		}
 	},
 	createDate: {
-		type: DataTypes.DATE,
+		type: DataTypes.STRING,
+		allowNull: false
 	},
 	createdBy: {
-		type: DataTypes.INTEGER,
+		type: DataTypes.NUMBER,
 		references: {
 			model: User,
-			key: 'id'
+			key: 'userId'
 		}
 	},
-}, {
-  sequelize, // We need to pass the connection instance
-  timestamps: false,
-  tableName: 'NoteTags' // We need to choose the table name it correlates to
-  });
+},
+	{
+		sequelize,
+		timestamps: false,
+		tableName: 'notetags',
+	});
 
-  Note.belongsToMany(Tag, { through: NoteTag });
-  Tag.belongsToMany(Note, { through: NoteTag });
-  User.hasMany(NoteTag);
 
-  (async () => {
+(async () => {
 	await NoteTag.sync();
-	console.log('NoteTag synced with DB')
-  })();
+	console.log('NoteTag model synced with DB')
+})()
