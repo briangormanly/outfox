@@ -21,11 +21,18 @@ LinkOwnerType.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'linkownertype_t' // We need to choose the table name it correlates to
+    tableName: 'LinkOwnerTypes' // We need to choose the table name it correlates to
 });
 
+<<<<<<< HEAD
 // Sync Model to Database
 (async () => {
   await LinkOwnerType.sync({ force: true });
   console.log('LinkOwnerType modle synced with DB')
 })();
+=======
+(async () => {
+    await LinkOwnerType.sync();
+    console.log('LinkOwnerType synced with DB')
+  })();
+>>>>>>> origin/backend

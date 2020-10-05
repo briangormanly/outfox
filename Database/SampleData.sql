@@ -1,46 +1,41 @@
+INSERT INTO Users (username, hashpw, firstname, lastname, country, city, phonenum, email)
+VALUES ('Schmucklehead','joe', 'Jean-Gabriel', 'Pageau', 'Canada', 'Ottawa', '9065553457', 'jgpageau@nnhl.com');
 
+INSERT INTO ResourceTypes (resourcetypeid, resourcetypename, resourcetypedescription, resourcetypeapiurl, resourcetypeapikey)
+VALUES (1, 'API Information', 'Webpage', 'https://developers.google.com/youtube/v3/getting-started', 'https://developers.google.com/youtube/v3/getting-started');
 
+INSERT INTO Groups (groupid, groupname, resourceapi, datetimeadd, datetimeremove, createdby)
+VALUES (1,'APIs', 'youtube.com/usingAPIs', '2004-10-19 10:23:54+02', NULL, 1);
 
-INSERT INTO user_t (userid, username, firstname, lastname, country, city, phonenum, email)
-VALUES ('1', 'Schmucklehead', 'Jean-Gabriel', 'Pageau', 'Canada', 'Ottawa', '9065553457', 'jgpageau@nnhl.com');
+INSERT INTO LinkOwnerTypes (linkownertypeid, linkownerdescription, createdate, createdby)
+VALUES (1, 'User', '4-21-2020 04:44:44+02', 1);
 
-INSERT INTO group_t (groupid, resourcetype, resourceapi, datetimeadd, datetimermv)
-VALUES ('44', '4' 'youtube.com/usingAPIs', '07-08-1999','12-25-2000');
+INSERT INTO Links (linkid, linkownerid, linkownertype, createdate)
+VALUES (1, 1, 1, '03-31-1989 10:23:55+02');
 
-INSERT INTO link_t (linkid, linkownerid, linkownedtype, createddate)
-VALUES ('33', '1', '5', '03-31-1989');
+INSERT INTO Resources (resourceid, resourcetype, creatorid)
+VALUES (1, 1, 1);
 
-INSERT INTO linkownedtype_t (linkownerid, linkownerdescription, createddate, createby)
-VALUES ('25', 'professor', '4-21-2020', 'Schmucklehead');
+INSERT INTO ResourceVersions (resourceversionid, resourceid, versionid, linkid, mutable, resourcename, resourcelinkurl)
+VALUES (1, 1, 1, 1, 'true', 'UsingYoutubeAPI', 'https://developers.google.com/youtube/v3/getting-started');
 
-INSERT INTO resourceversion_t (resourceversionid, resourceid, versionid, linkid, mutable, resourcename, resourcelinkurl)
-VALUES ('11', '34', '2.4', '33', 'true', 'UsingAPIs', '');
+INSERT INTO Notes (noteid, resourceversionid, notename, notebody)
+VALUES (1, 1, 'Question about screenshot', 'Where was this taken from?');
 
-INSERT INTO resource_t (resourceid, resourcetype, creatorid)
-VALUES ('4', '.mp4', '1');
+INSERT INTO Tags (tagid, tag, createdate)
+VALUES (1, 'apihelp', '09/22/2020 07:33:12+02');
 
-INSERT INTO resourcetype_t (resourcetypeid, resourcetypename, resourcetypedescription, resourcetypeapiurl, resourcetypeapikey)
-VALUES ('4', 'video', 'youtube video');
+INSERT INTO NoteTags (notetagid, noteid, tagid, createdate, createdby)
+VALUES (1, 1, 1, '05/06/2020 02:33:22+02', 1);
 
-INSERT INTO note_t (noteid, resourceversionsid, notename, notebody)
-VALUES ('1', '2', 'Question about screenshot', 'Where was this taken from?');
+INSERT INTO ResourceTags (resourcetagid, resourceversionid, tagid, createdate, createdby)
+VALUES (1, 1, 1, '06/06/2020 08:34:45+02', 1); 
 
-INSERT INTO notetag_t (notetagid, noteid, tagid, createddate, createdby)
-VALUES ('7', '3', '10', '05/06/2020', '1');
+INSERT INTO Categories (categoryid, categoryname)
+VALUES (1, 'Using APIs');
 
-INSERT INTO tag_t (tagid, tag, createddate)
-VALUES ('12', 'recursion', '09/22/2020');
+INSERT INTO GroupCategories(categoryid, groupid)
+VALUES (1, 1);
 
-INSERT INTO resourcetag_t (resourcetagid, resourceversionid, tagid, creatorid, createdby)
-VALUES ('20', '3', '9', '06/06/2020', '15');
-
--- Need definitions of the following tables:
--- note_t: is the note the same as a comment?
--- notetag_t: what is the purpose of this tables
--- tag_t: this is just category of the resource?
--- resourcetag_t: what is the different between tag and resourcetag?
-
--- group into collection
--- note into comment
--- resourcetypedescription redundant
--- resource type table attributes rename
+INSERT INTO CategoryTags(categoryid, tagid)
+VALUES (1, 1);

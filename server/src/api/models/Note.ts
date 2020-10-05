@@ -25,13 +25,20 @@ Note.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'note_t' // We need to choose the table name it correlates to
+    tableName: 'Notes' // We need to choose the table name it correlates to
 });
 
 ResourceVersion.hasMany(Note);
 
+<<<<<<< HEAD
 // Sync Model to Database
 (async () => {
   await Note.sync({ force: true });
   console.log('Note modle synced with DB')
 })();
+=======
+(async () => {
+  await Note.sync();
+  console.log('Note synced with DB')
+})();
+>>>>>>> origin/backend

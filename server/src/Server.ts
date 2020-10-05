@@ -1,10 +1,11 @@
 import App  from './App';
-import UsersController from  './api/UsersController';
-
+import UsersController from './api/UsersController';
+import GroupsController from './api/GroupsController';
 // Creates a new Express App that takes a list of Controllers and a port
 const app = new App(
     [
         new UsersController(),
+        new GroupsController(),
     ],
     8080,
 );

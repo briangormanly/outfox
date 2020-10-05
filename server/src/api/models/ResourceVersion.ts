@@ -44,14 +44,21 @@ ResourceVersion.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'resourceversion_t' // We need to choose the table name it correlates to
+    tableName: 'ResourceVersions' // We need to choose the table name it correlates to
 });
 
 Resource.belongsToMany(Link, { through: ResourceVersion });
 Link.belongsToMany(Resource, { through: ResourceVersion });
 
+<<<<<<< HEAD
 // Sync Model to Database
 (async () => {
   await ResourceVersion.sync({ force: true });
   console.log('ResourceVersion modle synced with DB')
 })();
+=======
+(async () => {
+	await ResourceVersion.sync();
+	console.log('ResourceVersion synced with DB')
+  })();
+>>>>>>> origin/backend

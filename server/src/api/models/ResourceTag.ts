@@ -43,15 +43,22 @@ ResourceTag.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'resourcetag_t' // We need to choose the table name it correlates to
+    tableName: 'ResourceTags' // We need to choose the table name it correlates to
 });
 
 Tag.belongsToMany(ResourceVersion, { through: ResourceTag });
 ResourceVersion.belongsToMany(Tag, { through: ResourceTag });
 User.hasMany(ResourceTag);
 
+<<<<<<< HEAD
 // Sync Model to Database
 (async () => {
   await ResourceTag.sync({ force: true });
   console.log('ResourceTag modle synced with DB')
 })();
+=======
+(async () => {
+	await ResourceTag.sync();
+	console.log('ResourceTag synced with DB')
+  })();
+>>>>>>> origin/backend

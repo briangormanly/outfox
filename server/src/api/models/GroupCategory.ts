@@ -29,14 +29,21 @@ GroupCategory.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'groupcategory_t' // We need to choose the table name it correlates to
+    tableName: 'GroupCategories' // We need to choose the table name it correlates to
 });
 
 Group.belongsToMany(Category, { through: GroupCategory });
 Category.belongsToMany(Group, { through: GroupCategory });
 
+<<<<<<< HEAD
 // Sync Model to Database
 (async () => {
   await GroupCategory.sync({ force: true });
   console.log('GroupCategory modle synced with DB')
 })();
+=======
+(async () => {
+  await GroupCategory.sync();
+  console.log('GroupCategory synced with DB')
+})();
+>>>>>>> origin/backend

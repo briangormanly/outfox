@@ -35,15 +35,22 @@ NoteTag.init({
 }, {
   sequelize, // We need to pass the connection instance
   timestamps: false,
-  tableName: 'notetag_t' // We need to choose the table name it correlates to
+  tableName: 'NoteTags' // We need to choose the table name it correlates to
   });
 
   Note.belongsToMany(Tag, { through: NoteTag });
   Tag.belongsToMany(Note, { through: NoteTag });
   User.hasMany(NoteTag);
 
+<<<<<<< HEAD
 	// Sync Model to Database
 	(async () => {
 	  await NoteTag.sync({ force: true });
 	  console.log('NoteTag modle synced with DB')
 	})();
+=======
+  (async () => {
+	await NoteTag.sync();
+	console.log('NoteTag synced with DB')
+  })();
+>>>>>>> origin/backend

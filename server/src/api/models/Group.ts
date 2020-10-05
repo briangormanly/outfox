@@ -1,21 +1,26 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from "../databaseConnection";
+import { DataTypes, Model, Deferrable } from 'sequelize';
+import { sequelize } from '../databaseConnection';
+import GroupsController from '../GroupsController';
+import { User } from './User';
 
 export class Group extends Model {}
 
-// Not going to add userid since its serial meaning it should increment in the database
 Group.init({
+    groupid: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+    },
     groupname: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    //deleted resource tyoe
     resourceapi: {
         type: DataTypes.STRING,
-        allowNull: false
+        defaultValue: null
     },
     datetimeadd: {
         type: DataTypes.DATE,
+        defaultValue: null
     },
     datetimeremove: {
         type: DataTypes.DATE,
@@ -25,11 +30,22 @@ Group.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'group_t' // We need to choose the table name it correlates to
+    tableName: 'groups', // We need to choose the table name it correlates to
 });
 
+<<<<<<< HEAD
 // Sync Model to Database
 (async () => {
   await Group.sync({ force: true });
   console.log('Group modle synced with DB')
 })();
+=======
+(async () => {
+    try {
+        await Group.sync();
+        console.log('Group synced with DB');
+    } catch (error) {
+        console.log(error.message);
+    }
+ })();
+>>>>>>> origin/backend

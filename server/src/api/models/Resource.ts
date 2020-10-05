@@ -27,14 +27,21 @@ Resource.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'resource_t' // We need to choose the table name it correlates to
+    tableName: 'Resources' // We need to choose the table name it correlates to
 });
 
 ResourceType.belongsToMany(User, { through: Resource });
 User.belongsToMany(ResourceType, { through: Resource });
 
+<<<<<<< HEAD
 // Sync Model to Database
 (async () => {
   await Resource.sync({ force: true });
   console.log('Resource modle synced with DB')
 })();
+=======
+(async () => {
+	await Resource.sync();
+	console.log('Resource synced with DB')
+  })();
+>>>>>>> origin/backend

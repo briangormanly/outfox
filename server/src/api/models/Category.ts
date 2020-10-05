@@ -13,12 +13,19 @@ Category.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'category_t' // We need to choose the table name it correlates to
+    tableName: 'Categories' // We need to choose the table name it correlates to
 });
 
+<<<<<<< HEAD
 
 // Sync Model to Database
 (async () => {
   await Category.sync({ force: true });
   console.log('Category modle synced with DB')
 })();
+=======
+(async () => {
+    await Category.sync();
+    console.log('Category synced with DB')
+ })();
+>>>>>>> origin/backend
