@@ -1,37 +1,57 @@
-import express from 'express';
+import express, { Application } from 'express';
 // Cors is only being used if we run React separately
 import cors from 'cors';
 // Using Morgan for middleware. At the moment for basic logging
 import morgan from 'morgan';
-
+import { Sequelize } from 'sequelize';
+import { Associations } from './api/models/Associations';
 /**
  * Used as the primarily class for the express server
  */
 class App {
-    public app: express.Application;
+    public app: Application;
+    public sequelize: Sequelize;
     public port: number;
 
     constructor(controllers: any, port: number) {
         this.app = express();
         this.port = port;
-
+        Associations();
+        this.initializeDatabaseConnection();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
     }
 
+    private async initializeDatabaseConnection() {
+        // outfoxdb is the database name, user (me) is the root user in my case. *It will be different for you*, third spot is for password (I don't have one), host is where its being hosted for me localhost or 127.0.0.1, dialect is postgres since that is the database type we are using.
+        this.sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
+            host: 'localhost',
+            dialect: 'postgres'
+        });
+
+        try {
+            await this.sequelize.authenticate();
+            console.log('Connection has been established successfully');
+        } catch (err) {
+            console.error('Unable to connect to the databse:', err);
+        }
+    }
+
+    // Application Level Middleware Initialization
     private initializeMiddlewares() {
         this.app.use(morgan('common'));
+        this.app.use(express.json());
         this.app.use(cors());
     }
 
     private initializeControllers(controllers: any) {
         // Only here temp so we can get a home page instead of a 404
         this.app.get('/', (req, res) => {
-           res.send('<h1>Hello world! </h1>'); 
+           res.send('<h1>Hello world! </h1>');
         });
 
-        for(let i = 0; i < controllers.length; i++) {
-            this.app.use(controllers[i].router);
+        for (const iterator of controllers) {
+            this.app.use(iterator.router);
         }
     }
 

@@ -1,15 +1,11 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 
-export class LinkOwnerType extends Model {}
+export class Tag extends Model {}
 
 // Not going to add userid since its serial meaning it should increment in the database
-LinkOwnerType.init({
-    linkownername: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    linkownerdescription: {
+Tag.init({
+    tag: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -21,10 +17,10 @@ LinkOwnerType.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'LinkOwnerTypes' // We need to choose the table name it correlates to
+    tableName: 'Tags' // We need to choose the table name it correlates to
 });
 
 (async () => {
-    await LinkOwnerType.sync();
-    console.log('LinkOwnerType synced with DB')
+	await Tag.sync();
+	console.log('Tag synced with DB')
   })();
