@@ -1,7 +1,7 @@
 //Import Sequlize
 //import { Sequelize } from "sequelize";
 import { sequelize } from './databaseConnection';
-// Import all models ['Modles' are 'Tables' in Sequelize ORM]
+// Import all models ['models' are 'Tables' in Sequelize ORM]
 import { Category } from "./models/Category";
 import { CategoryTag } from "./models/CategoryTag";
 import { Group } from "./models/Group";
@@ -18,14 +18,14 @@ import { Tag } from "./models/Tag";
 import { User } from "./models/User";
 
 /* -------------------------------------------------------
-// Variable for forcing modles to sync
-// true -- force modles to sync with database - USE ONLY IN DEVOLOPMENT
+// Variable for forcing models to sync
+// true -- force models to sync with database - USE ONLY IN DEVOLOPMENT
 // false -- we dont lose data
 --------------------------------------------------------- */
 const forceModels = false;
 
 // Array of all models [Tables]
-var modles =
+var models =
 [
   User, Group, Tag, Category,
   CategoryTag, GroupCategory,
@@ -39,12 +39,12 @@ export const sync = () => {
   // (async () => {
   //   await sequelize.sync({ force:true }).catch(err => {console.log('ERROR: ' + err)})
   // })
-  for (let i = 0; i < modles.length; i++) {
+  for (let i = 0; i < models.length; i++) {
     (async () => {
-    	await modles[i].sync({ force:forceModels }).catch(
+    	await models[i].sync({ force:forceModels }).catch(
         err => {console.log("\n\n\nERROR: " + err + "\n\n\n")
       })
-    	console.log(modles[i].name + ' synced with DB')
+    	console.log(models[i].name + ' synced with DB')
       })();
   }
 }
