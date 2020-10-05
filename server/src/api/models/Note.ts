@@ -1,34 +1,34 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from "../databaseConnection";
-
+import { Sequelize, DataTypes, Model } from 'sequelize';
 import { ResourceVersion } from './ResourceVersion';
 
-export class Note extends Model {}
+import { sequelize } from '../databaseConnection';
+export class Note extends Model{}
 
 Note.init({
-  resourceversionid: {
-    type: DataTypes.INTEGER,
-    references:{
-      model: ResourceVersion,
-      key: "id"
-    }
-  },
-  notename: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  notebody: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-}, {
-    // Other model options go here
-    sequelize, // We need to pass the connection instance
-    timestamps: false,
-    tableName: 'Notes' // We need to choose the table name it correlates to
-});
-
-ResourceVersion.hasMany(Note);
+	noteId: {
+		type: DataTypes.INTEGER,
+		primaryKey: true
+	},
+	resourceVersionId: {
+		type: DataTypes.INTEGER,
+		references: {
+			model: ResourceVersion,
+			key: 'resourceVersionId'
+		}
+	},
+	noteName: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	noteBody: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	}, {
+		sequelize,
+		timestamps: false,
+		tableName: 'notes'
+	});
 
 (async () => {
   await Note.sync();
