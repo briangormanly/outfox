@@ -1,31 +1,32 @@
-DROP TABLE IF EXISTS user_t CASCADE;
-DROP TABLE IF EXISTS group_t CASCADE;
-DROP TABLE IF EXISTS linkownertype_t CASCADE;
-DROP TABLE IF EXISTS link_t CASCADE;
-DROP TABLE IF EXISTS resourceversion_t CASCADE;
-DROP TABLE IF EXISTS resource_t CASCADE;
-DROP TABLE IF EXISTS resourcetype_t CASCADE;
-DROP TABLE IF EXISTS note_t CASCADE;
-DROP TABLE IF EXISTS notetag_t CASCADE;
-DROP TABLE IF EXISTS tag_t CASCADE;
-DROP TABLE IF EXISTS resourcetag_t CASCADE;
-DROP TABLE IF EXISTS category_t CASCADE;
-DROP TABLE IF EXISTS groupcategory_t CASCADE;
-DROP TABLE IF EXISTS categorytag_t CASCADE;
+DROP TABLE IF EXISTS Users CASCADE;
+DROP TABLE IF EXISTS GroupsT CASCADE;
+DROP TABLE IF EXISTS LinkOwnerTypes CASCADE;
+DROP TABLE IF EXISTS Links CASCADE;
+DROP TABLE IF EXISTS ResourceVersions CASCADE;
+DROP TABLE IF EXISTS Resources CASCADE;
+DROP TABLE IF EXISTS ResourceTypes CASCADE;
+DROP TABLE IF EXISTS Notes CASCADE;
+DROP TABLE IF EXISTS NoteTags CASCADE;
+DROP TABLE IF EXISTS Tags CASCADE;
+DROP TABLE IF EXISTS ResourceTags CASCADE;
+DROP TABLE IF EXISTS Categories CASCADE;
+DROP TABLE IF EXISTS GroupCategories CASCADE;
+DROP TABLE IF EXISTS CategoryTags CASCADE;
 
-CREATE TABLE user_t (
+CREATE TABLE Users (
     userid serial,
     username varchar(255),
+    hashpw varchar(255),
     firstname varchar(255),
     lastname varchar(255),
     country varchar(255),
     city varchar(255),
-    phonenum bigint,
+    phonenum varchar(255),
     email varchar(255),
     PRIMARY KEY(userid)
 );
 
-CREATE TABLE resourcetype_t (
+CREATE TABLE ResourceTypes (
     resourcetypeid serial,
     resourcetypename varchar(255),
     resourcetypedescription varchar(255),
@@ -34,20 +35,20 @@ CREATE TABLE resourcetype_t (
     PRIMARY KEY(resourcetypeid)
 );
 
-CREATE TABLE group_t (
+CREATE TABLE GroupsT (
     groupid serial,
     groupname varchar(255),
-    resourcetype int,
     resourceapi varchar(255),
     datetimeadd timestamptz,
     datetimeremove timestamptz,
+    createdby int,
     PRIMARY KEY (groupid),
-    CONSTRAINT fk_resourcetype
-        FOREIGN KEY(resourcetype)
-            REFERENCES resourcetype_t(resourcetypeid)
+    CONSTRAINT fk_createdby
+        FOREIGN KEY(createdby)
+            REFERENCES Users(userid)
 );
 
-CREATE TABLE linkownertype_t (
+CREATE TABLE LinkOwnerTypes (
     linkownertypeid serial,
     linkownername varchar(255),
     linkownerdescription varchar(255),
@@ -59,13 +60,13 @@ CREATE TABLE linkownertype_t (
             REFERENCES user_t(userid)
 );
 
-CREATE TABLE link_t (
+CREATE TABLE Links (
     linkid serial,
     linkownerid int,
     linkownertype int,
     createdate timestamptz,
     PRIMARY KEY(linkid),
-    CONSTRAINT fk_linkowner
+    CONSTRAINT fk_linkownerid
         FOREIGN KEY(linkownerid)
             REFERENCES user_t(userid),
     CONSTRAINT fk_linkownertype
@@ -73,7 +74,7 @@ CREATE TABLE link_t (
             REFERENCES linkownertype_t(linkownertypeid)
 );
 
-CREATE TABLE resource_t (
+CREATE TABLE Resources (
     resourceid serial,
     resourcetype int,
     creatorid int,
@@ -86,7 +87,7 @@ CREATE TABLE resource_t (
             REFERENCES user_t(userid)
 );
 
-CREATE TABLE resourceversion_t (
+CREATE TABLE ResourceVersions (
     resourceversionid serial,
     resourceid int,
     versionid int,
@@ -104,7 +105,7 @@ CREATE TABLE resourceversion_t (
             REFERENCES link_t(linkid)
 );
 
-CREATE TABLE note_t (
+CREATE TABLE Notes (
     noteid serial,
     resourceversionid int,
     notename varchar(255),
@@ -115,14 +116,14 @@ CREATE TABLE note_t (
             REFERENCES resourceversion_t(resourceversionid)
 );
 
-CREATE TABLE tag_t (
+CREATE TABLE Tags (
     tagid serial,
     tag varchar(255),
     createdate timestamptz,
     PRIMARY KEY(tagid)
 );
 
-CREATE TABLE notetag_t (
+CREATE TABLE NoteTags (
     notetagid serial,
     noteid int,
     tagid int,
@@ -140,9 +141,9 @@ CREATE TABLE notetag_t (
             REFERENCES user_t(userid)
 );
 
-CREATE TABLE resourcetag_t (
+CREATE TABLE ResourceTags (
     resourcetagid serial,
-    resourceversionid bigint,
+    resourceversionid int,
     tagid int,
     createdate timestamptz,
     createdby int,
@@ -152,34 +153,20 @@ CREATE TABLE resourcetag_t (
             REFERENCES user_t(userid)
 );
 
-CREATE TABLE category_t (
+CREATE TABLE Categories (
     categoryid serial,
     categoryname varchar(255),
     PRIMARY KEY(categoryid)
 );
 
-CREATE TABLE groupcategory_t( 
-    groupcategoryid serial,
+CREATE TABLE GroupCategories( 
     categoryid int,
     groupid int,
-    PRIMARY KEY(groupcategoryid),
-    CONSTRAINT fk_categoryid
-        FOREIGN KEY(categoryid)
-            REFERENCES category_t(categoryid),
-    CONSTRAINT fk_groupid
-        FOREIGN KEY(groupid)
-            REFERENCES group_t(groupid)
+    PRIMARY KEY(categoryid, groupid)
 );
 
-CREATE TABLE categorytag_t(
-    categorytagid serial,
+CREATE TABLE CategoryTags(
     categoryid int,
     tagid int,
-    PRIMARY KEY(categorytagid),
-    CONSTRAINT fk_categoryid
-        FOREIGN KEY(categoryid)
-            REFERENCES category_t(categoryid),
-    CONSTRAINT fk_tagid
-        FOREIGN KEY(tagid)
-            REFERENCES tag_t(tagid)
+    PRIMARY KEY(categoryid, tagid)
 );
