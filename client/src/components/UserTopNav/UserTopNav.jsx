@@ -1,16 +1,33 @@
 import React from 'react';
 
-import { TopNavContainer, SearchField } from './UserTopNav.elements';
+import { TopNavContainer, SearchField, LinkContainer } from './UserTopNav.elements';
+import { FaSearch, FaUser, FaBell, FaComments, FaSignOutAlt } from 'react-icons/fa';
 
 const UserTopNav = () => {
 	return (
 		<TopNavContainer>
 			<SearchField>
-				<input type="text" name="search" placeholder="Search" />
-				<button>C</button>
+				<form>
+					<input type="text" name="search" placeholder="Search" />
+					<button type="submit">
+						<FaSearch />
+					</button>
+				</form>
 			</SearchField>
-			<div>hello</div>
-			<div>hello</div>
+			<LinkContainer>
+				<button>
+					<FaComments />
+				</button>
+				<button>
+					<FaBell />
+				</button>
+				<button>
+					<FaUser />
+				</button>
+				<button>
+					<FaSignOutAlt />
+				</button>
+			</LinkContainer>
 		</TopNavContainer>
 	);
 };

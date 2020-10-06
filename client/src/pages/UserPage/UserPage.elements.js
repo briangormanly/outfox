@@ -17,12 +17,12 @@ export const UserPageContainer = styled.div`
 
 export const TopNavArea = styled.div`
 	grid-area: topNav;
-	background-color: ${lightGrey};
+	/*  */
 `;
 
 export const SideNavArea = styled.div`
 	grid-area: sideNav;
-	background-color: red;
+	border-right: 1px solid ${primary};
 `;
 
 export const ContentArea = styled.div`
