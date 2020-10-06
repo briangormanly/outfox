@@ -1,30 +1,22 @@
-import React from 'react';
-
 import styled from 'styled-components';
 
-import {
-	colors,
-	Container,
-	LogoContainer,
-	LogoIcon,
-	LogoText,
-	Button
-} from '../../styles/globalStyles';
+import { colors, Container, LogoContainer, LogoIcon, LogoText, Button } from '../../styles/globalStyles';
 
-const { primary, lightGrey, black, primaryLight, darkGrey } = colors;
+const { primary, lightGrey, darkGrey } = colors;
 
 export const SignUpSection = styled.section`
-	height: 100vh;
+	min-height: 100vh;
 	background-color: ${lightGrey};
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	/* align-items: center; */
 `;
 
 export const SignUpContainer = styled(Container)`
   /* height: 80rem; */
   max-width: 42rem;
   margin: 0 auto;
+	margin-top: 3rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -47,44 +39,8 @@ export const HeaderText = styled(LogoText)`
   font-size: 5rem;
 `;
 
-export const ButtonGroup = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	margin-top: 3rem;
-`;
-
-export const AuthButton = styled(Button)`
-  width: 100%;
-  background-color: ${lightGrey};
-  color: ${black};
-  font-size: 1.4rem;
-  text-align: left;
-  box-shadow: 0 0 0.1rem 0 rgba(0,0,0,.12), 0 0.1rem 0.3rem 0 rgba(0,0,0,.24);
-  margin-top: 1rem;
-
-  &:hover{
-    background-color: #bababa;
-  }
-`;
-
-export const LogoWrapper = styled.span`
-	display: block;
-	height: 3rem;
-	width: 100%;
-	display: flex;
-	align-items: center;
-`;
-
-export const LogoImg = styled.img`
-	width: 2.4rem;
-	height: 2.4rem;
-	margin-right: 1rem;
-`;
-
-export const ButtonText = styled.div``;
-
 export const OrContainer = styled.div`
+	width: 100%;
 	margin-top: 3rem;
 	display: flex;
 `;
@@ -100,4 +56,42 @@ export const OrText = styled.p`
 	padding: 1rem;
 	color: ${darkGrey};
 	text-align: center;
+`;
+
+export const Form = styled.form`width: 100%;`;
+
+export const SignUpButton = styled(Button)`
+	margin-top: 3rem;
+	width: 100%;
+
+	&:hover{
+		transform: translateY(-3px)
+	}
+`;
+
+export const LoginMessage = styled.p`
+	margin: 3rem 0;
+	text-align: center;
+	font-size: 1.8rem;
+
+	a {
+		color: ${primary};
+		font-size: 1.8rem;
+		padding: 0;
+	}
+`;
+
+export const InputRow = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+export const InputItem = styled.div`
+	width: 48%;
+	/*  */
+`;
+
+export const SecondInput = styled.div`
+	width: 45%;
+	/*  */
 `;

@@ -14,7 +14,7 @@ import { Tag } from "./models/Tag";
 import { User } from "./models/User";
 
 // Array of all models [Tables]
-const models =
+var models =
 [
   User, Group, Tag, Category,
   CategoryTag, GroupCategory,
@@ -22,6 +22,7 @@ const models =
   Resource, ResourceVersion, Note,
   NoteTag, ResourceTag
 ];
+
 
 // Sync all tables to database
 export const sync = async () => {
