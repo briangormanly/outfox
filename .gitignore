@@ -8,6 +8,7 @@ lerna-debug.log*
 .vscode
 HTTP Requests
 Outfoxdb.session.sql
+HTTPRequests.http
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

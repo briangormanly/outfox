@@ -23,6 +23,7 @@ const models =
   NoteTag, ResourceTag
 ];
 
+
 // Sync all tables to database
 export const sync = async () => {
   for (const iterator of models) {
