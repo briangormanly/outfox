@@ -6,3 +6,4 @@ export { default as InfoSection } from './InfoSection/InfoSection';
 export { default as Footer } from './Footer/Footer';
 export { default as SignUpComponent } from './SignUp/SignUp.component';
 export { default as SignInComponent } from './SignUp/SignIn.component.jsx';
+export { default as UserTopNav } from './UserTopNav/UserTopNav.jsx';

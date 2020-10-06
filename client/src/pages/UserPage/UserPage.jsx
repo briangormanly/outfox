@@ -1,11 +1,15 @@
 import React, { useEffect, useReducer } from 'react';
-// import userService from '../../services/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { userWithGroupsAction } from '../../redux/actions/userActions';
 
-import { UserPageContainer } from './UserPage.elements';
+import {
+	UserPageContainer,
+	ContentArea,
+	SideNavArea,
+	TopNavArea
+} from './UserPage.elements';
 
-// import axios from 'axios';
+import { UserTopNav } from '../../components';
 
 const UserPage = ({ match }) => {
 	const dispatch = useDispatch();
@@ -26,7 +30,11 @@ const UserPage = ({ match }) => {
 
 	return (
 		<UserPageContainer>
-			<div>User Page</div>
+			<TopNavArea>
+				<UserTopNav />
+			</TopNavArea>
+			<SideNavArea />
+			<ContentArea />
 		</UserPageContainer>
 	);
 };
