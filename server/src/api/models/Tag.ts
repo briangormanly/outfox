@@ -1,14 +1,16 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 
-export class LinkOwnerType extends Model {}
+export class Tag extends Model {}
 
-LinkOwnerType.init({
-    linkownername: {
-        type: DataTypes.STRING,
-        allowNull: false
+Tag.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      unique: true
     },
-    linkownerdescription: {
+    tag: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -20,5 +22,5 @@ LinkOwnerType.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'linkOwnerTypes' // We need to choose the table name it correlates to
+    tableName: 'tags' // We need to choose the table name it correlates to
 });

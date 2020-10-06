@@ -2,43 +2,38 @@ import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 
 import { User } from './User'
-import { LinkOwnerType } from './LinkOwnerType'
+import { ResourceType } from './ResourceType'
 
-export class Link extends Model {}
+export class Resource extends Model {}
 
-Link.init({
+Resource.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
     //Foreign Key
-    linkownertype: {
+    resourcetype: {
         type: DataTypes.INTEGER,
         references: {
-          model: LinkOwnerType,
+          model:ResourceType,
           key: "id"
         }
     },
     //Foreign Key
-    linkownerid: {
+    creatorid: {
         type: DataTypes.INTEGER,
         references:{
           model:User,
           key: "id"
-        },
-        allowNull: false
-    },
-    createdate: {
-        type: DataTypes.DATE,
-
+        }
     },
 }, {
-    // Other model options go here
+
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'links' // We need to choose the table name it correlates to
+    tableName: 'resources' // We need to choose the table name it correlates to
 });
 
-LinkOwnerType.belongsToMany(User, { through: Link });
-User.belongsToMany(LinkOwnerType, { through: Link });
+ResourceType.belongsToMany(User, { through: Resource });
+User.belongsToMany(ResourceType, { through: Resource });
