@@ -1,24 +1,34 @@
 import React, { useEffect, useReducer } from 'react';
-import userService from '../../services/users';
+// import userService from '../../services/users';
+import { useDispatch, useSelector } from 'react-redux';
+import { userWithGroupsAction } from '../../redux/actions/userActions';
+
 import { UserPageContainer } from './UserPage.elements';
 
-import axios from 'axios';
+// import axios from 'axios';
 
-function UserPage() {
-	useEffect(() => {
-		const fetchUser = async () => {
-			const data = await userService.getUserWithGroups(1);
-			console.log(data);
-		};
+const UserPage = ({ match }) => {
+	const dispatch = useDispatch();
+	const { loading, error, userWithGroups } = useSelector(
+		(state) => state.userWithGroups
+	);
 
-		fetchUser();
-	}, []);
+	console.log(userWithGroups);
+	console.log(error);
+	console.log(loading);
+
+	useEffect(
+		() => {
+			dispatch(userWithGroupsAction(match.params.id));
+		},
+		[ dispatch ]
+	);
 
 	return (
 		<UserPageContainer>
 			<div>User Page</div>
 		</UserPageContainer>
 	);
-}
+};
 
 export default UserPage;

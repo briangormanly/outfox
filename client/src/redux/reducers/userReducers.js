@@ -20,14 +20,14 @@ export const userReducer = (state = {}, action) => {
 	}
 };
 
-export const userWithGroupsReducer = (state = { groups: [] }, action) => {
+export const userWithGroupsReducer = (state = {}, action) => {
 	switch (action.type) {
 		case USERGROUPS_REQUEST:
-			return {};
+			return { ...state, loading: true };
 		case USERGROUPS_SUCCESS:
-			return {};
+			return { ...state, loading: false, userWithGroups: action.payload };
 		case USERGROUPS_FAIL:
-			return {};
+			return { ...state, userWithGroups: {}, loading: false, error: action.payload };
 		default:
 			return state;
 	}
