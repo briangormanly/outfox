@@ -7,7 +7,7 @@ import {
 	USERGROUPS_SUCCESS
 } from '../constants/userConstants';
 
-export const getUserReducer = (state = {}, action) => {
+export const userReducer = (state = {}, action) => {
 	switch (action.type) {
 		case USER_REQUEST:
 			return { ...state, loading: true };
@@ -20,7 +20,7 @@ export const getUserReducer = (state = {}, action) => {
 	}
 };
 
-export const getUserAndGroup = (state = { groups: [] }, action) => {
+export const userWithGroupsReducer = (state = { groups: [] }, action) => {
 	switch (action.type) {
 		case USERGROUPS_REQUEST:
 			return {};
