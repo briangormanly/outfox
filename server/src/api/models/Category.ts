@@ -5,7 +5,7 @@ export class Category extends Model {}
 
 // Not going to add userid since its serial meaning it should increment in the database
 Category.init({
-    catergoryname: {
+    categoryname: {
         type: DataTypes.STRING,
         allowNull: false
     },

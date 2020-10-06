@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 //Import Sequlize
 //import { Sequelize } from "sequelize";
 import { sequelize } from './databaseConnection';
 // Import all models ['models' are 'Tables' in Sequelize ORM]
+=======
+>>>>>>> origin/backend
 import { Category } from "./models/Category";
 import { CategoryTag } from "./models/CategoryTag";
 import { Group } from "./models/Group";
@@ -17,6 +20,7 @@ import { ResourceVersion } from "./models/ResourceVersion";
 import { Tag } from "./models/Tag";
 import { User } from "./models/User";
 
+<<<<<<< HEAD
 /* -------------------------------------------------------
 // Variable for forcing models to sync
 // true -- force models to sync with database - USE ONLY IN DEVOLOPMENT
@@ -26,15 +30,19 @@ const forceModels = false;
 
 // Array of all models [Tables]
 var models =
+=======
+// Array of all models [Tables]
+const models =
+>>>>>>> origin/backend
 [
   User, Group, Tag, Category,
   CategoryTag, GroupCategory,
   LinkOwnerType, Link, ResourceType,
   Resource, ResourceVersion, Note,
   NoteTag, ResourceTag
-]
-// Sync all tables to database
+];
 
+<<<<<<< HEAD
 export const sync = () => {
   var errorTest = false;
   for (let i = 0; i < models.length; i++) {
@@ -48,5 +56,18 @@ export const sync = () => {
         console.log('\nTABLE SYNCHRONIZED: ' + models[i].name + '\n')
       }
       })();
+=======
+// Sync all tables to database
+export const sync = async () => {
+  for (const iterator of models) {
+    iterator.sync()
+      .then(() => {
+        console.log(iterator.name + ' synced with the database.');
+      })
+      .catch((error) => {
+        console.log(iterator.name + ' had an error syncing with the database.');
+      });
+>>>>>>> origin/backend
   }
 }
+

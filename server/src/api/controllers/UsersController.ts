@@ -57,7 +57,6 @@ class UsersController {
         try {
             // If missing non-nullable fields it will create an error
             const user = await User.create(request.body);
-            console.log(user);
             response.status(201).json({ user });
         } catch (error) {
             response.status(500).send(error.message);
@@ -70,7 +69,7 @@ class UsersController {
         try {
             const { id } = request.params; // Destructure the request.params object and grab only id
             const user = await User.findOne({
-                where: {userid: id},
+                where: {id: id},
                 include: Group
             }); // Grabs the user where the id is 0
 
@@ -93,7 +92,7 @@ class UsersController {
             const { id } = request.params; // Destructure the request.params object and grab only id
 
             const user = await User.findOne({
-                where: {userid: id},
+                where: {id: id},
             }); // Grabs the user where the id is 0
 
             if (user) {
@@ -116,11 +115,11 @@ class UsersController {
             const { id } = request.params; // Destructure the object to only grab the id coming from the request
 
             const [ updated ] = await User.update(request.body, {
-                where: { userid: id}
+                where: { id: id}
             }); // Destructure the array so we grab the updated version of our user
 
             if (updated) {
-                const updatedUser = await User.findOne({where: {userid: id}}); // Grab the update user
+                const updatedUser = await User.findOne({where: {id: id}}); // Grab the update user
                 response.status(200).json({user: updatedUser}); // Return the updated user
             } else {
                 response.status(404).send('User with the specified ID does not exist'); // User does not exist
@@ -140,7 +139,7 @@ class UsersController {
         try {
             const { id } = request.params; // Destructure the object to only grab the id coming from the request
             const deleted = await User.destroy({
-                where: {userid: id}
+                where: {id: id}
             }); // Delete the user with the specified id
             if(deleted) {
                 response.status(204).send('User Deleted');
