@@ -1,6 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
-
 import { Group } from './Group'
 import { Category } from './Category'
 
@@ -31,5 +30,4 @@ GroupCategory.init({
     tableName: 'groupCategories' // We need to choose the table name it correlates to
 });
 
-Group.belongsToMany(Category, { through: GroupCategory });
-Category.belongsToMany(Group, { through: GroupCategory });
+
