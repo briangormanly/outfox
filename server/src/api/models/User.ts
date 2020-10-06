@@ -1,19 +1,10 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
-import bcrypt  from 'bcrypt';
+import bcrypt from 'bcrypt';
 
-export class User extends Model {}
+export class User extends Model { }
 
 User.init({
-  /*
-  	 Primary keys are auto generated if left out, by default they are named 'id'
-  	 handeled by Sequelize.sync();
-  */
-    // userid: {
-    //     type: DataTypes.INTEGER,
-    //     autoIncrement: true,
-    //     primaryKey: true
-    // },
     username: {
         type: DataTypes.STRING,
         allowNull: false
@@ -22,7 +13,7 @@ User.init({
         type: DataTypes.STRING,
 
 
-// Code for the password getting and setting could be better in the Uesr controller
+        // Code for the password getting and setting could be better in the Uesr controller
         get() {
             const passwd = this.getDataValue('hashpw');
             return passwd;
