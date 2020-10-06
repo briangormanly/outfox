@@ -5,3 +5,4 @@ export const sequelize = new Sequelize('outfoxdb', 'sqlize', '', {
     dialect: 'postgres',
     logging: false
 });
+//test push
