@@ -7,7 +7,6 @@ import {
 	SignUpContainer,
 	HeaderContainer,
 	HeaderText,
-	HeaderLogo,
 	OrContainer,
 	OrBorder,
 	OrText,
@@ -16,6 +15,7 @@ import {
 	LoginMessage
 } from './SignUp.elements';
 import { Link } from '../../styles';
+import { ReactComponent as Logo } from '../../assets/fox.svg';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
 
@@ -48,7 +48,7 @@ const SignIn = () => {
 		<SignUpSection>
 			<SignUpContainer>
 				<HeaderContainer>
-					<HeaderLogo />
+					<Logo />
 					<HeaderText>Outfox</HeaderText>
 				</HeaderContainer>
 				<AuthButtons />
@@ -58,7 +58,14 @@ const SignIn = () => {
 					<OrBorder />
 				</OrContainer>
 				<Form onSubmit={handleSubmit}>
-					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+					<FormInput
+						label="Email"
+						name="email"
+						type="email"
+						value={email}
+						onChange={handleChange}
+						required
+					/>
 					<FormInput
 						label="Password"
 						name="password"

@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 
-import { colors, Container, LogoContainer, LogoIcon, LogoText, Button } from '../../styles/globalStyles';
+import {
+	colors,
+	Container,
+	LogoContainer,
+	LogoIcon,
+	LogoText,
+	Button
+} from '../../styles/globalStyles';
 
 const { primary, lightGrey, darkGrey } = colors;
 
@@ -28,11 +35,10 @@ export const HeaderContainer = styled(LogoContainer)`
   width: 25rem;
   height: 5.5rem;
   color: ${primary};
-`;
 
-export const HeaderLogo = styled(LogoIcon)`
-  font-size: 5rem;   
-
+	svg{
+		width: 7rem;
+	}
 `;
 
 export const HeaderText = styled(LogoText)`

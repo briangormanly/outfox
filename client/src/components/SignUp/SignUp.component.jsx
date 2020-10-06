@@ -2,13 +2,13 @@ import React, { useReducer } from 'react';
 
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
+import { ReactComponent as Logo } from '../../assets/fox.svg';
 
 import {
 	SignUpSection,
 	SignUpContainer,
 	HeaderContainer,
 	HeaderText,
-	HeaderLogo,
 	OrContainer,
 	OrBorder,
 	OrText,
@@ -53,7 +53,7 @@ const SignUpComponent = () => {
 		<SignUpSection>
 			<SignUpContainer>
 				<HeaderContainer>
-					<HeaderLogo />
+					<Logo />
 					<HeaderText>Outfox</HeaderText>
 				</HeaderContainer>
 				<AuthButtons />
@@ -85,7 +85,14 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 					</InputRow>
-					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+					<FormInput
+						label="Email"
+						name="email"
+						type="email"
+						value={email}
+						onChange={handleChange}
+						required
+					/>
 					<InputRow>
 						<InputItem>
 							<FormInput
