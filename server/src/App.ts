@@ -81,7 +81,7 @@ class App {
               } else {
                 req.logIn(user, (err) => {
                   if (err) throw err;
-                    res.json({auth: true, user: user});
+                    res.json({user});
                 });
               }
             })(req, res, next);
