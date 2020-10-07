@@ -2,7 +2,12 @@ import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 import bcrypt from 'bcrypt';
 
-export class User extends Model { }
+export class User extends Model {
+
+public username: string;
+public hashpw: string;
+
+ }
 
 User.init({
     username: {
@@ -50,3 +55,4 @@ User.init({
     timestamps: false,
     tableName: 'users' // We need to choose the table name it correlates to
 });
+

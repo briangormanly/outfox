@@ -28,6 +28,8 @@
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.7",
     "@types/morgan": "^1.9.1",
+    "@types/passport": "^1.0.4",
+    "@types/passport-local": "^1.0.33",
     "@types/validator": "^13.1.0",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",

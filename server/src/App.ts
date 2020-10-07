@@ -8,6 +8,10 @@ import { Sequelize } from 'sequelize';
 import { sync } from './api/syncDatabase';
 import { Associations } from './api/models/associations';
 
+import { auth } from './middleware/passport';
+import passport, { session } from 'passport';
+
+
 /**
  * Used as the primarily class for the express server
  */
@@ -46,12 +50,14 @@ class App {
         this.app.use(morgan('common'));
         this.app.use(express.json());
         this.app.use(cors());
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
     }
 
     private initializeControllers(controllers: any) {
         // Only here temp so we can get a home page instead of a 404
         this.app.get('/', (req, res) => {
-           res.send('<h1>Hello world! </h1>');
+           res.sendFile(__dirname+'./index.html');
         });
 
         for (const iterator of controllers) {
