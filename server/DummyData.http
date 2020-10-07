@@ -1,0 +1,54 @@
+POST http://localhost:8080/api/users HTTP/1.1
+Content-Type: application/json
+
+  {
+    "hashpw": "ISwearIAmHashed",
+    "username": "Stillmoon",
+    "firstname": "John",
+    "lastname": "Smith",
+    "country": "USA",
+    "city": "Montgomery",
+    "phonenum": "8458454455",
+    "email": "smallestpeepee@hotmail.com"
+  }
+
+###
+
+POST http://localhost:8080/api/users HTTP/1.1
+Content-Type: application/json
+
+  {
+    "hashpw": "$2b$10$aasdaDBgYKCaiyDV5Fd.WSn7AL.ITjf1FNSxzEnGpnbZGMV0rsyNd0BzRe",
+    "username": "joey",
+    "firstname": "alfyy",
+    "lastname": "bigpeepee",
+    "country": "USA",
+    "city": "Montgomery",
+    "phonenum": "1",
+    "email": "bigestpeepee@hotmail.com"
+  }
+
+###
+GET http://localhost:8080/api/users
+
+###
+GET http://localhost:8080/api/users/1
+
+###
+
+GET http://localhost:8080/api/groups
+###
+POST http://localhost:8080/api/groups HTTP/1.1
+Content-Type: application/json
+
+  {
+    "groupname": "Hello, world!",
+    "resourceapi": "/user/groups/0",
+    "datetimeadd": null,
+    "datetimeremove": null,
+    "createdby": 1
+  }
+
+###
+GET http://localhost:8080/api/users/userandgroups/1 
+

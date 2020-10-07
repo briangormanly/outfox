@@ -11,7 +11,7 @@ import { ResourceTag } from "./ResourceTag";
 import { ResourceType } from "./ResourceType";
 import { ResourceVersion } from "./ResourceVersion";
 import { Tag } from "./Tag";
-import { User } from "./User";
+import User, { UserInstance } from './User';
 
 export const Associations = () => {
     User.hasMany(Group, {foreignKey: 'createdby', sourceKey: 'id'});

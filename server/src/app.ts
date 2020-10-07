@@ -1,4 +1,5 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
+
 // Cors is only being used if we run React separately
 import cors from 'cors';
 // Using Morgan for middleware. At the moment for basic logging
@@ -7,6 +8,14 @@ import { Sequelize } from 'sequelize';
 
 import { sync } from './api/syncDatabase';
 import { Associations } from './api/models/associations';
+
+import passport from './middleware/passport';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+
+
+
 
 /**
  * Used as the primarily class for the express server
@@ -46,14 +55,38 @@ class App {
         this.app.use(morgan('common'));
         this.app.use(express.json());
         this.app.use(cors());
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(passport.initialize());
+        this.app.use(session({
+            secret: 'secretcode',
+            resave: true,
+            saveUninitialized: true
+
+        }));
+        this.app.use(cookieParser("secretcode"));
     }
 
     private initializeControllers(controllers: any) {
         // Only here temp so we can get a home page instead of a 404
-        this.app.get('/', (req, res) => {
-           res.send('<h1>Hello world! </h1>');
-        });
 
+        this.app.get('/', (req, res) => {
+            res.render('./index');
+        });
+        this.app.post("/login", (req: Request, res: Response, next: NextFunction) => {
+            passport.authenticate("local", (err, user, info) => {
+              if (err) throw err;
+              if (!user) {
+                res.send("No user exists");
+              } else {
+                req.logIn(user, (err) => {
+                  if (err) throw err;
+                  // res.json({auth: true, userid: user.id});
+                  res.redirect("/dashboard");
+                });
+              }
+            })(req, res, next);
+          });
         for (const iterator of controllers) {
             this.app.use(iterator.router);
         }
@@ -62,7 +95,7 @@ class App {
     public listen() {
         this.app.listen(this.port, () => {
             // tslint:disable-next-line:no-console
-            console.log(`Server running at http://localhost:${ this.port }`);
+            console.log(`Server running at http://localhost:${this.port}`);
         });
     }
 }

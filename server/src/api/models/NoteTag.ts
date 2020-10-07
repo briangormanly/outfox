@@ -3,7 +3,7 @@ import { sequelize } from '../databaseConnection';
 
 import { Note } from './Note';
 import { Tag } from './Tag';
-import { User } from './User';
+import User, { UserInstance } from './User';
 
 export class NoteTag extends Model { }
 

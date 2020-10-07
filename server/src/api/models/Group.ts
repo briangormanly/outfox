@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../databaseConnection';
-import { User } from './User';
+import User, { UserInstance } from './User';
 
 export class Group extends Model { }
 
