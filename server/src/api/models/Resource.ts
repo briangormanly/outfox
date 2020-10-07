@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 
-import User, { UserInstance } from './User';
+import User from './User';
 import { ResourceType } from './ResourceType'
 
 export class Resource extends Model {}

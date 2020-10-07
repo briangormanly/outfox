@@ -2,22 +2,17 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 import bcrypt from 'bcrypt';
 
-export interface UserAttributes {
-    id: number,
-    username: string,
-    hashpw: string,
-    firstname: string,
-    lastname: string, 
-    country: string | null,
-    city: string | null,
-    phonenum: string | null,
-    email: string | null,
+class User extends Model {
+    public id: number;
+    public username: string;
+    public hashpw: string;
+    public firstname: string;
+    public lastname: string;
+    public country: string;
+    public city: string;
+    public phonenum: string;
+    public email: string;
 }
-
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
-export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes{}
-
-export default class User extends Model<UserAttributes, UserCreationAttributes> {}
 
 User.init({
     id: {
@@ -71,3 +66,5 @@ User.init({
     timestamps: false,
     tableName: 'users' // We need to choose the table name it correlates to
 });
+
+export default User;

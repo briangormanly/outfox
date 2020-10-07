@@ -1,7 +1,7 @@
 import passport from 'passport';
 import passportLocal from 'passport-local';
 import bcrypt from 'bcrypt';
-import User, { UserInstance} from '../api/models/User'
+import User from '../api/models/User'
 const LocalStrategy = passportLocal.Strategy;
 
 passport.use(new LocalStrategy({ usernameField: 'username' },
