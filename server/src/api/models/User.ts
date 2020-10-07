@@ -72,3 +72,4 @@ email: {
     // tableName: 'users' // We need to choose the table name it correlates to
 });
 
+export default User;

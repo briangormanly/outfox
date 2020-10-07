@@ -8,8 +8,11 @@ import { Sequelize } from 'sequelize';
 import { sync } from './api/syncDatabase';
 import { Associations } from './api/models/associations';
 
-import { auth } from './middleware/passport';
-import passport, { session } from 'passport';
+import passport from './middleware/passport';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+
 
 
 /**
@@ -50,15 +53,23 @@ class App {
         this.app.use(morgan('common'));
         this.app.use(express.json());
         this.app.use(cors());
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(passport.initialize());
-        this.app.use(passport.session());
+        this.app.use(session({
+            secret: 'secretcode',
+            resave: true,
+            saveUninitialized: true
+
+        }));
+        this.app.use(cookieParser("secretcode"));
     }
 
     private initializeControllers(controllers: any) {
         // Only here temp so we can get a home page instead of a 404
-        
+
         this.app.get('/', (req, res) => {
-           res.render('./index');
+            res.render('./index');
         });
 
         for (const iterator of controllers) {
@@ -69,7 +80,7 @@ class App {
     public listen() {
         this.app.listen(this.port, () => {
             // tslint:disable-next-line:no-console
-            console.log(`Server running at http://localhost:${ this.port }`);
+            console.log(`Server running at http://localhost:${this.port}`);
         });
     }
 }
