@@ -1,4 +1,5 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
+
 // Cors is only being used if we run React separately
 import cors from 'cors';
 // Using Morgan for middleware. At the moment for basic logging
@@ -12,6 +13,7 @@ import passport from './middleware/passport';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+
 
 
 
