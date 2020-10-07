@@ -71,7 +71,7 @@ class App {
         // Only here temp so we can get a home page instead of a 404
 
         this.app.get('/', (req, res) => {
-            res.render('./index');
+            res.send('Do not use .render() this isn\'t ejs');
         });
         this.app.post("/login", (req: Request, res: Response, next: NextFunction) => {
             passport.authenticate("local", (err, user, info) => {
