@@ -7,16 +7,22 @@ import { HomePage, SignIn, SignUp, UserPage } from '../../pages';
 
 const App = () => {
 	const userDetail = useSelector((state) => state.userDetail);
-	// console.log(userDetail);
-	// console.log(userDetail.auth);
-	// console.log(userDetail.id);
 
 	return (
 		<Router>
 			<GlobalStyles />
 			<Switch>
 				<Route exact path="/" component={HomePage} />
-				<Route exact path="/signin" component={SignIn} />
+				<Route
+					exact
+					path="/signin"
+					render={() =>
+						userDetail.auth ? (
+							<Redirect to={`/user/${userDetail.user.id}`} />
+						) : (
+							<SignIn />
+						)}
+				/>
 
 				<Route
 					exact
