@@ -17,7 +17,7 @@ export const UserPageContainer = styled.div`
 
 export const TopNavArea = styled.div`
 	grid-area: topNav;
-	border-bottom: 1px solid ${primary};
+	/* border-bottom: 1px solid ${primary}; */
 `;
 
 export const SideNavArea = styled.div`
