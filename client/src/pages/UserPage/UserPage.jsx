@@ -25,7 +25,7 @@ const UserPage = ({ match }) => {
 		() => {
 			dispatch(userWithGroupsAction(match.params.id));
 		},
-		[ dispatch ]
+		[ dispatch, match ]
 	);
 
 	return (

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { primaryLight, primaryDark, primary, lightGrey } = colors;
+const { primary, lightGrey } = colors;
 
 export const UserPageContainer = styled.div`
 	min-height: 100vh;
@@ -17,7 +17,7 @@ export const UserPageContainer = styled.div`
 
 export const TopNavArea = styled.div`
 	grid-area: topNav;
-	/*  */
+	border-bottom: 1px solid ${primary};
 `;
 
 export const SideNavArea = styled.div`
@@ -27,5 +27,5 @@ export const SideNavArea = styled.div`
 
 export const ContentArea = styled.div`
 	grid-area: content;
-	background-color: blue;
+	/*  */
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors, transition, Link } from '../../styles';
+import { colors } from '../../styles';
 
 const { white, primary } = colors;
 

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { primary, white, black } = colors;
+const { primary, white } = colors;
 
 export const UserSideNavContainer = styled.div`
 	width: 100%;
@@ -39,7 +39,7 @@ export const SideNavButton = styled.button`
 	align-items: center;
 
 	div {
-		width: 15rem;
+		width: 12.5rem;
 		display: flex;
 		align-items: center;
 

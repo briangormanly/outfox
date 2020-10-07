@@ -7,7 +7,6 @@ import {
 	Nav,
 	NavContainer,
 	LogoContainer,
-	LogoIcon,
 	LogoText,
 	LinkContainer,
 	NavItem,
