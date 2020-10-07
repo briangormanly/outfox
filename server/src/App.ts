@@ -56,8 +56,9 @@ class App {
 
     private initializeControllers(controllers: any) {
         // Only here temp so we can get a home page instead of a 404
+        
         this.app.get('/', (req, res) => {
-           res.sendFile(__dirname+'./index.html');
+           res.render('./index');
         });
 
         for (const iterator of controllers) {

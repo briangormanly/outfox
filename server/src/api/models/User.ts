@@ -6,6 +6,7 @@ export class User extends Model {
 
 public username: string;
 public hashpw: string;
+public id: number;
 
  }
 

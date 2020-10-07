@@ -38,8 +38,12 @@ export const auth  = (passport: any) => {
       });
     
       passport.deserializeUser((id: number, done: any) => {
-        User.findById(id, (err: any, user: any) => {
-          done(err, user);
+        User.findByPk(id).then((user: User) => {
+          if (user) {
+            done(null, user.get());
+          } else {
+            done(null, null);
+          }
         });
       });
 }
