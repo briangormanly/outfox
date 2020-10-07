@@ -1,6 +1,6 @@
 import express, { Router, Request, Response} from 'express';
 import { Group } from '../models/Group';
-import { User } from '../models/User';
+import User from '../models/User';
 
 /**
  * The user controller is responsible for handling the HTTP requests.
