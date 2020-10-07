@@ -9,7 +9,17 @@ import {
 	TopNavArea
 } from './UserPage.elements';
 
-import { UserTopNav, UserSideNav } from '../../components';
+import {
+	UserTopNav,
+	UserSideNav,
+	Dashboard,
+	Groups,
+	Resources,
+	Courses,
+	Calendar,
+	Friends,
+	Help
+} from '../../components';
 
 import { userPageReducer } from './UserPageReducer';
 
@@ -25,6 +35,16 @@ const initalState = {
 
 const UserPage = ({ match }) => {
 	const [ state, userPageDispatch ] = useReducer(userPageReducer, initalState);
+
+	const {
+		dashboardActive,
+		groupsActive,
+		resourcesActive,
+		coursesActive,
+		calendarActive,
+		friendsActive,
+		helpActive
+	} = state;
 
 	const dispatch = useDispatch();
 	const { loading, error, userWithGroups } = useSelector(
@@ -58,7 +78,15 @@ const UserPage = ({ match }) => {
 							state={state}
 						/>
 					</SideNavArea>
-					<ContentArea />
+					<ContentArea>
+						{dashboardActive && <Dashboard />}
+						{groupsActive && <Groups />}
+						{resourcesActive && <Resources />}
+						{coursesActive && <Courses />}
+						{calendarActive && <Calendar />}
+						{friendsActive && <Friends />}
+						{helpActive && <Help />}
+					</ContentArea>
 				</UserPageContainer>
 			) : null}
 		</Fragment>
