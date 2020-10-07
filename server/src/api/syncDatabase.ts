@@ -32,7 +32,7 @@ export const sync = async () => {
         console.log(iterator.name + ' synced with the database.');
       })
       .catch((error) => {
-        console.log(iterator.name + ' had an error syncing with the database.');
+        console.log('\n' + iterator.name + ' had an error syncing with the database.\n' + error + '\n');
       });
   }
 }
