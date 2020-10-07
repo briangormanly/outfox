@@ -68,7 +68,7 @@ export const SideNavButton = styled.button`
 `;
 
 export const DashboardSettings = styled.div`
-	height: 20rem;
+	height: 15rem;
 	width: 100%;
 	margin-top: auto;
 	padding: 0 3rem;
