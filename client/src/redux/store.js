@@ -6,7 +6,7 @@ import { userWithGroupsReducer, userReducer } from './reducers/userReducers';
 
 // Reducers for application state
 const reducers = combineReducers({
-	user           : userReducer,
+	userDetail     : userReducer,
 	userWithGroups : userWithGroupsReducer
 });
 

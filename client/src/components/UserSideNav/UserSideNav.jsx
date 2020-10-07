@@ -18,6 +18,8 @@ import {
 	DashboardSettings
 } from './UserSideNav.elements';
 
+import Clock from '../Clock/Clock';
+
 const UserSideNav = ({ firstName, lastName }) => {
 	return (
 		<UserSideNavContainer>
@@ -29,6 +31,7 @@ const UserSideNav = ({ firstName, lastName }) => {
 						{firstName} {lastName}
 					</strong>
 				</p>
+				<Clock />
 			</WelcomeMessage>
 			<SideNavButton>
 				<div>

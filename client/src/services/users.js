@@ -17,8 +17,14 @@ const getUserWithGroups = (id) => {
 	return response.then((response) => response.data);
 };
 
+const createUser = (newObject) => {
+	const response = axios.post(baseURL, newObject);
+	return response.then((response) => response.data);
+};
+
 export default {
 	getAll,
 	getUser,
-	getUserWithGroups
+	getUserWithGroups,
+	createUser
 };

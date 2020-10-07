@@ -24,6 +24,11 @@ export const WelcomeMessage = styled.div`
 	p {
 		font-size: 2.4rem;
 	}
+
+	span {
+		display: block;
+		margin-top: 1rem;
+	}
 `;
 
 export const SideNavButton = styled.button`

@@ -2,6 +2,7 @@ import {
 	USER_FAIL,
 	USER_REQUEST,
 	USER_SUCCESS,
+	USER_SET,
 	USERGROUPS_FAIL,
 	USERGROUPS_REQUEST,
 	USERGROUPS_SUCCESS
@@ -31,4 +32,8 @@ export const userWithGroupsAction = (id) => async (dispatch) => {
 	} catch (error) {
 		dispatch({ type: USERGROUPS_FAIL, payload: error.message });
 	}
+};
+
+export const setUserAction = (user) => (dispatch) => {
+	dispatch({ type: USER_SET, payload: user });
 };
