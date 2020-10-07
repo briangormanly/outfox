@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAuthAction } from '../../redux/actions/userActions';
+import { setUserAction } from '../../redux/actions/userActions';
 import { userAuth } from '../../services/auth';
 
 //Use elements from SignUp elements
@@ -49,9 +49,9 @@ const SignIn = () => {
 				username : email,
 				password : password
 			});
-			console.log(response);
+			// console.log(response);
 			// console.log(response.user);
-			storeDispatch(userAuthAction(response.user));
+			storeDispatch(setUserAction(response.user));
 		} catch (error) {
 			console.log(error.message);
 		}
