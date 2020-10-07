@@ -1,6 +1,8 @@
 import React, { useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAuthAction } from '../../redux/actions/userActions';
+import { userAuth } from '../../services/auth';
+
 //Use elements from SignUp elements
 // TODO: Refactor naming conventions and create mode reusable components.
 import {
@@ -43,7 +45,7 @@ const SignIn = () => {
 		e.preventDefault();
 
 		try {
-			const response = await userRequests.createUser({
+			const response = await userAuth({
 				username : email,
 				password : password
 			});
