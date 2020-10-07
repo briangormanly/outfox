@@ -49,7 +49,7 @@ export const SearchField = styled.div`
 
 export const LinkContainer = styled.div`
 	height: 100%;
-	width: 50rem;
+	width: 35rem;
 	/* background-color: red; */
 	display: flex;
 	align-items: center;

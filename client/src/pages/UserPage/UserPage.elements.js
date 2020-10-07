@@ -5,7 +5,7 @@ import { colors } from '../../styles';
 const { primaryLight, primaryDark, primary, lightGrey } = colors;
 
 export const UserPageContainer = styled.div`
-	height: 100vh;
+	min-height: 100vh;
 	width: 100%;
 	background-color: ${lightGrey};
 	display: grid;

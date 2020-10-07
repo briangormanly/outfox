@@ -1,7 +1,14 @@
 import React from 'react';
 
 import { TopNavContainer, SearchField, LinkContainer } from './UserTopNav.elements';
-import { FaSearch, FaUser, FaBell, FaComments, FaSignOutAlt } from 'react-icons/fa';
+import {
+	FaSearch,
+	FaUser,
+	FaBell,
+	FaComments,
+	FaCog,
+	FaSignOutAlt
+} from 'react-icons/fa';
 
 const UserTopNav = () => {
 	return (
@@ -20,6 +27,9 @@ const UserTopNav = () => {
 				</button>
 				<button>
 					<FaBell />
+				</button>
+				<button>
+					<FaCog />
 				</button>
 				<button>
 					<FaUser />

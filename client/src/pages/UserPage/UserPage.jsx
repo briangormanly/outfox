@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userWithGroupsAction } from '../../redux/actions/userActions';
 
@@ -9,7 +9,7 @@ import {
 	TopNavArea
 } from './UserPage.elements';
 
-import { UserTopNav } from '../../components';
+import { UserTopNav, UserSideNav } from '../../components';
 
 const UserPage = ({ match }) => {
 	const dispatch = useDispatch();
@@ -29,13 +29,22 @@ const UserPage = ({ match }) => {
 	);
 
 	return (
-		<UserPageContainer>
-			<TopNavArea>
-				<UserTopNav />
-			</TopNavArea>
-			<SideNavArea />
-			<ContentArea />
-		</UserPageContainer>
+		<Fragment>
+			{userWithGroups ? (
+				<UserPageContainer>
+					<TopNavArea>
+						<UserTopNav />
+					</TopNavArea>
+					<SideNavArea>
+						<UserSideNav
+							firstName={userWithGroups.firstname}
+							lastName={userWithGroups.lastname}
+						/>
+					</SideNavArea>
+					<ContentArea />
+				</UserPageContainer>
+			) : null}
+		</Fragment>
 	);
 };
 
