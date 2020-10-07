@@ -82,7 +82,7 @@ class App {
                 req.logIn(user, (err) => {
                   if (err) throw err;
                   // res.json({auth: true, userid: user.id});
-                  res.redirect("/dashboard");
+                  res.json({auth: true});
                 });
               }
             })(req, res, next);
