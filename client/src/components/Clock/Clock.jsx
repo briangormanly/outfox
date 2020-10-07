@@ -2,13 +2,11 @@ import React, { Fragment, useState, useEffect } from 'react';
 
 const Clock = () => {
 	const [ time, setTime ] = useState(null);
-	const [ timerId, setTimerId ] = useState(null);
 
 	useEffect(() => {
 		const id = setInterval(() => tick(), 1000);
-		setTimerId(id);
 
-		return clearInterval(timerId);
+		return clearInterval(id);
 	}, []);
 
 	const tick = () => {

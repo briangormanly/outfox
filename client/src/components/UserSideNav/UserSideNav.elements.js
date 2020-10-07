@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { colors } from '../../styles';
 
@@ -56,7 +56,12 @@ export const SideNavButton = styled.button`
 		}
 	}
 
-	&:hover {
+	${({ active }) =>
+		active &&
+		css`
+			background: ${primary};
+			color: ${white};
+		`} &:hover {
 		background: ${primary};
 		color: ${white};
 	}

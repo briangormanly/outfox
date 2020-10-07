@@ -11,15 +11,25 @@ import {
 
 import { UserTopNav, UserSideNav } from '../../components';
 
+import { userPageReducer } from './UserPageReducer';
+
+const initalState = {
+	dashboardActive : true,
+	groupsActive    : false,
+	resourcesActive : false,
+	coursesActive   : false,
+	calendarActive  : false,
+	friendsActive   : false,
+	helpActive      : false
+};
+
 const UserPage = ({ match }) => {
+	const [ state, userPageDispatch ] = useReducer(userPageReducer, initalState);
+
 	const dispatch = useDispatch();
 	const { loading, error, userWithGroups } = useSelector(
 		(state) => state.userWithGroups
 	);
-
-	console.log(userWithGroups);
-	console.log(error);
-	console.log(loading);
 
 	useEffect(
 		() => {
@@ -28,6 +38,11 @@ const UserPage = ({ match }) => {
 		[ dispatch, match ]
 	);
 
+	const handleClick = (e) => {
+		// console.log(e.currentTarget);
+		userPageDispatch({ type: e.currentTarget.name });
+	};
+
 	return (
 		<Fragment>
 			{userWithGroups ? (
@@ -35,10 +50,12 @@ const UserPage = ({ match }) => {
 					<TopNavArea>
 						<UserTopNav />
 					</TopNavArea>
-					<SideNavArea>
+					<SideNavArea dispatch={userPageDispatch}>
 						<UserSideNav
 							firstName={userWithGroups.firstname}
 							lastName={userWithGroups.lastname}
+							handleClick={handleClick}
+							state={state}
 						/>
 					</SideNavArea>
 					<ContentArea />

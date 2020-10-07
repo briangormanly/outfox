@@ -63,7 +63,7 @@ const SignUpComponent = () => {
 				hashpw    : password
 			});
 
-			console.log(response.user);
+			// console.log(response.user);
 			reduxDispatch(setUserAction(response.user));
 		} catch (error) {
 			console.log(error.message);

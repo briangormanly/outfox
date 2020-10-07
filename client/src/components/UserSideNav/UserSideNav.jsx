@@ -20,7 +20,17 @@ import {
 
 import Clock from '../Clock/Clock';
 
-const UserSideNav = ({ firstName, lastName }) => {
+const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
+	const {
+		dashboardActive,
+		groupsActive,
+		resourcesActive,
+		coursesActive,
+		calendarActive,
+		friendsActive,
+		helpActive
+	} = state;
+
 	return (
 		<UserSideNavContainer>
 			<Logo />
@@ -33,44 +43,44 @@ const UserSideNav = ({ firstName, lastName }) => {
 				</p>
 				<Clock />
 			</WelcomeMessage>
-			<SideNavButton>
+			<SideNavButton name="dashboard" onClick={handleClick} active={dashboardActive}>
 				<div>
 					<FaCubes />
 
 					<span>Dashboard</span>
 				</div>
 			</SideNavButton>
-			<SideNavButton>
+			<SideNavButton name="groups" onClick={handleClick} active={groupsActive}>
 				<div>
 					<FaRegFolderOpen />
 					<span>Groups</span>
 				</div>
 			</SideNavButton>
-			<SideNavButton>
+			<SideNavButton name="resources" onClick={handleClick} active={resourcesActive}>
 				<div>
 					<FaLayerGroup />
 					<span>Resources</span>
 				</div>
 			</SideNavButton>
-			<SideNavButton>
+			<SideNavButton name="courses" onClick={handleClick} active={coursesActive}>
 				<div>
 					<FaBookReader />
 					<span>Courses</span>
 				</div>
 			</SideNavButton>
-			<SideNavButton>
+			<SideNavButton name="calendar" onClick={handleClick} active={calendarActive}>
 				<div>
 					<FaRegCalendarCheck />
 					<span>Calendar</span>
 				</div>
 			</SideNavButton>
-			<SideNavButton>
+			<SideNavButton name="friends" onClick={handleClick} active={friendsActive}>
 				<div>
 					<FaUserFriends />
 					<span>Friends</span>
 				</div>
 			</SideNavButton>
-			<SideNavButton>
+			<SideNavButton name="help" onClick={handleClick} active={helpActive}>
 				<div>
 					<FaTools />
 					<span>Help</span>

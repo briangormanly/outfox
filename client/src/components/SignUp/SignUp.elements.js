@@ -4,7 +4,6 @@ import {
 	colors,
 	Container,
 	LogoContainer,
-	LogoIcon,
 	LogoText,
 	Button
 } from '../../styles/globalStyles';
