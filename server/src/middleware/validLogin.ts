@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import passport from "./passportConfig";
-import User from "../api/models/User";
+import User from "../models/User";
 
 function validLogin(req: Request, res: Response, next: NextFunction): void {
   passport.authenticate("local", (err: Error, user: User) => {

@@ -4,8 +4,8 @@ import cors from "cors";
 // Using Morgan for middleware. At the moment for basic logging
 import morgan from "morgan";
 import { Sequelize } from "sequelize";
-import sync from "./api/syncDatabase";
-import Associations from "./api/models/associations";
+import sync from "./middleware/syncDatabase";
+import Associations from "./middleware/associations";
 import passport from "./middleware/passportConfig";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";

@@ -1,4 +1,4 @@
-import User from "../api/models/User";
+import User from "../models/User";
 
 interface Done {
   (err: Error, user?: User): Promise<void>;

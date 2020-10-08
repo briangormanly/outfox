@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import Group from "../models/Group";
-import Controller from "../../interfaces/ControllerInterface";
+import Controller from "../interfaces/ControllerInterface";
 
 /**
  * The group controller is responsible for handling the HTTP requests.

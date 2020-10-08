@@ -1,7 +1,7 @@
 import passport from "passport";
 import passportLocal from "passport-local";
 import bcrypt from "bcrypt";
-import User from "../api/models/User";
+import User from "../models/User";
 import Done from "../interfaces/DoneSignature";
 
 const LocalStrategy = passportLocal.Strategy;

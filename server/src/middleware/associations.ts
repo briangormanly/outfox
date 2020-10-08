@@ -1,5 +1,5 @@
-import User from "./User";
-import Group from "./Group";
+import User from "../models/User";
+import Group from "../models/Group";
 
 // Going to be Reconnected once we begin querying
 // import Category from "./Category";
