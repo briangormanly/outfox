@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
-const baseURL = 'http://localhost:8080/api/login';
+const baseURL = "http://localhost:8080/login";
 
 export const userAuth = (newObject) => {
-	const response = axios.post(baseURL, newObject);
-	return response.then((response) => response.data);
+  const response = axios.post(baseURL, newObject);
+  return response.then((response) => response.data);
 };
