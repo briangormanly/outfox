@@ -1,19 +1,21 @@
-import Category from "./Category";
-import CategoryTag from "./CategoryTag";
-import Group from "./Group";
-import GroupCategory from "./GroupCategory";
-import Link from "./Link";
-import LinkOwnerType from "./LinkOwnerType";
-import Note from "./Note";
-import NoteTag from "./NoteTag";
-import Resource from "./Resource";
-import ResourceTag from "./ResourceTag";
-import ResourceType from "./ResourceType";
-import ResourceVersion from "./ResourceVersion";
-import Tag from "./Tag";
 import User from "./User";
+import Group from "./Group";
 
-export const Associations = () => {
+// Going to be Reconnected once we begin querying
+// import Category from "./Category";
+// import CategoryTag from "./CategoryTag";
+// import GroupCategory from "./GroupCategory";
+// import Link from "./Link";
+// import LinkOwnerType from "./LinkOwnerType";
+// import Note from "./Note";
+// import NoteTag from "./NoteTag";
+// import Resource from "./Resource";
+// import ResourceTag from "./ResourceTag";
+// import ResourceType from "./ResourceType";
+// import ResourceVersion from "./ResourceVersion";
+// import Tag from "./Tag";
+
+const Associations = (): void => {
   User.hasMany(Group, { foreignKey: "createdby", sourceKey: "id" });
   Group.belongsTo(User, { foreignKey: "createdby", targetKey: "id" });
   // Tag.belongsToMany(Category, { through: CategoryTag });
@@ -33,3 +35,5 @@ export const Associations = () => {
   // Resource.belongsToMany(Link, { through: ResourceVersion });
   // Link.belongsToMany(Resource, { through: ResourceVersion });
 };
+
+export default Associations;

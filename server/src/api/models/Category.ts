@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../databaseConnection";
+import sequelize from "../databaseConnection";
 
 class Category extends Model {
   public categoryname: string;

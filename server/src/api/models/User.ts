@@ -1,5 +1,5 @@
-import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../databaseConnection";
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../databaseConnection";
 import bcrypt from "bcrypt";
 
 class User extends Model {
