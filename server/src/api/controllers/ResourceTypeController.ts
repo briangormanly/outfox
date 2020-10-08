@@ -7,7 +7,7 @@ import ResourceType from "../models/ResourceType";
  */
 class ResourceTypeController {
   // Path that is required in order to access the api http://localhost:8080/routes/api/resourceType
-  public path = "/api/resourceType";
+  public path = "/api/resourcetype";
   public router = Router();
 
   constructor() {
