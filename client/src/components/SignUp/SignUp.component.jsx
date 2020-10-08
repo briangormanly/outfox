@@ -1,14 +1,16 @@
 import React, { useReducer } from 'react';
+import { setUserAction } from '../../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
 
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
+import { ReactComponent as Logo } from '../../assets/fox.svg';
 
 import {
 	SignUpSection,
 	SignUpContainer,
 	HeaderContainer,
 	HeaderText,
-	HeaderLogo,
 	OrContainer,
 	OrBorder,
 	OrText,
@@ -20,6 +22,8 @@ import {
 } from './SignUp.elements';
 
 import { Link } from '../../styles';
+
+import { userRequests } from '../../services';
 
 const initialState = {
 	firstName       : '',
@@ -38,11 +42,32 @@ function reducer(state, { field, value }) {
 
 const SignUpComponent = () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
+	const reduxDispatch = useDispatch();
 
 	const { firstName, lastName, email, password, confirmPassword } = state;
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		if (password !== confirmPassword) {
+			console.log('Password must match');
+			return;
+		}
+
+		try {
+			const response = await userRequests.createUser({
+				firstname : firstName,
+				lastname  : lastName,
+				email     : email,
+				username  : email,
+				hashpw    : password
+			});
+
+			// console.log(response.user);
+			reduxDispatch(setUserAction(response.user));
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 
 	const handleChange = (e) => {
@@ -53,7 +78,7 @@ const SignUpComponent = () => {
 		<SignUpSection>
 			<SignUpContainer>
 				<HeaderContainer>
-					<HeaderLogo />
+					<Logo />
 					<HeaderText>Outfox</HeaderText>
 				</HeaderContainer>
 				<AuthButtons />
@@ -85,7 +110,14 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 					</InputRow>
-					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+					<FormInput
+						label="Email"
+						name="email"
+						type="email"
+						value={email}
+						onChange={handleChange}
+						required
+					/>
 					<InputRow>
 						<InputItem>
 							<FormInput
