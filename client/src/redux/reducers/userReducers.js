@@ -3,6 +3,7 @@ import {
 	USER_REQUEST,
 	USER_SUCCESS,
 	USER_SET,
+	USER_AUTH,
 	USERGROUPS_FAIL,
 	USERGROUPS_REQUEST,
 	USERGROUPS_SUCCESS
@@ -10,6 +11,8 @@ import {
 
 export const userReducer = (state = {}, action) => {
 	switch (action.type) {
+		case USER_AUTH:
+			return { ...state, user: action.payload, auth: true };
 		case USER_SET:
 			return { ...state, user: action.payload, auth: true };
 		case USER_REQUEST:
