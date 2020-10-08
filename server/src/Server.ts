@@ -2,9 +2,15 @@ import App from "./App";
 import UsersController from "./api/controllers/UsersController";
 import GroupsController from "./api/controllers/GroupsController";
 import ResourceTypeController from "./api/controllers/ResourceTypeController";
+import ResourceController from "./api/controllers/ResourceController";
 // Creates a new Express App that takes a list of Controllers and a port
 const app = new App(
-  [new UsersController(), new GroupsController(), new ResourceTypeController()],
+  [
+    new UsersController(),
+    new GroupsController(),
+    new ResourceTypeController(),
+    new ResourceController(),
+  ],
   8080
 );
 
