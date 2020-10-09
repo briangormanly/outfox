@@ -1,5 +1,7 @@
 import User from "../models/User";
 import Group from "../models/Group";
+import Resource from "../models/Resource";
+import { group } from "console";
 
 // Going to be Reconnected once we begin querying
 // import Category from "./Category";
@@ -9,7 +11,6 @@ import Group from "../models/Group";
 // import LinkOwnerType from "./LinkOwnerType";
 // import Note from "./Note";
 // import NoteTag from "./NoteTag";
-// import Resource from "./Resource";
 // import ResourceTag from "./ResourceTag";
 // import ResourceType from "./ResourceType";
 // import ResourceVersion from "./ResourceVersion";
@@ -18,6 +19,8 @@ import Group from "../models/Group";
 const Associations = (): void => {
   User.hasMany(Group, { foreignKey: "createdby", sourceKey: "id" });
   Group.belongsTo(User, { foreignKey: "createdby", targetKey: "id" });
+  Group.belongsToMany(Resource, {through: GroupResource});
+  Resource.belongsToMany(Group, {through: GroupResource});
   // Tag.belongsToMany(Category, { through: CategoryTag });
   // Category.belongsToMany(Tag, { through: CategoryTag });
   // Group.belongsToMany(Category, { through: GroupCategory });
