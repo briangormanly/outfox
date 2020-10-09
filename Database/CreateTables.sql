@@ -1,10 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS groups CASCADE;
-DROP TABLE IF EXISTS linkownertypes CASCADE;
-DROP TABLE IF EXISTS links CASCADE;
-DROP TABLE IF EXISTS resourceversions CASCADE;
 DROP TABLE IF EXISTS resources CASCADE;
-DROP TABLE IF EXISTS resourcetypes CASCADE;
 DROP TABLE IF EXISTS notes CASCADE;
 DROP TABLE IF EXISTS notetags CASCADE;
 DROP TABLE IF EXISTS tags CASCADE;
@@ -12,6 +8,7 @@ DROP TABLE IF EXISTS resourcetags CASCADE;
 DROP TABLE IF EXISTS categories CASCADE;
 DROP TABLE IF EXISTS groupcategories CASCADE;
 DROP TABLE IF EXISTS categorytags CASCADE;
+DROP TABLE IF EXISTS groupresource CASCADE;
 
 CREATE TABLE users (
     userid serial,
@@ -39,70 +36,18 @@ CREATE TABLE groups (
              REFERENCES users(userid)
 );
 
-CREATE TABLE resourcetypes (
-    resourcetypeid serial,
-    resourcetypename varchar(255),
-    resourcetypedescription varchar(255),
-    resourcetypeapiurl varchar(255),
-    resourcetypeapikey varchar(255),
-    PRIMARY KEY(resourcetypeid)
-);
-
-CREATE TABLE linkownertypes (
-    linkownertypeid serial,
-    linkownername varchar(255),
-    linkownerdescription varchar(255),
-    createdate timestamptz,
-    createdby int,
-    PRIMARY KEY(linkownertypeid),
-    CONSTRAINT fk_createdby
-        FOREIGN KEY(createdby)
-            REFERENCES users(userid)
-);
-
-CREATE TABLE links (
-    linkid serial,
-    linkownerid int,
-    linkownertype int,
-    createdate timestamptz,
-    PRIMARY KEY(linkid),
-    CONSTRAINT fk_linkownerid
-        FOREIGN KEY(linkownerid)
-            REFERENCES users(userid),
-    CONSTRAINT fk_linkownertype
-        FOREIGN KEY(linkownertype)
-            REFERENCES linkownertypes(linkownertypeid)
-);
-
 CREATE TABLE resources (
-    resourceid serial,
-    resourcetype int,
+    id serial,
+    type varchar(255),
+    title varchar(255),
+    description varchar(255),
+    linkurl varchar(255),
+    mutable boolean,
     creatorid int,
     PRIMARY KEY (resourceid),
-    CONSTRAINT fk_resourcetype
-        FOREIGN KEY(resourcetype)
-            REFERENCES resourcetypes(resourcetypeid),
     CONSTRAINT fk_userid
         FOREIGN KEY(creatorid)
             REFERENCES users(userid)
-);
-
-CREATE TABLE resourceversions (
-    resourceversionid serial,
-    resourceid int,
-    versionid int,
-    linkid int,
-    mutable boolean,
-    resourcename varchar(255),
-    resourcedescription varchar(255),
-    resourcelinkurl varchar(255),
-    PRIMARY KEY(resourceversionid),
-    CONSTRAINT fk_resourceid
-        FOREIGN KEY(resourceid)
-            REFERENCES resources(resourceid),
-    CONSTRAINT fk_linkid
-        FOREIGN KEY(linkid)
-            REFERENCES links(linkid)
 );
 
 CREATE TABLE notes (
@@ -169,4 +114,10 @@ CREATE TABLE categorytags(
     categoryid int,
     tagid int,
     PRIMARY KEY(categoryid, tagid)
+);
+
+CREATE TABLE groupresource (
+    groupid int,
+    resourceid int,
+    PRIMARY KEY(groupid, resourceid)
 );
