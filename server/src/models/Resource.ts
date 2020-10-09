@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 
 import User from "./User";
-import ResourceType from "./ResourceType";
+import { time } from "console";
 
 class Resource extends Model {
   public resourcetype: number;
@@ -11,12 +11,30 @@ class Resource extends Model {
 
 Resource.init(
   {
-    resourcetype: {
+    id: {
       type: DataTypes.INTEGER,
-      references: {
-        model: ResourceType,
-        key: "id",
+        autoIncrement: true,
+        primaryKey:true,
       },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    link: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    mutable: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
     },
     creatorid: {
       type: DataTypes.INTEGER,
