@@ -62,7 +62,7 @@ const SignUpComponent = () => {
 				username  : email,
 				hashpw    : password
 			});
-
+			// console.log(response);
 			// console.log(response.user);
 			reduxDispatch(setUserAction(response.user));
 		} catch (error) {
@@ -110,14 +110,7 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 					</InputRow>
-					<FormInput
-						label="Email"
-						name="email"
-						type="email"
-						value={email}
-						onChange={handleChange}
-						required
-					/>
+					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
 					<InputRow>
 						<InputItem>
 							<FormInput

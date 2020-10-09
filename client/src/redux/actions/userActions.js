@@ -3,6 +3,7 @@ import {
 	USER_REQUEST,
 	USER_SUCCESS,
 	USER_SET,
+	// USER_AUTH,
 	USERGROUPS_FAIL,
 	USERGROUPS_REQUEST,
 	USERGROUPS_SUCCESS
@@ -37,3 +38,7 @@ export const userWithGroupsAction = (id) => async (dispatch) => {
 export const setUserAction = (user) => (dispatch) => {
 	dispatch({ type: USER_SET, payload: user });
 };
+
+// export const userAuthAction = (user) => (dispatch) => {
+// 	dispatch({ type: USER_AUTH, payload: user });
+// };

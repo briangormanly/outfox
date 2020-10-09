@@ -11,7 +11,7 @@ import { ResourceTag } from "./models/ResourceTag";
 import { ResourceType } from "./models/ResourceType";
 import { ResourceVersion } from "./models/ResourceVersion";
 import { Tag } from "./models/Tag";
-import { User } from "./models/User";
+import User from './models/User';
 
 // Array of all models [Tables]
 const models =

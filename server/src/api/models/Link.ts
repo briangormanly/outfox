@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 
-import { User } from './User'
+import User from './User';
 import { LinkOwnerType } from './LinkOwnerType'
 
 export class Link extends Model {}

@@ -1,10 +1,26 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from "../databaseConnection";
 import bcrypt from 'bcrypt';
 
-export class User extends Model { }
+class User extends Model {
+    public id: number;
+    public username: string;
+    public hashpw: string;
+    public firstname: string;
+    public lastname: string;
+    public country: string;
+    public city: string;
+    public phonenum: string;
+    public email: string;
+}
 
 User.init({
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
+    },
     username: {
         type: DataTypes.STRING,
         allowNull: false
@@ -50,3 +66,5 @@ User.init({
     timestamps: false,
     tableName: 'users' // We need to choose the table name it correlates to
 });
+
+export default User;

@@ -1,4 +1,7 @@
 import React, { useReducer } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserAction } from '../../redux/actions/userActions';
+import { userAuth } from '../../services/auth';
 
 //Use elements from SignUp elements
 // TODO: Refactor naming conventions and create mode reusable components.
@@ -36,8 +39,22 @@ const SignIn = () => {
 
 	const { email, password } = state;
 
-	const handleSubmit = (e) => {
+	const storeDispatch = useDispatch();
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		try {
+			const response = await userAuth({
+				username : email,
+				password : password
+			});
+			// console.log(response);
+			// console.log(response.user);
+			storeDispatch(setUserAction(response.user));
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 
 	const handleChange = (e) => {
@@ -58,14 +75,7 @@ const SignIn = () => {
 					<OrBorder />
 				</OrContainer>
 				<Form onSubmit={handleSubmit}>
-					<FormInput
-						label="Email"
-						name="email"
-						type="email"
-						value={email}
-						onChange={handleChange}
-						required
-					/>
+					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
 					<FormInput
 						label="Password"
 						name="password"
