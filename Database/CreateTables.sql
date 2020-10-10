@@ -56,9 +56,9 @@ CREATE TABLE notes (
     notename varchar(255),
     notebody varchar(255),
     PRIMARY KEY(noteid),
-    CONSTRAINT fk_resourceversionid
-        FOREIGN KEY(resourceversionid)
-            REFERENCES resourceversions(resourceversionid)
+    CONSTRAINT fk_resourceid
+        FOREIGN KEY(resourceid)
+            REFERENCES resourceversions(resourceid)
 );
 
 CREATE TABLE tags (
