@@ -1,19 +1,19 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
-import ResourceVersion from "./ResourceVersion";
+import Resource from "./Resource";
 
 class Note extends Model {
-  public resourceVersionId: number;
+  public resourceId: number;
   public noteName: string;
   public noteBody: string;
 }
 
 Note.init(
   {
-    resourceVersionId: {
+    resourceId: {
       type: DataTypes.INTEGER,
       references: {
-        model: ResourceVersion,
+        model: Resource,
         key: "id",
       },
     },

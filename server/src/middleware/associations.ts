@@ -1,6 +1,7 @@
 import User from "../models/User";
 import Group from "../models/Group";
 import Resource from "../models/Resource";
+import GroupResource from "../models/GroupResource";
 import { group } from "console";
 
 // Going to be Reconnected once we begin querying

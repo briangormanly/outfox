@@ -1,13 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 
-import ResourceVersion from "./ResourceVersion";
+import Resource from "./Resource";
 import Tag from "./Tag";
 import User from "./User";
 
 class ResourceTag extends Model {
   public id: number;
-  public resourceversionid: number;
+  public resourceId: number;
   public tagid: number;
   public createdate: Date;
   public createdby: number;
@@ -23,10 +23,10 @@ ResourceTag.init(
       unique: true,
     },
     //FK
-    resourceversionid: {
+    resourceid: {
       type: DataTypes.INTEGER,
       references: {
-        model: ResourceVersion,
+        model: Resource,
         key: "id",
       },
       allowNull: false,
