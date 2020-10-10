@@ -27,3 +27,6 @@ VALUES (1, 1);
 
 INSERT INTO categorytags(categoryid, tagid)
 VALUES (1, 1);
+
+INSERT INTO groupresource(groupid, resourceid)
+VALUES (1, 1);
