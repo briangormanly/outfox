@@ -5,7 +5,12 @@ import User from "./User";
 import { time } from "console";
 
 class Resource extends Model {
-  public resourcetype: number;
+  public id: number;
+  public type: string;
+  public title: string;
+  public description: string;
+  public link: string;
+  public mutable: boolean;
   public creatorid: number;
 }
 
@@ -46,7 +51,7 @@ Resource.init(
   },
   {
     sequelize, // We need to pass the connection instance
-    timestamps: false,
+    timestamps: true,
     tableName: "resources", // We need to choose the table name it correlates to
   }
 );
