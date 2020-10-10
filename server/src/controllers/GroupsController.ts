@@ -114,7 +114,7 @@ class GroupsController implements Controller {
     }
   };
 
-  // Goes to route /api/users/:id
+  // Goes to route /api/groups/:id
 
   getGroupsandResources = async (
     request: Request,
@@ -125,12 +125,12 @@ class GroupsController implements Controller {
       const group = await Group.findOne({
         where: { id: id },
         include: Resource,
-      }); // Grabs the user where the id is 0
+      }); // Grabs the group where the id is 0
 
       if (group) {
         response.status(200).json(group);
       } else {
-        response.status(404).send("User with the specified ID does not exist");
+        response.status(404).send("Group with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);

@@ -3,6 +3,7 @@ import sequelize from "../middleware/databaseConnection";
 import User from "./User";
 
 class Group extends Model {
+  public id: number;
   public groupname: string;
   public resourceapi: string;
   public datetimeadd: Date;
@@ -12,6 +13,12 @@ class Group extends Model {
 
 Group.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     groupname: {
       type: DataTypes.STRING,
       allowNull: false,
