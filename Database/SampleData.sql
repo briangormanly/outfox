@@ -4,14 +4,8 @@ VALUES (1, 'Schmucklehead','hashedpw', 'Jean-Gabriel', 'Pageau', 'Canada', 'Otta
 INSERT INTO groups (groupid, groupname, resourceapi, createdby)
 VALUES (3,'APIs', 'youtube.com/usingAPIs', 1);
 
-INSERT INTO linkownertypes (linkownertypeid, linkownerdescription, createdate, createdby)
-VALUES (1, 'User', '4-21-2020 04:44:44+02', 1);
-
-INSERT INTO links (linkid, linkownerid, linkownertype, createdate)
-VALUES (1, 1, 1, '03-31-1989 10:23:55+02');
-
 INSERT INTO resources (id, type, title, description, linkurl, mutable, creatorid)
-VALUES (1, "Link", "API Documentation", "Documentation for the YouTube API",'https://developers.google.com/youtube/v3', false,  1, 1);
+VALUES (1, 'Link', 'API Documentation', 'Documentation for the YouTube API','https://developers.google.com/youtube/v3', false,  1);
 
 INSERT INTO notes (noteid, resourceid, notename, notebody)
 VALUES (1, 1, 'Question about screenshot', 'Where was this taken from?');

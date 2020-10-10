@@ -44,7 +44,7 @@ CREATE TABLE resources (
     linkurl varchar(255),
     mutable boolean,
     creatorid int,
-    PRIMARY KEY (resourceid),
+    PRIMARY KEY (id),
     CONSTRAINT fk_userid
         FOREIGN KEY(creatorid)
             REFERENCES users(userid)
@@ -52,13 +52,13 @@ CREATE TABLE resources (
 
 CREATE TABLE notes (
     noteid serial,
-    resourceversionid int,
+    resourceid int,
     notename varchar(255),
     notebody varchar(255),
     PRIMARY KEY(noteid),
     CONSTRAINT fk_resourceid
         FOREIGN KEY(resourceid)
-            REFERENCES resourceversions(resourceid)
+            REFERENCES resources(id)
 );
 
 CREATE TABLE tags (
