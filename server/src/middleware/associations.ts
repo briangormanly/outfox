@@ -15,11 +15,21 @@ import Resource from "../models/Resource";
 // import ResourceVersion from "./ResourceVersion";
 // import Tag from "./Tag";
 
-const Associations = (): void => {
+function Associations(): void {
   User.hasMany(Group, { foreignKey: "createdby", sourceKey: "id" });
   Group.belongsTo(User, { foreignKey: "createdby", targetKey: "id" });
-  Group.belongsToMany(Resource, { through: "GroupResource" });
-  Resource.belongsToMany(Group, { through: "GroupResource" });
+
+  User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
+  Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
+
+  Group.hasMany(Resource);
+  Resource.belongsToMany(Group, {
+    through: "groupresources",
+    sourceKey: "groupid",
+    targetKey: "resourceid",
+    timestamps: false,
+  });
+
   // Tag.belongsToMany(Category, { through: CategoryTag });
   // Category.belongsToMany(Tag, { through: CategoryTag });
   // Group.belongsToMany(Category, { through: GroupCategory });
@@ -36,6 +46,6 @@ const Associations = (): void => {
   // User.hasMany(ResourceTag);
   // Resource.belongsToMany(Link, { through: ResourceVersion });
   // Link.belongsToMany(Resource, { through: ResourceVersion });
-};
+}
 
 export default Associations;

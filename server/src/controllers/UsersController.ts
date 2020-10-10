@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import Group from "../models/Group";
 import User from "../models/User";
 import Controller from "../interfaces/ControllerInterface";
+import Resource from "../models/Resource";
 
 /**
  * The user controller is responsible for handling the HTTP requests.
@@ -73,7 +74,7 @@ class UsersController implements Controller {
       const { id } = request.params; // Destructure the request.params object and grab only id
       const user = await User.findOne({
         where: { id: id },
-        include: Group,
+        include: [Group, Resource],
       }); // Grabs the user where the id is 0
 
       if (user) {

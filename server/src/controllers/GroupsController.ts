@@ -27,7 +27,7 @@ class GroupsController implements Controller {
       .get(this.getGroup)
       .put(this.updateGroup)
       .delete(this.deleteGroup);
-      this.router
+    this.router
       .route(this.path + "/groupsandresources/" + ":id")
       .get(this.getGroupsandResources);
     // Need to add patch
@@ -79,6 +79,7 @@ class GroupsController implements Controller {
       const { id } = request.params; // Destructure the request.params object and grab only id
       const group = await Group.findOne({
         where: { id: id },
+        include: Resource,
       }); // Grabs the group where the id is 0
 
       if (group) {

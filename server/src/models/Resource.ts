@@ -2,7 +2,6 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 
 import User from "./User";
-import { time } from "console";
 
 class Resource extends Model {
   public id: number;
@@ -18,9 +17,9 @@ Resource.init(
   {
     id: {
       type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey:true,
-      },
+      autoIncrement: true,
+      primaryKey: true,
+    },
     type: {
       type: DataTypes.STRING,
       allowNull: false,

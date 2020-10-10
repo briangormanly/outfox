@@ -23,6 +23,10 @@ Group.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    groupdescription: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     resourceapi: {
       type: DataTypes.STRING,
       defaultValue: null,

@@ -29,7 +29,7 @@ Note.init(
   {
     sequelize,
     timestamps: false,
-    tableName: "Notes",
+    tableName: "notes",
   }
 );
 
