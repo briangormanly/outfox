@@ -9,7 +9,7 @@ import Category from "./Category";
  * For now though I am just going to get the properties ready until we start querying it.
  */
 class CategoryTag extends Model {
-  public ussername: number;
+  public username: number;
   public firstname: number;
 }
 
