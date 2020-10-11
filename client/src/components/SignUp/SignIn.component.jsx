@@ -21,7 +21,6 @@ import { Link } from "../../styles";
 import { ReactComponent as Logo } from "../../assets/fox.svg";
 import AuthButtons from "../AuthButtons/AuthButtons";
 import FormInput from "../Form-Input/Form-Input";
-import { userAuth } from "../../services/auth";
 
 const initialState = {
 	userName    : '',
@@ -52,7 +51,7 @@ const SignIn = () => {
 			});
 			console.log(response);
 			// console.log(response.user);
-			// storeDispatch(setUserAction(response.user));
+			storeDispatch(setUserAction(response.user));
 		} catch (error) {
 			console.log(error.message);
 		}
