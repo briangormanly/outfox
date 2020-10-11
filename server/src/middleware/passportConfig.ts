@@ -14,18 +14,18 @@ passport.use(
       const user = await User.findOne({
         where: { username: username },
       });
+
       if (!user) {
         done(null, false);
       }
+
       // Match password
-      bcrypt.compare(password, user.hashpw, (err, isMatch) => {
-        if (err) throw err;
-        if (isMatch) {
-          done(null, user);
-        } else {
-          done(null, false);
-        }
-      });
+      const isMatch = bcrypt.compareSync(password, user.hashpw);
+      if (isMatch) {
+        done(null, user);
+      } else {
+        done(null, false);
+      }
     }
   )
 );
