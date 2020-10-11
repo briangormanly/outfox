@@ -28,11 +28,11 @@ async function sync(): Promise<void> {
   for (const iterator of models) {
     try {
       sequelize.sync();
+      Associations();
       console.log(iterator, "synced.");
     } catch {
       console.log(iterator, "error syncing.");
     }
-    Associations();
   }
 }
 
