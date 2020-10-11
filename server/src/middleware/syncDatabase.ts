@@ -28,7 +28,6 @@ async function sync(): Promise<void> {
   for (const iterator of models) {
     try {
       iterator.sync();
-
       console.log(iterator, "synced.");
     } catch {
       console.log(iterator, "error syncing.");
