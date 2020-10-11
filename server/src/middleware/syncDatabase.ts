@@ -27,12 +27,19 @@ const models = [
 async function sync(): Promise<void> {
   for (const iterator of models) {
     try {
-      sequelize.sync();
-      Associations();
+      iterator.sync();
+
       console.log(iterator, "synced.");
     } catch {
       console.log(iterator, "error syncing.");
     }
+  }
+
+  try {
+    Associations();
+    sequelize.sync({ force: true });
+  } catch (error) {
+    throw new Error("Associations not hooked up");
   }
 }
 

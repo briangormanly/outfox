@@ -15,20 +15,22 @@ import Resource from "../models/Resource";
 // import ResourceVersion from "./ResourceVersion";
 // import Tag from "./Tag";
 
-function Associations(): void {
-  User.hasMany(Group, { foreignKey: "createdby", sourceKey: "id" });
-  Group.belongsTo(User, { foreignKey: "createdby", targetKey: "id" });
+async function Associations(): Promise<void> {
+  try {
+    User.hasMany(Group, { foreignKey: "createdby", sourceKey: "id" });
+    Group.belongsTo(User, { foreignKey: "createdby", targetKey: "id" });
 
-  User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
-  Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
+    User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
+    Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
-  Group.hasMany(Resource);
-  Resource.belongsToMany(Group, {
-    through: "groupresources",
-    sourceKey: "groupid",
-    targetKey: "resourceid",
-    timestamps: false,
-  });
+    Group.hasMany(Resource);
+    Resource.belongsToMany(Group, {
+      through: "groupresources",
+      timestamps: false,
+    });
+  } catch (error) {
+    throw new Error("Error setting up relationships");
+  }
 
   // Tag.belongsToMany(Category, { through: CategoryTag });
   // Category.belongsToMany(Tag, { through: CategoryTag });
