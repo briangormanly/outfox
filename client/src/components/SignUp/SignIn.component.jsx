@@ -14,7 +14,8 @@ import {
   OrText,
   Form,
   SignUpButton,
-  LoginMessage,
+	LoginMessage,
+	ErrorMessage
 } from "./SignUp.elements";
 import { Link } from "../../styles";
 import { ReactComponent as Logo } from "../../assets/fox.svg";
@@ -63,6 +64,7 @@ const SignIn = () => {
 					<OrText>Or</OrText>
 					<OrBorder />
 				</OrContainer>
+				{ error && <ErrorMessage>Invalid Username or Password</ErrorMessage>}
 				<Form onSubmit={handleSubmit}>
 					<FormInput label="Username" name="userName" type="text" value={userName} onChange={handleChange} required />
 					<FormInput
@@ -73,7 +75,7 @@ const SignIn = () => {
 						onChange={handleChange}
 						required
 					/>
-					<SignUpButton type="submit">Log in</SignUpButton>
+					<SignUpButton type="submit" disabled={loading}>Log in</SignUpButton>
 				</Form>
 				<LoginMessage>
 					Dont have an Outfox account? <Link to="signup">Sign up</Link>

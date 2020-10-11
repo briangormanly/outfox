@@ -16,19 +16,15 @@ export const SignUpSection = styled.section`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* align-items: center; */
 `;
 
 export const SignUpContainer = styled(Container)`
-  /* height: 80rem; */
   max-width: 42rem;
   margin: 0 auto;
-	/* margin-top: 3rem; */
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: pink; */
 `;
 
 export const HeaderContainer = styled(LogoContainer)`
@@ -92,12 +88,11 @@ export const InputRow = styled.div`
 	justify-content: space-between;
 `;
 
-export const InputItem = styled.div`
-	width: 48%;
-	/*  */
-`;
+export const InputItem = styled.div`width: 48%;`;
 
-export const SecondInput = styled.div`
-	width: 45%;
-	/*  */
+export const SecondInput = styled.div`width: 45%;`;
+
+export const ErrorMessage = styled.p`
+	color: #ff0000;
+	margin-top: 1rem;
 `;

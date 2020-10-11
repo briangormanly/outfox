@@ -18,12 +18,11 @@ import {
 	SignUpButton,
 	LoginMessage,
 	InputRow,
-	InputItem
+	InputItem,
+	ErrorMessage
 } from './SignUp.elements';
 
 import { Link } from '../../styles';
-
-import { userRequests } from '../../services';
 
 const initialState = {
 	firstName       : '',
@@ -52,35 +51,29 @@ const SignUpComponent = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		if(!firstName || !lastName || !email || !userName || !password){
+			console.log('Please fill out all fields')
+			return
+		}
+
 		if (password !== confirmPassword) {
 			console.log('Password must match');
 			return;
 		}
 
+		const firstNameCapitalized = firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1)
+
+		const lastNameCapitalized = lastName.charAt(0).toUpperCase() + lastName.toLowerCase().slice(1)
+
 		const newUserObject = {
-					firstname : firstName,
-					lastname  : lastName,
+					firstname : firstNameCapitalized,
+					lastname  : lastNameCapitalized,
 					email     : email,
 					username  : userName,
 					hashpw    : password
 				}
 		
 		storeDispatch(createUserAction(newUserObject))
-
-		// try {
-		// 	const response = await userRequests.createUser({
-		// 		firstname : firstName,
-		// 		lastname  : lastName,
-		// 		email     : email,
-		// 		username  : userName,
-		// 		hashpw    : password
-		// 	});
-		// 	console.log(response);
-		// 	// console.log(response.user);
-		// 	// storeDispatch(setUserAction(response.user));
-		// } catch (error) {
-		// 	console.log(error.message);
-		// }
 	};
 
 	const handleChange = (e) => {
@@ -101,6 +94,7 @@ const SignUpComponent = () => {
 					<OrBorder />
 				</OrContainer>
 				<Form onSubmit={handleSubmit}>
+					{ error && <ErrorMessage>Username already exists</ErrorMessage>}
 					<InputRow>
 						<InputItem>
 							<FormInput
@@ -160,7 +154,7 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 					</InputRow>
-					<SignUpButton type="submit">Create a free account</SignUpButton>
+					<SignUpButton type="submit" disabled={loading}>Create a free account</SignUpButton>
 				</Form>
 				<LoginMessage>
 					Already have an Outfox account? <Link to="signin">Log in</Link>

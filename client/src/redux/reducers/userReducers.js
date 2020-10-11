@@ -36,14 +36,14 @@ export const authReducer = (
 	state = {
 		loading : false,
 		auth    : false,
-		error   : null,
+		error   : false,
 		userID  : null
 	},
 	action
 ) => {
 	switch (action.type) {
 		case AUTH_REQUEST:
-			return { ...state, loading: true, error: null };
+			return { ...state, loading: true, error: false };
 		case AUTH_SUCCESS:
 			return { ...state, loading: false, auth: true, userID: action.payload };
 		case AUTH_FAIL:
@@ -52,7 +52,7 @@ export const authReducer = (
 				loading : false,
 				auth    : false,
 				userID  : null,
-				error   : 'Invalid Username or Password'
+				error   : true
 			};
 		default:
 			return state;
