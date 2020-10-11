@@ -6,21 +6,22 @@ import { userAuth } from '../../services/auth';
 //Use elements from SignUp elements
 // TODO: Refactor naming conventions and create mode reusable components.
 import {
-	SignUpSection,
-	SignUpContainer,
-	HeaderContainer,
-	HeaderText,
-	OrContainer,
-	OrBorder,
-	OrText,
-	Form,
-	SignUpButton,
-	LoginMessage
-} from './SignUp.elements';
-import { Link } from '../../styles';
-import { ReactComponent as Logo } from '../../assets/fox.svg';
-import AuthButtons from '../AuthButtons/AuthButtons';
-import FormInput from '../Form-Input/Form-Input';
+  SignUpSection,
+  SignUpContainer,
+  HeaderContainer,
+  HeaderText,
+  OrContainer,
+  OrBorder,
+  OrText,
+  Form,
+  SignUpButton,
+  LoginMessage,
+} from "./SignUp.elements";
+import { Link } from "../../styles";
+import { ReactComponent as Logo } from "../../assets/fox.svg";
+import AuthButtons from "../AuthButtons/AuthButtons";
+import FormInput from "../Form-Input/Form-Input";
+import { userAuth } from "../../services/auth";
 
 const initialState = {
 	userName    : '',
@@ -28,21 +29,21 @@ const initialState = {
 };
 
 function reducer(state, { field, value }) {
-	return {
-		...state,
-		[field] : value
-	};
+  return {
+    ...state,
+    [field]: value,
+  };
 }
 
 const SignIn = () => {
-	const [ state, dispatch ] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
 	const { userName, password } = state;
 
-	const storeDispatch = useDispatch();
+  const storeDispatch = useDispatch();
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
 		try {
 			const response = await userAuth({
@@ -57,9 +58,9 @@ const SignIn = () => {
 		}
 	};
 
-	const handleChange = (e) => {
-		dispatch({ field: e.target.name, value: e.target.value });
-	};
+  const handleChange = (e) => {
+    dispatch({ field: e.target.name, value: e.target.value });
+  };
 
 	return (
 		<SignUpSection>
