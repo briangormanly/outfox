@@ -27,7 +27,7 @@ const models = [
 async function sync(): Promise<void> {
   for (const iterator of models) {
     try {
-      sequelize.sync({ force: true });
+      sequelize.sync();
       console.log(iterator, "synced.");
     } catch {
       console.log(iterator, "error syncing.");
