@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { DashboardGroups } from '../index';
+
 import {
 	DashboardContainer,
 	GroupContainer,
@@ -12,8 +14,7 @@ const Dashboard = () => {
 	return (
 		<DashboardContainer>
 			<GroupContainer>
-				<h1>My Groups</h1>
-				{/*  */}
+				<DashboardGroups />
 			</GroupContainer>
 			<FriendContainer>
 				<h1>Friends Activity</h1>
