@@ -18,7 +18,8 @@ import {
 	Courses,
 	Calendar,
 	Friends,
-	Help
+	Help,
+	Loader
 } from '../../components';
 
 import { userPageReducer } from './UserPageReducer';
@@ -63,28 +64,34 @@ const UserPage = ({ match }) => {
 
 	return (
 		<Fragment>
-			<UserPageContainer>
-				<TopNavArea>
-					<UserTopNav />
-				</TopNavArea>
-				<SideNavArea dispatch={userPageDispatch}>
-					<UserSideNav
-						firstName={firstname}
-						lastName={lastname}
-						handleClick={handleClick}
-						state={state}
-					/>
-				</SideNavArea>
-				<ContentArea>
-					{dashboardActive && <Dashboard />}
-					{groupsActive && <GroupsP />}
-					{resourcesActive && <ResourcesP />}
-					{coursesActive && <Courses />}
-					{calendarActive && <Calendar />}
-					{friendsActive && <Friends />}
-					{helpActive && <Help />}
-				</ContentArea>
-			</UserPageContainer>
+			{loading ? (
+				<Loader />
+			) : error ? (
+				<p>An Error Occured</p>
+			) : (
+				<UserPageContainer>
+					<TopNavArea>
+						<UserTopNav />
+					</TopNavArea>
+					<SideNavArea dispatch={userPageDispatch}>
+						<UserSideNav
+							firstName={firstname}
+							lastName={lastname}
+							handleClick={handleClick}
+							state={state}
+						/>
+					</SideNavArea>
+					<ContentArea>
+						{dashboardActive && <Dashboard />}
+						{groupsActive && <GroupsP />}
+						{resourcesActive && <ResourcesP />}
+						{coursesActive && <Courses />}
+						{calendarActive && <Calendar />}
+						{friendsActive && <Friends />}
+						{helpActive && <Help />}
+					</ContentArea>
+				</UserPageContainer>
+			)}
 		</Fragment>
 	);
 };

@@ -27,7 +27,7 @@ import { Link } from '../../styles';
 const initialState = {
 	firstName       : '',
 	lastName        : '',
-	userName: '',
+	userName        : '',
 	email           : '',
 	password        : '',
 	confirmPassword : ''
@@ -42,18 +42,17 @@ function reducer(state, { field, value }) {
 
 const SignUpComponent = () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
-	const { firstName, lastName,userName, email, password, confirmPassword } = state;
-	
+	const { firstName, lastName, userName, email, password, confirmPassword } = state;
+
 	const storeDispatch = useDispatch();
-	const {loading, error} = useSelector(state => state.userAuth)
-	
+	const { loading, error } = useSelector((state) => state.userAuth);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if(!firstName || !lastName || !email || !userName || !password){
-			console.log('Please fill out all fields')
-			return
+		if (!firstName || !lastName || !email || !userName || !password) {
+			console.log('Please fill out all fields');
+			return;
 		}
 
 		if (password !== confirmPassword) {
@@ -61,19 +60,21 @@ const SignUpComponent = () => {
 			return;
 		}
 
-		const firstNameCapitalized = firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1)
+		const firstNameCapitalized =
+			firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1);
 
-		const lastNameCapitalized = lastName.charAt(0).toUpperCase() + lastName.toLowerCase().slice(1)
+		const lastNameCapitalized =
+			lastName.charAt(0).toUpperCase() + lastName.toLowerCase().slice(1);
 
 		const newUserObject = {
-					firstname : firstNameCapitalized,
-					lastname  : lastNameCapitalized,
-					email     : email,
-					username  : userName,
-					hashpw    : password
-				}
-		
-		storeDispatch(createUserAction(newUserObject))
+			firstname : firstNameCapitalized,
+			lastname  : lastNameCapitalized,
+			email     : email,
+			username  : userName,
+			hashpw    : password
+		};
+
+		storeDispatch(createUserAction(newUserObject));
 	};
 
 	const handleChange = (e) => {
@@ -94,7 +95,7 @@ const SignUpComponent = () => {
 					<OrBorder />
 				</OrContainer>
 				<Form onSubmit={handleSubmit}>
-					{ error && <ErrorMessage>Username already exists</ErrorMessage>}
+					{error && <ErrorMessage>Username already exists</ErrorMessage>}
 					<InputRow>
 						<InputItem>
 							<FormInput
@@ -119,7 +120,7 @@ const SignUpComponent = () => {
 					</InputRow>
 					<InputRow>
 						<InputItem>
-						<FormInput
+							<FormInput
 								label="Username"
 								name="userName"
 								type="text"
@@ -129,7 +130,14 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 						<InputItem>
-							<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+							<FormInput
+								label="Email"
+								name="email"
+								type="email"
+								value={email}
+								onChange={handleChange}
+								required
+							/>
 						</InputItem>
 					</InputRow>
 					<InputRow>
@@ -154,7 +162,9 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 					</InputRow>
-					<SignUpButton type="submit" disabled={loading}>Create a free account</SignUpButton>
+					<SignUpButton type="submit" disabled={loading}>
+						Create a free account
+					</SignUpButton>
 				</Form>
 				<LoginMessage>
 					Already have an Outfox account? <Link to="signin">Log in</Link>

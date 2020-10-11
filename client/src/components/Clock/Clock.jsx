@@ -6,7 +6,7 @@ const Clock = () => {
 	useEffect(() => {
 		const id = setInterval(() => tick(), 1000);
 
-		return clearInterval(id);
+		return () => clearInterval(id);
 	}, []);
 
 	const tick = () => {

@@ -15,3 +15,4 @@ export { default as Courses } from './Courses/Courses';
 export { default as Calendar } from './Calendar/Calendar';
 export { default as Friends } from './Friends/Friends';
 export { default as Help } from './Help/Help';
+export { default as Loader } from './Loader/Loader';
