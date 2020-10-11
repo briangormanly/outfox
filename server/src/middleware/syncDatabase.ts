@@ -36,7 +36,8 @@ async function sync(): Promise<void> {
 
   try {
     Associations();
-    sequelize.sync({ force: true });
+    // sequelize.sync({ force: true });
+    sequelize.sync();
   } catch (error) {
     throw new Error("Associations not hooked up");
   }
