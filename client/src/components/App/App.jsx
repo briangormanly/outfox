@@ -6,8 +6,8 @@ import { GlobalStyles } from '../../styles/globalStyles';
 import { HomePage, SignIn, SignUp, UserPage } from '../../pages';
 
 const App = () => {
-	const userDetail = useSelector((state) => state.userDetail);
-
+	const {auth, userID} = useSelector((state) => state.userAuth);
+	
 	return (
 		<Router>
 			<GlobalStyles />
@@ -17,8 +17,8 @@ const App = () => {
 					exact
 					path="/signin"
 					render={() =>
-						userDetail.auth ? (
-							<Redirect to={`/user/${userDetail.user.id}`} />
+						auth ? (
+							<Redirect to={`/user/${userID}`} />
 						) : (
 							<SignIn />
 						)}
@@ -28,8 +28,8 @@ const App = () => {
 					exact
 					path="/signup"
 					render={() =>
-						userDetail.auth ? (
-							<Redirect to={`/user/${userDetail.user.id}`} />
+						auth ? (
+							<Redirect to={`/user/${userID}`} />
 						) : (
 							<SignUp />
 						)}

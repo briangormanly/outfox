@@ -2,10 +2,6 @@ import {
 	USER_FAIL,
 	USER_REQUEST,
 	USER_SUCCESS,
-	USER_SET,
-	USERGROUPS_FAIL,
-	USERGROUPS_REQUEST,
-	USERGROUPS_SUCCESS,
 	AUTH_REQUEST,
 	AUTH_SUCCESS,
 	AUTH_FAIL
@@ -13,7 +9,12 @@ import {
 
 export const userReducer = (
 	state = {
-		user    : null,
+		user    : {
+			firstname : '',
+			lastname  : '',
+			Groups    : [],
+			Resources : []
+		},
 		loading : false,
 		error   : null
 	},
@@ -26,19 +27,6 @@ export const userReducer = (
 			return { ...state, loading: false, user: action.payload };
 		case USER_FAIL:
 			return { ...state, user: null, loading: false };
-		default:
-			return state;
-	}
-};
-
-export const userWithGroupsReducer = (state = {}, action) => {
-	switch (action.type) {
-		case USERGROUPS_REQUEST:
-			return { ...state, loading: true };
-		case USERGROUPS_SUCCESS:
-			return { ...state, loading: false, userWithGroups: action.payload };
-		case USERGROUPS_FAIL:
-			return { ...state, userWithGroups: {}, loading: false, error: action.payload };
 		default:
 			return state;
 	}
@@ -61,10 +49,10 @@ export const authReducer = (
 		case AUTH_FAIL:
 			return {
 				...state,
-				loading: false,
-				auth: false,
-				userID: null,
-				error: 'Invalid Username or Password'
+				loading : false,
+				auth    : false,
+				userID  : null,
+				error   : 'Invalid Username or Password'
 			};
 		default:
 			return state;

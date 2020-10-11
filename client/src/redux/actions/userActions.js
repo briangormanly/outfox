@@ -4,12 +4,7 @@ import {
 	USER_SUCCESS,
 	AUTH_REQUEST,
 	AUTH_FAIL,
-	AUTH_SUCCESS,
-	USER_SET,
-	// USER_AUTH,
-	USERGROUPS_FAIL,
-	USERGROUPS_REQUEST,
-	USERGROUPS_SUCCESS
+	AUTH_SUCCESS
 } from '../constants/userConstants';
 
 import userService from '../../services/users';
@@ -31,36 +26,22 @@ export const authAction = (authObject) => async (dispatch) => {
 	try {
 		dispatch({ type: AUTH_REQUEST });
 
-		//AXIOS REQUEST
 		const data = await authService.userAuth(authObject);
 
 		dispatch({ type: AUTH_SUCCESS, payload: data.user.id });
-		// dispatch({ type: AUTH_REQUEST, payload: response });
 	} catch (error) {
 		dispatch({ type: AUTH_FAIL });
 	}
 };
-//
-//
-//
-//
-//
-//
-//
-//
-//
-export const userWithGroupsAction = (id) => async (dispatch) => {
+
+export const createUserAction = (newUserObject) => async (dispatch) => {
 	try {
-		dispatch({ type: USERGROUPS_REQUEST });
+		dispatch({ type: AUTH_REQUEST });
 
-		const data = await userService.getUserWithGroups(id);
+		const data = await userService.createUser(newUserObject);
 
-		dispatch({ type: USERGROUPS_SUCCESS, payload: data });
+		dispatch({ type: AUTH_SUCCESS, payload: data.user.id });
 	} catch (error) {
-		dispatch({ type: USERGROUPS_FAIL, payload: error.message });
+		dispatch({ type: AUTH_FAIL });
 	}
-};
-
-export const setUserAction = (user) => (dispatch) => {
-	dispatch({ type: USER_SET, payload: user });
 };

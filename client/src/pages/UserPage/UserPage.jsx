@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userWithGroupsAction } from '../../redux/actions/userActions';
+import { userAction } from '../../redux/actions/userActions';
 
 import {
 	UserPageContainer,
@@ -13,8 +13,8 @@ import {
 	UserTopNav,
 	UserSideNav,
 	Dashboard,
-	Groups,
-	Resources,
+	GroupsP,
+	ResourcesP,
 	Courses,
 	Calendar,
 	Friends,
@@ -46,49 +46,45 @@ const UserPage = ({ match }) => {
 		helpActive
 	} = state;
 
-	const dispatch = useDispatch();
-	const { loading, error, userWithGroups } = useSelector(
-		(state) => state.userWithGroups
-	);
+	const storeDispatch = useDispatch();
+	const { user, loading, error } = useSelector((state) => state.userDetail);
+	const { Groups, Resources, firstname, lastname } = user;
 
 	useEffect(
 		() => {
-			dispatch(userWithGroupsAction(match.params.id));
+			storeDispatch(userAction(match.params.id));
 		},
-		[ dispatch, match ]
+		[ storeDispatch, match.params.id ]
 	);
 
 	const handleClick = (e) => {
-		// console.log(e.currentTarget);
 		userPageDispatch({ type: e.currentTarget.name });
 	};
 
 	return (
 		<Fragment>
-			{userWithGroups ? (
-				<UserPageContainer>
-					<TopNavArea>
-						<UserTopNav />
-					</TopNavArea>
-					<SideNavArea dispatch={userPageDispatch}>
-						<UserSideNav
-							firstName={userWithGroups.firstname}
-							lastName={userWithGroups.lastname}
-							handleClick={handleClick}
-							state={state}
-						/>
-					</SideNavArea>
-					<ContentArea>
-						{dashboardActive && <Dashboard />}
-						{groupsActive && <Groups />}
-						{resourcesActive && <Resources />}
-						{coursesActive && <Courses />}
-						{calendarActive && <Calendar />}
-						{friendsActive && <Friends />}
-						{helpActive && <Help />}
-					</ContentArea>
-				</UserPageContainer>
-			) : null}
+			<UserPageContainer>
+				<TopNavArea>
+					<UserTopNav />
+				</TopNavArea>
+				<SideNavArea dispatch={userPageDispatch}>
+					<UserSideNav
+						firstName={firstname}
+						lastName={lastname}
+						handleClick={handleClick}
+						state={state}
+					/>
+				</SideNavArea>
+				<ContentArea>
+					{dashboardActive && <Dashboard />}
+					{groupsActive && <GroupsP />}
+					{resourcesActive && <ResourcesP />}
+					{coursesActive && <Courses />}
+					{calendarActive && <Calendar />}
+					{friendsActive && <Friends />}
+					{helpActive && <Help />}
+				</ContentArea>
+			</UserPageContainer>
 		</Fragment>
 	);
 };

@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
-import { setUserAction } from '../../redux/actions/userActions';
-import { useDispatch } from 'react-redux';
+import { createUserAction } from '../../redux/actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
@@ -43,9 +43,11 @@ function reducer(state, { field, value }) {
 
 const SignUpComponent = () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
-	const reduxDispatch = useDispatch();
-
 	const { firstName, lastName,userName, email, password, confirmPassword } = state;
+	
+	const storeDispatch = useDispatch();
+	const {loading, error} = useSelector(state => state.userAuth)
+	
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -55,20 +57,30 @@ const SignUpComponent = () => {
 			return;
 		}
 
-		try {
-			const response = await userRequests.createUser({
-				firstname : firstName,
-				lastname  : lastName,
-				email     : email,
-				username  : userName,
-				hashpw    : password
-			});
-			// console.log(response);
-			// console.log(response.user);
-			reduxDispatch(setUserAction(response.user));
-		} catch (error) {
-			console.log(error.message);
-		}
+		const newUserObject = {
+					firstname : firstName,
+					lastname  : lastName,
+					email     : email,
+					username  : userName,
+					hashpw    : password
+				}
+		
+		storeDispatch(createUserAction(newUserObject))
+
+		// try {
+		// 	const response = await userRequests.createUser({
+		// 		firstname : firstName,
+		// 		lastname  : lastName,
+		// 		email     : email,
+		// 		username  : userName,
+		// 		hashpw    : password
+		// 	});
+		// 	console.log(response);
+		// 	// console.log(response.user);
+		// 	// storeDispatch(setUserAction(response.user));
+		// } catch (error) {
+		// 	console.log(error.message);
+		// }
 	};
 
 	const handleChange = (e) => {
