@@ -15,6 +15,7 @@ export const SignUpSection = styled.section`
 	background-color: ${lightGrey};
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	/* align-items: center; */
 `;
 
@@ -22,7 +23,7 @@ export const SignUpContainer = styled(Container)`
   /* height: 80rem; */
   max-width: 42rem;
   margin: 0 auto;
-	margin-top: 3rem;
+	/* margin-top: 3rem; */
   padding: 1rem;
   display: flex;
   flex-direction: column;

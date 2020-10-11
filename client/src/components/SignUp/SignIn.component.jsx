@@ -23,7 +23,7 @@ import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
 
 const initialState = {
-	email    : '',
+	userName    : '',
 	password : ''
 };
 
@@ -37,7 +37,7 @@ function reducer(state, { field, value }) {
 const SignIn = () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
 
-	const { email, password } = state;
+	const { userName, password } = state;
 
 	const storeDispatch = useDispatch();
 
@@ -46,12 +46,12 @@ const SignIn = () => {
 
 		try {
 			const response = await userAuth({
-				username : email,
+				username : userName,
 				password : password
 			});
-			// console.log(response);
+			console.log(response);
 			// console.log(response.user);
-			storeDispatch(setUserAction(response.user));
+			// storeDispatch(setUserAction(response.user));
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -75,7 +75,7 @@ const SignIn = () => {
 					<OrBorder />
 				</OrContainer>
 				<Form onSubmit={handleSubmit}>
-					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+					<FormInput label="Username" name="userName" type="text" value={userName} onChange={handleChange} required />
 					<FormInput
 						label="Password"
 						name="password"

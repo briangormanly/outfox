@@ -28,6 +28,7 @@ import { userRequests } from '../../services';
 const initialState = {
 	firstName       : '',
 	lastName        : '',
+	userName: '',
 	email           : '',
 	password        : '',
 	confirmPassword : ''
@@ -44,7 +45,7 @@ const SignUpComponent = () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
 	const reduxDispatch = useDispatch();
 
-	const { firstName, lastName, email, password, confirmPassword } = state;
+	const { firstName, lastName,userName, email, password, confirmPassword } = state;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -59,7 +60,7 @@ const SignUpComponent = () => {
 				firstname : firstName,
 				lastname  : lastName,
 				email     : email,
-				username  : email,
+				username  : userName,
 				hashpw    : password
 			});
 			// console.log(response);
@@ -110,7 +111,21 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 					</InputRow>
-					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+					<InputRow>
+						<InputItem>
+						<FormInput
+								label="Username"
+								name="userName"
+								type="text"
+								value={userName}
+								onChange={handleChange}
+								required
+							/>
+						</InputItem>
+						<InputItem>
+							<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+						</InputItem>
+					</InputRow>
 					<InputRow>
 						<InputItem>
 							<FormInput
