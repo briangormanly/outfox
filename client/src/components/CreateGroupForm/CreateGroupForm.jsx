@@ -5,11 +5,9 @@ import { CreateGroupContainer } from './CreateGroupForm.elements';
 
 import FormInput from '../Form-Input/Form-Input';
 
-import groupService from '../../services/groups';
-
 import { createGroupAction } from '../../redux/actions/userActions';
 
-const CreateGroupForm = () => {
+const CreateGroupForm = ({ setShowModal }) => {
 	const [ name, setName ] = useState('');
 	const [ description, setDescription ] = useState('');
 
@@ -32,10 +30,9 @@ const CreateGroupForm = () => {
 
 		storeDispatch(createGroupAction(newGroupObject));
 
-		// const response = await groupService.createGroup(newGroupObject);
-		// console.log(response);
 		setName('');
 		setDescription('');
+		setShowModal(false);
 	};
 
 	const handleNameChange = (e) => {

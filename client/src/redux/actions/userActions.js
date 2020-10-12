@@ -52,8 +52,7 @@ export const createUserAction = (newUserObject) => async (dispatch) => {
 export const createGroupAction = (newGroupObject) => async (dispatch) => {
 	try {
 		const data = await groupService.createGroup(newGroupObject);
-		console.log('In Action');
-		console.log(data.group);
+
 		dispatch({ type: USER_ADD_GROUP, payload: data.group });
 	} catch (error) {
 		console.log('An Error has occurred');

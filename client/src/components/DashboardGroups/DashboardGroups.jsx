@@ -17,7 +17,7 @@ const DashboardGroups = () => {
 		<Fragment>
 			{showModal && (
 				<Modal setShowModal={setShowModal}>
-					<CreateGroupForm />
+					<CreateGroupForm setShowModal={setShowModal} />
 				</Modal>
 			)}
 			<GroupsContainer>
