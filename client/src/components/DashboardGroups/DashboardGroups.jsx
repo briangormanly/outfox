@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { FaPlus, FaArrowRight } from 'react-icons/fa';
 
-import { Modal, CreateGroupForm } from '../index';
+import { Modal, CreateGroupForm, GroupCard } from '../index';
 
 import {
 	GroupsContainer,
@@ -12,6 +13,22 @@ import {
 
 const DashboardGroups = () => {
 	const [ showModal, setShowModal ] = useState(false);
+	const { user: { Groups } } = useSelector((state) => state.userDetail);
+
+	const scrollRef = useRef(null);
+
+	const onWheel = (e) => {
+		// e.preventDefault();
+		const container = scrollRef.current;
+		const containerScrollPosition = scrollRef.current.scrollLeft;
+
+		container.scrollTo({
+			top  : 0,
+			left : containerScrollPosition + e.deltaY
+		});
+	};
+
+	console.log(Groups);
 
 	return (
 		<Fragment>
@@ -33,7 +50,15 @@ const DashboardGroups = () => {
 						</button>
 					</ButtonContainer>
 				</Header>
-				<CardContainer>Some More content</CardContainer>
+				<CardContainer ref={scrollRef} onWheel={onWheel}>
+					{Groups.map((group) => (
+						<GroupCard
+							key={group.id}
+							name={group.groupname}
+							description={group.groupdescription}
+						/>
+					))}
+				</CardContainer>
 			</GroupsContainer>
 		</Fragment>
 	);

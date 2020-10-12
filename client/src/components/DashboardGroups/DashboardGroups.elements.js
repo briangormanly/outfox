@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { secondary, white } = colors;
+const { secondary, white, primary, primaryLight } = colors;
 
 export const GroupsContainer = styled.div`
 	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 `;
 
 export const Header = styled.div`
@@ -56,5 +57,19 @@ export const ButtonContainer = styled.div`
 
 export const CardContainer = styled.div`
 	height: 100%;
-	/* background-color: green; */
+	display: flex;
+	overflow-x: scroll;
+	padding-bottom: 1rem;
+
+	&::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: ${primary};
+		border-radius: 10px;
+	}
+	&::-webkit-scrollbar-track {
+		background: ${primaryLight};
+	}
 `;

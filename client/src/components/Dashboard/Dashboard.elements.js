@@ -20,6 +20,7 @@ export const DashboardContainer = styled.div`
 	display: grid;
 	gap: 3rem;
 	grid-template-columns: 1fr 1fr 30rem;
+	grid-template-rows: 3fr 2fr;
 	grid-template-areas: 'groups groups friends' 'resources courses friends';
 `;
 
