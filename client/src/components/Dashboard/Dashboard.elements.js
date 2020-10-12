@@ -5,7 +5,7 @@ import { colors } from '../../styles';
 const { white } = colors;
 
 const ChildContainer = styled.div`
-	padding: 3rem;
+	padding: 2rem;
 	border-radius: 25px;
 	background-color: ${white};
 	-webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);

@@ -42,6 +42,7 @@ export const SideNavButton = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: .2s;
 
 	div {
 		width: 12.5rem;

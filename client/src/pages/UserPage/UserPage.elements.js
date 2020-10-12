@@ -9,7 +9,7 @@ export const UserPageContainer = styled.div`
 	width: 100%;
 	background-color: ${lightGrey};
 	display: grid;
-	grid-template-columns: 30rem 1fr 1fr;
+	grid-template-columns: 25rem 1fr 1fr;
 	grid-template-rows: 8rem 1fr 1fr 1fr;
 	grid-template-areas: 'sideNav topNav topNav' 'sideNav content content'
 		'sideNav content content' 'sideNav content content';

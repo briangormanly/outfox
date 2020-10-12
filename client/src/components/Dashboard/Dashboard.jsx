@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DashboardGroups } from '../index';
+import { DashboardGroups, DashboardFriends } from '../index';
 
 import {
 	DashboardContainer,
@@ -17,9 +17,7 @@ const Dashboard = () => {
 				<DashboardGroups />
 			</GroupContainer>
 			<FriendContainer>
-				<h1>Friends Activity</h1>
-
-				{/*  */}
+				<DashboardFriends />
 			</FriendContainer>
 			<ResourceContainer>
 				<h1>My Resources</h1>
