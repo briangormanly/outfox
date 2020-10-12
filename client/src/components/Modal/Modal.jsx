@@ -1,18 +1,23 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 
-import { ModalContainer, BackDrop, ModalContent } from './Modal.elements';
+import {
+	ModalContainer,
+	BackDrop,
+	ModalContent,
+	ExitButtonContainer
+} from './Modal.elements';
 
-const Modal = ({ showModal, setShowModal, children }) => {
+const Modal = ({ setShowModal, children }) => {
 	return (
 		<ModalContainer>
 			<BackDrop onClick={() => setShowModal(false)} />
 			<ModalContent>
-				<div>
+				<ExitButtonContainer>
 					<button onClick={() => setShowModal(false)}>
 						<FaTimes />
 					</button>
-				</div>
+				</ExitButtonContainer>
 				{children}
 			</ModalContent>
 		</ModalContainer>

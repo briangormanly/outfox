@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { FaPlus, FaArrowRight } from 'react-icons/fa';
 
-import { Modal } from '../index';
+import { Modal, CreateGroupForm } from '../index';
 
 import {
 	GroupsContainer,
@@ -11,14 +11,20 @@ import {
 } from './DashboardGroups.elements';
 
 const DashboardGroups = () => {
+	const [ showModal, setShowModal ] = useState(false);
+
 	return (
 		<Fragment>
-			<Modal />
+			{showModal && (
+				<Modal setShowModal={setShowModal}>
+					<CreateGroupForm />
+				</Modal>
+			)}
 			<GroupsContainer>
 				<Header>
 					<h1>My Groups</h1>
 					<ButtonContainer>
-						<button>
+						<button onClick={() => setShowModal(true)}>
 							<span>Create Group</span> <FaPlus />
 						</button>
 						<button>

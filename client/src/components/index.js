@@ -14,6 +14,7 @@ export { default as UserSideNav } from './UserSideNav/UserSideNav';
 
 export { default as Dashboard } from './Dashboard/Dashboard';
 export { default as DashboardGroups } from './DashboardGroups/DashboardGroups';
+export { default as CreateGroupForm } from './CreateGroupForm/CreateGroupForm';
 
 export { default as GroupsP } from './Groups/Groups';
 export { default as ResourcesP } from './Resources/Resources';

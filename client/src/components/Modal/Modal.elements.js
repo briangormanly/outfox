@@ -32,32 +32,38 @@ export const ModalContent = styled(motion.div)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 50rem;
+  height: 35rem;
   max-width: 40rem;
   width: 100%;
   background-color: ${white};
   border-radius: 25px;
   display: flex;
   flex-direction: column;
+`;
 
-  div{
-    display: flex;
-    justify-content: flex-end;
+export const ExitButtonContainer = styled.div`
+	display: flex;
+	justify-content: flex-end;
 
-    button{
-      margin-top: 2rem;
-      margin-right: 2rem;
-      height: 3rem;
-      width: 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      border: none;
-      background-color: ${secondary};
-      color: ${white};
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  }
+	button {
+		margin-top: 2rem;
+		margin-right: 2rem;
+		height: 3rem;
+		width: 3rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.6rem;
+		border: none;
+		background-color: ${secondary};
+		color: ${white};
+		border-radius: 5px;
+		cursor: pointer;
+
+		&:hover {
+			color: ${secondary};
+			background-color: ${white};
+			border: 1px solid ${secondary};
+		}
+	}
 `;
