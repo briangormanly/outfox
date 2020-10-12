@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 import { colors } from '../../styles';
 
-const { primary, secondary, lightGrey, white } = colors;
+const { secondary, white } = colors;
 
 export const ModalContainer = styled.div`
 	position: fixed;

@@ -2,6 +2,7 @@ import {
 	USER_FAIL,
 	USER_REQUEST,
 	USER_SUCCESS,
+	USER_ADD_GROUP,
 	AUTH_REQUEST,
 	AUTH_SUCCESS,
 	AUTH_FAIL
@@ -27,6 +28,11 @@ export const userReducer = (
 			return { ...state, loading: false, user: action.payload };
 		case USER_FAIL:
 			return { ...state, user: null, loading: false };
+		case USER_ADD_GROUP:
+			return {
+				...state,
+				user: { ...state.user, Groups: [ ...state.user.Groups, action.payload ] }
+			};
 		default:
 			return state;
 	}

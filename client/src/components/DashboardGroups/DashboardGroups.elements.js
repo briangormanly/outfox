@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { primary, secondary, white } = colors;
+const { secondary, white } = colors;
 
 export const GroupsContainer = styled.div`
 	width: 100%;

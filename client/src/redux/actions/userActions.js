@@ -2,6 +2,7 @@ import {
 	USER_FAIL,
 	USER_REQUEST,
 	USER_SUCCESS,
+	USER_ADD_GROUP,
 	AUTH_REQUEST,
 	AUTH_FAIL,
 	AUTH_SUCCESS
@@ -9,6 +10,7 @@ import {
 
 import userService from '../../services/users';
 import authService from '../../services/auth';
+import groupService from '../../services/groups';
 
 export const userAction = (id) => async (dispatch) => {
 	try {
@@ -43,5 +45,17 @@ export const createUserAction = (newUserObject) => async (dispatch) => {
 		dispatch({ type: AUTH_SUCCESS, payload: data.user.id });
 	} catch (error) {
 		dispatch({ type: AUTH_FAIL });
+	}
+};
+
+//  TODO: Add loading and better error catching
+export const createGroupAction = (newGroupObject) => async (dispatch) => {
+	try {
+		const data = await groupService.createGroup(newGroupObject);
+		console.log('In Action');
+		console.log(data.group);
+		dispatch({ type: USER_ADD_GROUP, payload: data.group });
+	} catch (error) {
+		console.log('An Error has occurred');
 	}
 };

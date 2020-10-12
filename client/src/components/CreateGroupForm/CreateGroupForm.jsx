@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { CreateGroupContainer } from './CreateGroupForm.elements';
 
@@ -7,10 +7,13 @@ import FormInput from '../Form-Input/Form-Input';
 
 import groupService from '../../services/groups';
 
+import { createGroupAction } from '../../redux/actions/userActions';
+
 const CreateGroupForm = () => {
 	const [ name, setName ] = useState('');
 	const [ description, setDescription ] = useState('');
 
+	const storeDispatch = useDispatch();
 	const { user: { id } } = useSelector((state) => state.userDetail);
 
 	const handleSubmit = async (e) => {
@@ -27,8 +30,12 @@ const CreateGroupForm = () => {
 			createdby        : id
 		};
 
-		const response = await groupService.createGroup(newGroupObject);
-		console.log(response);
+		storeDispatch(createGroupAction(newGroupObject));
+
+		// const response = await groupService.createGroup(newGroupObject);
+		// console.log(response);
+		setName('');
+		setDescription('');
 	};
 
 	const handleNameChange = (e) => {

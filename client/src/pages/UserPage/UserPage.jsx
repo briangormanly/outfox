@@ -50,6 +50,7 @@ const UserPage = ({ match }) => {
 	const storeDispatch = useDispatch();
 	const { user, loading, error } = useSelector((state) => state.userDetail);
 	const { Groups, Resources, firstname, lastname } = user;
+	console.log(Groups);
 
 	useEffect(
 		() => {
