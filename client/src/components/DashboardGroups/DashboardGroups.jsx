@@ -28,8 +28,6 @@ const DashboardGroups = () => {
 		});
 	};
 
-	console.log(Groups);
-
 	return (
 		<Fragment>
 			{showModal && (

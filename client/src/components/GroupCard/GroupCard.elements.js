@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { primary, primaryLight, secondary, black, white } = colors;
+const { primary, secondary, white } = colors;
 
 export const Card = styled.div`
 	height: 90%;
@@ -14,13 +14,13 @@ export const Card = styled.div`
 	flex-direction: column;
 
 	background-color: ${primary};
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	border-radius: 16px;
 	color: white;
 
-	-webkit-box-shadow: -29px 6px 15px -14px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: -29px 6px 15px -14px rgba(0, 0, 0, 0.75);
-	box-shadow: -29px 6px 15px -14px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: -29px 6px 15px -10px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: -29px 6px 15px -10px rgba(0, 0, 0, 0.75);
+	box-shadow: -29px 6px 15px -10px rgba(0, 0, 0, 0.75);
 
 	transition: .2s;
 

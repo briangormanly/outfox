@@ -50,7 +50,6 @@ const UserPage = ({ match }) => {
 	const storeDispatch = useDispatch();
 	const { user, loading, error } = useSelector((state) => state.userDetail);
 	const { Groups, Resources, firstname, lastname } = user;
-	// console.log(Groups);
 
 	useEffect(
 		() => {
@@ -84,8 +83,8 @@ const UserPage = ({ match }) => {
 					</SideNavArea>
 					<ContentArea>
 						{dashboardActive && <Dashboard />}
-						{groupsActive && <GroupsP />}
-						{resourcesActive && <ResourcesP />}
+						{groupsActive && <GroupsP groups={Groups} />}
+						{resourcesActive && <ResourcesP resources={Resources} />}
 						{coursesActive && <Courses />}
 						{calendarActive && <Calendar />}
 						{friendsActive && <Friends />}
