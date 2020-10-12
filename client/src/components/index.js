@@ -23,3 +23,4 @@ export { default as Friends } from './Friends/Friends';
 export { default as Help } from './Help/Help';
 
 export { default as Loader } from './Loader/Loader';
+export { default as Modal } from './Modal/Modal';

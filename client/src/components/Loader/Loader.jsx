@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { LoaderContainer } from './Loader.elements';
 
 const Loader = ({ container }) => {
-	console.log(container);
 	return (
 		<LoaderContainer container={container}>
 			<motion.span
