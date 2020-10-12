@@ -3,9 +3,11 @@ import {
 	USER_REQUEST,
 	USER_SUCCESS,
 	USER_ADD_GROUP,
+	USER_LOGOUT,
 	AUTH_REQUEST,
 	AUTH_FAIL,
-	AUTH_SUCCESS
+	AUTH_SUCCESS,
+	AUTH_LOGOUT
 } from '../constants/userConstants';
 
 import userService from '../../services/users';
@@ -57,4 +59,9 @@ export const createGroupAction = (newGroupObject) => async (dispatch) => {
 	} catch (error) {
 		console.log('An Error has occurred');
 	}
+};
+
+export const logoutAction = () => (dispatch) => {
+	dispatch({ type: AUTH_LOGOUT });
+	dispatch({ type: USER_LOGOUT });
 };

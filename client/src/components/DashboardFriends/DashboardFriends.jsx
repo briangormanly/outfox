@@ -6,8 +6,6 @@ import { DashboardFriendsCard } from '../index';
 import { friendsData } from './friendsData';
 
 const DashboardFriends = () => {
-	console.log(friendsData);
-
 	return (
 		<FriendsContainer>
 			<h1>Friends Activity</h1>

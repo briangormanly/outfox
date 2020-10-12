@@ -1,4 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { logoutAction } from '../../redux/actions/userActions';
 
 import { TopNavContainer, SearchField, LinkContainer } from './UserTopNav.elements';
 import {
@@ -11,6 +14,14 @@ import {
 } from 'react-icons/fa';
 
 const UserTopNav = () => {
+	let history = useHistory();
+	let storeDispatch = useDispatch();
+
+	const handleLogout = () => {
+		storeDispatch(logoutAction());
+		history.push('/');
+	};
+
 	return (
 		<TopNavContainer>
 			<SearchField>
@@ -34,7 +45,7 @@ const UserTopNav = () => {
 				<button>
 					<FaUser />
 				</button>
-				<button>
+				<button onClick={handleLogout}>
 					<FaSignOutAlt />
 				</button>
 			</LinkContainer>

@@ -3,9 +3,11 @@ import {
 	USER_REQUEST,
 	USER_SUCCESS,
 	USER_ADD_GROUP,
+	USER_LOGOUT,
 	AUTH_REQUEST,
 	AUTH_SUCCESS,
-	AUTH_FAIL
+	AUTH_FAIL,
+	AUTH_LOGOUT
 } from '../constants/userConstants';
 
 export const userReducer = (
@@ -31,7 +33,19 @@ export const userReducer = (
 		case USER_ADD_GROUP:
 			return {
 				...state,
-				user: { ...state.user, Groups: [ ...state.user.Groups, action.payload ] }
+				user : { ...state.user, Groups: [ ...state.user.Groups, action.payload ] }
+			};
+		case USER_LOGOUT:
+			return {
+				...state,
+				user    : {
+					firstname : '',
+					lastname  : '',
+					Groups    : [],
+					Resources : []
+				},
+				loading : false,
+				error   : null
 			};
 		default:
 			return state;
@@ -59,6 +73,14 @@ export const authReducer = (
 				auth    : false,
 				userID  : null,
 				error   : true
+			};
+		case AUTH_LOGOUT:
+			return {
+				...state,
+				loading : false,
+				auth    : false,
+				error   : false,
+				userID  : null
 			};
 		default:
 			return state;

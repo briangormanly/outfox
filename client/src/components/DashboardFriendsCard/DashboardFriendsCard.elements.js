@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { primary, secondary, black, white } = colors;
+const { secondary } = colors;
 
 export const FriendCard = styled.div`
 	width: 100%;
