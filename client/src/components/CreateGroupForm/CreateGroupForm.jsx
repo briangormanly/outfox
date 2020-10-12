@@ -5,12 +5,38 @@ import { CreateGroupContainer } from './CreateGroupForm.elements';
 
 import FormInput from '../Form-Input/Form-Input';
 
+import groupService from '../../services/groups';
+
 const CreateGroupForm = () => {
 	const [ name, setName ] = useState('');
 	const [ description, setDescription ] = useState('');
 
-	const handleSubmit = (e) => {
+	const { user: { id } } = useSelector((state) => state.userDetail);
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		if (!name || !description) {
+			console.log('Please fill out all fields');
+			return;
+		}
+
+		const newGroupObject = {
+			groupname        : name,
+			groupdescription : description,
+			createdby        : id
+		};
+
+		const response = await groupService.createGroup(newGroupObject);
+		console.log(response);
+	};
+
+	const handleNameChange = (e) => {
+		setName(e.target.value);
+	};
+
+	const handleDescriptionChange = (e) => {
+		setDescription(e.target.value);
 	};
 
 	return (
@@ -22,14 +48,14 @@ const CreateGroupForm = () => {
 					name="groupName"
 					label="Group Name"
 					value={name}
-					onChange={setName}
+					onChange={handleNameChange}
 				/>
 				<FormInput
 					type="text"
 					name="groupDescription"
 					label="Description"
 					value={description}
-					onChange={setDescription}
+					onChange={handleDescriptionChange}
 				/>
 				<button type="submit">Create</button>
 			</form>
