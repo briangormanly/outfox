@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { colors, transition } from '../../styles';
 
-const { darkGrey, black, primaryLight } = colors;
+const { darkGrey, black } = colors;
 
 export const InputGroup = styled.div`
 	position: relative;

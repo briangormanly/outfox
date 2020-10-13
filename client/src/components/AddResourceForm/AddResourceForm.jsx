@@ -19,12 +19,41 @@ function reducer(state, { field, value }) {
 	};
 }
 
-const AddResourceForm = ({ creatorid, GroupId }) => {
+const AddResourceForm = ({
+	creatorid,
+	GroupId,
+	setShowModal,
+	setUpdateFlag,
+	updateFlag
+}) => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
 	const { type, title, description, link } = state;
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		if (!type || !title || !description || !link) {
+			console.log('Please Enter All Fields');
+			return;
+		}
+
+		let newObject = {};
+
+		if (GroupId) {
+			newObject = { ...state, mutable: true, GroupId: GroupId };
+		}
+
+		if (creatorid) {
+			newObject = { ...state, mutable: true, creatorid: creatorid };
+		}
+
+		try {
+			await groupService.createResource(newObject);
+			setUpdateFlag(updateFlag + 1);
+			setShowModal(false);
+		} catch (error) {
+			console.log('An Error Occurred');
+		}
 	};
 
 	const handleInput = (e) => {
@@ -59,7 +88,7 @@ const AddResourceForm = ({ creatorid, GroupId }) => {
 				<FormInput
 					type="text"
 					name="link"
-					label="Link"
+					label="Link URL"
 					value={link}
 					onChange={handleInput}
 				/>

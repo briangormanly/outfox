@@ -24,6 +24,7 @@ const GroupPage = ({ match }) => {
 	const [ showAddModal, setShowAddModal ] = useState(false);
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
+	const [ updateFlag, setUpdateFlag ] = useState(0);
 
 	useEffect(
 		() => {
@@ -40,7 +41,7 @@ const GroupPage = ({ match }) => {
 
 			request();
 		},
-		[ match.params.groupID ]
+		[ match.params.groupID, updateFlag ]
 	);
 
 	return (
@@ -51,7 +52,12 @@ const GroupPage = ({ match }) => {
 				<Fragment>
 					{showAddModal && (
 						<Modal setShowModal={setShowAddModal}>
-							<AddResourceForm />
+							<AddResourceForm
+								GroupId={groupID}
+								setUpdateFlag={setUpdateFlag}
+								updateFlag={updateFlag}
+								setShowModal={setShowAddModal}
+							/>
 						</Modal>
 					)}
 					{showEditModal && <Modal setShowModal={setShowEditModal} />}
