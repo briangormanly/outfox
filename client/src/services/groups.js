@@ -7,6 +7,12 @@ const createGroup = async (newGroupObject) => {
 	return response.data;
 };
 
+const getGroupData = async (id) => {
+	const response = await axios.get(`${baseURL}/${id}`);
+	return response.data;
+};
+
 export default {
-	createGroup
+	createGroup,
+	getGroupData
 };

@@ -31,6 +31,9 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.5;
   }
 
+  button{
+    cursor: pointer;
+  }
 `;
 
 export const colors = {

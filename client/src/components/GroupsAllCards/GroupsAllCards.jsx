@@ -9,7 +9,7 @@ const GroupsAllCards = ({ id, datetimeadd, groupdescription, groupname }) => {
 	const location = useLocation();
 
 	const handleClick = () => {
-		console.log(location.pathname);
+		history.push(`${location.pathname}/groups/${id}`);
 	};
 	return (
 		<GroupCard>
