@@ -20,6 +20,7 @@ export { default as DashboardFriends } from './DashboardFriends/DashboardFriends
 export {
 	default as DashboardFriendsCard
 } from './DashboardFriendsCard/DashboardFriendsCard';
+export { default as GroupAllCard } from './GroupsAllCards/GroupsAllCards';
 
 export { default as GroupsP } from './Groups/Groups';
 export { default as ResourcesP } from './Resources/Resources';

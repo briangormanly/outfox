@@ -25,7 +25,8 @@ const CreateGroupForm = ({ setShowModal }) => {
 		const newGroupObject = {
 			groupname        : name,
 			groupdescription : description,
-			createdby        : id
+			createdby        : id,
+			datetimeadd      : new Date().toLocaleDateString()
 		};
 
 		storeDispatch(createGroupAction(newGroupObject));

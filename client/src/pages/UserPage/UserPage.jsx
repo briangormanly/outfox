@@ -81,8 +81,9 @@ const UserPage = ({ match }) => {
 							state={state}
 						/>
 					</SideNavArea>
+					{/* TODO: Refactor Prop Drilling Here */}
 					<ContentArea>
-						{dashboardActive && <Dashboard />}
+						{dashboardActive && <Dashboard dashboardPaginate={userPageDispatch} />}
 						{groupsActive && <GroupsP groups={Groups} />}
 						{resourcesActive && <ResourcesP resources={Resources} />}
 						{coursesActive && <Courses />}

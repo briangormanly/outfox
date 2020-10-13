@@ -11,7 +11,7 @@ import {
 	ButtonContainer
 } from './DashboardGroups.elements';
 
-const DashboardGroups = () => {
+const DashboardGroups = ({ dashboardPaginate }) => {
 	const [ showModal, setShowModal ] = useState(false);
 	const { user: { Groups } } = useSelector((state) => state.userDetail);
 
@@ -42,7 +42,7 @@ const DashboardGroups = () => {
 						<button onClick={() => setShowModal(true)}>
 							<span>Create Group</span> <FaPlus />
 						</button>
-						<button>
+						<button onClick={() => dashboardPaginate({ type: 'groups' })}>
 							<span>View All</span>
 							<FaArrowRight />
 						</button>
@@ -52,6 +52,7 @@ const DashboardGroups = () => {
 					{Groups.map((group) => (
 						<GroupCard
 							key={group.id}
+							id={group.id}
 							name={group.groupname}
 							description={group.groupdescription}
 						/>

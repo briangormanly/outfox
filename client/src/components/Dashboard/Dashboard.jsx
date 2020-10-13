@@ -10,11 +10,11 @@ import {
 	CourseContainer
 } from './Dashboard.elements';
 
-const Dashboard = () => {
+const Dashboard = ({ dashboardPaginate }) => {
 	return (
 		<DashboardContainer>
 			<GroupContainer>
-				<DashboardGroups />
+				<DashboardGroups dashboardPaginate={dashboardPaginate} />
 			</GroupContainer>
 			<FriendContainer>
 				<DashboardFriends />
