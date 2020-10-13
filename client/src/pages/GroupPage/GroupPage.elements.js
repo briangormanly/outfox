@@ -22,14 +22,14 @@ export const GroupPageContainer = styled.div`
 `;
 
 export const Container = styled.div`
-	max-width: 100rem;
+	max-width: 120rem;
 	width: 100%;
 	padding: 3rem;
 	margin: 0 auto;
 `;
 
 export const Content = styled.div`
-	height: 85vh;
+	min-height: 85vh;
 	width: 100%;
 	border-radius: 25px;
 	padding: 2rem;
@@ -126,6 +126,10 @@ export const Button = styled.button`
 `;
 
 export const ResourceContainer = styled.div`
+	margin-top: 3rem;
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	width: 100%;
+	/*  */
 `;

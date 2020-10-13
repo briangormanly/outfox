@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import groupService from '../../services/groups.js';
 import { FaArrowLeft, FaHammer, FaTrashAlt, FaPlus } from 'react-icons/fa';
 
-import { Loader, Modal, AddResourceForm } from '../../components';
+import { Loader, Modal, AddResourceForm, ResourceCard } from '../../components';
 import {
 	GroupPageContainer,
 	Container,
@@ -85,8 +85,9 @@ const GroupPage = ({ match }) => {
 								</Button>
 							</ButtonContainer>
 							<ResourceContainer>
-								{/*  */}
-								{/*  */}
+								{resources.map((resource) => (
+									<ResourceCard key={resource.id} {...resource} />
+								))}
 							</ResourceContainer>
 						</Content>
 					</Container>
