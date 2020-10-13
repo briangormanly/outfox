@@ -22,7 +22,7 @@ export const InputGroup = styled.div`
 
 		&:focus {
 			outline: none;
-			border-color: ${primaryLight};
+			border-color: ${black};
 		}
 
 		&:focus ~ label {

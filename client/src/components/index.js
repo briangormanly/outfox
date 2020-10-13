@@ -22,6 +22,8 @@ export {
 } from './DashboardFriendsCard/DashboardFriendsCard';
 export { default as GroupAllCard } from './GroupsAllCards/GroupsAllCards';
 
+export { default as AddResourceForm } from './AddResourceForm/AddResourceForm';
+
 export { default as GroupsP } from './Groups/Groups';
 export { default as ResourcesP } from './Resources/Resources';
 export { default as Courses } from './Courses/Courses';

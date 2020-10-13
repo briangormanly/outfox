@@ -32,9 +32,9 @@ export const ModalContent = styled(motion.div)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 35rem;
   max-width: 40rem;
   width: 100%;
+	padding: 3rem;
   background-color: ${white};
   border-radius: 25px;
   display: flex;
@@ -46,8 +46,6 @@ export const ExitButtonContainer = styled.div`
 	justify-content: flex-end;
 
 	button {
-		margin-top: 2rem;
-		margin-right: 2rem;
 		height: 3rem;
 		width: 3rem;
 		display: flex;

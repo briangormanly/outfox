@@ -6,8 +6,6 @@ const { secondary, white } = colors;
 
 export const CreateGroupContainer = styled.div`
 	width: 100%;
-	height: 40rem;
-	padding: 2rem;
 
 	button {
 		display: inline-block;

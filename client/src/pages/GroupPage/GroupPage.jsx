@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import groupService from '../../services/groups.js';
 import { FaArrowLeft, FaHammer, FaTrashAlt, FaPlus } from 'react-icons/fa';
 
-import { Loader, Modal } from '../../components';
+import { Loader, Modal, AddResourceForm } from '../../components';
 import {
 	GroupPageContainer,
+	Container,
 	Content,
 	ReturnLink,
 	ButtonContainer,
@@ -47,32 +48,43 @@ const GroupPage = ({ match }) => {
 			{loading ? (
 				<Loader />
 			) : (
-				<Content>
-					<ReturnLink to={`/user/${userID}`}>
-						<FaArrowLeft /> <span>Return to Dashboard</span>
-					</ReturnLink>
-					<h1>{title}</h1>
-					<p>{description}</p>
-					<p>Create Date: {date}</p>
-					<ButtonContainer>
-						<Button add flex>
-							<FaPlus />
-							<span>Add Resource</span>
-						</Button>
-						<Button edit flex>
-							<FaHammer />
-							<span>Edit Group</span>
-						</Button>
-						<Button delete flex>
-							<FaTrashAlt />
-							<span>Delete Group</span>
-						</Button>
-					</ButtonContainer>
-					<ResourceContainer>
-						{/*  */}
-						{/*  */}
-					</ResourceContainer>
-				</Content>
+				<Fragment>
+					{showAddModal && (
+						<Modal setShowModal={setShowAddModal}>
+							<AddResourceForm />
+						</Modal>
+					)}
+					{showEditModal && <Modal setShowModal={setShowEditModal} />}
+					{showDeleteModal && <Modal setShowModal={setShowDeleteModal} />}
+					<Container>
+						<Content>
+							<ReturnLink to={`/user/${userID}`}>
+								<FaArrowLeft /> <span>Return to Dashboard</span>
+							</ReturnLink>
+							<h1>{title}</h1>
+							<p>{description}</p>
+							<p>Create Date: {date}</p>
+							<ButtonContainer>
+								<Button add flex onClick={() => setShowAddModal(true)}>
+									<FaPlus />
+									<span>Add Resource</span>
+								</Button>
+								<Button edit flex onClick={() => setShowEditModal(true)}>
+									<FaHammer />
+									<span>Edit Group</span>
+								</Button>
+								<Button delete flex onClick={() => setShowDeleteModal(true)}>
+									<FaTrashAlt />
+									<span>Delete Group</span>
+								</Button>
+							</ButtonContainer>
+							<ResourceContainer>
+								{/*  */}
+								{/*  */}
+							</ResourceContainer>
+						</Content>
+					</Container>
+				</Fragment>
 			)}
 		</GroupPageContainer>
 	);

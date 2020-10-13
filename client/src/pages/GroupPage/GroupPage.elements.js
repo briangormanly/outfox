@@ -21,13 +21,19 @@ export const GroupPageContainer = styled.div`
 	align-items: center;
 `;
 
+export const Container = styled.div`
+	max-width: 100rem;
+	width: 100%;
+	padding: 3rem;
+	margin: 0 auto;
+`;
+
 export const Content = styled.div`
 	height: 85vh;
-	max-width: 60rem;
 	width: 100%;
 	border-radius: 25px;
 	padding: 2rem;
-	margin: 3rem;
+	/* margin: 3rem; */
 	background-color: ${lightGrey};
 	display: flex;
 	flex-direction: column;
