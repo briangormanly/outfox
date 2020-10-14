@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { GroupContainer } from './Groups.elements';
 import { GroupAllCard } from '../index';

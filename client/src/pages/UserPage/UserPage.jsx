@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, Fragment } from 'react';
+import React, { useEffect, useReducer, Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAction } from '../../redux/actions/userActions';
 
@@ -51,11 +51,13 @@ const UserPage = ({ match }) => {
 	const { user, loading, error } = useSelector((state) => state.userDetail);
 	const { Groups, Resources, firstname, lastname } = user;
 
+	const [ updateFlag, setUpdateFlag ] = useState(1);
+
 	useEffect(
 		() => {
 			storeDispatch(userAction(match.params.id));
 		},
-		[ storeDispatch, match.params.id ]
+		[ storeDispatch, match.params.id, updateFlag ]
 	);
 
 	const handleClick = (e) => {
@@ -83,9 +85,21 @@ const UserPage = ({ match }) => {
 					</SideNavArea>
 					{/* TODO: Refactor Prop Drilling Here */}
 					<ContentArea>
-						{dashboardActive && <Dashboard dashboardPaginate={userPageDispatch} />}
+						{dashboardActive && (
+							<Dashboard
+								dashboardPaginate={userPageDispatch}
+								updateFlag={updateFlag}
+								setUpdateFlag={setUpdateFlag}
+							/>
+						)}
 						{groupsActive && <GroupsP groups={Groups} />}
-						{resourcesActive && <ResourcesP resources={Resources} />}
+						{resourcesActive && (
+							<ResourcesP
+								resources={Resources}
+								updateFlag={updateFlag}
+								setUpdateFlag={setUpdateFlag}
+							/>
+						)}
 						{coursesActive && <Courses />}
 						{calendarActive && <Calendar />}
 						{friendsActive && <Friends />}

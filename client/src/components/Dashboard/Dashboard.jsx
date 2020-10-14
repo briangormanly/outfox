@@ -6,11 +6,10 @@ import {
 	DashboardContainer,
 	GroupContainer,
 	FriendContainer,
-	ResourceContainer,
-	CourseContainer
+	ResourceContainer
 } from './Dashboard.elements';
 
-const Dashboard = ({ dashboardPaginate }) => {
+const Dashboard = ({ dashboardPaginate, updateFlag, setUpdateFlag }) => {
 	return (
 		<DashboardContainer>
 			<GroupContainer>
@@ -20,7 +19,11 @@ const Dashboard = ({ dashboardPaginate }) => {
 				<DashboardFriends />
 			</FriendContainer>
 			<ResourceContainer>
-				<DashboardResources />
+				<DashboardResources
+					dashboardPaginate={dashboardPaginate}
+					updateFlag={updateFlag}
+					setUpdateFlag={setUpdateFlag}
+				/>
 			</ResourceContainer>
 		</DashboardContainer>
 	);

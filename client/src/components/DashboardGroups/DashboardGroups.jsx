@@ -18,7 +18,6 @@ const DashboardGroups = ({ dashboardPaginate }) => {
 	const scrollRef = useRef(null);
 
 	const onWheel = (e) => {
-		// e.preventDefault();
 		const container = scrollRef.current;
 		const containerScrollPosition = scrollRef.current.scrollLeft;
 
