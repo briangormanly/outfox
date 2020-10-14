@@ -2,7 +2,13 @@ import React, { useEffect, useState, Fragment } from 'react';
 import groupService from '../../services/groups.js';
 import { FaArrowLeft, FaHammer, FaTrashAlt, FaPlus } from 'react-icons/fa';
 
-import { Loader, Modal, AddResourceForm, ResourceCard } from '../../components';
+import {
+	Loader,
+	Modal,
+	AddResourceForm,
+	ResourceCard,
+	DeleteGroupForm
+} from '../../components';
 import {
 	GroupPageContainer,
 	Container,
@@ -61,7 +67,15 @@ const GroupPage = ({ match }) => {
 						</Modal>
 					)}
 					{showEditModal && <Modal setShowModal={setShowEditModal} />}
-					{showDeleteModal && <Modal setShowModal={setShowDeleteModal} />}
+					{showDeleteModal && (
+						<Modal setShowModal={setShowDeleteModal}>
+							<DeleteGroupForm
+								GroupId={groupID}
+								setShowModal={setShowDeleteModal}
+								userID={userID}
+							/>
+						</Modal>
+					)}
 					<Container>
 						<Content>
 							<ReturnLink to={`/user/${userID}`}>
