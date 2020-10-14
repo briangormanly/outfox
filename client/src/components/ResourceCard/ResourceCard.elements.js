@@ -1,8 +1,21 @@
 import styled, { css } from 'styled-components';
-
+import { ReactComponent as FolderSVG } from '../../assets/empty-folder.svg';
 import { colors } from '../../styles';
 
 const { primary, secondary, mediumGrey, white } = colors;
+
+export const FolderIcon = styled(FolderSVG)`
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-60%, -56%);
+  height: 22rem;
+  width: 22rem;
+  fill: none;
+	stroke: ${primary};
+  stroke-width: 2;
+  pointer-events: none;
+`;
 
 export const CardContainer = styled.div`
 	position: relative;
@@ -23,13 +36,13 @@ export const CardContainer = styled.div`
 		props.small &&
 		css`
 			min-width: 10rem;
-			width: 20rem;
-			flex: 0 1 auto;
-			padding: 2rem;
-			height: 100%;
-			-webkit-box-shadow: 0px 0px 21px -5px rgba(139, 1, 1, 1);
-			-moz-box-shadow: 0px 0px 21px -5px rgba(139, 1, 1, 1);
-			box-shadow: 0px 0px 21px -5px rgba(139, 1, 1, 1);
+			width: 17rem;
+			flex: 0 0 auto;
+			padding: 2rem 0;
+			border: none;
+			min-height: 5rem;
+			height: 12rem;
+			margin-bottom: 5rem;
 		`};
 
 	@media screen and (max-width: 500px) {
@@ -99,12 +112,12 @@ export const Attributes = styled.div`
 	}
 
 	h2 {
-		font-size: 2rem;
+		font-size: 1.8rem;
 	}
 
 	p {
 		text-align: left;
-		font-size: 1.5rem;
+		font-size: 1.4rem;
 		margin: 0;
 
 		a {
@@ -117,4 +130,13 @@ export const Attributes = styled.div`
 			}
 		}
 	}
+
+	${(props) =>
+		props.showSVG &&
+		css`
+			h2 {
+				margin-top: 2rem;
+				font-size: 1.4rem;
+			}
+		`};
 `;

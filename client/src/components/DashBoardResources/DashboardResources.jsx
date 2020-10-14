@@ -39,7 +39,7 @@ function DashboardResources() {
 			</Header>
 			<ResourceList>
 				{Resources.map((resource) => (
-					<ResourceCard small key={resource.id} {...resource} />
+					<ResourceCard small showSVG key={resource.id} {...resource} />
 				))}
 			</ResourceList>
 		</ResourcesContainer>

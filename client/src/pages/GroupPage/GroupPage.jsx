@@ -92,6 +92,7 @@ const GroupPage = ({ match }) => {
 										showButtons
 										showType
 										showDates
+										showDescription
 									/>
 								))}
 							</ResourceContainer>

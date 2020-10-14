@@ -14,5 +14,5 @@ export const ResourceList = styled.div`
 	flex: 1 0 auto;
 	align-content: flex-start;
 	justify-content: center;
-	margin-top: 2rem;
+	margin-top: 4rem;
 `;

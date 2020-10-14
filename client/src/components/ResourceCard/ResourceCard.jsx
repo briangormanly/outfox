@@ -6,7 +6,8 @@ import {
 	Dates,
 	Content,
 	ButtonContainer,
-	Attributes
+	Attributes,
+	FolderIcon
 } from './ResourceCard.elements';
 
 import { ActionButton as Button } from '../../styles';
@@ -23,10 +24,13 @@ const ResourceCard = ({
 	small,
 	showButtons,
 	showType,
-	showDates
+	showDates,
+	showDescription,
+	showSVG
 }) => {
 	return (
 		<CardContainer small={small}>
+			{showSVG && <FolderIcon />}
 			{showDates && (
 				<Dates>
 					<span>Created: {createdAt.slice(0, 10)}</span>
@@ -34,17 +38,19 @@ const ResourceCard = ({
 				</Dates>
 			)}
 			<Content>
-				<Attributes>
+				<Attributes showSVG={showSVG}>
 					<h2>{title}</h2>
 					{showType && (
 						<p>
 							<span>Type:</span> {type}
 						</p>
 					)}
+					{showDescription && (
+						<p>
+							<span>Description:</span> {description}
+						</p>
+					)}
 
-					<p>
-						<span>Description:</span> {description}
-					</p>
 					<p>
 						<a href={link} target="_blank" rel="noopener noreferrer">
 							<span>Go To Resource</span> <FaExternalLinkAlt />
