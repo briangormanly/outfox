@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
+import { ReactComponent as Logo } from '../../assets/fox-unfilled.svg';
+
 import {
 	Nav,
 	NavContainer,
 	LogoContainer,
-	LogoIcon,
 	LogoText,
 	LinkContainer,
 	NavItem,
@@ -29,7 +30,7 @@ const HomeNavbar = () => {
 			<NavContainer>
 				<NavLink to="/">
 					<LogoContainer>
-						<LogoIcon />
+						<Logo />
 						<LogoText>Outfox</LogoText>
 					</LogoContainer>
 				</NavLink>

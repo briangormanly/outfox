@@ -1,3 +1,7 @@
+## Outfox React Frontend
+
+Frontend only version of the application can be found [here](https://outfox.netlify.app/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

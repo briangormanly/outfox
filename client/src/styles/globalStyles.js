@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 import { FaFirefoxBrowser } from 'react-icons/fa';
 
@@ -31,16 +31,23 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.5;
   }
 
+  button{
+    cursor: pointer;
+  }
 `;
 
 export const colors = {
-	primary      : '#8B0101',
-	primaryLight : '#D91818',
-	primaryDark  : '#400000',
-	black        : '#000',
-	white        : '#fff',
-	lightGrey    : '#f4f4f4',
-	darkGrey     : '#333333'
+	primary        : '#8B0101',
+	primaryLight   : '#f5abab',
+	primaryDark    : '#400000',
+	secondary      : '#129696',
+	secondaryLight : '#2ed1d1',
+	secondaryDark  : '',
+	black          : '#000',
+	white          : '#fff',
+	lightGrey      : '#f4f4f4',
+	darkGrey       : '#333333',
+	mediumGrey     : '#dedede'
 };
 
 export const transition = 'all 0.3s ease-out';
@@ -85,6 +92,68 @@ export const Button = styled.button`
 	border: none;
 	cursor: pointer;
 	transition: ${transition};
+`;
+
+export const ActionButton = styled.button`
+	border: none;
+	border-radius: 25px;
+	padding: 1rem 1rem;
+	color: ${colors.white};
+
+	${(props) =>
+		props.add &&
+		css`
+			background-color: green;
+
+			&:hover {
+				color: green;
+				background-color: ${colors.white};
+				border: 1px solid green;
+			}
+		`};
+
+	${(props) =>
+		props.edit &&
+		css`
+			background-color: ${colors.secondary};
+
+			&:hover {
+				color: ${colors.secondary};
+				background-color: ${colors.white};
+				border: 1px solid ${colors.secondary};
+			}
+		`};
+
+	${(props) =>
+		props.delete &&
+		css`
+			background-color: ${colors.primary};
+
+			&:hover {
+				color: ${colors.primary};
+				background-color: ${colors.white};
+				border: 1px solid ${colors.primary};
+			}
+		`};
+
+	${(props) =>
+		props.flex &&
+		css`
+			display: flex;
+			align-items: center;
+
+			span {
+				padding-left: 0.5rem;
+			}
+		`};
+
+	${(props) =>
+		props.fullWidth &&
+		css`
+			display: block;
+			width: 100%;
+			margin-top: 3rem;
+		`};
 `;
 
 export const LogoContainer = styled.div`

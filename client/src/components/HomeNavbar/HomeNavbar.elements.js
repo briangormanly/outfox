@@ -37,6 +37,11 @@ export const LogoContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	svg {
+		width: 5rem;
+		height: 5rem;
+	}
 `;
 
 export const LogoIcon = styled(FaFirefoxBrowser)`
