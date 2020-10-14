@@ -28,10 +28,28 @@ const deleteResource = async (id) => {
 	return response.data;
 };
 
+const editResource = async (id, newObject) => {
+	const response = await axios.put(`${resourceURL}/${id}`, newObject);
+	return response.data;
+};
+
+const editGroup = async (id, newObject) => {
+	const response = await axios.put(`${groupsURL}/${id}`, newObject);
+	return response.data;
+};
+
+const getResourceData = async (id) => {
+	const response = await axios.get(`${resourceURL}/${id}`);
+	return response.data;
+};
+
 export default {
 	createGroup,
 	getGroupData,
 	createResource,
 	deleteGroup,
-	deleteResource
+	deleteResource,
+	editResource,
+	editGroup,
+	getResourceData
 };

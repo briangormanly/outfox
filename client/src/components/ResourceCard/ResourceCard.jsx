@@ -12,7 +12,7 @@ import {
 
 import { ActionButton as Button } from '../../styles';
 
-import { Modal, DeleteResourceForm } from '../index';
+import { Modal, DeleteResourceForm, EditResourceForm } from '../index';
 
 const ResourceCard = ({
 	GroupId,
@@ -36,7 +36,16 @@ const ResourceCard = ({
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 	return (
 		<Fragment>
-			{showEditModal && <Modal setShowModal={setShowEditModal} />}
+			{showEditModal && (
+				<Modal setShowModal={setShowEditModal}>
+					<EditResourceForm
+						setShowModal={setShowEditModal}
+						resourceID={id}
+						setUpdateFlag={setUpdateFlag}
+						updateFlag={updateFlag}
+					/>
+				</Modal>
+			)}
 			{showDeleteModal && (
 				<Modal setShowModal={setShowDeleteModal}>
 					<DeleteResourceForm
