@@ -24,7 +24,7 @@ const GroupPage = ({ match }) => {
 	const [ showAddModal, setShowAddModal ] = useState(false);
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
-	const [ updateFlag, setUpdateFlag ] = useState(0);
+	const [ updateFlag, setUpdateFlag ] = useState(1);
 
 	useEffect(
 		() => {
@@ -86,7 +86,13 @@ const GroupPage = ({ match }) => {
 							</ButtonContainer>
 							<ResourceContainer>
 								{resources.map((resource) => (
-									<ResourceCard key={resource.id} {...resource} />
+									<ResourceCard
+										key={resource.id}
+										{...resource}
+										showButtons
+										showType
+										showDates
+									/>
 								))}
 							</ResourceContainer>
 						</Content>

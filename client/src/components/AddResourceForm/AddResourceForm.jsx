@@ -49,7 +49,10 @@ const AddResourceForm = ({
 
 		try {
 			await groupService.createResource(newObject);
-			setUpdateFlag(updateFlag + 1);
+
+			if (updateFlag) {
+				setUpdateFlag(updateFlag + 1);
+			}
 			setShowModal(false);
 		} catch (error) {
 			console.log('An Error Occurred');

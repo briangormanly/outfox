@@ -21,7 +21,7 @@ export const Header = styled.div`
 
 export const ButtonContainer = styled.div`
 	width: 35rem;
-	/* background-color: pink; */
+
 	display: flex;
 	height: 100%;
 	justify-content: flex-end;

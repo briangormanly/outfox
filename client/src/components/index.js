@@ -22,6 +22,9 @@ export { default as DashboardFriends } from './DashboardFriends/DashboardFriends
 export {
 	default as DashboardFriendsCard
 } from './DashboardFriendsCard/DashboardFriendsCard';
+export {
+	default as DashboardResources
+} from './DashBoardResources/DashboardResources';
 
 // Group Components
 export { default as GroupAllCard } from './GroupsAllCards/GroupsAllCards';

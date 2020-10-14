@@ -13,6 +13,7 @@ export const ModalContainer = styled.div`
 	bottom: 0;
 	height: 100vh;
 	width: 100vw;
+	z-index: 10;
 `;
 
 export const BackDrop = styled(motion.div)`
@@ -27,7 +28,6 @@ export const BackDrop = styled(motion.div)`
 
 export const ModalContent = styled(motion.div)`
   position: absolute;
-  z-index: 5;
   right: 50%;
   left: 50%;
   top: 50%;
@@ -39,6 +39,7 @@ export const ModalContent = styled(motion.div)`
   border-radius: 25px;
   display: flex;
   flex-direction: column;
+	z-index: 20;
 `;
 
 export const ExitButtonContainer = styled.div`

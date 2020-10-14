@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DashboardGroups, DashboardFriends } from '../index';
+import { DashboardGroups, DashboardFriends, DashboardResources } from '../index';
 
 import {
 	DashboardContainer,
@@ -20,13 +20,8 @@ const Dashboard = ({ dashboardPaginate }) => {
 				<DashboardFriends />
 			</FriendContainer>
 			<ResourceContainer>
-				<h1>My Resources</h1>
-
-				{/*  */}
+				<DashboardResources />
 			</ResourceContainer>
-			<CourseContainer>
-				<h1>My Courses</h1>
-			</CourseContainer>
 		</DashboardContainer>
 	);
 };

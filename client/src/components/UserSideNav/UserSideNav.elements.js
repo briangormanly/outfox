@@ -71,7 +71,7 @@ export const SideNavButton = styled.button`
 export const DashboardSettings = styled.div`
 	height: 15rem;
 	width: 100%;
-	margin-top: auto;
+	margin-top: 10rem;
 	padding: 0 3rem;
 	display: flex;
 	flex-direction: column;
