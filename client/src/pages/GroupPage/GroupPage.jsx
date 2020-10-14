@@ -7,7 +7,8 @@ import {
 	Modal,
 	AddResourceForm,
 	ResourceCard,
-	DeleteGroupForm
+	DeleteGroupForm,
+	EditGroupForm
 } from '../../components';
 import {
 	GroupPageContainer,
@@ -66,7 +67,16 @@ const GroupPage = ({ match }) => {
 							/>
 						</Modal>
 					)}
-					{showEditModal && <Modal setShowModal={setShowEditModal} />}
+					{showEditModal && (
+						<Modal setShowModal={setShowEditModal}>
+							<EditGroupForm
+								GroupId={groupID}
+								setUpdateFlag={setUpdateFlag}
+								updateFlag={updateFlag}
+								setShowModal={setShowEditModal}
+							/>
+						</Modal>
+					)}
 					{showDeleteModal && (
 						<Modal setShowModal={setShowDeleteModal}>
 							<DeleteGroupForm

@@ -41,6 +41,7 @@ export {
 	default as DeleteResourceForm
 } from './DeleteResourceForm/DeleteResourceForm';
 export { default as EditResourceForm } from './EditResourceForm/EditResourceForm';
+export { default as EditGroupForm } from './EditGroupForm/EditGroupForm';
 
 // User Page pagination
 export { default as GroupsP } from './Groups/Groups';
