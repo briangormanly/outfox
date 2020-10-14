@@ -1,18 +1,21 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { ActionButton } from '../../styles';
 import groupService from '../../services/groups';
 
-const DeleteGroupForm = ({ GroupId, userID }) => {
-	const history = useHistory();
-
+const DeleteResourceForm = ({
+	setShowModal,
+	resourceID,
+	setUpdateFlag,
+	updateFlag
+}) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		try {
-			await groupService.deleteGroup(GroupId);
-			history.push(`/user/${userID}`);
+			await groupService.deleteResource(resourceID);
+			setUpdateFlag(updateFlag + 1);
+			setShowModal(false);
 		} catch (error) {
 			console.log('An Error Occurred');
 		}
@@ -20,12 +23,12 @@ const DeleteGroupForm = ({ GroupId, userID }) => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<h1>Delete Group?</h1>
+			<h1>Delete Resource?</h1>
 			<ActionButton delete fullWidth type="submit">
-				Delete Group
+				Delete Resource
 			</ActionButton>
 		</form>
 	);
 };
 
-export default DeleteGroupForm;
+export default DeleteResourceForm;

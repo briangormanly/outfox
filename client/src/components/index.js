@@ -37,6 +37,9 @@ export { default as ResourceCard } from './ResourceCard/ResourceCard';
 export { default as CreateGroupForm } from './CreateGroupForm/CreateGroupForm';
 export { default as AddResourceForm } from './AddResourceForm/AddResourceForm';
 export { default as DeleteGroupForm } from './DeleteGroupForm/DeleteGroupForm';
+export {
+	default as DeleteResourceForm
+} from './DeleteResourceForm/DeleteResourceForm';
 
 // User Page pagination
 export { default as GroupsP } from './Groups/Groups';

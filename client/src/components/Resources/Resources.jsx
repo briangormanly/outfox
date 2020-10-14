@@ -13,6 +13,8 @@ const Resources = ({ updateFlag, setUpdateFlag, resources }) => {
 					showType
 					showDates
 					showDescription
+					setUpdateFlag={setUpdateFlag}
+					updateFlag={updateFlag}
 				/>
 			))}
 		</ResourceContainer>

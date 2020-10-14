@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
 import {
@@ -11,6 +11,8 @@ import {
 } from './ResourceCard.elements';
 
 import { ActionButton as Button } from '../../styles';
+
+import { Modal, DeleteResourceForm } from '../index';
 
 const ResourceCard = ({
 	GroupId,
@@ -26,45 +28,66 @@ const ResourceCard = ({
 	showType,
 	showDates,
 	showDescription,
-	showSVG
+	showSVG,
+	setUpdateFlag,
+	updateFlag
 }) => {
+	const [ showEditModal, setShowEditModal ] = useState(false);
+	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 	return (
-		<CardContainer small={small}>
-			{showSVG && <FolderIcon />}
-			{showDates && (
-				<Dates>
-					<span>Created: {createdAt.slice(0, 10)}</span>
-					<span>Updated: {updatedAt.slice(0, 10)}</span>
-				</Dates>
+		<Fragment>
+			{showEditModal && <Modal setShowModal={setShowEditModal} />}
+			{showDeleteModal && (
+				<Modal setShowModal={setShowDeleteModal}>
+					<DeleteResourceForm
+						setShowModal={setShowDeleteModal}
+						resourceID={id}
+						setUpdateFlag={setUpdateFlag}
+						updateFlag={updateFlag}
+					/>
+				</Modal>
 			)}
-			<Content>
-				<Attributes showSVG={showSVG}>
-					<h2>{title}</h2>
-					{showType && (
-						<p>
-							<span>Type:</span> {type}
-						</p>
-					)}
-					{showDescription && (
-						<p>
-							<span>Description:</span> {description}
-						</p>
-					)}
-
-					<p>
-						<a href={link} target="_blank" rel="noopener noreferrer">
-							<span>Go To Resource</span> <FaExternalLinkAlt />
-						</a>
-					</p>
-				</Attributes>
-				{showButtons && (
-					<ButtonContainer>
-						<Button edit>Edit</Button>
-						<Button delete>Delete</Button>
-					</ButtonContainer>
+			<CardContainer small={small}>
+				{showSVG && <FolderIcon />}
+				{showDates && (
+					<Dates>
+						<span>Created: {createdAt.slice(0, 10)}</span>
+						<span>Updated: {updatedAt.slice(0, 10)}</span>
+					</Dates>
 				)}
-			</Content>
-		</CardContainer>
+				<Content>
+					<Attributes showSVG={showSVG}>
+						<h2>{title}</h2>
+						{showType && (
+							<p>
+								<span>Type:</span> {type}
+							</p>
+						)}
+						{showDescription && (
+							<p>
+								<span>Description:</span> {description}
+							</p>
+						)}
+
+						<p>
+							<a href={link} target="_blank" rel="noopener noreferrer">
+								<span>Go To Resource</span> <FaExternalLinkAlt />
+							</a>
+						</p>
+					</Attributes>
+					{showButtons && (
+						<ButtonContainer>
+							<Button edit onClick={() => setShowEditModal(true)}>
+								Edit
+							</Button>
+							<Button delete onClick={() => setShowDeleteModal(true)}>
+								Delete
+							</Button>
+						</ButtonContainer>
+					)}
+				</Content>
+			</CardContainer>
+		</Fragment>
 	);
 };
 

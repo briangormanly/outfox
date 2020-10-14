@@ -107,6 +107,8 @@ const GroupPage = ({ match }) => {
 										showType
 										showDates
 										showDescription
+										setUpdateFlag={setUpdateFlag}
+										updateFlag={updateFlag}
 									/>
 								))}
 							</ResourceContainer>
