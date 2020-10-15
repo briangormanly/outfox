@@ -1,6 +1,6 @@
-import React, { useEffect, useReducer, Fragment } from 'react';
+import React, { useEffect, useReducer, Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userWithGroupsAction } from '../../redux/actions/userActions';
+import { userAction } from '../../redux/actions/userActions';
 
 import {
 	UserPageContainer,
@@ -13,12 +13,13 @@ import {
 	UserTopNav,
 	UserSideNav,
 	Dashboard,
-	Groups,
-	Resources,
+	GroupsP,
+	ResourcesP,
 	Courses,
 	Calendar,
 	Friends,
-	Help
+	Help,
+	Loader
 } from '../../components';
 
 import { userPageReducer } from './UserPageReducer';
@@ -46,49 +47,66 @@ const UserPage = ({ match }) => {
 		helpActive
 	} = state;
 
-	const dispatch = useDispatch();
-	const { loading, error, userWithGroups } = useSelector(
-		(state) => state.userWithGroups
-	);
+	const storeDispatch = useDispatch();
+	const { user, loading, error } = useSelector((state) => state.userDetail);
+	const { Groups, Resources, firstname, lastname } = user;
+
+	const [ updateFlag, setUpdateFlag ] = useState(1);
 
 	useEffect(
 		() => {
-			dispatch(userWithGroupsAction(match.params.id));
+			storeDispatch(userAction(match.params.id));
 		},
-		[ dispatch, match ]
+		[ storeDispatch, match.params.id, updateFlag ]
 	);
 
 	const handleClick = (e) => {
-		// console.log(e.currentTarget);
 		userPageDispatch({ type: e.currentTarget.name });
 	};
 
 	return (
 		<Fragment>
-			{userWithGroups ? (
+			{loading ? (
+				<Loader />
+			) : error ? (
+				<p>An Error Occured</p>
+			) : (
 				<UserPageContainer>
 					<TopNavArea>
 						<UserTopNav />
 					</TopNavArea>
 					<SideNavArea dispatch={userPageDispatch}>
 						<UserSideNav
-							firstName={userWithGroups.firstname}
-							lastName={userWithGroups.lastname}
+							firstName={firstname}
+							lastName={lastname}
 							handleClick={handleClick}
 							state={state}
 						/>
 					</SideNavArea>
+					{/* TODO: Refactor Prop Drilling Here */}
 					<ContentArea>
-						{dashboardActive && <Dashboard />}
-						{groupsActive && <Groups />}
-						{resourcesActive && <Resources />}
+						{dashboardActive && (
+							<Dashboard
+								dashboardPaginate={userPageDispatch}
+								updateFlag={updateFlag}
+								setUpdateFlag={setUpdateFlag}
+							/>
+						)}
+						{groupsActive && <GroupsP groups={Groups} />}
+						{resourcesActive && (
+							<ResourcesP
+								resources={Resources}
+								updateFlag={updateFlag}
+								setUpdateFlag={setUpdateFlag}
+							/>
+						)}
 						{coursesActive && <Courses />}
 						{calendarActive && <Calendar />}
 						{friendsActive && <Friends />}
 						{helpActive && <Help />}
 					</ContentArea>
 				</UserPageContainer>
-			) : null}
+			)}
 		</Fragment>
 	);
 };

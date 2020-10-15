@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
-import { setUserAction } from '../../redux/actions/userActions';
-import { useDispatch } from 'react-redux';
+import { createUserAction } from '../../redux/actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
@@ -18,16 +18,16 @@ import {
 	SignUpButton,
 	LoginMessage,
 	InputRow,
-	InputItem
+	InputItem,
+	ErrorMessage
 } from './SignUp.elements';
 
 import { Link } from '../../styles';
 
-import { userRequests } from '../../services';
-
 const initialState = {
 	firstName       : '',
 	lastName        : '',
+	userName        : '',
 	email           : '',
 	password        : '',
 	confirmPassword : ''
@@ -42,32 +42,39 @@ function reducer(state, { field, value }) {
 
 const SignUpComponent = () => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
-	const reduxDispatch = useDispatch();
+	const { firstName, lastName, userName, email, password, confirmPassword } = state;
 
-	const { firstName, lastName, email, password, confirmPassword } = state;
+	const storeDispatch = useDispatch();
+	const { loading, error } = useSelector((state) => state.userAuth);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		if (!firstName || !lastName || !email || !userName || !password) {
+			console.log('Please fill out all fields');
+			return;
+		}
 
 		if (password !== confirmPassword) {
 			console.log('Password must match');
 			return;
 		}
 
-		try {
-			const response = await userRequests.createUser({
-				firstname : firstName,
-				lastname  : lastName,
-				email     : email,
-				username  : email,
-				hashpw    : password
-			});
-			// console.log(response);
-			// console.log(response.user);
-			reduxDispatch(setUserAction(response.user));
-		} catch (error) {
-			console.log(error.message);
-		}
+		const firstNameCapitalized =
+			firstName.charAt(0).toUpperCase() + firstName.toLowerCase().slice(1);
+
+		const lastNameCapitalized =
+			lastName.charAt(0).toUpperCase() + lastName.toLowerCase().slice(1);
+
+		const newUserObject = {
+			firstname : firstNameCapitalized,
+			lastname  : lastNameCapitalized,
+			email     : email,
+			username  : userName,
+			hashpw    : password
+		};
+
+		storeDispatch(createUserAction(newUserObject));
 	};
 
 	const handleChange = (e) => {
@@ -88,6 +95,7 @@ const SignUpComponent = () => {
 					<OrBorder />
 				</OrContainer>
 				<Form onSubmit={handleSubmit}>
+					{error && <ErrorMessage>Username already exists</ErrorMessage>}
 					<InputRow>
 						<InputItem>
 							<FormInput
@@ -110,7 +118,28 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 					</InputRow>
-					<FormInput label="Email" name="email" type="email" value={email} onChange={handleChange} required />
+					<InputRow>
+						<InputItem>
+							<FormInput
+								label="Username"
+								name="userName"
+								type="text"
+								value={userName}
+								onChange={handleChange}
+								required
+							/>
+						</InputItem>
+						<InputItem>
+							<FormInput
+								label="Email"
+								name="email"
+								type="email"
+								value={email}
+								onChange={handleChange}
+								required
+							/>
+						</InputItem>
+					</InputRow>
 					<InputRow>
 						<InputItem>
 							<FormInput
@@ -133,7 +162,9 @@ const SignUpComponent = () => {
 							/>
 						</InputItem>
 					</InputRow>
-					<SignUpButton type="submit">Create a free account</SignUpButton>
+					<SignUpButton type="submit" disabled={loading}>
+						Create a free account
+					</SignUpButton>
 				</Form>
 				<LoginMessage>
 					Already have an Outfox account? <Link to="signin">Log in</Link>

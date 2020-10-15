@@ -2,43 +2,66 @@ import {
 	USER_FAIL,
 	USER_REQUEST,
 	USER_SUCCESS,
-	USER_SET,
-	// USER_AUTH,
-	USERGROUPS_FAIL,
-	USERGROUPS_REQUEST,
-	USERGROUPS_SUCCESS
+	USER_ADD_GROUP,
+	USER_LOGOUT,
+	AUTH_REQUEST,
+	AUTH_FAIL,
+	AUTH_SUCCESS,
+	AUTH_LOGOUT
 } from '../constants/userConstants';
 
-import userRequests from '../../services/users';
+import userService from '../../services/users';
+import authService from '../../services/auth';
+import groupService from '../../services/groups';
 
 export const userAction = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_REQUEST });
 
-		const data = await userRequests.getUser(id);
+		const data = await userService.getUser(id);
 
 		dispatch({ type: USER_SUCCESS, payload: data });
 	} catch (error) {
-		dispatch({ type: USER_FAIL, payload: error.message });
+		dispatch({ type: USER_FAIL });
 	}
 };
 
-export const userWithGroupsAction = (id) => async (dispatch) => {
+export const authAction = (authObject) => async (dispatch) => {
 	try {
-		dispatch({ type: USERGROUPS_REQUEST });
+		dispatch({ type: AUTH_REQUEST });
 
-		const data = await userRequests.getUserWithGroups(id);
+		const data = await authService.userAuth(authObject);
 
-		dispatch({ type: USERGROUPS_SUCCESS, payload: data });
+		dispatch({ type: AUTH_SUCCESS, payload: data.user.id });
 	} catch (error) {
-		dispatch({ type: USERGROUPS_FAIL, payload: error.message });
+		dispatch({ type: AUTH_FAIL });
 	}
 };
 
-export const setUserAction = (user) => (dispatch) => {
-	dispatch({ type: USER_SET, payload: user });
+export const createUserAction = (newUserObject) => async (dispatch) => {
+	try {
+		dispatch({ type: AUTH_REQUEST });
+
+		const data = await userService.createUser(newUserObject);
+
+		dispatch({ type: AUTH_SUCCESS, payload: data.user.id });
+	} catch (error) {
+		dispatch({ type: AUTH_FAIL });
+	}
 };
 
-// export const userAuthAction = (user) => (dispatch) => {
-// 	dispatch({ type: USER_AUTH, payload: user });
-// };
+//  TODO: Add loading and better error catching
+export const createGroupAction = (newGroupObject) => async (dispatch) => {
+	try {
+		const data = await groupService.createGroup(newGroupObject);
+
+		dispatch({ type: USER_ADD_GROUP, payload: data.group });
+	} catch (error) {
+		console.log('An Error has occurred');
+	}
+};
+
+export const logoutAction = () => (dispatch) => {
+	dispatch({ type: AUTH_LOGOUT });
+	dispatch({ type: USER_LOGOUT });
+};
