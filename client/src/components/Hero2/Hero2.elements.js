@@ -35,7 +35,7 @@ export const HeroSection = styled.div`
 export const SVG = styled(motion.svg)`
   position: absolute;
   z-index: 2;
-  right: 5rem;
+  right: 10rem;
   top: 15rem;
   width: 80rem;
 `;

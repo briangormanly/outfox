@@ -7,20 +7,20 @@ import { ReactComponent as Logo } from '../../assets/fox-unfilled.svg';
 const HomeNavbar2 = () => {
 	return (
 		<NavContainer>
-			<Link>
+			<Link to="/">
 				<LogoContainer>
 					<Logo />
 					<span>Outfox</span>
 				</LogoContainer>
 			</Link>
 			<Links>
-				<Link>Features</Link>
-				<Link>Tour</Link>
-				<Link>Docs</Link>
+				<Link to="/">Features</Link>
+				<Link to="/">Tour</Link>
+				<Link to="/">Docs</Link>
 			</Links>
 			<Links>
-				<Link>Log in</Link>
-				<Link>Sign up</Link>
+				<Link to="/">Log in</Link>
+				<Link to="/">Sign up</Link>
 			</Links>
 		</NavContainer>
 	);

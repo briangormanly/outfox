@@ -38,4 +38,12 @@ export const Links = styled.div`
 	height: 100%;
 	display: flex;
 	align-items: center;
+
+	a {
+		margin: 1rem;
+
+		&:hover {
+			border-bottom: 1px solid white;
+		}
+	}
 `;
