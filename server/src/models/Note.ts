@@ -6,6 +6,13 @@ class Note extends Model {}
 
 Note.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    
     resourceId: {
       type: DataTypes.INTEGER,
       references: {
@@ -13,6 +20,7 @@ Note.init(
         key: "id",
       },
     },
+
     noteName: {
       type: DataTypes.STRING,
       allowNull: false,

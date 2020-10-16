@@ -9,6 +9,7 @@ Resource.init(
   {
     id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -24,9 +25,16 @@ Resource.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    link: {
+    linkurl: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    copiedfrom:{
+      type: DataTypes.INTEGER,
+      references: {
+        model: Resource,
+        key: "id",
+      },
     },
     mutable: {
       type: DataTypes.BOOLEAN,
@@ -37,9 +45,9 @@ Resource.init(
       references: {
         model: User,
         key: "id",
-      },
     },
   },
+},
   {
     sequelize, // We need to pass the connection instance
     timestamps: true,
