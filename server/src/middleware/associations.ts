@@ -13,7 +13,7 @@ async function Associations(): Promise<void> {
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
-    //Group.hasMany(Resource);
+    // Group.hasMany(Resource);
     Resource.belongsToMany(Group, {
       through: "groupresources",
       timestamps: false,
@@ -22,6 +22,22 @@ async function Associations(): Promise<void> {
     //   through: "groupresources",
     //   timestamps: false,
     // });
+
+    // Group.hasMany(Tag);
+    Tag.belongsToMany(Group, {
+      through: "grouptag",
+      timestamps: false,
+    });
+
+    Resource.hasMany(Note, { foreignKey: "creatorid", sourceKey: "id" });
+    Note.belongsTo(Resource, { foreignKey: "creatorid", targetKey: "id" });
+
+    Resource.hasOne(Resource, {foreignKey: "copiedfrom", sourceKey:"id"})
+
+
+
+
+
 
   } catch (error) {
     throw new Error("Error setting up relationships");
