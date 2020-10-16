@@ -2,14 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 import User from "./User";
 
-class Group extends Model {
-  public id: number;
-  public groupname: string;
-  public resourceapi: string;
-  public datetimeadd: Date;
-  public datetimeremove: Date;
-  public createdby: number;
-}
+class Group extends Model {}
 
 Group.init(
   {

@@ -2,17 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 import bcrypt from "bcrypt";
 
-class User extends Model {
-  public id: number;
-  public username: string;
-  public hashpw: string;
-  public firstname: string;
-  public lastname: string;
-  public country: string;
-  public city: string;
-  public phonenum: string;
-  public email: string;
-}
+class User extends Model {}
 
 User.init(
   {

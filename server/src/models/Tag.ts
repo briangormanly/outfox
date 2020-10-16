@@ -1,11 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 
-class Tag extends Model {
-  public id: number;
-  public tag: string;
-  public createdate: Date;
-}
+class Tag extends Model {}
 
 Tag.init(
   {
