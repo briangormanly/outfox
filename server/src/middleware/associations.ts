@@ -7,12 +7,15 @@ import Tag from "../models/Tag";
 
 async function Associations(): Promise<void> {
   try {
+
+    // Associations for User and Group
     User.hasMany(Group, { foreignKey: "creatorid", sourceKey: "id" });
     Group.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
+    // Associations for Resource and Group
     // Group.hasMany(Resource);
     Resource.belongsToMany(Group, {
       through: "groupresources",
@@ -23,42 +26,23 @@ async function Associations(): Promise<void> {
     //   timestamps: false,
     // });
 
+    // Associations for Tag and Group
     // Group.hasMany(Tag);
     Tag.belongsToMany(Group, {
       through: "grouptag",
       timestamps: false,
     });
 
+    // Associations for Resource and Note
     Resource.hasMany(Note, { foreignKey: "creatorid", sourceKey: "id" });
     Note.belongsTo(Resource, { foreignKey: "creatorid", targetKey: "id" });
 
+    // Associations for Resource to Resource
     Resource.hasOne(Resource, {foreignKey: "copiedfrom", sourceKey:"id"})
-
-
-
-
-
 
   } catch (error) {
     throw new Error("Error setting up relationships");
   }
-
-  // Tag.belongsToMany(Category, { through: CategoryTag });
-  // Category.belongsToMany(Tag, { through: CategoryTag });
-  // Group.belongsToMany(Category, { through: GroupCategory });
-  // Category.belongsToMany(Group, { through: GroupCategory });
-  // LinkOwnerType.belongsToMany(User, { through: Link });
-  // User.belongsToMany(LinkOwnerType, { through: Link });
-  // ResourceVersion.hasMany(Note);
-  // Note.belongsToMany(Tag, { through: NoteTag });
-  // Tag.belongsToMany(Note, { through: NoteTag });
-  // ResourceType.belongsToMany(User, { through: Resource });
-  // User.belongsToMany(ResourceType, { through: Resource });
-  // Tag.belongsToMany(ResourceVersion, { through: ResourceTag });
-  // ResourceVersion.belongsToMany(Tag, { through: ResourceTag });
-  // User.hasMany(ResourceTag);
-  // Resource.belongsToMany(Link, { through: ResourceVersion });
-  // Link.belongsToMany(Resource, { through: ResourceVersion });
 }
 
 export default Associations;
