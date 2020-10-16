@@ -2,7 +2,6 @@ import User from "../models/User";
 import Group from "../models/Group";
 import Resource from "../models/Resource";
 import Note from "../models/Note";
-import ResourceVersion from "../models/ResourceVersion";
 import Tag from "../models/Tag";
 
 async function Associations(): Promise<void> {
