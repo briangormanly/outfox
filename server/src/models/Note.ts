@@ -12,6 +12,7 @@ Note.init(
       autoIncrement: true,
       primaryKey: true,
     },
+    
     resourceId: {
       type: DataTypes.INTEGER,
       references: {
@@ -19,6 +20,7 @@ Note.init(
         key: "id",
       },
     },
+
     noteName: {
       type: DataTypes.STRING,
       allowNull: false,
