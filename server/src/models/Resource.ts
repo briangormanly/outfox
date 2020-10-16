@@ -25,7 +25,7 @@ Resource.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    linkurl: {
+    url: {
       type: DataTypes.STRING,
       allowNull: false,
     },
