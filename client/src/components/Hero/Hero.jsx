@@ -21,7 +21,7 @@ const Hero = ({ img, alt, header, description, buttonLabel }) => {
 					<HeroColumn1>
 						<HeroHeader>{header}</HeroHeader>
 						<HeroDescription>{description}</HeroDescription>
-						<HeroButton to="/signin">{buttonLabel}</HeroButton>
+						<HeroButton to="/signup">{buttonLabel}</HeroButton>
 					</HeroColumn1>
 					<HeroColumn2>
 						<ImgWrapper>

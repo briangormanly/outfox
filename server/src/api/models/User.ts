@@ -1,13 +1,23 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from "../databaseConnection";
-import bcrypt  from 'bcrypt';
-import { Group } from './Group';
+import bcrypt from 'bcrypt';
 
-export class User extends Model {}
+class User extends Model {
+    public id: number;
+    public username: string;
+    public hashpw: string;
+    public firstname: string;
+    public lastname: string;
+    public country: string;
+    public city: string;
+    public phonenum: string;
+    public email: string;
+}
 
 User.init({
-    userid: {
+    id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
@@ -19,7 +29,7 @@ User.init({
         type: DataTypes.STRING,
 
 
-// Code for the password getting and setting could be better in the Uesr controller
+        // Code for the password getting and setting could be better in the Uesr controller
         get() {
             const passwd = this.getDataValue('hashpw');
             return passwd;
@@ -57,7 +67,4 @@ User.init({
     tableName: 'users' // We need to choose the table name it correlates to
 });
 
-(async () => {
-	await User.sync();
-	console.log('User synced with DB')
-  })();
+export default User;

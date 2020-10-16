@@ -34,13 +34,17 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const colors = {
-	primary      : '#8B0101',
-	primaryLight : '#D91818',
-	primaryDark  : '#400000',
-	black        : '#000',
-	white        : '#fff',
-	lightGrey    : '#f4f4f4',
-	darkGrey     : '#333333'
+	primary        : '#8B0101',
+	primaryLight   : '#f5abab',
+	primaryDark    : '#400000',
+	secondary      : '#018C29',
+	secondaryLight : '#18D94E',
+	secondaryDark  : '#004012',
+	black          : '#000',
+	white          : '#fff',
+	lightGrey      : '#f4f4f4',
+	darkGrey       : '#333333',
+	mediumGrey     : '#dedede'
 };
 
 export const transition = 'all 0.3s ease-out';

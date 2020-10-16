@@ -5,7 +5,7 @@ export class Category extends Model {}
 
 // Not going to add userid since its serial meaning it should increment in the database
 Category.init({
-    catergoryname: {
+    categoryname: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -13,10 +13,5 @@ Category.init({
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: 'Categories' // We need to choose the table name it correlates to
+    tableName: 'categories' // We need to choose the table name it correlates to
 });
-
-(async () => {
-    await Category.sync();
-    console.log('Category synced with DB')
- })();
