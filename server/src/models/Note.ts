@@ -3,30 +3,25 @@ import sequelize from "../middleware/databaseConnection";
 import Resource from "./Resource";
 
 class Note extends Model {
-  public resourceid: number;
-  public subject: string;
-  public body: string;
+  public resourceId: number;
+  public noteName: string;
+  public noteBody: string;
 }
 
 Note.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    resourceid: {
+    resourceId: {
       type: DataTypes.INTEGER,
       references: {
         model: Resource,
         key: "id",
       },
     },
-    subject: {
+    noteName: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    body: {
+    noteBody: {
       type: DataTypes.STRING,
       allowNull: false,
     },

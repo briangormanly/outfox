@@ -5,10 +5,10 @@ import User from "./User";
 class Group extends Model {
   public id: number;
   public groupname: string;
+  public resourceapi: string;
   public datetimeadd: Date;
   public datetimeremove: Date;
-  public deleted: boolean;
-  public creatorid: number;
+  public createdby: number;
 }
 
 Group.init(
@@ -23,6 +23,14 @@ Group.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    groupdescription: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    resourceapi: {
+      type: DataTypes.STRING,
+      defaultValue: null,
+    },
     datetimeadd: {
       type: DataTypes.DATE,
       defaultValue: null,
@@ -31,23 +39,19 @@ Group.init(
       type: DataTypes.DATE,
       defaultValue: null,
     },
-    deleted: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false,
-    },
-    creatorid: {
+    createdby: {
       type: DataTypes.INTEGER,
       references: {
         model: User,
         key: "id",
+      },
     },
   },
-},
   {
-    sequelize,
+    // Other model options go here
+    sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: "groups",
+    tableName: "groups", // We need to choose the table name it correlates to
   }
 );
 
