@@ -17,17 +17,34 @@ import Resource from "../models/Resource";
 
 async function Associations(): Promise<void> {
   try {
-    User.hasMany(Group, { foreignKey: "createdby", sourceKey: "id" });
-    Group.belongsTo(User, { foreignKey: "createdby", targetKey: "id" });
+    User.hasMany(Group, { foreignKey: "creatorid", sourceKey: "id" });
+    Group.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
-    Group.hasMany(Resource);
+    // Group.hasMany(Resource);
     Resource.belongsToMany(Group, {
       through: "groupresources",
       timestamps: false,
     });
+
+    // Group.hasMany(Tag);
+    Tag.belongsToMany(Group, {
+      through: "grouptag",
+      timestamps: false,
+    });
+
+    Resource.hasMany(Note, { foreignKey: "creatorid", sourceKey: "id" });
+    Note.belongsTo(Resource, { foreignKey: "creatorid", targetKey: "id" });
+
+    Resource.hasOne(Resource, {foreignKey: "copiedfrom", sourceKey:"id"})
+
+
+
+
+
+
   } catch (error) {
     throw new Error("Error setting up relationships");
   }
