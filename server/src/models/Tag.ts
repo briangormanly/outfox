@@ -3,7 +3,7 @@ import sequelize from "../middleware/databaseConnection";
 
 class Tag extends Model {
   public id: number;
-  public tag: string;
+  public name: string;
   public createdate: Date;
 }
 
@@ -13,9 +13,10 @@ Tag.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      unique: true,
+      autoIncrement: true,
+      // unique: true,
     },
-    tag: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },

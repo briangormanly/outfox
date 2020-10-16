@@ -80,7 +80,7 @@ class UsersController implements Controller {
       if (user) {
         response.status(200).json(user);
       } else {
-        response.status(404).send("User with the specified ID does not exist");
+        response.status(401).send("User with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);
@@ -102,7 +102,7 @@ class UsersController implements Controller {
       if (user) {
         response.status(200).json(user);
       } else {
-        response.status(404).send("User with the specified ID does not exist");
+        response.status(401).send("User with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);
@@ -126,7 +126,7 @@ class UsersController implements Controller {
         const updatedUser = await User.findOne({ where: { id: id } }); // Grab the update user
         response.status(200).json({ user: updatedUser }); // Return the updated user
       } else {
-        response.status(404).send("User with the specified ID does not exist"); // User does not exist
+        response.status(401).send("User with the specified ID does not exist"); // User does not exist
       }
     } catch (error) {
       response.status(500).send(error.message);
@@ -147,7 +147,7 @@ class UsersController implements Controller {
       if (deleted) {
         response.status(204).send("User Deleted");
       } else {
-        response.status(404).send("User with the specified ID does not exist");
+        response.status(401).send("User with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);
