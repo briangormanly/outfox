@@ -27,6 +27,7 @@ Group.init(
     deleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+      allowNull: false,
     },
     creatorid: {
       type: DataTypes.INTEGER,
