@@ -10,13 +10,13 @@ class Resource extends Model {
   public description: string;
   public link: string;
   public mutable: boolean;
-  public creatorid: number;}
+  public creatorid: number;
+}
 
 Resource.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -36,13 +36,6 @@ Resource.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    copiedfrom:{
-      type: DataTypes.INTEGER,
-      references: {
-        model: Resource,
-        key: "id",
-      },
-    },
     mutable: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -52,9 +45,9 @@ Resource.init(
       references: {
         model: User,
         key: "id",
+      },
     },
   },
-},
   {
     sequelize, // We need to pass the connection instance
     timestamps: true,

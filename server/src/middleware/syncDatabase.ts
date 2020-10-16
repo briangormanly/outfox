@@ -1,23 +1,27 @@
-// Tables / Models
+// import Category from "../models/Category";
+// import CategoryTag from "../models/CategoryTag";
 import Group from "../models/Group";
-import Note from "../models/Note";
+// import GroupCategory from "../models/GroupCategory";
+// import Note from "../models/Note";
+// import NoteTag from "../models/NoteTag";
 import Resource from "../models/Resource";
-import Tag from "../models/Tag";
+// import ResourceTag from "../models/ResourceTag";
+// import Tag from "../models/Tag";
 import User from "../models/User";
-
-// Associations
 import Associations from "./associations";
-
-// Database Connection
 import sequelize from "./databaseConnection";
-
 // Array of all models [Tables]
 const models = [
   User,
   Group,
-  Tag,
+  //  Tag,
+  //  Category,
+  //  CategoryTag,
+  //  GroupCategory,
   Resource,
-  Note
+  //  Note,
+  //  NoteTag,
+  //  ResourceTag,
 ];
 
 async function sync(): Promise<void> {
@@ -34,9 +38,8 @@ async function sync(): Promise<void> {
     Associations();
     // sequelize.sync({ force: true });
     sequelize.sync();
-    console.log("Associations are stable.")
   } catch (error) {
-    throw new Error("Associations not hooked up.");
+    throw new Error("Associations not hooked up");
   }
 }
 
