@@ -3,7 +3,14 @@ import sequelize from "../middleware/databaseConnection";
 
 import User from "./User";
 
-class Resource extends Model {}
+class Resource extends Model {
+  public id: number;
+  public type: string;
+  public title: string;
+  public description: string;
+  public link: string;
+  public mutable: boolean;
+  public creatorid: number;}
 
 Resource.init(
   {
@@ -25,7 +32,7 @@ Resource.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    url: {
+    link: {
       type: DataTypes.STRING,
       allowNull: false,
     },

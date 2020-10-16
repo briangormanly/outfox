@@ -2,7 +2,11 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 import Resource from "./Resource";
 
-class Note extends Model {}
+class Note extends Model {
+  public resourceid: number;
+  public subject: string;
+  public body: string;
+}
 
 Note.init(
   {
