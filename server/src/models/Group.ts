@@ -16,14 +16,6 @@ Group.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    groupdescription: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    resourceapi: {
-      type: DataTypes.STRING,
-      defaultValue: null,
-    },
     datetimeadd: {
       type: DataTypes.DATE,
       defaultValue: null,
@@ -32,19 +24,22 @@ Group.init(
       type: DataTypes.DATE,
       defaultValue: null,
     },
-    createdby: {
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    creatorid: {
       type: DataTypes.INTEGER,
       references: {
         model: User,
         key: "id",
-      },
     },
   },
+},
   {
-    // Other model options go here
-    sequelize, // We need to pass the connection instance
+    sequelize,
     timestamps: false,
-    tableName: "groups", // We need to choose the table name it correlates to
+    tableName: "groups",
   }
 );
 
