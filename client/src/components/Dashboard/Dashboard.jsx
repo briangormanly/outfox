@@ -1,33 +1,30 @@
 import React from 'react';
 
+import { DashboardGroups, DashboardFriends, DashboardResources } from '../index';
+
 import {
 	DashboardContainer,
 	GroupContainer,
 	FriendContainer,
-	ResourceContainer,
-	CourseContainer
+	ResourceContainer
 } from './Dashboard.elements';
 
-const Dashboard = () => {
+const Dashboard = ({ dashboardPaginate, updateFlag, setUpdateFlag }) => {
 	return (
 		<DashboardContainer>
 			<GroupContainer>
-				<h1>My Groups</h1>
-				{/*  */}
+				<DashboardGroups dashboardPaginate={dashboardPaginate} />
 			</GroupContainer>
 			<FriendContainer>
-				<h1>Friends Activity</h1>
-
-				{/*  */}
+				<DashboardFriends />
 			</FriendContainer>
 			<ResourceContainer>
-				<h1>My Resources</h1>
-
-				{/*  */}
+				<DashboardResources
+					dashboardPaginate={dashboardPaginate}
+					updateFlag={updateFlag}
+					setUpdateFlag={setUpdateFlag}
+				/>
 			</ResourceContainer>
-			<CourseContainer>
-				<h1>My Courses</h1>
-			</CourseContainer>
 		</DashboardContainer>
 	);
 };

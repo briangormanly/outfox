@@ -1,10 +1,13 @@
 import React from 'react';
 
-const Groups = () => {
+import { GroupContainer } from './Groups.elements';
+import { GroupAllCard } from '../index';
+
+const Groups = ({ groups }) => {
 	return (
-		<div>
-			<h1>GROUPS</h1>
-		</div>
+		<GroupContainer>
+			{groups.map((group) => <GroupAllCard key={group.id} {...group} />)}
+		</GroupContainer>
 	);
 };
 
