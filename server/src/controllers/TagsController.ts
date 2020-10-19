@@ -90,7 +90,8 @@ class TagsController implements Controller {
   updateTag = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-
+      
+      // check if there is an id that matches the id in request
       const [updated] = await Tag.update(request.body, {
         where: { id: id },
       }); // Destructure the array so we grab the updated version of our tag
