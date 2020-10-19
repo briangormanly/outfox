@@ -4,6 +4,7 @@ import GroupsController from "./controllers/GroupsController";
 import ResourceTypeController from "./controllers/ResourceTypeController";
 import ResourceController from "./controllers/ResourceController";
 import LinkOwnerTypeController from "./controllers/LinkOwnerTypeController";
+import TagsController from "./controllers/TagsController";
 // Creates a new Express App that takes a list of Controllers and a port
 const app = new App(
   [
@@ -12,6 +13,7 @@ const app = new App(
     new ResourceTypeController(),
     new ResourceController(),
     new LinkOwnerTypeController(),
+    new TagsController(),
   ],
   8080
 );
