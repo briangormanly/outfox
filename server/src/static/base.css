@@ -28,7 +28,7 @@ body, div {
 #content_holder {
     display: inline-block;
     margin-left: 300px;
-    padding: 10px;
+    padding: 30px;
     max-width: 900px;
     background:white;
 }
@@ -62,4 +62,15 @@ ul {
 
 .text_centerer {
     text-align: center;
+}
+
+.header {
+    background: #8B0101;
+    padding: 7px;
+    color: white;
+}
+
+.sub_header {
+    background: lightgray;
+    padding: 5px;
 }
