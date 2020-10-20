@@ -1,0 +1,51 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: block;
+}
+
+body, div {
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2em;
+}
+
+#table_of_contents_holder {
+    width: 300px;
+    height: 100%;
+    background: #8B0101;
+    display: inline-block;
+    position: fixed;
+    color: white;
+}
+
+#content_holder {
+    display: inline-block;
+    margin-left: 300px;
+    padding: 10px;
+    max-width: 900px;
+    background:white;
+}
+
+#toc_text {
+    background: lightgray;
+    color: black;
+    margin: 20px 0px;
+    padding: 3px;
+    font-size: xx-large;
+}
+
+/* #logo_holder {
+    background: blue;
+    display: block;
+    float: right;
+    position: fixed;
+    height: 100%;
+}
+*/
