@@ -41,11 +41,25 @@ body, div {
     font-size: xx-large;
 }
 
-/* #logo_holder {
-    background: blue;
-    display: block;
-    float: right;
-    position: fixed;
-    height: 100%;
+#toc_list_container {
+    padding: 0px 0px 0px 0px;
 }
-*/
+
+ul {
+    list-style: none;
+}
+
+.list_item {
+    font-size: 16pt;
+    padding-top: 10px;
+}
+
+.list_sub_item {
+    font-size: 13pt;
+    padding-top: 5px;
+    padding-left: 11px;
+}
+
+.text_centerer {
+    text-align: center;
+}
