@@ -103,7 +103,8 @@ ul {
 
 .list_item {
     font-size: 1.08em;
-    padding-top: 5%;
+    padding-top: 2%;
+    padding-bottom: 1%;
     width: 100%;
 }
 
