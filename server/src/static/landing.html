@@ -2,6 +2,7 @@
     <html>
         <head>
             <title>Outfox</title>
+            <script src="jquery-3.5.1.min.js"></script>
             <link href = "base.css" rel = "stylesheet" type = "text/css">
             <meta name = "viewport" content = "width=device-width, initial-scale=1">
         </head>
@@ -12,8 +13,8 @@
                         Menu
                     </div>
                     <div id = "toc_list_container">
-                        <ul>
-                            <li class = "list_item"><a href = "#intro">Introduction</a></li>
+                        <ul id = "top-menu">
+                            <li class = "active list_item"><a href = "#intro">Introduction</a></li>
                             <li class = "list_sub_item"><a href = "#background"> Background</a></li>
                             <li class = "list_sub_item"><a href = #mission> Mission</a></li>
                             <li class = "list_sub_item"><a href = #sign_up> Sign Up</a></li>
@@ -55,5 +56,6 @@
                     <img src = "./fox.svg" id = "fox_image" alt = "logo">
                 </div>
             </div>
+            <script src = "./landing.js"></script>
         </body>
     </html>

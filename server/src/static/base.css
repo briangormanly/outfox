@@ -6,7 +6,7 @@ body, html {
     font-family: 'Roboto',sans-serif;
 }
 
-body, div {
+body, div, li, ul {
     border: 0;
     outline: 0;
     font-size: 100%;
@@ -31,6 +31,19 @@ a {
 }
 a:hover {
     text-decoration: underline;
+}
+
+#table_of_contents_holder #toc_list_container .active {
+    background: lightgray;
+}
+
+#table_of_contents_holder #toc_list_container .active,#table_of_contents_holder #toc_list_container .active a,#table_of_contents_holder #toc_list_container .active a:hover,#table_of_contents_holder #toc_list_container .active a:link {
+    color: black;
+}
+
+#top-menu li.active a {
+    background: lightgray;
+    color: black;
 }
 
 #table_of_contents_holder {
@@ -78,21 +91,27 @@ a:hover {
 
 #toc_list_container {
     padding: 0px 0px 0px 0px;
+    width: 100%;
 }
 
 ul {
     list-style: none;
+    padding-left: 3%;
+    width: 94%;
+    display: block;
 }
 
 .list_item {
     font-size: 1.08em;
-    padding-top: 10px;
+    padding-top: 5%;
+    width: 100%;
 }
 
 .list_sub_item {
     font-size: 1em;
-    padding-top: 5px;
-    padding-left: 11px;
+    padding-top: 3%;
+    padding-left: 10%;
+    width: 100%;
 }
 
 .text_centerer {
