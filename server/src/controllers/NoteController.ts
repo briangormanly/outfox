@@ -26,7 +26,7 @@ class NotesController implements Controller {
       .route(this.path + "/:id")
       .get(this.getNote)
       .put(this.updateNote)
-      //.delete(this.deleteNote);
+      .delete(this.deleteNote);
   }
 
   /**
@@ -68,7 +68,7 @@ class NotesController implements Controller {
    */
   getNote = async (request: Request, response: Response): Promise<void> => {
     try {
-      const { id } = request.params; // Destructure the request.params object and grab only id
+      const { id } = request.params; 
 
       const note = await Note.findOne({
         where: { id: id },
@@ -91,7 +91,7 @@ class NotesController implements Controller {
    */
   updateNote = async (request: Request, response: Response): Promise<void> => {
     try {
-      const { id } = request.params; //Destructure the object to only grab the id coming from the request
+      const { id } = request.params; 
 
       const [updated] = await Note.update(request.body, {
         where: { id: id },
@@ -102,6 +102,27 @@ class NotesController implements Controller {
         response.status(200).json({ note: updatedNote }); //Return the updated Note
       } else {
         response.status(404).send("Note with the specified ID does not exist"); //Note does not exist
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  /**
+   * Deletes a Note based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  deleteNote = async (request: Request, response: Response): Promise<void> => {
+    try {
+      const { id } = request.params; 
+      const deleted = await Note.destroy({
+        where: { id: id },
+      }); // Delete the Note with the specified id
+      if (deleted) {
+        response.status(204).send("Note Successdully Deleted");
+      } else {
+        response.status(404).send("Note with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);
