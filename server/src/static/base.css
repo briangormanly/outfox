@@ -16,6 +16,10 @@ body, div {
     line-height: 1.2em;
 }
 
+#big_container {
+    display: flex;
+}
+
 #table_of_contents_holder {
     width: 300px;
     height: 100%;
@@ -31,6 +35,20 @@ body, div {
     padding: 30px;
     max-width: 900px;
     background:white;
+}
+
+#logo_holder {
+    color: white;
+    height: 100%;
+    position: fixed;
+    margin-left: 1300px;
+    float: left;
+}
+
+#fox_image {
+    padding-top: 100px;
+    width: 400px; 
+    height: 200px;
 }
 
 #toc_text {
