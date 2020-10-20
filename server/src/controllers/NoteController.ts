@@ -25,7 +25,7 @@ class NotesController implements Controller {
     this.router
       .route(this.path + "/:id")
       .get(this.getNote)
-      //.put(this.updateNote)
+      .put(this.updateNote)
       //.delete(this.deleteNote);
   }
 
@@ -72,12 +72,36 @@ class NotesController implements Controller {
 
       const note = await Note.findOne({
         where: { id: id },
-      }); // Grabs the user where the id is 0
+      }); 
 
       if (note) {
         response.status(200).json(note);
       } else {
         response.status(404).send("Note with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  /**
+   * Updates a Note based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  updateNote = async (request: Request, response: Response): Promise<void> => {
+    try {
+      const { id } = request.params; //Destructure the object to only grab the id coming from the request
+
+      const [updated] = await Note.update(request.body, {
+        where: { id: id },
+      }); 
+
+      if (updated) {
+        const updatedNote = await Note.findOne({ where: { id: id } }); 
+        response.status(200).json({ note: updatedNote }); //Return the updated Note
+      } else {
+        response.status(404).send("Note with the specified ID does not exist"); //Note does not exist
       }
     } catch (error) {
       response.status(500).send(error.message);
