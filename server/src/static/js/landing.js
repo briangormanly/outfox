@@ -1,37 +1,45 @@
-/*var scroll = new SmoothScroll('a[href*="#"]', {
-	// Callback to run after scroll
-	// Anchor is the element you're scrolling to
-	// Toggle is the link that triggered the scroll
-	after: function (anchor, toggle) {
-		// Remove link from previously active link, if one exists
-		var current = document.querySelector('active');
-		if (current) {
-			current.classList.remove('active');
-		}
+// Cache selectors
+var lastId,
+ topMenu = $("#top-menu"),
+ topMenuHeight = topMenu.outerHeight()+1,
+ // All list items
+ menuItems = topMenu.find("a"),
+ // Anchors corresponding to menu items
+ scrollItems = menuItems.map(function(){
+   var item = $($(this).attr("href"));
+    if (item.length) { return item; }
+ });
 
-		// Add a class to the clicked toggle
-		if (toggle) {
-			toggle.classList.add('active');
-		}
-	} 
-}); */
+// Bind click handler to menu items
+// so we can get a fancy scroll animation
+menuItems.click(function(e){
+  var href = $(this).attr("href"),
+      offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
+  $('html, body').stop().animate({ 
+      scrollTop: offsetTop
+  }, 850);
+  e.preventDefault();
+});
 
-window.addEventListener('DOMContentLoaded', () => {
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            const id = entry.target.getAttribute('id');
-            if (entry.intersectionRatio > 0) {
-                document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.add('active');
-            } else {
-                document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.remove('active');
-            }
-        });
-    });
-
-    // Track all sections that have an `id` applied
-    document.querySelectorAll('section[id]').forEach((section) => {
-        observer.observe(section);
-    });
-    
+// Bind to scroll
+$(window).scroll(function(){
+   // Get container scroll position
+   var fromTop = $(this).scrollTop()+topMenuHeight;
+   
+   // Get id of current scroll item
+   var cur = scrollItems.map(function(){
+     if ($(this).offset().top < fromTop)
+       return this;
+   });
+   // Get the id of the current element
+   cur = cur[cur.length-1];
+   var id = cur && cur.length ? cur[0].id : "";
+   
+   if (lastId !== id) {
+       lastId = id;
+       // Set/remove active class
+       menuItems
+         .parent().removeClass("active")
+         .end().filter('[href="#'+ id +'"]').parent().addClass("active");
+   }                   
 });
