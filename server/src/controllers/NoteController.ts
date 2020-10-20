@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import Note from "../models/Note";
 import Controller from "../interfaces/ControllerInterface";
-import Resource from "../models/Resource";
+//import Resource from "../models/Resource";
 
 /**
  * The Note controller is responsible for handling the HTTP requests.
@@ -22,12 +22,11 @@ class NotesController implements Controller {
    */
   public initializeRoutes(): void {
     this.router.route(this.path).get(this.getAllNotes).post(this.createNote);
-    /*this.router
+    this.router
       .route(this.path + "/:id")
       .get(this.getNote)
-      .put(this.updateNote)
-      .delete(this.deleteNote);
-    */
+      //.put(this.updateNote)
+      //.delete(this.deleteNote);
   }
 
   /**
@@ -61,5 +60,30 @@ class NotesController implements Controller {
       response.status(500).send(error.message);
     }
   };
+
+  /**
+   * Grabs a specific Note based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getNote = async (request: Request, response: Response): Promise<void> => {
+    try {
+      const { id } = request.params; // Destructure the request.params object and grab only id
+
+      const note = await Note.findOne({
+        where: { id: id },
+      }); // Grabs the user where the id is 0
+
+      if (note) {
+        response.status(200).json(note);
+      } else {
+        response.status(404).send("Note with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
   
 }
+
+export default NotesController;

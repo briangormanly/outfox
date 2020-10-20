@@ -2,7 +2,7 @@
 // import CategoryTag from "../models/CategoryTag";
 import Group from "../models/Group";
 // import GroupCategory from "../models/GroupCategory";
-// import Note from "../models/Note";
+import Note from "../models/Note";
 // import NoteTag from "../models/NoteTag";
 import Resource from "../models/Resource";
 // import ResourceTag from "../models/ResourceTag";
@@ -19,7 +19,7 @@ const models = [
   //  CategoryTag,
   //  GroupCategory,
   Resource,
-  //  Note,
+  Note,
   //  NoteTag,
   //  ResourceTag,
 ];
