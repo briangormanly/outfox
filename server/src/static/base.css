@@ -3,6 +3,7 @@ body, html {
     height: 100%;
     background-color: transparent;
     display: block;
+    font-family: 'Roboto',sans-serif;
 }
 
 body, div {
@@ -18,6 +19,18 @@ body, div {
 
 #big_container {
     display: flex;
+}
+
+#title {
+    font-size: 8em;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
 
 #table_of_contents_holder {
