@@ -41,5 +41,14 @@ $(window).scroll(function(){
        menuItems
          .parent().removeClass("active")
          .end().filter('[href="#'+ id +'"]').parent().addClass("active");
-   }                   
+   }
+   $(window).scroll(function() {
+	if($(window).scrollTop() + $(window).height() == $(document).height()) {
+		lastId = id;
+    	// Set/remove active class
+    	menuItems
+    	.parent().removeClass("active")
+    	.end().filter('[href="#'+ id +'"]').parent().addClass("active");
+	}
+	});                   
 });
