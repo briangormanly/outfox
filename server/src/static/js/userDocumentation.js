@@ -50,5 +50,5 @@ $(window).scroll(function(){
     	.parent().removeClass("active")
     	.end().filter('[href="#'+ id +'"]').parent().addClass("active");
 	}
-	});                   
+	});
 });
