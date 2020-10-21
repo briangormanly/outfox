@@ -28,10 +28,15 @@ body, div, li, ul {
 a {
     color: white;
     text-decoration: none;
+    padding-left: 3%;
 }
 a:hover {
     text-decoration: underline;
 }
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+  }
 
 #table_of_contents_holder #toc_list_container .active {
     background: #F08080;
