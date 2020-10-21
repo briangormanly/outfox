@@ -1,11 +1,14 @@
-FROM node:latest
+FROM node:15
+
+WORKDIR /app
+
+COPY ./package.json .
+COPY ./package-lock.json .
+
 RUN npm install
-WORKDIR /server
-RUN npm install
-WORKDIR /
-WORKDIR /client
-RUN npm install
-WORKDIR /
-EXPOSE 3000
+
 COPY . .
-CMD npm run dev
+
+EXPOSE 3000
+
+CMD npm start
