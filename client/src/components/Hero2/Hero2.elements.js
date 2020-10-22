@@ -11,7 +11,7 @@ export const HeroSection = styled.div`
 	width: 100%;
 	background: rgb(139, 1, 1);
 	background: linear-gradient(
-		90deg,
+		140deg,
 		rgba(139, 1, 1, 1) 0%,
 		rgba(158, 60, 60, 1) 40%,
 		rgba(53, 157, 157, 1) 70%,

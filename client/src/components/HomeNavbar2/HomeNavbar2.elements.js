@@ -16,6 +16,7 @@ export const NavContainer = styled(Container)`
   align-items: center;
   position: fixed;
   z-index: 10;
+	border-bottom: 1px solid ${lightGrey};
 
   svg{
     width: 5rem;
