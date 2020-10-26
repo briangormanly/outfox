@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import Friend from "../models/Friend";
 
 /**
- * The resource controller is responsible for handling the HTTP requests.
+ * The friend controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
  */
 class FriendController {
@@ -31,10 +31,10 @@ class FriendController {
     // Need to add patch
   }
 
-  // Goes to route /api/resources
+  // Goes to route /api/friends
 
   /**
-   * Grabs all resources in the database and sends them as a response in json
+   * Grabs all friends in the database and sends them as a response in json
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
@@ -43,15 +43,15 @@ class FriendController {
     response: Response
   ): Promise<void> => {
     try {
-      const resource = await Friend.findAll(); // Grabs all resources
-      response.json(resource);
+      const friend = await Friend.findAll(); // Grabs all friends
+      response.json(friend);
     } catch (err) {
       response.status(400).json({ message: "Something went wrong" });
     }
   };
 
   /**
-   * Creates a new resources in the database if the request has the correct json
+   * Creates a new friends in the database if the request has the correct json
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
@@ -61,33 +61,33 @@ class FriendController {
   ): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const resource = await Friend.create(request.body);
-      response.status(201).json({ resource });
+      const friend = await Friend.create(request.body);
+      response.status(201).json({ friend });
     } catch (error) {
       response.status(500).send(error.message);
     }
   };
 
-  // Goes to route /api/resources/:id
+  // Goes to route /api/friends/:id
 
   /**
-   * Grabs a specific resources based off the ID provided
+   * Grabs a specific friends based off the ID provided
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
   getFriend = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the request.params object and grab only id
-      const resource = await Friend.findOne({
+      const friend = await Friend.findOne({
         where: { id: id },
-      }); // Grabs the resources where the id is 0
+      }); // Grabs the friends where the id is 0
 
-      if (resource) {
-        response.status(200).json(resource);
+      if (friend) {
+        response.status(200).json(friend);
       } else {
         response
           .status(404)
-          .send("Resource with the specified ID does not exist");
+          .send("Friend with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);
@@ -95,7 +95,7 @@ class FriendController {
   };
 
   /**
-   * Updates a resources based off the ID provided
+   * Updates a friend based off the ID provided
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
@@ -107,15 +107,15 @@ class FriendController {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
       const [updated] = await Friend.update(request.body, {
         where: { id: id },
-      }); // Destructure the array so we grab the updated version of our resources
+      }); // Destructure the array so we grab the updated version of our friends
 
       if (updated) {
-        const updatedResource = await Friend.findOne({ where: { id: id } }); // Grab the update resource
-        response.status(200).json({ resource: updatedResource }); // Return the updated resources
+        const updatedFriend = await Friend.findOne({ where: { id: id } }); // Grab the update friend
+        response.status(200).json({ friend: updatedFriend }); // Return the updated friend
       } else {
         response
           .status(404)
-          .send("Resource with the specified ID does not exist"); // resource does not exist
+          .send("Friend with the specified ID does not exist"); // friend does not exist
       }
     } catch (error) {
       response.status(500).send(error.message);
@@ -123,7 +123,7 @@ class FriendController {
   };
 
   /**
-   * Deletes a resource based off the ID provided
+   * Deletes a friend based off the ID provided
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
@@ -135,13 +135,13 @@ class FriendController {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
       const deleted = await Friend.destroy({
         where: { id: id },
-      }); // Delete the resource with the specified id
+      }); // Delete the friend with the specified id
       if (deleted) {
-        response.status(204).send("Resource Deleted");
+        response.status(204).send("Friend Deleted");
       } else {
         response
           .status(404)
-          .send("Resource with the specified ID does not exist");
+          .send("Friend with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);
