@@ -3,6 +3,7 @@ import sequelize from "../middleware/databaseConnection";
 import User from "./User";
 
 class Friend extends Model {
+  public id: number;
   public requesterid: number;
   public addresseeid: number;
   public status: Enumerator;
@@ -10,11 +11,16 @@ class Friend extends Model {
 
 Friend.init(
   {
-    requesterid: {
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
+    },
+    requesterid: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
       references: {
         model: User,
         key: "id",
@@ -23,7 +29,6 @@ Friend.init(
     addresseeid: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
       references: {
         model: User,
         key: "id",
