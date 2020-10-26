@@ -4,7 +4,7 @@ import User from "./User";
 
 class Friend extends Model {
   public requesterid: number;
-  public adresseeid: number;
+  public addresseeid: number;
   public status: Enumerator;
 }
 
@@ -20,7 +20,7 @@ Friend.init(
         key: "id",
       },
     },
-    adresseeid: {
+    addresseeid: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
