@@ -30,7 +30,7 @@ Friend.init(
       },
     },
     status: {
-      type: DataTypes.ENUM('a', 'r'),
+      type: DataTypes.ENUM('a', 'r', 'p'),
     },
   },
   {
