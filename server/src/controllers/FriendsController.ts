@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Friend from "../models/Friend";
 import { request } from "http";
+import User from "../models/User";
 
 /**
  * The friend controller is responsible for handling the HTTP requests.
@@ -50,28 +51,6 @@ class FriendController {
       response.status(400).json({ message: "Something went wrong" });
     }
   };
-
-  getUserFriends = async (
-      request: Request,
-      response: Response
-    ): Promise<void> => {
-      const {id} = request.params;
-      try{
-        const userRequestedFriends = await Friend.findAll({where:{requesterid:id, status:"a"}})
-        const userAcceptedFriends = await Friend.findAll({where:{addresseeid:id, status:"a"}})
-
-        const userRequestedFriendsToFriendIds = userRequestedFriends.map(friend=>friend.addresseeid);
-        const userAcceptedFriendsToFriendIds = userAcceptedFriends.map(friend=>friend.requesterid);
-
-        const allUserFriends = [...userRequestedFriendsToFriendIds, ...userAcceptedFriendsToFriendIds];
-
-        response.status(201).json(allUserFriends);
-
-      } catch(err){
-
-      response.status(400).json({ message: "Something went wrong" });
-      }
-    }
 
   /**
    * Creates a new friends in the database if the request has the correct json
