@@ -32,6 +32,9 @@ class UsersController implements Controller {
     this.router
       .route(this.path + "/userandgroups/" + ":id")
       .get(this.getUserAndGroups);
+    this.router
+      .route(this.path + "/userfriends" + ":id")
+      .get(this.getUserFriends)
   }
 
   // Goes to route /api/users
