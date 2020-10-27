@@ -33,7 +33,7 @@ class UsersController implements Controller {
       .route(this.path + "/userandgroups/" + ":id")
       .get(this.getUserAndGroups);
     this.router
-      .route(this.path + "/userfriends" + ":id")
+      .route(this.path + "/userfriends/" + ":id")
       .get(this.getUserFriends)
   }
 
@@ -164,8 +164,8 @@ class UsersController implements Controller {
   ): Promise<void> => {
     const {id} = request.params;
     try{
-      const userRequestedFriends = await Friend.findAll({where:{requesterid:id, status:"a"}})
-      const userAcceptedFriends = await Friend.findAll({where:{addresseeid:id, status:"a"}})
+      const userRequestedFriends = await Friend.findAll({where:{requesterid:id, status:"a"}});
+      const userAcceptedFriends = await Friend.findAll({where:{addresseeid:id, status:"a"}});
 
       const userRequestedFriendsToFriendIds = userRequestedFriends.map(friend=>friend.addresseeid);
       const userAcceptedFriendsToFriendIds = userAcceptedFriends.map(friend=>friend.requesterid);
@@ -179,7 +179,6 @@ class UsersController implements Controller {
     response.status(400).json({ message: "Something went wrong" });
     }
   }
-
 }
 
 export default UsersController;
