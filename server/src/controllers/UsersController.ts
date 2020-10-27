@@ -171,10 +171,8 @@ class UsersController implements Controller {
       const userAcceptedFriendsToFriendIds = userAcceptedFriends.map(friend=>friend.requesterid);
       
       const allUserFriendIds = [...userRequestedFriendsToFriendIds, ...userAcceptedFriendsToFriendIds];
-      console.log(allUserFriendIds);
 
       const allUserFriends = allUserFriendIds.map(async friend_id=>await User.findOne({where:{id:friend_id}}));
-      console.log(await Promise.all(allUserFriends));
 
       response.status(201).json(await Promise.all(allUserFriends));
 
