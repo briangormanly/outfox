@@ -100,7 +100,7 @@ class UsersController implements Controller {
       const { id } = request.params; // Destructure the request.params object and grab only id
 
       const user = await User.findOne({
-        where: { id: id },
+        where: { id: id }
       }); // Grabs the user where the id is 0
 
       if (user) {
