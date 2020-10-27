@@ -20,7 +20,6 @@ Friend.init(
     requesterid: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
       references: {
         model: User,
         key: "id",
