@@ -1,5 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
+import User from "./User";
+import Group from "./Group";
 
 class ShareGroup extends Model {
   public id: number;
@@ -18,10 +20,18 @@ ShareGroup.init(
     groupid: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: Group,
+        key: "id",
+      },
     },
     userid: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: User,
+        key: "id",
+      },
     },
   },
   {

@@ -1,9 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
+import User from "./User";
+import Resource from "./Resource";
 
 class ShareResource extends Model {
   public id: number;
-  public groupid: number;
+  public resourceid: number;
   public userid: number;
 }
 
@@ -18,10 +20,18 @@ ShareResource.init(
     resourceid: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: Resource,
+        key: "id",
+      },
     },
     userid: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: User,
+        key: "id",
+      },
     },
   },
   {
