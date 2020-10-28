@@ -169,7 +169,7 @@ class UsersController implements Controller {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
       const sharedGroups = await User.findAll({
         where: { id : id },
-        include: Group,
+        include: sharegroup,
       }); // Search for the groups shared with user X {X = params:id}
 
       if (sharedGroups) {

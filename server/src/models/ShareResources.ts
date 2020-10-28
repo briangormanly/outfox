@@ -1,13 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 
-class ShareGroup extends Model {
+class ShareResource extends Model {
   public id: number;
   public groupid: number;
   public userid: number;
 }
 
-ShareGroup.init(
+ShareResource.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -15,7 +15,7 @@ ShareGroup.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    groupid: {
+    resourceid: {
 
     },
     userid: {
@@ -26,6 +26,6 @@ ShareGroup.init(
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: "sharegroup", // We need to choose the table name it correlates to
+    tableName: "shareresource", // We need to choose the table name it correlates to
   }
 );

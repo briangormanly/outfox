@@ -23,6 +23,7 @@ async function Associations(): Promise<void> {
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
+    // Group Sharing
     Group.belongsToMany(User,{
       through: "sharegroup",
       timestamps: false,
