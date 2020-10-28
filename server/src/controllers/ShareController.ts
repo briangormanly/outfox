@@ -4,6 +4,7 @@ import ShareResource from "../models/ShareResource";
 import Controller from "../interfaces/ControllerInterface";
 import Group from "../models/Group";
 import User from "../models/User";
+import Resource from "../models/Resource";
 
 /**
  * The share controller is responsible for handling the HTTP requests.
@@ -30,16 +31,16 @@ class ShareController implements Controller {
     this.router
       .route(this.path + "/group" + "/:id")
       .get(this.getSharedGroups)
-      // .delete(this.deleteShareGroup);
+      .delete(this.deleteShareGroup);
 
     // Share Resource Routes
     // this.router
     //   .route(this.path + "/resource")
     //   .post(this.createShareResource);
-    // this.router
-    //   .route(this.path + "/resource" + "/:id")
-    //   .get(this.getShareResource)
-    //   .delete(this.deleteShareResource);
+    this.router
+      .route(this.path + "/resource" + "/:id")
+      .get(this.getSharedResources)
+      // .delete(this.deleteShareResource);
   }
 
 //SHARED GROUP SECTION
@@ -57,9 +58,7 @@ createShareGroup = async (request: Request, response: Response): Promise<void> =
       response.status(200).json({ newShare });
 
   } catch (err) {
-
     response.status(500).send(err.message);
-
   }
 };
 
@@ -83,39 +82,40 @@ createShareGroup = async (request: Request, response: Response): Promise<void> =
         response.status(200).json(sharedGroups);
 
       } else {
-
         response.status(404).send("Not shared with you.");
       }
 
     } catch (err) {
 
       response.status(500).send(err.message);
-
     }
   };
 
-  // /**
-  //  * Deletes a sharedgroup based off the ID provided
-  //  * @param request HTTP browser request
-  //  * @param response HTTP browser response
-  //  */
-  // deleteShareGroup = async (request: Request, response: Response): Promise<void> => {
-  //   try {
-  //     const { id } = request.params; // Destructure the object to only grab the id coming from the request
-  //     const deleted = await ShareGroup.destroy({
-  //       where: { id: id },
-  //     }); // Delete the sharedgroup with the specified id
-  //     if (deleted) {
-  //       response.status(204).send("Share Group Deleted");
-  //     } else {
-  //       response
-  //         .status(404)
-  //         .send("Shared Group with the specified ID does not exist");
-  //     }
-  //   } catch (error) {
-  //     response.status(500).send(error.message);
-  //   }
-  // };
+  /**
+   * Deletes a sharedgroup based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  deleteShareGroup = async (request: Request, response: Response): Promise<void> => {
+    try {
+
+      const { id } = request.params; // Destructure the object to only grab the id coming from the request
+      const deleted = await ShareGroup.destroy({
+        where: { id: id },
+      }); // Delete the sharedgroup with the specified id
+
+      if (deleted) {
+        response.status(204).send("Share Group Deleted");
+
+      } else {
+        response.status(404).send("Shared Group with the specified ID does not exist");
+      }
+
+    } catch (error) {
+
+      response.status(500).send(error.message);
+    }
+  };
 
 
 
@@ -143,29 +143,28 @@ createShareGroup = async (request: Request, response: Response): Promise<void> =
 
   // Goes to route /api/share/resource/:id
 
-//   /**
-//    * Grabs a specific sharedresource based off the ID provided
-//    * @param request HTTP browser request
-//    * @param response HTTP browser response
-//    */
-//   getShareResource = async (request: Request, response: Response): Promise<void> => {
-//     try {
-//       const { id } = request.params; // Destructure the request.params object and grab only id
-//       const sharedresource = await ShareResource.findOne({
-//         where: { id: id },
-//       }); // Grabs the sharedresource where the id is 0
-//
-//       if (sharedresource) {
-//         response.status(200).json(sharedresource);
-//       } else {
-//         response
-//           .status(404)
-//           .send("Share Resource with the specified ID does not exist");
-//       }
-//     } catch (error) {
-//       response.status(500).send(error.message);
-//     }
-//   };
+  /**
+   * Grabs a specific sharedresource based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getSharedResources = async (request: Request, response: Response): Promise<void> => {
+    try {
+      const { id } = request.params;
+      const sharedresource = await ShareResource.findOne({
+        where: { userid: id },
+        include: Resource,
+      }); // Grabs the sharedresource baed on the specific 'id' of a user
+
+      if (sharedresource) {
+        response.status(200).json(sharedresource);
+      } else {
+        response.status(404).send("Share Resource with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
 
 //   /**
 //    * Deletes a sharedresource based off the ID provided
