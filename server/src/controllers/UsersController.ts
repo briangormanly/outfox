@@ -167,8 +167,9 @@ class UsersController implements Controller {
   getSharedGroups = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const sharedGroups = await Group.findOne({
+      const sharedGroups = await User.findAll({
         where: { id : id },
+        include: Group,
       }); // Search for the groups shared with user X {X = params:id}
 
       if (sharedGroups) {
@@ -180,7 +181,7 @@ class UsersController implements Controller {
       response.status(500).send(err.message);
     }
   };
-  
+
 }
 
 export default UsersController;

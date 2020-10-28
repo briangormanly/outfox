@@ -5,7 +5,7 @@ import ResourceController from "./controllers/ResourceController";
 // Creates a new Express App that takes a list of Controllers and a port
 const app = new App(
   [new UsersController(), new GroupsController(), new ResourceController()],
-  8081
+  8080
 );
 
 // Utilize the listening method to see if the server if running
