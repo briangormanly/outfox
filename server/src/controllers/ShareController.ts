@@ -150,19 +150,22 @@ createShareGroup = async (request: Request, response: Response): Promise<void> =
    */
   getSharedResources = async (request: Request, response: Response): Promise<void> => {
     try {
+
       const { id } = request.params;
-      const sharedresource = await ShareResource.findOne({
-        where: { userid: id },
+      const sharedResource = await ShareResource.findAll({
+        where: { UserId: id },
         include: Resource,
       }); // Grabs the sharedresource baed on the specific 'id' of a user
 
-      if (sharedresource) {
-        response.status(200).json(sharedresource);
+      if (sharedResource) {
+        response.status(200).json(sharedResource);
+
       } else {
         response.status(404).send("Share Resource with the specified ID does not exist");
       }
-    } catch (error) {
-      response.status(500).send(error.message);
+
+    } catch (err) {
+      response.status(500).send(err.message);
     }
   };
 
