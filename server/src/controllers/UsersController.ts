@@ -3,6 +3,7 @@ import Group from "../models/Group";
 import User from "../models/User";
 import Controller from "../interfaces/ControllerInterface";
 import Resource from "../models/Resource";
+import ShareGroup from "../models/ShareGroup";
 // import { QueryTypes } from 'sequelize';
 
 /**
@@ -32,9 +33,6 @@ class UsersController implements Controller {
     this.router
       .route(this.path + "/userandgroups/" + ":id")
       .get(this.getUserAndGroups);
-    this.router
-      .route(this.path + "/getsharedgroups/" + ":id")
-      .get(this.getSharedGroups);
   }
 
   // Goes to route /api/users
@@ -156,29 +154,6 @@ class UsersController implements Controller {
       }
     } catch (error) {
       response.status(500).send(error.message);
-    }
-  };
-
-  /**
-   * Get groups shared to a users based off the ID provided
-   * @param request HTTP browser request
-   * @param response HTTP browser response
-   */
-  getSharedGroups = async (request: Request, response: Response): Promise<void> => {
-    try {
-      const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const sharedGroups = await User.findAll({
-        where: { id : id },
-        include: Group,
-      }); // Search for the groups shared with user X {X = params:id}
-
-      if (sharedGroups) {
-        response.status(200).json(sharedGroups);
-      } else {
-        response.status(404).send("Not shared with you.");
-      }
-    } catch (err) {
-      response.status(500).send(err.message);
     }
   };
 
