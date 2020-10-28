@@ -41,3 +41,5 @@ ShareResource.init(
     tableName: "shareresource", // We need to choose the table name it correlates to
   }
 );
+
+export default ShareResource;
