@@ -91,7 +91,7 @@ class ShareController {
       const { id } = request.params; // Destructure the request.params object and grab only id
       const sharedgroup = await ShareGroup.findOne({
         where: { id: id },
-      }); // Grabs the resources where the id is 0
+      }); // Grabs the sharedgroup where the id is 0
 
       if (sharedgroup) {
         response.status(200).json(sharedgroup);
@@ -106,27 +106,27 @@ class ShareController {
   };
 
   /**
-   * Updates a resources based off the ID provided
+   * Updates a sharedgroup based off the ID provided
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
-  updateResource = async (
+  updateShareGroup = async (
     request: Request,
     response: Response
   ): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const [updated] = await Resource.update(request.body, {
+      const [updated] = await ShareGroup.update(request.body, {
         where: { id: id },
-      }); // Destructure the array so we grab the updated version of our resources
+      }); // Destructure the array so we grab the updated version of our sharedgroup
 
       if (updated) {
-        const updatedResource = await Resource.findOne({ where: { id: id } }); // Grab the update resource
-        response.status(200).json({ resource: updatedResource }); // Return the updated resources
+        const updatedShareGroup = await ShareGroup.findOne({ where: { id: id } }); // Grab the update resource
+        response.status(200).json({ resource: updatedShareGroup }); // Return the updated sharedgroup
       } else {
         response
           .status(404)
-          .send("Resource with the specified ID does not exist"); // resource does not exist
+          .send("Resource with the specified ID does not exist"); // sharedgroup does not exist
       }
     } catch (error) {
       response.status(500).send(error.message);
@@ -134,21 +134,21 @@ class ShareController {
   };
 
   /**
-   * Deletes a resource based off the ID provided
+   * Deletes a sharedgroup based off the ID provided
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
-  deleteResource = async (
+  deleteShareGroup = async (
     request: Request,
     response: Response
   ): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await Resource.destroy({
+      const deleted = await ShareGroup.destroy({
         where: { id: id },
-      }); // Delete the resource with the specified id
+      }); // Delete the sharedgroup with the specified id
       if (deleted) {
-        response.status(204).send("Resource Deleted");
+        response.status(204).send("Share Group Deleted");
       } else {
         response
           .status(404)
@@ -160,4 +160,4 @@ class ShareController {
   };
 }
 
-export default ResourceController;
+export default ShareController;
