@@ -8,7 +8,7 @@ import ShareResource from "../models/ShareResource";
  */
 class ShareController {
   // Path that is required in order to access the api http://localhost:8080/routes/api/share
-  public path = "/api/shared";
+  public path = "/api/";
   public router = Router();
 
   constructor() {
@@ -22,20 +22,21 @@ class ShareController {
   public initializeRoutes(): void {
     // Shared Group Method Name
     this.router
-      .route(this.path)
+      .route(this.path + "sharedgroup")
       .get(this.getAllShareGroup)
       .post(this.createShareGroup);
     this.router
-      .route(this.path + "/:id")
+      .route(this.path + "sharedgroup/:id")
       .get(this.getShareGroup)
       .put(this.updateShareGroup)
       .delete(this.deleteShareGroup);
     // Share Resource Method Names
     this.router
+      .route(this.path + "sharedresource")
       .get(this.getAllShareResource)
       .post(this.createShareResource);
     this.router
-      .route(this.path + "/:id")
+      .route(this.path + "sharedresource/:id")
       .get(this.getShareResource)
       .put(this.updateShareResource)
       .delete(this.deleteShareResource);
@@ -178,7 +179,7 @@ class ShareController {
     response: Response
   ): Promise<void> => {
     try {
-      const sharedresource = await ShareResource.findAll(); // Grabs all share groups
+      const sharedresource = await ShareResource.findAll(); // Grabs all share resource
       response.json(sharedresource);
     } catch (err) {
       response.status(400).json({ message: "Something went wrong" });
@@ -186,39 +187,39 @@ class ShareController {
   };
 
   /**
-   * Creates a new sharedgroup in the database if the request has the correct json
+   * Creates a new sharedresource in the database if the request has the correct json
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
-  createShareGroup = async (
+  createShareResource = async (
     request: Request,
     response: Response
   ): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const sharedgroup = await ShareGroup.create(request.body);
-      response.status(201).json({ sharedgroup });
+      const sharedresource = await ShareResource.create(request.body);
+      response.status(201).json({ sharedresource });
     } catch (error) {
       response.status(500).send(error.message);
     }
   };
 
-  // Goes to route /api/sharedgroup/:id
+  // Goes to route /api/sharedresource/:id
 
   /**
    * Grabs a specific sharedgroup based off the ID provided
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
-  getShareGroup = async (request: Request, response: Response): Promise<void> => {
+  getShareResource = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the request.params object and grab only id
-      const sharedgroup = await ShareGroup.findOne({
+      const sharedresource = await ShareResource.findOne({
         where: { id: id },
       }); // Grabs the sharedgroup where the id is 0
 
-      if (sharedgroup) {
-        response.status(200).json(sharedgroup);
+      if (sharedresource) {
+        response.status(200).json(sharedresource);
       } else {
         response
           .status(404)
@@ -230,7 +231,7 @@ class ShareController {
   };
 
   /**
-   * Updates a sharedgroup based off the ID provided
+   * Updates a sharedresource based off the ID provided
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
