@@ -4,19 +4,6 @@ import Resource from "../models/Resource";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
 
-// Going to be Reconnected once we begin querying
-// import Category from "./Category";
-// import CategoryTag from "./CategoryTag";
-// import GroupCategory from "./GroupCategory";
-// import Link from "./Link";
-// import LinkOwnerType from "./LinkOwnerType";
-// import Note from "./Note";
-// import NoteTag from "./NoteTag";
-// import ResourceTag from "./ResourceTag";
-// import ResourceType from "./ResourceType";
-// import ResourceVersion from "./ResourceVersion";
-// import Tag from "./Tag";
-
 async function Associations(): Promise<void> {
   try {
     User.hasMany(Group, { foreignKey: "createdby", sourceKey: "id" });
