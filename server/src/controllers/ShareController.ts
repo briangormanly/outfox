@@ -6,9 +6,9 @@ import ShareResource from "../models/ShareResource";
  * The share controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
  */
-class ShareController {
+class ShareController implements Controller {
   // Path that is required in order to access the api http://localhost:8080/routes/api/share
-  public path = "/api/";
+  public path = "/api/share";
   public router = Router();
 
   constructor() {
@@ -20,27 +20,23 @@ class ShareController {
    * Ex. GET, PUT, POST, UPDATE, etc
    */
   public initializeRoutes(): void {
-    // Shared Group Method Name
+    // Share Group Routes
     this.router
-      .route(this.path + "sharedgroup")
-      .get(this.getAllShareGroup)
+      .route(this.path + "/group")
       .post(this.createShareGroup);
     this.router
-      .route(this.path + "sharedgroup/:id")
+      .route(this.path + "/group" + "/:id")
       .get(this.getShareGroup)
-      .put(this.updateShareGroup)
       .delete(this.deleteShareGroup);
-    // Share Resource Method Names
+
+    // Share Resource Routes
     this.router
-      .route(this.path + "sharedresource")
-      .get(this.getAllShareResource)
+      .route(this.path + "/resource")
       .post(this.createShareResource);
     this.router
-      .route(this.path + "sharedresource/:id")
+      .route(this.path + "/resource" + "/:id")
       .get(this.getShareResource)
-      .put(this.updateShareResource)
       .delete(this.deleteShareResource);
-    // Need to add patch
   }
 
   // Goes to route /api/sharedgroup
@@ -49,31 +45,11 @@ class ShareController {
 //SHARED GROUP SECTION
 
   /**
-   * Grabs all sharedgroup in the database and sends them as a response in json
-   * @param request HTTP browser request
-   * @param response HTTP browser response
-   */
-  getAllShareGroup = async (
-    request: Request,
-    response: Response
-  ): Promise<void> => {
-    try {
-      const sharedgroup = await ShareGroup.findAll(); // Grabs all share groups
-      response.json(sharedgroup);
-    } catch (err) {
-      response.status(400).json({ message: "Something went wrong" });
-    }
-  };
-
-  /**
    * Creates a new sharedgroup in the database if the request has the correct json
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
-  createShareGroup = async (
-    request: Request,
-    response: Response
-  ): Promise<void> => {
+  createShareGroup = async (request: Request, response: Response): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
       const sharedgroup = await ShareGroup.create(request.body);
