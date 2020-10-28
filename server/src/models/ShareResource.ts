@@ -17,7 +17,7 @@ ShareResource.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    resourceid: {
+    ResourceId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -25,7 +25,7 @@ ShareResource.init(
         key: "id",
       },
     },
-    userid: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

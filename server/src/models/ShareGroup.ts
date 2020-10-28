@@ -17,7 +17,7 @@ ShareGroup.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    groupid: {
+    GroupId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -25,7 +25,7 @@ ShareGroup.init(
         key: "id",
       },
     },
-    userid: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

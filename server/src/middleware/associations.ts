@@ -1,6 +1,7 @@
 import User from "../models/User";
 import Group from "../models/Group";
 import Resource from "../models/Resource";
+import ShareGroup from "../models/ShareGroup";
 
 // Going to be Reconnected once we begin querying
 // import Category from "./Category";
@@ -25,7 +26,7 @@ async function Associations(): Promise<void> {
 
     // Group Sharing
     Group.belongsToMany(User,{
-      through: "sharegroup",
+      through: ShareGroup,
       timestamps: false,
     });
 
