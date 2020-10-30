@@ -37,7 +37,8 @@ a.disabled {
     pointer-events: none;
     cursor: default;
   }
-
+  
+/*
 #table_of_contents_holder #toc_list_container .active {
     background: #F08080;
 }
@@ -45,7 +46,8 @@ a.disabled {
 #table_of_contents_holder #toc_list_container .active,#table_of_contents_holder #toc_list_container .active a,#table_of_contents_holder #toc_list_container .active a:hover,#table_of_contents_holder #toc_list_container .active a:link {
     color: black;
 }
-
+ */
+ 
 #top-menu li.active a {
     background: #F08080;
     color: black;
@@ -95,6 +97,7 @@ a.disabled {
     font-size: 1.6em;
 }
 
+/*
 #toc_list_container {
     padding: 0px 0px 0px 0px;
     width: 100%;
@@ -106,6 +109,7 @@ ul {
     width: 98%;
     display: block;
 }
+*/
 
 .list_item {
     font-size: 1.08em;
