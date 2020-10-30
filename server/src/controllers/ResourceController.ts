@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import Resource from "../models/Resource";
+import Note from "../models/Note";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
@@ -28,6 +29,9 @@ class ResourceController {
       .get(this.getResource)
       .put(this.updateResource)
       .delete(this.deleteResource);
+    this.router
+      .route(this.path + "/resourcenotes/" + ":id")
+      .get(this.getResourceNotes)
     // Need to add patch
   }
 
@@ -147,6 +151,30 @@ class ResourceController {
       response.status(500).send(error.message);
     }
   };
+
+  //method to get all comments associated to a specific resource id
+  getResourceNotes = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; // Destructure the request.params object and grab only id
+      const resourcenotes = await Note.findAll({
+        where: { resourceId: id }
+    }); // Return the notes with the specified resource id
+
+      if (resourcenotes) {
+        response.status(201).json(resourcenotes);
+    }   else {
+        response
+        .status(404)
+        .send("Resource with the specified ID does not exist");
+    }
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
+
 }
 
 export default ResourceController;
