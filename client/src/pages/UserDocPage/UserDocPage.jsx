@@ -3,7 +3,9 @@ import '../../static/css/base.css';
 import {
     TableOfContentsContainer,
     IntroText,
-    UserSection
+    UserSection,
+    ResourceSection,
+    GroupSection
 } from '../../components';
 
 
@@ -14,6 +16,8 @@ const UserDocPage = () =>{
                 <div id = "content_holder">
                     <IntroText />
                     <UserSection />
+                    <ResourceSection />
+                    <GroupSection />
                 </div>
         </Fragment>
     );

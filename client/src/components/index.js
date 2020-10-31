@@ -59,3 +59,5 @@ export { default as Modal } from './Modal/Modal';
 export { default as TableOfContentsContainer } from './StaticComponents/TableOfContentsContainer';
 export { default as IntroText } from './StaticComponents/IntroText';
 export { default as UserSection } from './StaticComponents/UserSection';
+export { default as ResourceSection } from './StaticComponents/ResourceSection';
+export { default as GroupSection } from './StaticComponents/GroupSection';
