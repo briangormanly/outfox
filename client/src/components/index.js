@@ -58,3 +58,4 @@ export { default as Modal } from './Modal/Modal';
 //Static Site Components
 export { default as TableOfContentsContainer } from './StaticComponents/TableOfContentsContainer';
 export { default as IntroText } from './StaticComponents/IntroText';
+export { default as UserSection } from './StaticComponents/UserSection';

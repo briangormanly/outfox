@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import '../../static/css/base.css';
 import {
     TableOfContentsContainer,
-    IntroText
+    IntroText,
+    UserSection
 } from '../../components';
 
 
@@ -12,6 +13,7 @@ const UserDocPage = () =>{
             <TableOfContentsContainer />
                 <div id = "content_holder">
                     <IntroText />
+                    <UserSection />
                 </div>
         </Fragment>
     );
