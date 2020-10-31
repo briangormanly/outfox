@@ -61,3 +61,7 @@ export { default as IntroText } from './StaticComponents/IntroText';
 export { default as UserSection } from './StaticComponents/UserSection';
 export { default as ResourceSection } from './StaticComponents/ResourceSection';
 export { default as GroupSection } from './StaticComponents/GroupSection';
+export { default as FriendSection } from './StaticComponents/FriendSection';
+export { default as SharedResourceSection } from './StaticComponents/SharedResourceSection';
+export { default as OnlineTutorialSection } from './StaticComponents/OnlineTutorialSection';
+export { default as LogoContainer } from './StaticComponents/LogoContainer';

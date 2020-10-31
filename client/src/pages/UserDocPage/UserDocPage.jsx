@@ -5,8 +5,12 @@ import {
     IntroText,
     UserSection,
     ResourceSection,
-    GroupSection
+    GroupSection,
+    FriendSection,
+    SharedResourceSection
 } from '../../components';
+import OnlineTutorialsSection from '../../components/StaticComponents/OnlineTutorialSection';
+import { LogoContainer } from '../../styles';
 
 
 const UserDocPage = () =>{
@@ -18,6 +22,10 @@ const UserDocPage = () =>{
                     <UserSection />
                     <ResourceSection />
                     <GroupSection />
+                    <FriendSection />
+                    <SharedResourceSection />
+                    <OnlineTutorialsSection />
+                    <LogoContainer />
                 </div>
         </Fragment>
     );
