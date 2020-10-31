@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import '../../static/css/base.css';
 import {
-    TableOfContentsContainer
+    TableOfContentsContainer,
+    IntroText
 } from '../../components';
+
 
 const UserDocPage = () =>{
     return(
-        <TableOfContentsContainer />
+        <Fragment>
+            <TableOfContentsContainer />
+                <div id = "content_holder">
+                    <IntroText />
+                </div>
+        </Fragment>
     );
     
 }
