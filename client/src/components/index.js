@@ -54,3 +54,6 @@ export { default as Help } from './Help/Help';
 // Utility Components
 export { default as Loader } from './Loader/Loader';
 export { default as Modal } from './Modal/Modal';
+
+//Static Site Components
+export { default as TableOfContentsContainer } from './StaticComponents/TableOfContentsContainer';

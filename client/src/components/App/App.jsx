@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { useSelector } from 'react-redux';
 import { GlobalStyles } from '../../styles/globalStyles';
 
-import { HomePage, SignIn, SignUp, UserPage, GroupPage } from '../../pages';
+import { HomePage, SignIn, SignUp, UserPage, GroupPage, UserDocPage } from '../../pages';
 
 const App = () => {
 	const { auth, userID } = useSelector((state) => state.userAuth);
@@ -26,6 +26,7 @@ const App = () => {
 				/>
 				<Route exact path="/user/:id" component={UserPage} />
 				<Route exact path={`/user/:userID/groups/:groupID`} component={GroupPage} />
+				<Route exact path="/userDocumentation" component={UserDocPage} />
 			</Switch>
 		</Router>
 	);
