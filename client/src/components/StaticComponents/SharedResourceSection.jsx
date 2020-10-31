@@ -4,7 +4,7 @@ import '../../static/css/base.css';
 const SharedResourceSection = () =>{
     return(
         <Fragment>
-            <h2 id = "sharing" class = "sub_header"> Sharing Resources</h2>
+            <h2 id = "sharing" className = "sub_header"> Sharing Resources</h2>
                 <p>This will explain how to share resources.
                 </p>
         </Fragment>

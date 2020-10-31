@@ -4,7 +4,7 @@ import '../../static/css/base.css';
 const IntroText = () =>{
     return(
         <Fragment>
-            <h1 id = "userDocumentation" class = "header">User Documentation</h1>
+            <h1 id = "userDocumentation" className = "header">User Documentation</h1>
                 <p>Outfox is an open-source educational platform that encourages the betterment of its users through the
                     dissemination of instructive content. Unlike institutionally controlled learning platforms such as Blackboard or Google
                     Classroom, Outfox gives all users the ability to access and manage educational resources like never before.
