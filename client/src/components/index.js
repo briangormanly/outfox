@@ -65,3 +65,6 @@ export { default as FriendSection } from './StaticComponents/FriendSection';
 export { default as SharedResourceSection } from './StaticComponents/SharedResourceSection';
 export { default as OnlineTutorialSection } from './StaticComponents/OnlineTutorialSection';
 export { default as LogoContainer } from './StaticComponents/LogoContainer';
+export { default as Mission } from './StaticComponents/Mission';
+export { default as SignUp } from './StaticComponents/SignUp';
+export { default as FollowOutfox } from './StaticComponents/FollowOutfox';

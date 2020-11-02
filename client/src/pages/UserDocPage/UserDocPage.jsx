@@ -7,6 +7,9 @@ import {
     ResourceSection,
     GroupSection,
     FriendSection,
+    Mission,
+    SignUp,
+    FollowOutfox,
     SharedResourceSection
 } from '../../components';
 import OnlineTutorialsSection from '../../components/StaticComponents/OnlineTutorialSection';
@@ -18,6 +21,9 @@ const UserDocPage = () =>{
         <Fragment>
             <TableOfContentsContainer />
                 <div id = "content_holder">
+                    <Mission />
+                    <SignUp />
+                    <FollowOutfox />
                     <IntroText />
                     <UserSection />
                     <ResourceSection />
@@ -29,7 +35,7 @@ const UserDocPage = () =>{
                 </div>
         </Fragment>
     );
-    
+
 }
 
 export default UserDocPage;
