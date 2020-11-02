@@ -22,6 +22,7 @@ const UserDocPage = () =>{
         <Fragment>
             <TableOfContentsContainer />
                 <div id = "content_holder">
+                    <Background />
                     <Mission />
                     <SignUp />
                     <FollowOutfox />
