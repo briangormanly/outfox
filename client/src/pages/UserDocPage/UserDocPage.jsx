@@ -7,6 +7,7 @@ import {
     ResourceSection,
     GroupSection,
     FriendSection,
+    Background,
     Mission,
     SignUp,
     FollowOutfox,
