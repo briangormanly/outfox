@@ -4,7 +4,9 @@ import '../../static/css/base.css';
 const GroupSection = () =>{
     return(
         <Fragment>
+            <br /><br />
             <h2 id = "groups" className = "sub_header"> Groups</h2>
+            <br />
                 <p>Similar to classrooms in other educational platforms groups act as way to share and group information.  Unlike most educational
                     platforms however any user can create a group.  The benefit of this is that students can group resources from a number of classes
                     to create their own unique group with resources from years of school.  This also allows the user to create groups and add resources and

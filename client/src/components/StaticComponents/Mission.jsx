@@ -5,6 +5,7 @@ const Mission = () =>{
     return(
         <Fragment>
             <h2 id = "mission" className = "sub_header">Mission</h2>
+                <br/>
                 <p>Learning is at our core, we do it everyday. The artifacts of what we learn, our notes, papers,
                     links we find, videos we watch, blogs we read, spreadsheets, test results, assignments, books,
                     and our lifetime of interactions with teachers and mentors are spread across the physical and
@@ -39,6 +40,7 @@ const Mission = () =>{
                     <br /><br />
                     <strong>Be a part of the change, Outfox the past and join us today</strong>
                 </p>
+                <br/>
         </Fragment>
 
     );

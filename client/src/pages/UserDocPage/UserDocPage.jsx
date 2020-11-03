@@ -11,30 +11,29 @@ import {
     Mission,
     SignUp,
     FollowOutfox,
-    SharedResourceSection
+    SharedResourceSection,
+    LogoContainer,
 } from '../../components';
 import OnlineTutorialsSection from '../../components/StaticComponents/OnlineTutorialSection';
-import { LogoContainer } from '../../styles';
-
 
 const UserDocPage = () =>{
     return(
         <Fragment>
             <TableOfContentsContainer />
-                <div id = "content_holder">
-                    <Background />
-                    <Mission />
-                    <SignUp />
-                    <FollowOutfox />
-                    <IntroText />
-                    <UserSection />
-                    <ResourceSection />
-                    <GroupSection />
-                    <FriendSection />
-                    <SharedResourceSection />
-                    <OnlineTutorialsSection />
-                    <LogoContainer />
-                </div>
+            <div id = "content_holder">
+                <Background />
+                <Mission />
+                <SignUp />
+                <FollowOutfox />
+                <IntroText />
+                <UserSection />
+                <ResourceSection />
+                <GroupSection />
+                <FriendSection />
+                <SharedResourceSection />
+                <OnlineTutorialsSection />
+            </div>
+            <LogoContainer />
         </Fragment>
     );
 

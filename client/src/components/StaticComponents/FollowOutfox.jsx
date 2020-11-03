@@ -5,6 +5,7 @@ const FollowOutfox = () =>{
     return(
         <Fragment>
             <h2 id = "followoutfox" className = "sub_header">Follow Outfox</h2>
+            <br />
                 <p>Follow Our Social Media:
                 <br /><br />
                 <br /><br />

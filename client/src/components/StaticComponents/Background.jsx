@@ -5,8 +5,9 @@ const Background = () =>{
     return(
         <Fragment>
             <h1 id = "intro" className = "header">Introduction</h1>
-            <br /><br />
+            <br/><br/>
             <h2 id = "background" className = "sub_header">Background</h2>
+            <br/>
                 <p> This is our capping project, Outfox. The idea for the project came from the desire to have an open source learning platform.
                     What makes Outfox truly unique is that all users have the ability to create and join their own groups with the capability of
                     customizing them with their own resources that everyone can interact with. One of key aspects of Outfox is that

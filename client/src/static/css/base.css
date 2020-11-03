@@ -17,7 +17,7 @@ body, div, li, ul {
     line-height: 1.5em;
 }
 
-#big_container {
+#root {
     display: flex;
 }
 
@@ -70,11 +70,12 @@ a.disabled {
     background:white;
 }
 
-#logo_holder {
+#logoHolder {
     color: white;
     height: 100%;
     position: fixed;
     margin-left: 70%;
+    margin-bottom: 100%;
     float: left;
     width: 30%;
 }
@@ -97,7 +98,6 @@ a.disabled {
     font-size: 2.25em;
 }
 
-/*
 #toc_list_container {
     padding: 0px 0px 0px 0px;
     width: 100%;
@@ -109,7 +109,6 @@ ul {
     width: 98%;
     display: block;
 }
-*/
 
 .list_item {
     font-size: 2em;
@@ -130,11 +129,13 @@ ul {
 
 .header {
     background: #8B0101;
-    padding: 7px;
+    font-size: 5em;
+    padding: 0.5em;
     color: white;
 }
 
 .sub_header {
     background: lightgray;
-    padding: 5px;
+    font-size: 2em;
+    padding: 10px;
 }
