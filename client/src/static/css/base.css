@@ -95,7 +95,8 @@ a.disabled {
     color: black;
     margin: 20px 0px;
     padding: 3px;
-    font-size: 2.25em;
+    font-size: 2.4em;
+    font-weight: bold;
 }
 
 #toc_list_container {
@@ -111,14 +112,14 @@ ul {
 }
 
 .list_item {
-    font-size: 2em;
+    font-size: 2.2em;
     padding-top: 2%;
     padding-bottom: 1%;
     width: 100%;
 }
 
 .list_sub_item {
-    font-size: 1.5em;
+    font-size: 1.7em;
     padding-top: 3%;
     padding-left: 10%;
 }
