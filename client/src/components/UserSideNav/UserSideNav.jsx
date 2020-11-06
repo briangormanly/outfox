@@ -35,7 +35,7 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 		<UserSideNavContainer>
 			<Logo />
 			<WelcomeMessage>
-				<p>Welcome Back,</p>
+				<p>Welcome,</p>
 				<p>
 					<strong>
 						{firstName} {lastName}

@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Group from "../models/Group";
 import Controller from "../interfaces/ControllerInterface";
+import Resource from "../models/Resource";
 
 /**
  * The group controller is responsible for handling the HTTP requests.
@@ -26,6 +27,9 @@ class GroupsController implements Controller {
       .get(this.getGroup)
       .put(this.updateGroup)
       .delete(this.deleteGroup);
+    this.router
+      .route(this.path + "/groupsandresources/" + ":id")
+      .get(this.getGroupsandResources);
     // Need to add patch
   }
 
@@ -75,6 +79,7 @@ class GroupsController implements Controller {
       const { id } = request.params; // Destructure the request.params object and grab only id
       const group = await Group.findOne({
         where: { id: id },
+        include: Resource,
       }); // Grabs the group where the id is 0
 
       if (group) {
@@ -104,6 +109,29 @@ class GroupsController implements Controller {
         response.status(200).json({ group: updatedGroup }); // Return the updated group
       } else {
         response.status(404).send("Group with the specified ID does not exist"); // group does not exist
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  // Goes to route /api/groups/:id
+
+  getGroupsandResources = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; // Destructure the request.params object and grab only id
+      const group = await Group.findOne({
+        where: { id: id },
+        include: Resource,
+      }); // Grabs the group where the id is 0
+
+      if (group) {
+        response.status(200).json(group);
+      } else {
+        response.status(404).send("Group with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);

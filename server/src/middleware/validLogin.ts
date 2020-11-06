@@ -6,7 +6,7 @@ function validLogin(req: Request, res: Response, next: NextFunction): void {
   passport.authenticate("local", (err: Error, user: User) => {
     if (err) throw err;
     if (!user) {
-      res.send("No user exists");
+      res.sendStatus(404);
     } else {
       req.logIn(user, (err) => {
         if (err) throw err;

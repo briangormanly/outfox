@@ -5,7 +5,7 @@ import { colors } from '../../styles';
 const { white } = colors;
 
 const ChildContainer = styled.div`
-	padding: 3rem;
+	padding: 2rem;
 	border-radius: 25px;
 	background-color: ${white};
 	-webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
@@ -19,8 +19,9 @@ export const DashboardContainer = styled.div`
 	padding: 3rem;
 	display: grid;
 	gap: 3rem;
-	grid-template-columns: auto auto 30rem;
-	grid-template-areas: 'groups groups friends' 'resources courses friends';
+	grid-template-columns: 1fr 1fr 30rem;
+	grid-template-rows: 46rem 1fr;
+	grid-template-areas: 'groups groups friends' 'resources resources friends';
 `;
 
 export const GroupContainer = styled(ChildContainer)`
@@ -32,10 +33,8 @@ export const FriendContainer = styled(ChildContainer)`
 `;
 export const ResourceContainer = styled(ChildContainer)`
 	grid-area: resources;
-
 `;
 
 export const CourseContainer = styled(ChildContainer)`
 	grid-area: courses;
-
 `;

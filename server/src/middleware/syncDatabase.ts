@@ -1,34 +1,27 @@
-import Category from "../models/Category";
-import CategoryTag from "../models/CategoryTag";
+// import Category from "../models/Category";
+// import CategoryTag from "../models/CategoryTag";
 import Group from "../models/Group";
-import GroupCategory from "../models/GroupCategory";
-import Link from "../models/Link";
-import LinkOwnerType from "../models/LinkOwnerType";
-import Note from "../models/Note";
-import NoteTag from "../models/NoteTag";
+// import GroupCategory from "../models/GroupCategory";
+// import Note from "../models/Note";
+// import NoteTag from "../models/NoteTag";
 import Resource from "../models/Resource";
-import ResourceTag from "../models/ResourceTag";
-import ResourceType from "../models/ResourceType";
-import ResourceVersion from "../models/ResourceVersion";
-import Tag from "../models/Tag";
+// import ResourceTag from "../models/ResourceTag";
+// import Tag from "../models/Tag";
 import User from "../models/User";
-
+import Associations from "./associations";
+import sequelize from "./databaseConnection";
 // Array of all models [Tables]
 const models = [
   User,
   Group,
-  Tag,
-  Category,
-  CategoryTag,
-  GroupCategory,
-  LinkOwnerType,
-  Link,
-  ResourceType,
+  //  Tag,
+  //  Category,
+  //  CategoryTag,
+  //  GroupCategory,
   Resource,
-  ResourceVersion,
-  Note,
-  NoteTag,
-  ResourceTag,
+  //  Note,
+  //  NoteTag,
+  //  ResourceTag,
 ];
 
 async function sync(): Promise<void> {
@@ -39,6 +32,14 @@ async function sync(): Promise<void> {
     } catch {
       console.log(iterator, "error syncing.");
     }
+  }
+
+  try {
+    Associations();
+    // sequelize.sync({ force: true });
+    sequelize.sync();
+  } catch (error) {
+    throw new Error("Associations not hooked up");
   }
 }
 

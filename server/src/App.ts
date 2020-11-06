@@ -5,7 +5,6 @@ import cors from "cors";
 import morgan from "morgan";
 import { Sequelize } from "sequelize";
 import sync from "./middleware/syncDatabase";
-import Associations from "./middleware/associations";
 import passport from "./middleware/passportConfig";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
@@ -24,9 +23,8 @@ class App {
   constructor(controllers: Controller[], port: number) {
     this.app = express();
     this.port = port;
-    Associations();
-    sync();
     this.initializeDatabaseConnection();
+    sync();
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
   }
