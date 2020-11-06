@@ -34,7 +34,7 @@ class UsersController implements Controller {
       .get(this.getUserAndGroups);
     this.router
       .route(this.path + "/userfriends/" + ":id")
-      .get(this.getUserFriends)
+      .get(this.getUserFriends);
   }
 
   // Goes to route /api/users
@@ -62,7 +62,7 @@ class UsersController implements Controller {
     try {
       // If missing non-nullable fields it will create an error
       const user = await User.create(request.body);
-      response.status(201).json({ user });
+      response.status(200).json({ user });
     } catch (error) {
       response.status(500).send(error.message);
     }
@@ -90,6 +90,7 @@ class UsersController implements Controller {
       response.status(500).send(error.message);
     }
   };
+
   /**
    * Grabs a specific user based off the ID provided
    * @param request HTTP browser request
@@ -100,7 +101,7 @@ class UsersController implements Controller {
       const { id } = request.params; // Destructure the request.params object and grab only id
 
       const user = await User.findOne({
-        where: { id: id }
+        where: { id: id },
       }); // Grabs the user where the id is 0
 
       if (user) {
@@ -162,25 +163,36 @@ class UsersController implements Controller {
     request: Request,
     response: Response
   ): Promise<void> => {
-    const {id} = request.params;
-    try{
-      const userRequestedFriends = await Friend.findAll({where:{requesterid:id, status:"a"}});
-      const userAcceptedFriends = await Friend.findAll({where:{addresseeid:id, status:"a"}});
+    const { id } = request.params;
+    try {
+      const userRequestedFriends = await Friend.findAll({
+        where: { requesterid: id, status: "a" },
+      });
+      const userAcceptedFriends = await Friend.findAll({
+        where: { addresseeid: id, status: "a" },
+      });
 
-      const userRequestedFriendsToFriendIds = userRequestedFriends.map(friend=>friend.addresseeid);
-      const userAcceptedFriendsToFriendIds = userAcceptedFriends.map(friend=>friend.requesterid);
-      
-      const allUserFriendIds = [...userRequestedFriendsToFriendIds, ...userAcceptedFriendsToFriendIds];
+      const userRequestedFriendsToFriendIds = userRequestedFriends.map(
+        (friend) => friend.addresseeid
+      );
+      const userAcceptedFriendsToFriendIds = userAcceptedFriends.map(
+        (friend) => friend.requesterid
+      );
 
-      const allUserFriends = allUserFriendIds.map(async friend_id=>await User.findOne({where:{id:friend_id}}));
+      const allUserFriendIds = [
+        ...userRequestedFriendsToFriendIds,
+        ...userAcceptedFriendsToFriendIds,
+      ];
+
+      const allUserFriends = allUserFriendIds.map(
+        async (friend_id) => await User.findOne({ where: { id: friend_id } })
+      );
 
       response.status(201).json(await Promise.all(allUserFriends));
-
-    } catch(err){
-
-    response.status(400).json({ message: "Something went wrong" });
+    } catch (err) {
+      response.status(400).json({ message: "Something went wrong" });
     }
-  }
+  };
 }
 
 export default UsersController;

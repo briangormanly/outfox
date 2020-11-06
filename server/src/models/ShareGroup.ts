@@ -1,39 +1,45 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
+import User from "./User";
 import Group from "./Group";
-import Category from "./Category";
 
-class GroupCategory extends Model {
-  public categoryid: number;
+class ShareGroup extends Model {
+  public id: number;
   public groupid: number;
+  public userid: number;
 }
 
-GroupCategory.init(
+ShareGroup.init(
   {
-    categoryid: {
+    id: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Category,
-        key: "id",
-      },
       allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
     },
-    groupid: {
+    GroupId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: Group,
         key: "id",
       },
-      allowNull: false,
     },
-    //none needed due to only keys being the only attributes
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: User,
+        key: "id",
+      },
+    },
   },
   {
     // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: "groupCategories", // We need to choose the table name it correlates to
+    tableName: "sharegroup", // We need to choose the table name it correlates to
   }
 );
 
-export default GroupCategory;
+export default ShareGroup;
