@@ -1,5 +1,8 @@
 import Group from "../models/Group";
 // import Note from "../models/Note";
+// import GroupCategory from "../models/GroupCategory";
+import Note from "../models/Note";
+// import NoteTag from "../models/NoteTag";
 import Resource from "../models/Resource";
 import User from "../models/User";
 import Associations from "./associations";
@@ -12,8 +15,11 @@ const models = [
   Group,
   Resource,
   ShareGroup,
-  ShareResource
+  ShareResource,
   //  Note,
+  Note,
+  //  NoteTag,
+  //  ResourceTag,
 ];
 
 async function sync(): Promise<void> {
