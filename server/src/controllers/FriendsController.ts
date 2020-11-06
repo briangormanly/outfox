@@ -1,7 +1,5 @@
 import { Router, Request, Response } from "express";
 import Friend from "../models/Friend";
-import { request } from "http";
-import User from "../models/User";
 
 /**
  * The friend controller is responsible for handling the HTTP requests.
