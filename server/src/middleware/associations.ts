@@ -34,6 +34,9 @@ async function Associations(): Promise<void> {
       timestamps: true})
     */
 
+
+    Note.hasMany( Note, { as: 'child', foreignKey: 'parentId'});
+
     Group.hasMany(Resource);
     Resource.belongsToMany(Group, {
       through: "groupresources",

@@ -1,6 +1,7 @@
 import { Router, Request, Response, request } from "express";
 import Resource from "../models/Resource";
 import Note from "../models/Note";
+import { not, notBetween } from "sequelize/types/lib/operators";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
@@ -178,6 +179,7 @@ class ResourceController {
   }
 };
 
+
 //method to return ordered threads
 getallThreads = async (
   request: Request,
@@ -185,10 +187,62 @@ getallThreads = async (
 ): Promise<void> => {
   try{
       const { id } = request.params; //Grabs resource id only 
-      const rootnotes = await Note.findAll({where: {parentId: null, resourceId: id}
-      }); //returns all root notes of a given resource
+      //const rootnotes = await Note.findAll({where: {parentId: null, resourceId: id}
+      //}); //returns all root notes of a given resource
 
+      const flatDeep:(arr:any, d:number)=>any[] = (arr, d=1) => {
+        return d>0 ? arr.reduce((arr:any, val:any)=>arr.concat(Array.isArray(val) ? flatDeep(val, d-1) :val), []) : arr.slice()}
 
+     const getNoteTree = async ()=> {
+       let rootNote = await Note.findAll({
+            where : { 
+                resourceId: id, parentId: null
+            }
+        })
+        rootNote = await getChildNotes(rootNote)
+        return rootNote;
+      }
+
+      const getChildNotes = async(rootNotes:any)=>{
+        const expendPromise:any = [];
+        rootNotes.forEach((item:any) => {
+            expendPromise.push(Note.findAll({
+                where : {
+                    parentId : item.id
+                }
+            }))
+        })
+        const child = await Promise.all(expendPromise);
+        //eslint-disable-next-line
+        for(let [idx, item] of child.entries()){
+          //eslint-disable-next-line
+          // @ts-ignore
+            if(item.length > 0){
+                item = await getChildNotes(item);
+            }
+          //eslint-disable-next-line
+            if(item) // @ts-ignore
+            rootNotes.push(item.flat());
+
+        }
+        
+        return rootNotes;
+      }
+
+      const noteTree = await getNoteTree();
+
+      const parents = noteTree.filter(note=>note.parentId===null);
+
+      const children = noteTree.filter(note=>Array.isArray(note));
+
+     const parentsAndChildren = parents.map((parent:any, index:number)=>{
+      //eslint-disable-next-line
+      // @ts-ignore
+      return [parent, ...children[index]]
+     })
+
+      response.status(201).json(parentsAndChildren);
+/*
       //recursive function to flatten the array 
       const flatDeep:(arr:any, d:number)=>any[] = (arr, d=1) => {
         return d>0 ? arr.reduce((arr:any, val:any)=>arr.concat(Array.isArray(val) ? flatDeep(val, d-1) :val), []) : arr.slice()}
@@ -197,13 +251,14 @@ getallThreads = async (
 
       const allThreads = await Promise.all(await allThreadsPromise);
 
-      //returns all threads and filters out boolean values
+      //returns all threads and filters out boolean values; also uses flattening function from above
       const allNestedThreads = allThreads.map(async thread=>flatDeep([...thread, await Promise.all(thread.map(async note=> note.parentId !== null && await Note.findAll({where:{parentId:note.id}})))], 2).filter(val=>val!==false))
       
       const allThreadsAndNestedThreads = await Promise.all(allNestedThreads);
 
       response.status(201).json(allThreadsAndNestedThreads);
-
+      */
+      
   } catch (error) {
     response.status(500).send(error.message);
   }
