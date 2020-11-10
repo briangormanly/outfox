@@ -189,7 +189,7 @@ getallThreads = async (
       }); //returns all root notes of a given resource
 
 
-
+      //recursive function to flatten the array 
       const flatDeep:(arr:any, d:number)=>any[] = (arr, d=1) => {
         return d>0 ? arr.reduce((arr:any, val:any)=>arr.concat(Array.isArray(val) ? flatDeep(val, d-1) :val), []) : arr.slice()}
 
@@ -197,6 +197,7 @@ getallThreads = async (
 
       const allThreads = await Promise.all(await allThreadsPromise);
 
+      //returns all threads and filters out boolean values
       const allNestedThreads = allThreads.map(async thread=>flatDeep([...thread, await Promise.all(thread.map(async note=> note.parentId !== null && await Note.findAll({where:{parentId:note.id}})))], 2).filter(val=>val!==false))
       
       const allThreadsAndNestedThreads = await Promise.all(allNestedThreads);
