@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, request } from "express";
 import Resource from "../models/Resource";
 import Note from "../models/Note";
 
@@ -32,6 +32,9 @@ class ResourceController {
     this.router
       .route(this.path + "/resourcenotes/" + ":id")
       .get(this.getResourceNotes)
+    this.router
+      .route(this.path + "/resourcethreads/" + ":id")
+      .get(this.getallThreads)
     // Need to add patch
   }
 
@@ -174,6 +177,36 @@ class ResourceController {
     response.status(500).send(error.message);
   }
 };
+
+//method to return ordered threads
+getallThreads = async (
+  request: Request,
+  response: Response,
+): Promise<void> => {
+  try{
+      const { id } = request.params; //Grabs resource id only 
+      const rootnotes = await Note.findAll({where: {parentId: null, resourceId: id}
+      }); //returns all root notes of a given resource
+
+
+
+      const flatDeep:(arr:any, d:number)=>any[] = (arr, d=1) => {
+        return d>0 ? arr.reduce((arr:any, val:any)=>arr.concat(Array.isArray(val) ? flatDeep(val, d-1) :val), []) : arr.slice()}
+
+      const allThreadsPromise = rootnotes.map(async rootnote=>[rootnote, ...await Note.findAll({where:{parentId:rootnote.id}})])
+
+      const allThreads = await Promise.all(await allThreadsPromise);
+
+      const allNestedThreads = allThreads.map(async thread=>flatDeep([...thread, await Promise.all(thread.map(async note=> note.parentId !== null && await Note.findAll({where:{parentId:note.id}})))], 2).filter(val=>val!==false))
+      
+      const allThreadsAndNestedThreads = await Promise.all(allNestedThreads);
+
+      response.status(201).json(allThreadsAndNestedThreads);
+
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+}
 
 }
 

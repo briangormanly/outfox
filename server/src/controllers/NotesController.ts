@@ -51,7 +51,10 @@ class NotesController implements Controller {
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
-  createNote = async (request: Request, response: Response): Promise<void> => {
+  createNote = async (
+    request: Request, 
+    response: Response
+    ): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
       const note = await Note.create(request.body);

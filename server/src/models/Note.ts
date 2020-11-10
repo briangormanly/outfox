@@ -5,7 +5,7 @@ import Resource from "./Resource";
 class Note extends Model {
   public id: number;
   public resourceId: number;
-  public parentNote: number;
+  public parentId: number;
   public noteName: string;
   public noteBody: string;
 }
@@ -24,7 +24,7 @@ Note.init(
         key: "id",
       },
     },
-    parentNote: {
+    parentId: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {

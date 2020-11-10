@@ -1,6 +1,7 @@
 import User from "../models/User";
 import Group from "../models/Group";
 import Resource from "../models/Resource";
+import Note from "../models/Note"
 
 // Going to be Reconnected once we begin querying
 // import Category from "./Category";
@@ -8,7 +9,6 @@ import Resource from "../models/Resource";
 // import GroupCategory from "./GroupCategory";
 // import Link from "./Link";
 // import LinkOwnerType from "./LinkOwnerType";
-// import Note from "./Note";
 // import NoteTag from "./NoteTag";
 // import ResourceTag from "./ResourceTag";
 // import ResourceType from "./ResourceType";
@@ -22,6 +22,10 @@ async function Associations(): Promise<void> {
 
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
+
+    Resource.hasMany(Note, {foreignKey:"resourceId", sourceKey:"id"});
+    Note.belongsTo(Resource, {foreignKey:"resourceId", targetKey:"id"});
+    
     
     /* //Not sure if needed
     User.hasMany(User);
