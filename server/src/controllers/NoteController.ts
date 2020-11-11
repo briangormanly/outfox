@@ -16,7 +16,7 @@ class NotesController implements Controller {
     this.initializeRoutes();
   }
 
-   /**
+  /**
    * Creates the routes for the Note Controller
    * Ex. GET, PUT, POST, UPDATE, etc
    */
@@ -34,10 +34,7 @@ class NotesController implements Controller {
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
-  getAllNotes = async (
-    request: Request,
-    response: Response
-  ): Promise<void> => {
+  getAllNotes = async (request: Request, response: Response): Promise<void> => {
     try {
       const note = await Note.findAll(); // Grabs all Notes
       response.json(note);
@@ -68,11 +65,11 @@ class NotesController implements Controller {
    */
   getNote = async (request: Request, response: Response): Promise<void> => {
     try {
-      const { id } = request.params; 
+      const { id } = request.params;
 
       const note = await Note.findOne({
         where: { id: id },
-      }); 
+      });
 
       if (note) {
         response.status(200).json(note);
@@ -91,14 +88,14 @@ class NotesController implements Controller {
    */
   updateNote = async (request: Request, response: Response): Promise<void> => {
     try {
-      const { id } = request.params; 
+      const { id } = request.params;
 
       const [updated] = await Note.update(request.body, {
         where: { id: id },
-      }); 
+      });
 
       if (updated) {
-        const updatedNote = await Note.findOne({ where: { id: id } }); 
+        const updatedNote = await Note.findOne({ where: { id: id } });
         response.status(200).json({ note: updatedNote }); //Return the updated Note
       } else {
         response.status(404).send("Note with the specified ID does not exist"); //Note does not exist
@@ -115,7 +112,7 @@ class NotesController implements Controller {
    */
   deleteNote = async (request: Request, response: Response): Promise<void> => {
     try {
-      const { id } = request.params; 
+      const { id } = request.params;
       const deleted = await Note.destroy({
         where: { id: id },
       }); // Delete the Note with the specified id
@@ -128,7 +125,6 @@ class NotesController implements Controller {
       response.status(500).send(error.message);
     }
   };
-  
 }
 
 export default NotesController;

@@ -1,4 +1,4 @@
-import { DataTypes, Model} from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 import User from "./User";
 
@@ -11,10 +11,11 @@ class Friend extends Model {
 
 Friend.init(
   {
-    id: {
+    friendRequestid: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
+      unique: true,
       primaryKey: true,
     },
     requesterid: {
@@ -34,7 +35,8 @@ Friend.init(
       },
     },
     status: {
-      type: DataTypes.ENUM('a', 'r', 'p'),
+      type: DataTypes.ENUM("a", "r", "p"),
+      defaultValue: "p",
     },
   },
   {

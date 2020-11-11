@@ -9,6 +9,7 @@ import Associations from "./associations";
 import ShareResource from "../models/ShareResource";
 import ShareGroup from "../models/ShareGroup";
 import sequelize from "./databaseConnection";
+import Friend from "../models/Friend";
 // Array of all models [Tables]
 const models = [
   User,
@@ -16,6 +17,7 @@ const models = [
   Resource,
   ShareGroup,
   ShareResource,
+  Friend,
   //  Note,
   Note,
   //  NoteTag,

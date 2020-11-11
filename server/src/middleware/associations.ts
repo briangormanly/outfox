@@ -3,6 +3,7 @@ import Group from "../models/Group";
 import Resource from "../models/Resource";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
+import Friend from "../models/Friend";
 
 async function Associations(): Promise<void> {
   try {
@@ -11,13 +12,12 @@ async function Associations(): Promise<void> {
 
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
-    
-    /* //Not sure if needed
-    User.hasMany(User);
-    User.belongsToMany(User, {
-      through:"friends",
-      timestamps: true})
-    */
+
+    User.hasMany(Friend, { foreignKey: "requesterid", sourceKey: "id" });
+    Friend.belongsTo(User, {
+      foreignKey: "addresseeid",
+      targetKey: "id",
+    });
 
     Group.hasMany(Resource);
     Resource.belongsToMany(Group, {
@@ -37,14 +37,12 @@ async function Associations(): Promise<void> {
     Resource.belongsToMany(User, {
       through: ShareResource,
       timestamps: false,
-    })
+    });
     ShareResource.belongsTo(Resource);
     ShareResource.belongsTo(User);
-
   } catch (error) {
     throw new Error("Error setting up relationships");
   }
-
 }
 
 export default Associations;

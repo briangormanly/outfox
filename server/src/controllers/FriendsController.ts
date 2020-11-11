@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Friend from "../models/Friend";
-
+import { Op } from "sequelize";
+import User from "../models/User";
 /**
  * The friend controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
@@ -24,11 +25,12 @@ class FriendController {
       .get(this.getAllFriends)
       .post(this.createFriend);
     this.router
-      .route(this.path + "/:id")
+      .route(this.path + "/:friendRequestid")
       .get(this.getFriend)
       .put(this.updateFriend)
       .delete(this.deleteFriend);
-    // Need to add patch
+    this.router.route(this.path + "/accepted/:id").get(this.getAcceptedFriends);
+    this.router.route(this.path + "/pending/:id").get(this.getPendingRequests);
   }
 
   // Goes to route /api/friends
@@ -77,9 +79,10 @@ class FriendController {
    */
   getFriend = async (request: Request, response: Response): Promise<void> => {
     try {
-      const { id } = request.params; // Destructure the request.params object and grab only id
+      const { friendRequestid } = request.params; // Destructure the request.params object and grab only id
+      console.log(friendRequestid);
       const friend = await Friend.findOne({
-        where: { id: id },
+        where: { friendRequestid: friendRequestid },
       }); // Grabs the friends where the id is 0
 
       if (friend) {
@@ -104,14 +107,16 @@ class FriendController {
     response: Response
   ): Promise<void> => {
     try {
-      const { id } = request.params; // Destructure the object to only grab the id coming from the request
+      const { friendRequestid } = request.params; // Destructure the object to only grab the id coming from the request
       const [updated] = await Friend.update(request.body, {
-        where: { id: id },
+        where: { friendRequestid: friendRequestid },
       }); // Destructure the array so we grab the updated version of our friends
 
       if (updated) {
-        const updatedFriend = await Friend.findOne({ where: { id: id } }); // Grab the update friend
-        response.status(200).json({ friend: updatedFriend }); // Return the updated friend
+        const updatedFriend = await Friend.findOne({
+          where: { friendRequestid: friendRequestid },
+        }); // Grab the update friend
+        response.status(200).json(updatedFriend); // Return the updated friend
       } else {
         response
           .status(404)
@@ -132,12 +137,107 @@ class FriendController {
     response: Response
   ): Promise<void> => {
     try {
-      const { id } = request.params; // Destructure the object to only grab the id coming from the request
+      const { friendRequestid } = request.params; // Destructure the object to only grab the id coming from the request
       const deleted = await Friend.destroy({
-        where: { id: id },
+        where: { friendRequestid: friendRequestid },
       }); // Delete the friend with the specified id
       if (deleted) {
         response.status(204).send("Friend Deleted");
+      } else {
+        response
+          .status(404)
+          .send("Friend with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  //---------------
+  /**
+   * Grabs all friends in the database and sends them as a response in json
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getFriends = async (request: Request, response: Response): Promise<void> => {
+    try {
+      const friend = await Friend.findAll(); // Grabs all friends
+      response.json(friend);
+    } catch (err) {
+      response.status(400).json({ message: "Something went wrong" });
+    }
+  };
+
+  /**
+   * Grabs only friends that have been accepted
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getAcceptedFriends = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { friendRequestid } = request.params; // Destructure the request.params object and grab only id
+      const friend = await Friend.findAll({
+        attributes: { exclude: ["requesterid", "addresseeid", "status"] },
+        where: {
+          [Op.or]: [
+            { requesterid: friendRequestid },
+            { addresseeid: friendRequestid },
+          ],
+          [Op.and]: { status: "a" },
+        },
+        include: {
+          model: User,
+          attributes: {
+            exclude: ["hashpw", "country", "city", "phonenum"],
+          },
+        },
+      }); // Grabs the friends where the id is 0
+
+      if (friend) {
+        response.status(200).json(friend);
+      } else {
+        response
+          .status(404)
+          .send("Friend with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  /**
+   * Grabs pending requests
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getPendingRequests = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { friendRequestid } = request.params; // Destructure the request.params object and grab only id
+      const friend = await Friend.findAll({
+        attributes: { exclude: ["requesterid", "addresseeid", "status"] },
+        where: {
+          [Op.or]: [
+            { requesterid: friendRequestid },
+            { addresseeid: friendRequestid },
+          ],
+          [Op.and]: { status: "p" },
+        },
+        include: {
+          model: User,
+          attributes: {
+            exclude: ["hashpw", "country", "city", "phonenum"],
+          },
+        },
+      }); // Grabs the friends where the id is 0
+
+      if (friend) {
+        response.status(200).json(friend);
       } else {
         response
           .status(404)
