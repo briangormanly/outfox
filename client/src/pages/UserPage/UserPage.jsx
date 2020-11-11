@@ -18,6 +18,7 @@ import {
 	GroupsP,
 	ResourcesP,
 	Explore,
+	ExploreUser,
 	Friends,
 	// Help,
 	Loader
@@ -111,6 +112,11 @@ const UserPage = ({ match }) => {
 							/>
 						</Route>
 						<Route exact path={`${match.path}/explore`} component={Explore} />
+						<Route
+							exact
+							path={`${match.path}/explore/:exploreId`}
+							component={ExploreUser}
+						/>
 						<Route exact path={`${match.path}/friends`} component={Friends} />
 						{/* {dashboardActive && (
 							<Dashboard

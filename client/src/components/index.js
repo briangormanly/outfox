@@ -52,6 +52,7 @@ export { default as Friends } from './Friends/Friends';
 export { default as Help } from './Help/Help';
 export { default as Explore } from './Explore/Explore';
 export { default as ExploreUserCard } from './ExploreUserCard/ExploreUserCard';
+export { default as ExploreUser } from './ExploreUser/ExploreUser';
 
 // Utility Components
 export { default as Loader } from './Loader/Loader';
