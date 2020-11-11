@@ -35,9 +35,16 @@ export const Button = styled(ActionButton)`
 `;
 
 export const Content = styled.div`
-	margin-top: 1rem;
+	margin-bottom: 3rem;
 
 	h3 {
 		font-size: 1.6rem;
 	}
+`;
+
+export const FlexContainer = styled.div`
+	padding: 1rem;
+	display: flex;
+	justify-content: start;
+	flex-wrap: wrap;
 `;

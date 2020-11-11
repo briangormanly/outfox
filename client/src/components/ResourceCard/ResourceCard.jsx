@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 import {
 	CardContainer,
@@ -34,6 +35,9 @@ const ResourceCard = ({
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
+
+	const params = useParams();
+
 	return (
 		<Fragment>
 			{showEditModal && (
@@ -86,12 +90,24 @@ const ResourceCard = ({
 					</Attributes>
 					{showButtons && (
 						<ButtonContainer>
-							<Button edit onClick={() => setShowEditModal(true)}>
+							{params.exploreId ? (
+								<Button edit>Add to...</Button>
+							) : (
+								<Fragment>
+									<Button edit onClick={() => setShowEditModal(true)}>
+										Edit
+									</Button>
+									<Button delete onClick={() => setShowDeleteModal(true)}>
+										Delete
+									</Button>
+								</Fragment>
+							)}
+							{/* <Button edit onClick={() => setShowEditModal(true)}>
 								Edit
 							</Button>
 							<Button delete onClick={() => setShowDeleteModal(true)}>
 								Delete
-							</Button>
+							</Button> */}
 						</ButtonContainer>
 					)}
 				</Content>

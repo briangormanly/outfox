@@ -53,6 +53,7 @@ export { default as Help } from './Help/Help';
 export { default as Explore } from './Explore/Explore';
 export { default as ExploreUserCard } from './ExploreUserCard/ExploreUserCard';
 export { default as ExploreUser } from './ExploreUser/ExploreUser';
+export { default as ExploreGroup } from './ExploreGroup/ExploreGroup';
 
 // Utility Components
 export { default as Loader } from './Loader/Loader';

@@ -7,8 +7,11 @@ import {
 	ExploreUserContainer,
 	ButtonGroup,
 	Button,
-	Content
+	Content,
+	FlexContainer
 } from './ExploreUser.elements';
+
+import { GroupAllCard, ResourceCard } from '../index';
 
 const ExploreUser = () => {
 	const [ exploreUser, setExploreUser ] = useState(null);
@@ -18,27 +21,26 @@ const ExploreUser = () => {
 	const params = useParams();
 	const exploreId = parseFloat(params.exploreId);
 
-	useEffect(() => {
-		let mounted = true;
+	useEffect(
+		() => {
+			let mounted = true;
 
-		const getUser = async () => {
-			const response = await userService.getUser(exploreId);
+			const getUser = async () => {
+				const response = await userService.getUser(exploreId);
 
-			if (mounted) {
-				setExploreUser(response);
-				setGroups(response.Groups);
-				setResources(response.Resources);
-			}
-		};
+				if (mounted) {
+					setExploreUser(response);
+					setGroups(response.Groups);
+					setResources(response.Resources);
+				}
+			};
 
-		getUser();
+			getUser();
 
-		return () => (mounted = false);
-	}, []);
-
-	// console.log(exploreUser);
-	// console.log(groups);
-	// console.log(resources);
+			return () => (mounted = false);
+		},
+		[ exploreId ]
+	);
 
 	return (
 		<ExploreUserContainer>
@@ -51,9 +53,24 @@ const ExploreUser = () => {
 					</ButtonGroup>
 					<Content>
 						<h3>{`${exploreUser.firstname}'s Groups:`}</h3>
+						<FlexContainer>
+							{groups.map((group) => <GroupAllCard key={group.id} {...group} />)}
+						</FlexContainer>
 					</Content>
 					<Content>
 						<h3>{`${exploreUser.firstname}'s Resources:`}</h3>
+						<FlexContainer>
+							{resources.map((resource) => (
+								<ResourceCard
+									key={resource.id}
+									{...resource}
+									showButtons
+									showType
+									showDates
+									showDescription
+								/>
+							))}
+						</FlexContainer>
 					</Content>
 				</div>
 			)}

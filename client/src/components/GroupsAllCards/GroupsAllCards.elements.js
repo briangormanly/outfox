@@ -5,7 +5,7 @@ import { colors } from '../../styles';
 const { primary, white } = colors;
 
 export const GroupCard = styled.div`
-	height: 35rem;
+	height: 30rem;
 	width: 20rem;
 	background: rgb(139, 1, 1);
 	background: linear-gradient(

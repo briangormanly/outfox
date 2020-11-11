@@ -8,7 +8,6 @@ const GroupsAllCards = ({ id, datetimeadd, groupdescription, groupname }) => {
 	const history = useHistory();
 	// const params = useParams();
 	const location = useLocation();
-	console.log(location.pathname);
 
 	const handleClick = () => {
 		history.push(`${location.pathname}/${id}`);
