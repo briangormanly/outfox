@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import userService from '../../services/users';
+import friendService from '../../services/friends';
 
 import {
 	ExploreUserContainer,
@@ -20,6 +21,8 @@ const ExploreUser = () => {
 
 	const params = useParams();
 	const exploreId = parseFloat(params.exploreId);
+	const userId = parseFloat(params.id);
+	console.log(userId);
 
 	useEffect(
 		() => {
@@ -42,14 +45,30 @@ const ExploreUser = () => {
 		[ exploreId ]
 	);
 
+	const handleConnect = async () => {
+		const requestObject = {
+			requesterid : userId,
+			addresseeid : exploreId
+		};
+
+		const response = await friendService.sendFriendRequest(requestObject);
+		console.log(response);
+	};
+
+	const handleRemove = async () => {};
+
 	return (
 		<ExploreUserContainer>
 			{exploreUser && (
 				<div>
 					<h1>{`${exploreUser.firstname} ${exploreUser.lastname}`}</h1>
 					<ButtonGroup>
-						<Button edit>Connect</Button>
-						<Button delete>Remove</Button>
+						<Button edit onClick={handleConnect}>
+							Connect
+						</Button>
+						<Button delete onClick={handleRemove}>
+							Remove
+						</Button>
 					</ButtonGroup>
 					<Content>
 						<h3>{`${exploreUser.firstname}'s Groups:`}</h3>
