@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaPlus, FaArrowRight } from 'react-icons/fa';
 
@@ -15,6 +16,14 @@ function DashboardResources({ dashboardPaginate, updateFlag, setUpdateFlag }) {
 
 	const { user } = useSelector((state) => state.userDetail);
 	const { id, Resources } = user;
+
+	const history = useHistory();
+	const params = useParams();
+
+	const handleViewAll = () => {
+		dashboardPaginate({ type: 'resources' });
+		history.push(`/user/${params.id}/resources`);
+	};
 
 	return (
 		<ResourcesContainer>
@@ -34,7 +43,7 @@ function DashboardResources({ dashboardPaginate, updateFlag, setUpdateFlag }) {
 					<button onClick={() => setShowModal(true)}>
 						<span>Create Resource</span> <FaPlus />
 					</button>
-					<button onClick={() => dashboardPaginate({ type: 'resources' })}>
+					<button onClick={handleViewAll}>
 						<span>View All</span>
 						<FaArrowRight />
 					</button>
