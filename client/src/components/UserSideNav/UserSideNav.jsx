@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from '../../styles/globalStyles';
-import { useSelector } from 'react-redux';
+
 import { useParams } from 'react-router-dom';
 
 import {
@@ -10,8 +10,7 @@ import {
 	FaUserFriends,
 	FaRegFolderOpen,
 	FaCubes,
-	FaLayerGroup,
-	FaRegCalendarCheck
+	FaLayerGroup
 } from 'react-icons/fa';
 
 import { ReactComponent as Logo } from '../../assets/fox.svg';
@@ -30,6 +29,7 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 		groupsActive,
 		resourcesActive,
 		friendsActive,
+		exploreActive,
 		helpActive
 	} = state;
 
@@ -72,18 +72,14 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 					</div>
 				</Link>
 			</SideNavButton>
-			{/* <SideNavButton name="courses" onClick={handleClick} active={coursesActive}>
-				<div>
-					<FaBookReader />
-					<span>Courses</span>
-				</div>
+			<SideNavButton name="explore" onClick={handleClick} active={exploreActive}>
+				<Link to={`${userURL}/explore`}>
+					<div>
+						<FaBookReader />
+						<span>Explore</span>
+					</div>
+				</Link>
 			</SideNavButton>
-			<SideNavButton name="calendar" onClick={handleClick} active={calendarActive}>
-				<div>
-					<FaRegCalendarCheck />
-					<span>Calendar</span>
-				</div>
-			</SideNavButton> */}
 			<SideNavButton name="friends" onClick={handleClick} active={friendsActive}>
 				<Link to={`${userURL}/friends`}>
 					<div>
@@ -93,10 +89,12 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 				</Link>
 			</SideNavButton>
 			<SideNavButton name="help" onClick={handleClick} active={helpActive}>
-				<div>
-					<FaTools />
-					<span>Help</span>
-				</div>
+				<Link to={`${userURL}/help`}>
+					<div>
+						<FaTools />
+						<span>Help</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<DashboardSettings>
 				<p>You can change the dashboard settings</p>

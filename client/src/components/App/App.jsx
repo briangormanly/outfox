@@ -1,11 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GlobalStyles } from '../../styles/globalStyles';
 
-import { Friends } from '../index';
-
-import { HomePage, SignIn, SignUp, UserPage, GroupPage } from '../../pages';
+import { HomePage, SignIn, SignUp, UserPage } from '../../pages';
 
 // Testing
 import TestPage from '../../pages/TestPage/TestPage';
@@ -30,7 +28,6 @@ const App = () => {
 					render={() => (auth ? <Redirect to={`/user/${userID}`} /> : <SignUp />)}
 				/>
 				<Route path="/user/:id" component={UserPage} />
-				{/* <Route exact path={`/user/:userID/groups/:groupID`} component={GroupPage} /> */}
 				<Route exact path="/test">
 					<TestPage />
 				</Route>

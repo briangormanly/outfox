@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAction } from '../../redux/actions/userActions';
 
-import { Route, useLocation } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import {
 	UserPageContainer,
@@ -17,8 +17,7 @@ import {
 	Dashboard,
 	GroupsP,
 	ResourcesP,
-	// Courses,
-	// Calendar,
+	Explore,
 	Friends,
 	// Help,
 	Loader
@@ -32,8 +31,7 @@ const initalState = {
 	dashboardActive : true,
 	groupsActive    : false,
 	resourcesActive : false,
-	coursesActive   : false,
-	calendarActive  : false,
+	exploreActive   : false,
 	friendsActive   : false,
 	helpActive      : false
 };
@@ -112,6 +110,7 @@ const UserPage = ({ match }) => {
 								setUpdateFlag={setUpdateFlag}
 							/>
 						</Route>
+						<Route exact path={`${match.path}/explore`} component={Explore} />
 						<Route exact path={`${match.path}/friends`} component={Friends} />
 						{/* {dashboardActive && (
 							<Dashboard
