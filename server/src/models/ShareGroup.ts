@@ -11,7 +11,7 @@ class ShareGroup extends Model {
 
 ShareGroup.init(
   {
-    id: {
+    SharedID: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -22,6 +22,14 @@ ShareGroup.init(
       allowNull: false,
       references: {
         model: Group,
+        key: "id",
+      },
+    },
+    Sharedby: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: User,
         key: "id",
       },
     },

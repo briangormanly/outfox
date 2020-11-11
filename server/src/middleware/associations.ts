@@ -25,23 +25,57 @@ async function Associations(): Promise<void> {
       timestamps: false,
     });
 
-    // Group Sharing
+    // Group Sharing -------------------------------------------------------------------------------------------------------------------------------//
     Group.belongsToMany(User, {
       through: ShareGroup,
       timestamps: false,
     });
-    ShareGroup.belongsTo(Group);
-    ShareGroup.belongsTo(User);
 
-    // Resource Sharing
+    ShareGroup.belongsTo(Group, {
+      as: "GroupShared",
+      foreignKey: "GroupId",
+      targetKey: "id",
+    });
+
+    ShareGroup.belongsTo(User, {
+      as: "SharedTo",
+      foreignKey: "UserId",
+      targetKey: "id",
+    });
+
+    ShareGroup.belongsTo(User, {
+      as: "SharedFrom",
+      foreignKey: "Sharedby",
+      targetKey: "id",
+    });
+    // End of Group Sharing--------------------------------------------------------------------------------------------------------------------------//
+
+    // Resource Sharing ----------------------------------------------------------------------------------------------------------------------------//
     Resource.belongsToMany(User, {
       through: ShareResource,
       timestamps: false,
     });
-    ShareResource.belongsTo(Resource);
-    ShareResource.belongsTo(User);
+    ShareResource.belongsTo(Resource, {
+      as: "ResourceShared",
+      foreignKey: "ResourceId",
+      targetKey: "id",
+    });
+
+    ShareResource.belongsTo(User, {
+      as: "SharedTo",
+      foreignKey: "UserId",
+      targetKey: "id",
+    });
+
+    ShareResource.belongsTo(User, {
+      as: "SharedFrom",
+      foreignKey: "Sharedby",
+      targetKey: "id",
+    });
+
+    // End of Resource Sharing ----------------------------------------------------------------------------------------------------------------------//
   } catch (error) {
-    throw new Error("Error setting up relationships");
+    console.log(error);
   }
 }
 

@@ -2,8 +2,6 @@ import { Router, Request, Response } from "express";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
 import Controller from "../interfaces/ControllerInterface";
-import Group from "../models/Group";
-import Resource from "../models/Resource";
 
 /**
  * The share controller is responsible for handling the HTTP requests.
@@ -38,7 +36,7 @@ class ShareController implements Controller {
       .delete(this.deleteShareResource);
   }
 
-  //SHARED GROUP SECTION
+  // SHARED GROUP SECTION
   // route: api/share/group
 
   /**
@@ -52,7 +50,7 @@ class ShareController implements Controller {
   ): Promise<void> => {
     try {
       const newShare = await ShareGroup.create(request.body);
-      response.status(200).json({ newShare });
+      response.status(200).json(newShare);
     } catch (err) {
       response.status(500).send(err.message);
     }
@@ -72,8 +70,18 @@ class ShareController implements Controller {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
       const sharedGroups = await ShareGroup.findAll({
+        attributes: { exclude: ["GroupId", "Sharedby", "UserId"] },
         where: { UserId: id },
-        include: Group,
+        include: [
+          {
+            association: "SharedFrom",
+            attributes: { exclude: ["hashpw", "country", "city", "phonenum"] },
+          },
+          {
+            association: "GroupShared",
+          },
+        ],
+        //include: ["SharedFrom", "SharedTo", "GroupShared"],
       }); // Search for the groups shared with user X {X = params:id}
 
       if (sharedGroups) {
@@ -98,7 +106,7 @@ class ShareController implements Controller {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
       const deleted = await ShareGroup.destroy({
-        where: { id: id },
+        where: { SharedID: id },
       }); // Delete the sharedgroup with the specified id
 
       if (deleted) {
@@ -148,8 +156,18 @@ class ShareController implements Controller {
     try {
       const { id } = request.params;
       const sharedResource = await ShareResource.findAll({
+        attributes: { exclude: ["ResourceId", "Sharedby", "UserId"] },
         where: { UserId: id },
-        include: Resource,
+        include: [
+          {
+            association: "SharedFrom",
+            attributes: { exclude: ["hashpw", "country", "city", "phonenum"] },
+          },
+          {
+            association: "ResourceShared",
+          },
+        ],
+        //include: ["SharedFrom", "SharedTo", "GroupShared"],
       }); // Grabs the sharedresource baed on the specific 'id' of a user
 
       if (sharedResource) {
@@ -176,7 +194,7 @@ class ShareController implements Controller {
     try {
       const { id } = request.params;
       const deleted = await ShareResource.destroy({
-        where: { id: id },
+        where: { ShareResourceId: id },
       }); // Delete the sharedresource with the specified id
 
       if (deleted) {

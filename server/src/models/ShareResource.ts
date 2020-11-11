@@ -4,14 +4,15 @@ import User from "./User";
 import Resource from "./Resource";
 
 class ShareResource extends Model {
-  public id: number;
-  public resourceid: number;
-  public userid: number;
+  public ShareResourceId: number;
+  public ResourceId: number;
+  public Sharedby: number;
+  public UserId: number;
 }
 
 ShareResource.init(
   {
-    id: {
+    ShareResourceId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -22,6 +23,14 @@ ShareResource.init(
       allowNull: false,
       references: {
         model: Resource,
+        key: "id",
+      },
+    },
+    Sharedby: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: User,
         key: "id",
       },
     },
