@@ -49,6 +49,7 @@ export { default as ResourcesP } from './Resources/Resources';
 export { default as Courses } from './Courses/Courses';
 export { default as Calendar } from './Calendar/Calendar';
 export { default as Friends } from './Friends/Friends';
+export { default as FriendCard } from './FriendCard/FriendCard';
 export { default as Help } from './Help/Help';
 export { default as Explore } from './Explore/Explore';
 export { default as ExploreUserCard } from './ExploreUserCard/ExploreUserCard';

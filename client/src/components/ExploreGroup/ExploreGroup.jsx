@@ -46,7 +46,7 @@ const ExploreGroup = ({ match }) => {
 
 			return () => (mounted = false);
 		},
-		[ match.params.groupId ]
+		[ match.params.groupId, match.params.exploreId ]
 	);
 
 	console.log(firstName);
