@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import userService from '../../services/users';
-import { useHistory, useLocation } from 'react-router-dom';
+import friendService from '../../services/friends';
+import { useHistory, useParams } from 'react-router-dom';
 
 import {
 	FriendContainer,
@@ -15,17 +16,21 @@ import {
 	IconContainer
 } from '../ExploreUserCard/ExploreUserCard.elements';
 
-const FriendCard = ({ addresseeid, status }) => {
+const FriendCard = ({ requesterid, status, friendRequestid, setUpdate, update }) => {
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ userName, setUserName ] = useState('');
 	const [ email, setEmail ] = useState('');
 
+	const history = useHistory();
+	const params = useParams();
+	const userId = params.id;
+
 	useEffect(
 		() => {
 			let mounted = true;
 			const request = async () => {
-				const response = await userService.getUser(addresseeid);
+				const response = await userService.getUser(requesterid);
 
 				if (mounted) {
 					const { firstname, lastname, username, email } = response;
@@ -40,8 +45,18 @@ const FriendCard = ({ addresseeid, status }) => {
 
 			return () => (mounted = false);
 		},
-		[ addresseeid ]
+		[ requesterid ]
 	);
+
+	const handleViewPage = () => {
+		history.push(`/user/${userId}/explore/${requesterid}`);
+	};
+
+	const handleAccept = async () => {
+		const response = await friendService.acceptFriendRequest(friendRequestid);
+		setUpdate(update + 1);
+		console.log(response);
+	};
 
 	return (
 		<FriendContainer>
@@ -56,8 +71,16 @@ const FriendCard = ({ addresseeid, status }) => {
 				</Text>
 			</Content>
 			<FriendButtonGroup>
-				<FriendButton edit>View Page</FriendButton>
-				{status === 'p' ? <FriendButton add>Accept</FriendButton> : ''}
+				<FriendButton edit onClick={handleViewPage}>
+					View Page
+				</FriendButton>
+				{status === 'p' ? (
+					<FriendButton add onClick={handleAccept}>
+						Accept
+					</FriendButton>
+				) : (
+					''
+				)}
 				{status === 'p' ? <FriendButton delete>Deny</FriendButton> : ''}
 				{status === 'a' ? <FriendButton delete>Remove</FriendButton> : ''}
 			</FriendButtonGroup>

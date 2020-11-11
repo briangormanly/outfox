@@ -22,7 +22,6 @@ const ExploreUser = () => {
 	const params = useParams();
 	const exploreId = parseFloat(params.exploreId);
 	const userId = parseFloat(params.id);
-	console.log(userId);
 
 	useEffect(
 		() => {
