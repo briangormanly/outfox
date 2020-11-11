@@ -47,6 +47,8 @@ const GroupPage = ({ match }) => {
 			};
 
 			request();
+
+			return () => {};
 		},
 		[ match.params.groupID, updateFlag ]
 	);

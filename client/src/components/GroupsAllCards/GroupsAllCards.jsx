@@ -1,15 +1,15 @@
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { GroupCard } from './GroupsAllCards.elements';
 
 const GroupsAllCards = ({ id, datetimeadd, groupdescription, groupname }) => {
 	const date = datetimeadd.slice(0, 10);
 	const history = useHistory();
-	const location = useLocation();
+	const params = useParams();
 
 	const handleClick = () => {
-		history.push(`${location.pathname}/groups/${id}`);
+		history.push(`/user/${params.id}/groups/${id}`);
 	};
 	return (
 		<GroupCard>

@@ -29,19 +29,12 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 		dashboardActive,
 		groupsActive,
 		resourcesActive,
-		coursesActive,
-		calendarActive,
 		friendsActive,
 		helpActive
 	} = state;
 
 	const locationParams = useParams();
 	const userURL = `/user/${locationParams.id}`;
-	console.log(userURL);
-
-	// const { user } = useSelector((state) => state.userDetail);
-	// const userURL = `user/${user.id}`;
-	// console.log(userURL);
 
 	return (
 		<UserSideNavContainer>

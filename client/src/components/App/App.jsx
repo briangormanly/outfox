@@ -30,7 +30,7 @@ const App = () => {
 					render={() => (auth ? <Redirect to={`/user/${userID}`} /> : <SignUp />)}
 				/>
 				<Route path="/user/:id" component={UserPage} />
-				<Route exact path={`/user/:userID/groups/:groupID`} component={GroupPage} />
+				{/* <Route exact path={`/user/:userID/groups/:groupID`} component={GroupPage} /> */}
 				<Route exact path="/test">
 					<TestPage />
 				</Route>

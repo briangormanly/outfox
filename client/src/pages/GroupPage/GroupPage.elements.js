@@ -6,7 +6,7 @@ const { primary, secondary, white, lightGrey } = colors;
 
 export const GroupPageContainer = styled.div`
 	width: 100%;
-	min-height: 100vh;
+	min-height: 100%;
 	background: rgb(139, 1, 1);
 	background: linear-gradient(
 		203deg,
@@ -22,7 +22,7 @@ export const GroupPageContainer = styled.div`
 `;
 
 export const Container = styled.div`
-	max-width: 120rem;
+	/* max-width: 120rem; */
 	width: 100%;
 	padding: 3rem;
 	margin: 0 auto;

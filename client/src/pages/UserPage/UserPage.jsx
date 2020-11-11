@@ -17,12 +17,14 @@ import {
 	Dashboard,
 	GroupsP,
 	ResourcesP,
-	Courses,
-	Calendar,
+	// Courses,
+	// Calendar,
 	Friends,
-	Help,
+	// Help,
 	Loader
 } from '../../components';
+
+import { GroupPage } from '../index';
 
 import { userPageReducer } from './UserPageReducer';
 
@@ -94,17 +96,23 @@ const UserPage = ({ match }) => {
 								setUpdateFlag={setUpdateFlag}
 							/>
 						</Route>
-						<Route path={`${match.path}/groups`}>
+						<Route exact path={`${match.path}/groups`}>
 							<GroupsP groups={Groups} />
 						</Route>
-						<Route path={`${match.path}/resources`}>
+						<Route
+							exact
+							path={`/user/:userID/groups/:groupID`}
+							component={GroupPage}
+						/>
+
+						<Route exact path={`${match.path}/resources`}>
 							<ResourcesP
 								resources={Resources}
 								updateFlag={updateFlag}
 								setUpdateFlag={setUpdateFlag}
 							/>
 						</Route>
-						<Route path={`${match.path}/friends`} component={Friends} />
+						<Route exact path={`${match.path}/friends`} component={Friends} />
 						{/* {dashboardActive && (
 							<Dashboard
 								dashboardPaginate={userPageDispatch}
