@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { useSelector } from 'react-redux';
 import { GlobalStyles } from '../../styles/globalStyles';
 
+import { Friends } from '../index';
+
 import { HomePage, SignIn, SignUp, UserPage, GroupPage } from '../../pages';
 
 // Testing
@@ -14,7 +16,7 @@ const App = () => {
 	return (
 		<Router>
 			<GlobalStyles />
-			<Switch>
+			<div>
 				<Route exact path="/" component={HomePage} />
 				<Route
 					exact
@@ -27,12 +29,12 @@ const App = () => {
 					path="/signup"
 					render={() => (auth ? <Redirect to={`/user/${userID}`} /> : <SignUp />)}
 				/>
-				<Route exact path="/user/:id" component={UserPage} />
+				<Route path="/user/:id" component={UserPage} />
 				<Route exact path={`/user/:userID/groups/:groupID`} component={GroupPage} />
 				<Route exact path="/test">
 					<TestPage />
 				</Route>
-			</Switch>
+			</div>
 		</Router>
 	);
 };

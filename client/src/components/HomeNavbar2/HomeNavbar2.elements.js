@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { Container, Button, colors } from '../../styles';
+import { Container, colors } from '../../styles';
 
-const { primary, secondary, lightGrey } = colors;
+const { lightGrey } = colors;
 
 export const NavContainer = styled(Container)`
   /* max-width: 150rem; */

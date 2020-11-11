@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-import { colors, Container, Link, Button } from '../../styles';
+import { colors, Container, Button } from '../../styles';
 
-const { primary, secondary, secondaryLight, white, black } = colors;
+const { secondary, secondaryLight } = colors;
 
 export const HeroSection = styled.div`
 	position: relative;

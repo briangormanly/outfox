@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { Link } from '../../styles/globalStyles';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
 import {
 	FaBookReader,
 	FaTools,
@@ -31,6 +35,14 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 		helpActive
 	} = state;
 
+	const locationParams = useParams();
+	const userURL = `/user/${locationParams.id}`;
+	console.log(userURL);
+
+	// const { user } = useSelector((state) => state.userDetail);
+	// const userURL = `user/${user.id}`;
+	// console.log(userURL);
+
 	return (
 		<UserSideNavContainer>
 			<Logo />
@@ -44,25 +56,30 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 				<Clock />
 			</WelcomeMessage>
 			<SideNavButton name="dashboard" onClick={handleClick} active={dashboardActive}>
-				<div>
-					<FaCubes />
-
-					<span>Dashboard</span>
-				</div>
+				<Link to={userURL}>
+					<div>
+						<FaCubes />
+						<span>Dashboard</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<SideNavButton name="groups" onClick={handleClick} active={groupsActive}>
-				<div>
-					<FaRegFolderOpen />
-					<span>Groups</span>
-				</div>
+				<Link to={`${userURL}/groups`}>
+					<div>
+						<FaRegFolderOpen />
+						<span>Groups</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<SideNavButton name="resources" onClick={handleClick} active={resourcesActive}>
-				<div>
-					<FaLayerGroup />
-					<span>Resources</span>
-				</div>
+				<Link to={`${userURL}/resources`}>
+					<div>
+						<FaLayerGroup />
+						<span>Resources</span>
+					</div>
+				</Link>
 			</SideNavButton>
-			<SideNavButton name="courses" onClick={handleClick} active={coursesActive}>
+			{/* <SideNavButton name="courses" onClick={handleClick} active={coursesActive}>
 				<div>
 					<FaBookReader />
 					<span>Courses</span>
@@ -73,12 +90,14 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 					<FaRegCalendarCheck />
 					<span>Calendar</span>
 				</div>
-			</SideNavButton>
+			</SideNavButton> */}
 			<SideNavButton name="friends" onClick={handleClick} active={friendsActive}>
-				<div>
-					<FaUserFriends />
-					<span>Friends</span>
-				</div>
+				<Link to={`${userURL}/friends`}>
+					<div>
+						<FaUserFriends />
+						<span>Friends</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<SideNavButton name="help" onClick={handleClick} active={helpActive}>
 				<div>

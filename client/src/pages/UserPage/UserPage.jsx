@@ -2,6 +2,8 @@ import React, { useEffect, useReducer, Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAction } from '../../redux/actions/userActions';
 
+import { Route, useLocation } from 'react-router-dom';
+
 import {
 	UserPageContainer,
 	ContentArea,
@@ -37,15 +39,15 @@ const initalState = {
 const UserPage = ({ match }) => {
 	const [ state, userPageDispatch ] = useReducer(userPageReducer, initalState);
 
-	const {
-		dashboardActive,
-		groupsActive,
-		resourcesActive,
-		coursesActive,
-		calendarActive,
-		friendsActive,
-		helpActive
-	} = state;
+	// const {
+	// 	dashboardActive,
+	// 	groupsActive,
+	// 	resourcesActive,
+	// 	coursesActive,
+	// 	calendarActive,
+	// 	friendsActive,
+	// 	helpActive
+	// } = state;
 
 	const storeDispatch = useDispatch();
 	const { user, loading, error } = useSelector((state) => state.userDetail);
@@ -85,7 +87,25 @@ const UserPage = ({ match }) => {
 					</SideNavArea>
 					{/* TODO: Refactor Prop Drilling Here */}
 					<ContentArea>
-						{dashboardActive && (
+						<Route exact path={match.path}>
+							<Dashboard
+								dashboardPaginate={userPageDispatch}
+								updateFlag={updateFlag}
+								setUpdateFlag={setUpdateFlag}
+							/>
+						</Route>
+						<Route path={`${match.path}/groups`}>
+							<GroupsP groups={Groups} />
+						</Route>
+						<Route path={`${match.path}/resources`}>
+							<ResourcesP
+								resources={Resources}
+								updateFlag={updateFlag}
+								setUpdateFlag={setUpdateFlag}
+							/>
+						</Route>
+						<Route path={`${match.path}/friends`} component={Friends} />
+						{/* {dashboardActive && (
 							<Dashboard
 								dashboardPaginate={userPageDispatch}
 								updateFlag={updateFlag}
@@ -103,7 +123,7 @@ const UserPage = ({ match }) => {
 						{coursesActive && <Courses />}
 						{calendarActive && <Calendar />}
 						{friendsActive && <Friends />}
-						{helpActive && <Help />}
+						{helpActive && <Help />} */}
 					</ContentArea>
 				</UserPageContainer>
 			)}
