@@ -22,8 +22,6 @@ const ExploreGroup = ({ match }) => {
 	const [ date, setDate ] = useState('');
 	const [ loading, setLoading ] = useState(false);
 
-	console.log(match);
-
 	useEffect(
 		() => {
 			let mounted = true;
@@ -48,8 +46,6 @@ const ExploreGroup = ({ match }) => {
 		},
 		[ match.params.groupId, match.params.exploreId ]
 	);
-
-	console.log(firstName);
 
 	return (
 		<ExploreGroupContainer>

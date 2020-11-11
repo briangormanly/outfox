@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useHistory, useParams } from 'react-router-dom';
+
+import shareService from '../../services/sharing';
 
 import {
 	FriendContainer,
@@ -14,7 +16,7 @@ import {
 	IconContainer
 } from '../ExploreUserCard/ExploreUserCard.elements';
 
-const FriendCardA = ({ RequestSentFrom, RequestSentTo }) => {
+const FriendCardA = ({ RequestSentFrom, RequestSentTo, share, resourceId }) => {
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ userName, setUserName ] = useState('');
@@ -47,6 +49,16 @@ const FriendCardA = ({ RequestSentFrom, RequestSentTo }) => {
 		history.push(`/user/${userId}/explore/${id}`);
 	};
 
+	const handleShare = async () => {
+		const shareObject = {
+			ResourceId : resourceId,
+			Sharedby   : userId,
+			UserId     : id
+		};
+		const response = await shareService.shareResource(shareObject);
+		console.log(response);
+	};
+
 	return (
 		<FriendContainer>
 			<Content>
@@ -55,15 +67,23 @@ const FriendCardA = ({ RequestSentFrom, RequestSentTo }) => {
 				</IconContainer>
 				<Text>
 					<h2>{`${firstName} ${lastName}`}</h2>
-					<p>{`${userName}`}</p>
-					<p>{`${email}`}</p>
+					{share ? '' : <p>{`${userName}`}</p>}
+					{share ? '' : <p>{`${email}`}</p>}
 				</Text>
 			</Content>
 			<FriendButtonGroup>
-				<FriendButton edit onClick={handleViewPage}>
-					View Page
-				</FriendButton>
-				<FriendButton delete>Remove</FriendButton>
+				{share ? (
+					<FriendButton add onClick={handleShare}>
+						Share
+					</FriendButton>
+				) : (
+					<Fragment>
+						<FriendButton edit onClick={handleViewPage}>
+							View Page
+						</FriendButton>
+						<FriendButton delete>Remove</FriendButton>
+					</Fragment>
+				)}
 			</FriendButtonGroup>
 		</FriendContainer>
 	);

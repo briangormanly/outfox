@@ -13,7 +13,12 @@ import {
 
 import { ActionButton as Button } from '../../styles';
 
-import { Modal, DeleteResourceForm, EditResourceForm } from '../index';
+import {
+	Modal,
+	DeleteResourceForm,
+	EditResourceForm,
+	ShareResourceForm
+} from '../index';
 
 const ResourceCard = ({
 	GroupId,
@@ -35,6 +40,7 @@ const ResourceCard = ({
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
+	const [ showShareModal, setShowShareModal ] = useState(false);
 
 	const params = useParams();
 
@@ -54,6 +60,16 @@ const ResourceCard = ({
 				<Modal setShowModal={setShowDeleteModal}>
 					<DeleteResourceForm
 						setShowModal={setShowDeleteModal}
+						resourceID={id}
+						setUpdateFlag={setUpdateFlag}
+						updateFlag={updateFlag}
+					/>
+				</Modal>
+			)}
+			{showShareModal && (
+				<Modal setShowModal={setShowShareModal}>
+					<ShareResourceForm
+						setShowModal={setShowShareModal}
 						resourceID={id}
 						setUpdateFlag={setUpdateFlag}
 						updateFlag={updateFlag}
@@ -99,6 +115,9 @@ const ResourceCard = ({
 									</Button>
 									<Button delete onClick={() => setShowDeleteModal(true)}>
 										Delete
+									</Button>
+									<Button add onClick={() => setShowShareModal(true)}>
+										Share
 									</Button>
 								</Fragment>
 							)}
