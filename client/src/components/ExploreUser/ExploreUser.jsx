@@ -36,9 +36,9 @@ const ExploreUser = () => {
 		return () => (mounted = false);
 	}, []);
 
-	console.log(exploreUser);
-	console.log(groups);
-	console.log(resources);
+	// console.log(exploreUser);
+	// console.log(groups);
+	// console.log(resources);
 
 	return (
 		<ExploreUserContainer>

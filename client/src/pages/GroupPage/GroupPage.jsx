@@ -35,20 +35,23 @@ const GroupPage = ({ match }) => {
 
 	useEffect(
 		() => {
+			let mounted = true;
 			const request = async () => {
 				setLoading(true);
 				const response = await groupService.getGroupData(match.params.groupID);
 				const { datetimeadd, groupdescription, groupname, Resources } = response;
-				setTitle(groupname);
-				setDescription(groupdescription);
-				setResources(Resources);
-				setDate(datetimeadd.slice(0, 10));
-				setLoading(false);
+				if (mounted) {
+					setTitle(groupname);
+					setDescription(groupdescription);
+					setResources(Resources);
+					setDate(datetimeadd.slice(0, 10));
+					setLoading(false);
+				}
 			};
 
 			request();
 
-			return () => {};
+			return () => (mounted = false);
 		},
 		[ match.params.groupID, updateFlag ]
 	);
