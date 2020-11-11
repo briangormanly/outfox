@@ -3,7 +3,7 @@ import sequelize from "../middleware/databaseConnection";
 import User from "./User";
 
 class Friend extends Model {
-  public id: number;
+  public friendRequestid: number;
   public requesterid: number;
   public addresseeid: number;
   public status: Enumerator;

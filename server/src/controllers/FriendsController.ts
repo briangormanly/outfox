@@ -178,22 +178,27 @@ class FriendController {
     response: Response
   ): Promise<void> => {
     try {
-      const { friendRequestid } = request.params; // Destructure the request.params object and grab only id
+      const { id } = request.params;
       const friend = await Friend.findAll({
         attributes: { exclude: ["requesterid", "addresseeid", "status"] },
         where: {
-          [Op.or]: [
-            { requesterid: friendRequestid },
-            { addresseeid: friendRequestid },
-          ],
+          [Op.or]: [{ requesterid: id }, { addresseeid: id }],
           [Op.and]: { status: "a" },
         },
-        include: {
-          model: User,
-          attributes: {
-            exclude: ["hashpw", "country", "city", "phonenum"],
+        include: [
+          {
+            association: "RequestSentFrom",
+            attributes: {
+              exclude: ["hashpw", "country", "city", "phonenum"],
+            },
           },
-        },
+          {
+            association: "RequestSentTo",
+            attributes: {
+              exclude: ["hashpw", "country", "city", "phonenum"],
+            },
+          },
+        ],
       }); // Grabs the friends where the id is 0
 
       if (friend) {

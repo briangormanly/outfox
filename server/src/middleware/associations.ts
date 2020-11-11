@@ -13,12 +13,19 @@ async function Associations(): Promise<void> {
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
-    User.hasMany(Friend, { foreignKey: "requesterid", sourceKey: "id" });
+    // Friend Requests -----------------------------------------------------------------------------------------------------------------------------//
+    //User.hasMany(Friend, {as: "RequestSentFrom", foreignKey: "requesterid", sourceKey: "id" });
     Friend.belongsTo(User, {
+      as: "RequestSentFrom",
+      foreignKey: "requesterid",
+      targetKey: "id",
+    });
+    Friend.belongsTo(User, {
+      as: "RequestSentTo",
       foreignKey: "addresseeid",
       targetKey: "id",
     });
-
+    // End of Friend Requests -----------------------------------------------------------------------------------------------------------------------//
     Group.hasMany(Resource);
     Resource.belongsToMany(Group, {
       through: "groupresources",
