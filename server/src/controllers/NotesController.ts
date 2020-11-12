@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Note from "../models/Note";
 import Controller from "../interfaces/ControllerInterface";
+import { where } from "sequelize/types";
 //import Resource from "../models/Resource";
 
 /**
@@ -27,6 +28,8 @@ class NotesController implements Controller {
       .get(this.getNote)
       .put(this.updateNote)
       .delete(this.deleteNote);
+    this.router
+    .route(this.path + "/addtothread/:parent/:child").put(this.addNoteToThread)
   }
 
   /**
@@ -127,6 +130,36 @@ class NotesController implements Controller {
       } else {
         response.status(404).send("Note with the specified ID does not exist");
       }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+    /**
+   * Modifies a Note in the database if the request has the correct json
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  addNoteToThread = async (
+    request: Request, 
+    response: Response
+    ): Promise<void> => {
+    try {
+      // If missing non-nullable fields it will create an error
+      const { parent } = request.params; 
+      const { child } = request.params;
+
+      //Finds child and parent note
+      const childNote = await Note.findOne({where: {id : child}});
+      const parentNote = await Note.findOne({where: {id: parent}});
+
+      //get parent's id to assign to childs current parentid field
+      const newparentId = parentNote.id;
+
+      const updated = await childNote.update({parentId: newparentId}, {where: {child: child}});
+
+      
+      response.status(201).json({ updated });
     } catch (error) {
       response.status(500).send(error.message);
     }
