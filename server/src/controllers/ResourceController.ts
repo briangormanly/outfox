@@ -190,9 +190,11 @@ getallThreads = async (
       //const rootnotes = await Note.findAll({where: {parentId: null, resourceId: id}
       //}); //returns all root notes of a given resource
 
+      //Algorithm to flatten an array recursively 
       const flatDeep:(arr:any, d:number)=>any[] = (arr, d=1) => {
         return d>0 ? arr.reduce((arr:any, val:any)=>arr.concat(Array.isArray(val) ? flatDeep(val, d-1) :val), []) : arr.slice()}
 
+      //Returns a list of all root notes with their children
      const getNoteTree = async ()=> {
        let rootNote = await Note.findAll({
             where : { 
@@ -203,6 +205,7 @@ getallThreads = async (
         return rootNote;
       }
 
+      //helper method to recursively search for all children of root notes
       const getChildNotes = async(rootNotes:any)=>{
         const expendPromise:any = [];
         rootNotes.forEach((item:any) => {
@@ -229,13 +232,17 @@ getallThreads = async (
         return rootNotes;
       }
 
+      //returns the array of root notes and their children
       const noteTree = await getNoteTree();
 
+      //Separates the parent notes from the note tree
       const parents = noteTree.filter(note=>note.parentId===null);
 
+      //Separates the children arrays in their threads
       const children = noteTree.filter(note=>Array.isArray(note));
 
-     const parentsAndChildren = parents.map((parent:any, index:number)=>{
+      //Combines the roots and children into the same array, with the root starting the subarray followed by children
+      const parentsAndChildren = parents.map((parent:any, index:number)=>{
       //eslint-disable-next-line
       // @ts-ignore
       return [parent, ...children[index]]
