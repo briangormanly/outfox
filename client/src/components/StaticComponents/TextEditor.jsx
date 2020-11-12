@@ -31,12 +31,6 @@ const CustomToolbar = () => (
   </div>
 );
 
-// Add sizes to whitelist and register them
-// registering makes them available to be added to an editor.
-const Size = Quill.import("formats/size");
-Size.whitelist = ["extra-small", "small", "medium", "large"];
-Quill.register(Size, true);
-
 // Add fonts to whitelist and register them
 const Font = Quill.import("formats/font");
 Font.whitelist = [
@@ -49,84 +43,64 @@ Font.whitelist = [
 ];
 Quill.register(Font, true); 
 
-export default class Editor extends React.Component {
+export default class TextEditor extends React.Component {
   constructor(props) {
     super(props);
-    // create a ref to store the textInput DOM element
-    //this.textInput = React.createRef();
-    //this.focusTextInput = this.focusTextInput.bind();
-  }
+    
+    this.modules = {
+			toolbar: [
+		      [{ 'font': [] }],
+		      [{ 'size': ['small', false, 'large', 'huge'] }],
+		      ['bold', 'italic', 'underline'],
+		      [{'list': 'ordered'}, {'list': 'bullet'}],
+		      [{ 'align': [] }],
+		      [{ 'color': [] }, { 'background': [] }],
+		      ['clean']
+		    ]
+		};
+    
+    this.formats = [
+      "header",
+      "font",
+      "size",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "blockquote",
+      "list",
+      "bullet",
+      "indent",
+      "link",
+      "image",
+      "color"
+    ];
+    
+    this.state = {
+      comments: '',
+    };
 
-  /*focusTextInput() {
-    // Explicitly focus the text input using the raw DOM API
-    // Note: we're accessing "current" to get the DOM node
-    this.textInput.current.focus();
-  } */
+    this.rteChange = this.rteChange.bind(this);
+  } // Contructor()
 
-  state = {editorHtml: ""};
-
-  /*handleChange = html => {
-    this.setState({editorHtml: html});
-  };
-/*
-  saveComment(content) {
-    var delta = content.getContents();
+  rteChange = (content, delta, source, editor) => {
+    var delta = editor.getContents;
     console.log(delta);
-  }; */
-
-  // An array of all formats to be enabled during editing and allowed to exist within a quill editor
-  static formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "color"
-  ];
+    console.log(editor.getHTML())
+  }
 
   render() {
     return (
       <div className="text-editor">
-        <CustomToolbar />
         <ReactQuill
-          value={this.state.editorHtml}
-          //onChange={this.handleChange}
-          placeholder={this.props.placeholder}
-          modules = {{
-            // toolbar format
-            toolbar: {
-              container: "#toolbar",
-            }
-          }}
-          formats={Editor.formats}
+          theme = "snow"
+          value={this.state.comments || ''}
+          onChange={this.rteChange}
+          modules = {this.modules}
+          formats={this.formats}
         />
-        <button //onClick={this.focusTextInput()}
-          // onClick = {() => {
-          // this.saveComment(Editor.getContents)
-          //var delta = Editor.getContents;
-          //console.log(delta);
-          //}}
-        >Post</button>
+        <button onClick = {this.rteChange}>Post</button>
       </div>
     );
   }
 }
-
-const App = () => (
-  <div className="custom-toolbar-example">
-    <br /><br />
-    <Editor placeholder={"Enter comment here."} />
-  </div>
-);
-
-// render(<App />, document.getElementById("root"));
-
-//export default App;
