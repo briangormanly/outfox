@@ -6,8 +6,8 @@ import '../../static/css/base.css';
 
 const CustomToolbar = () => (
   <div id="toolbar">
-    <select className="ql-font">
-      <option value="arial" selected>
+    <select className="ql-font" defaultValue = {"arial"}>
+      <option value="arial">
         Arial
       </option>
       <option value="comic-sans">Comic Sans</option>
@@ -19,7 +19,7 @@ const CustomToolbar = () => (
     <select className="ql-size">
       <option value="extra-small">Size 1</option>
       <option value="small">Size 2</option>
-      <option value="medium" selected>
+      <option value="medium">
         Size 3
       </option>
       <option value="large">Size 4</option>
@@ -47,18 +47,32 @@ Font.whitelist = [
   "helvetica",
   "lucida"
 ];
-Quill.register(Font, true);
+Quill.register(Font, true); 
 
-/*
- * Editor component with custom toolbar and content containers
- */
+export default class Editor extends React.Component {
+  constructor(props) {
+    super(props);
+    // create a ref to store the textInput DOM element
+    //this.textInput = React.createRef();
+    //this.focusTextInput = this.focusTextInput.bind();
+  }
 
-class Editor extends React.Component {
+  /*focusTextInput() {
+    // Explicitly focus the text input using the raw DOM API
+    // Note: we're accessing "current" to get the DOM node
+    this.textInput.current.focus();
+  } */
+
   state = {editorHtml: ""};
 
-  handleChange = html => {
+  /*handleChange = html => {
     this.setState({editorHtml: html});
   };
+/*
+  saveComment(content) {
+    var delta = content.getContents();
+    console.log(delta);
+  }; */
 
   // An array of all formats to be enabled during editing and allowed to exist within a quill editor
   static formats = [
@@ -84,7 +98,7 @@ class Editor extends React.Component {
         <CustomToolbar />
         <ReactQuill
           value={this.state.editorHtml}
-          onChange={this.handleChange}
+          //onChange={this.handleChange}
           placeholder={this.props.placeholder}
           modules = {{
             // toolbar format
@@ -94,6 +108,13 @@ class Editor extends React.Component {
           }}
           formats={Editor.formats}
         />
+        <button //onClick={this.focusTextInput()}
+          // onClick = {() => {
+          // this.saveComment(Editor.getContents)
+          //var delta = Editor.getContents;
+          //console.log(delta);
+          //}}
+        >Post</button>
       </div>
     );
   }
@@ -108,4 +129,4 @@ const App = () => (
 
 // render(<App />, document.getElementById("root"));
 
-export default App;
+//export default App;
