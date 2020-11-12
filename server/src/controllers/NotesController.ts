@@ -1,7 +1,6 @@
 import { Router, Request, Response } from "express";
 import Note from "../models/Note";
 import Controller from "../interfaces/ControllerInterface";
-import { where } from "sequelize/types";
 //import Resource from "../models/Resource";
 
 /**
@@ -125,7 +124,8 @@ class NotesController implements Controller {
       const deleted = await Note.destroy({
         where: { id: id },
       }); // Delete the Note with the specified id
-      if (deleted) {
+      const deletedChild = await Note.destroy({where: {parentId: id}});
+      if (deleted || deletedChild) {
         response.status(204).send("Note Successdully Deleted");
       } else {
         response.status(404).send("Note with the specified ID does not exist");
