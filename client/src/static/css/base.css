@@ -141,6 +141,11 @@ ul {
     padding: 10px;
 }
 
+.quill {
+    height: 20em;
+    padding-bottom: 2em;
+}
+
 /* Set content for font-families */
 .ql-font-arial,
 .ql-font span[data-value="arial"]::before {
