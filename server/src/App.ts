@@ -63,11 +63,15 @@ class App {
   }
 
   private initializeControllers(controllers: Controller[]): void {
+    const root1 = __dirname + "/../src";
     // Only here temp so we can get a home page instead of a 404
     this.app.get("/", (req, res) => {
-      res.send("Do not use .render() this isn't ejs");
+      //res.send("Do not use .render() this isn't ejs");
+      res.sendFile("test.html", { root: root1 });
     });
+
     this.app.post("/login", validLogin);
+
     this.app.post(
       "/upload",
       (request: Request, response: Response): unknown => {
@@ -76,22 +80,22 @@ class App {
         }
 
         const file = request.files.file;
-        file.mv(
-          `${__dirname}/client/public/uploads/${file.name}`,
-          (error: Error) => {
-            if (error) {
-              console.error(error);
-              return response.status(500).send(error);
-            }
-
-            response.json({
-              fileName: file.name,
-              filePath: `/uploads/${file.name}`,
-            });
+        console.log(file.name);
+        
+        file.mv(`${__dirname}/storage/${file.name}`, (error: Error) => {
+          if (error) {
+            console.error(error);
+            return response.status(500).send(error.message);
           }
-        );
+
+          response.json({
+            fileName: file.name,
+            filePath: `/storage/${file.name}`,
+          });
+        });
       }
     );
+
     for (const iterator of controllers) {
       this.app.use(iterator.router);
     }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submitting Form Test</title>
+  </head>
+  <body>
+    <form id="form">
+      <div>
+        <input type="file" id="customFile" />
+        <label for="customeFile">Choose File</label>
+        <input type="submit" value="Upload" />
+      </div>
+    </form>
+
+    <script>
+      async function onSubmit(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        const file = document.getElementById("customFile").files[0];
+        console.log(file);
+        formData.append("file", file);
+        try {
+          const res = await fetch("http://localhost:8080/upload", {
+            method: "POST",
+            body: formData,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      const form = document.getElementById("form");
+      form.addEventListener("submit", onSubmit);
+    </script>
+  </body>
+</html>
