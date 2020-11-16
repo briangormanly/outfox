@@ -81,7 +81,7 @@ class App {
 
         const file = request.files.file;
         console.log(file.name);
-        
+
         file.mv(`${__dirname}/storage/${file.name}`, (error: Error) => {
           if (error) {
             console.error(error);
