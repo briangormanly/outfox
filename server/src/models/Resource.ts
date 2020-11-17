@@ -9,6 +9,7 @@ class Resource extends Model {
   public title: string;
   public description: string;
   public link: string;
+  public uri: string;
   public mutable: boolean;
   public creatorid: number;
 }
