@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { Json } from "sequelize/types/lib/utils";
 import Resource from "../models/Resource";
 
 /**
@@ -6,7 +7,7 @@ import Resource from "../models/Resource";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class ResourceController {
-  // Path that is required in order to access the api http://localhost:8080/routes/api/resources
+  // Path that is required in order to access the api http://localhost:8080/api/resources
   public path = "/api/resources";
   public router = Router();
 
@@ -28,7 +29,6 @@ class ResourceController {
       .get(this.getResource)
       .put(this.updateResource)
       .delete(this.deleteResource);
-    // Need to add patch
   }
 
   // Goes to route /api/resources
@@ -60,10 +60,24 @@ class ResourceController {
     response: Response
   ): Promise<void> => {
     try {
-      // If missing non-nullable fields it will create an error
-      const resource = await Resource.create(request.body);
-      response.status(201).json({ resource });
+      console.log(request.body);
+      if (request.body.type === "Link") {
+        const resource = await Resource.create(request.body);
+        response.status(201).json({ resource });
+      } else {
+        const resource = await Resource.create({
+          type: request.body.type,
+          title: request.body.title,
+          description: request.body.description,
+          uri: this.upload(request),
+          mutable: request.body.mutable,
+          creatorid: request.body.creatorid,
+        });
+        response.status(201).json({ resource });
+      }
     } catch (error) {
+      console.error(error.message);
+
       response.status(500).send(error.message);
     }
   };
@@ -145,6 +159,60 @@ class ResourceController {
       }
     } catch (error) {
       response.status(500).send(error.message);
+    }
+  };
+
+  upload = async (request: Request): Promise<unknown> => {
+    if (request.files === null) {
+      return { msg: "No File Uploaded" };
+    }
+
+    const file = request.files.file;
+    let uri: unknown = null;
+
+    if (file.mimetype.includes("image")) {
+      uri = file.mv(
+        `${__dirname}/../storage/images/${file.name}`,
+        (error: Error): unknown => {
+          if (error) {
+            console.error(error.message);
+            return error.message;
+          }
+
+          return {
+            fileName: file.name,
+            filePath: `/storage/images/${file.name}`,
+          };
+        }
+      );
+      return uri;
+    } else if (file.mimetype.includes("text")) {
+      uri = file.mv(
+        `${__dirname}/storage/text/${file.name}`,
+        (error: Error) => {
+          if (error) {
+            console.error(error);
+            return error.message;
+          }
+
+          return {
+            fileName: file.name,
+            filePath: `/storage/text/${file.name}`,
+          };
+        }
+      );
+    } else if (file.mimetype.includes("pdf")) {
+      file.mv(`${__dirname}/storage/pdfs/${file.name}`, (error: Error) => {
+        if (error) {
+          console.error(error);
+          return error.message;
+        }
+
+        return {
+          fileName: file.name,
+          filePath: `/storage/pdfs/${file.name}`,
+        };
+      });
     }
   };
 }

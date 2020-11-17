@@ -34,7 +34,11 @@ Resource.init(
     },
     link: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    uri: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     mutable: {
       type: DataTypes.BOOLEAN,
@@ -42,6 +46,7 @@ Resource.init(
     },
     creatorid: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: User,
         key: "id",
