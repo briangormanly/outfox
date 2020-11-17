@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import Resource from "../models/Resource";
-import Note from "../models/Note";
+import Comment from "../models/Comment";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
@@ -30,8 +30,8 @@ class ResourceController {
       .put(this.updateResource)
       .delete(this.deleteResource);
     this.router
-      .route(this.path + "/resourcenotes/" + ":id")
-      .get(this.getResourceNotes);
+      .route(this.path + "/resourcecomments/" + ":id")
+      .get(this.getResourceComments);
     this.router
       .route(this.path + "/resourcethreads/" + ":id")
       .get(this.getallThreads);
@@ -249,18 +249,18 @@ class ResourceController {
   };
 
   //method to get all comments associated to a specific resource id
-  getResourceNotes = async (
+  getResourceComments = async (
     request: Request,
     response: Response
   ): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the request.params object and grab only id
-      const resourcenotes = await Note.findAll({
-        where: { resourceId: id },
-      }); // Return the notes with the specified resource id
+      const resourcecomments = await Comment.findAll({
+        where: { commentedOnResource: id },
+      }); // Return the comments with the specified resource id
 
-      if (resourcenotes) {
-        response.status(201).json(resourcenotes);
+      if (resourcecomments) {
+        response.status(201).json(resourcecomments);
       } else {
         response
           .status(404)
@@ -278,8 +278,6 @@ class ResourceController {
   ): Promise<void> => {
     try {
       const { id } = request.params; //Grabs resource id only
-      //const rootnotes = await Note.findAll({where: {parentId: null, resourceId: id}
-      //}); //returns all root notes of a given resource
 
       //Algorithm to flatten an array recursively
       const flatDeep: (arr: any, d: number) => any[] = (arr, d = 1) => {
@@ -292,26 +290,25 @@ class ResourceController {
           : arr.slice();
       };
 
-      //Returns a list of all root notes with their children
-      const getNoteTree = async () => {
-        let rootNote = await Note.findAll({
+      //Returns a list of all root comments with their children
+      const getCommentTree = async () => {
+        let rootComments = await Comment.findAll({
           where: {
-            resourceId: id,
-            parentId: null,
+            commentedOnResource: id,
           },
         });
-        rootNote = await getChildNotes(rootNote);
-        return rootNote;
+        rootComments = await getChildComments(rootComments);
+        return rootComments;
       };
 
-      //helper method to recursively search for all children of root notes
-      const getChildNotes = async (rootNotes: any) => {
+      //helper method to recursively search for all children of root comments
+      const getChildComments = async (rootComments: any) => {
         const expendPromise: any = [];
-        rootNotes.forEach((item: any) => {
+        rootComments.forEach((item: any) => {
           expendPromise.push(
-            Note.findAll({
+            Comment.findAll({
               where: {
-                parentId: item.id,
+                threadID: item.id,
               },
             })
           );
@@ -322,25 +319,28 @@ class ResourceController {
           //eslint-disable-next-line
           // @ts-ignore
           if (item.length > 0) {
-            item = await getChildNotes(item);
+            item = await getChildComments(item);
           }
           //eslint-disable-next-line
           if (item)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            rootNotes.push(item.flat());
+            rootComments.push(item.flat());
         }
 
-        return rootNotes;
+        return rootComments;
       };
 
-      //returns the array of root notes and their children
-      const noteTree = await getNoteTree();
+      //returns the array of root comments and their children
+      const commentTree = await getCommentTree();
 
-      //Separates the parent notes from the note tree
-      const parents = noteTree.filter((note) => note.parentId === null);
+      //Separates the parent comments from the comment tree
+      const parents = commentTree.filter(
+        (comment) => comment.threadID === null
+      );
 
       //Separates the children arrays in their threads
-      const children = noteTree.filter((note) => Array.isArray(note));
+      const children = commentTree.filter((comment) => Array.isArray(comment));
 
       //Combines the roots and children into the same array, with the root starting the subarray followed by children
       const parentsAndChildren = parents.map((parent: any, index: number) => {

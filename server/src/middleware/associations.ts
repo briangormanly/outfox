@@ -1,7 +1,7 @@
 import User from "../models/User";
 import Group from "../models/Group";
 import Resource from "../models/Resource";
-import Note from "../models/Note";
+import Comment from "../models/Comment";
 import Friend from "../models/Friend";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
@@ -26,10 +26,16 @@ async function Associations(): Promise<void> {
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
-    Resource.hasMany(Note, { foreignKey: "resourceId", sourceKey: "id" });
-    Note.belongsTo(Resource, { foreignKey: "resourceId", targetKey: "id" });
+    Resource.hasMany(Comment, {
+      foreignKey: "commentedOnResource",
+      sourceKey: "id",
+    });
+    Comment.belongsTo(Resource, {
+      foreignKey: "commentedOnResource",
+      targetKey: "id",
+    });
 
-    Note.hasMany(Note, { as: "child", foreignKey: "parentId" });
+    Comment.hasMany(Comment, { as: "thread", foreignKey: "threadID" });
 
     // Friend Requests -----------------------------------------------------------------------------------------------------------------------------//
     //User.hasMany(Friend, {as: "RequestSentFrom", foreignKey: "requesterid", sourceKey: "id" });

@@ -1,5 +1,5 @@
 import Group from "../models/Group";
-import Note from "../models/Note";
+import Note from "../models/Comment";
 import Resource from "../models/Resource";
 import User from "../models/User";
 import Associations from "./associations";

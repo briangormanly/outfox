@@ -1,51 +1,60 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 import Resource from "./Resource";
+import User from "./User";
 
-class Note extends Model {
+class Comment extends Model {
   public id: number;
-  public resourceId: number;
-  public parentId: number;
-  public noteName: string;
-  public noteBody: string;
+  public commentedOnResource: number; // Associated Resource
+  public threadID: number; // Comment that this comment belongs to
+  public title: string;
+  public body: string;
+  public createdBy: number;
 }
 
-Note.init(
+Comment.init(
   {
-    id:{
+    id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    resourceId: {
+    commentedOnResource: {
       type: DataTypes.INTEGER,
       references: {
         model: Resource,
         key: "id",
       },
     },
-    parentId: {
+    threadID: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: Note,
+        model: Comment,
         key: "id",
       },
     },
-    noteName: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    noteBody: {
+    body: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    createdBy: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
     },
   },
   {
     sequelize,
     timestamps: false,
-    tableName: "notes",
+    tableName: "Comments",
   }
 );
 
-export default Note;
+export default Comment;
