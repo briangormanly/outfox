@@ -1,12 +1,18 @@
 import React from 'react';
 
-import { DashboardGroups, DashboardFriends, DashboardResources } from '../index';
+import {
+	DashboardGroups,
+	DashboardFriends,
+	DashboardResources,
+	DashboardSharedResources
+} from '../index';
 
 import {
 	DashboardContainer,
 	GroupContainer,
 	FriendContainer,
-	ResourceContainer
+	ResourceContainer,
+	SharedResourceContainer
 } from './Dashboard.elements';
 
 const Dashboard = ({ dashboardPaginate, updateFlag, setUpdateFlag }) => {
@@ -25,6 +31,9 @@ const Dashboard = ({ dashboardPaginate, updateFlag, setUpdateFlag }) => {
 					setUpdateFlag={setUpdateFlag}
 				/>
 			</ResourceContainer>
+			<SharedResourceContainer>
+				<DashboardSharedResources />
+			</SharedResourceContainer>
 		</DashboardContainer>
 	);
 };

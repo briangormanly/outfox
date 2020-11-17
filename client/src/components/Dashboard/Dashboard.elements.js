@@ -21,7 +21,8 @@ export const DashboardContainer = styled.div`
 	gap: 3rem;
 	grid-template-columns: 1fr 1fr 30rem;
 	grid-template-rows: 46rem 1fr;
-	grid-template-areas: 'groups groups friends' 'resources resources friends';
+	grid-template-areas: 'groups groups friends' 'resources resources friends'
+		'sharedR sharedR friends';
 `;
 
 export const GroupContainer = styled(ChildContainer)`
@@ -37,4 +38,8 @@ export const ResourceContainer = styled(ChildContainer)`
 
 export const CourseContainer = styled(ChildContainer)`
 	grid-area: courses;
+`;
+
+export const SharedResourceContainer = styled(ChildContainer)`
+	grid-area: sharedR
 `;

@@ -25,6 +25,9 @@ export {
 export {
 	default as DashboardResources
 } from './DashBoardResources/DashboardResources';
+export {
+	default as DashboardSharedResources
+} from './DashboardSharedR/DashboardSharedR';
 
 // Group Components
 export { default as GroupAllCard } from './GroupsAllCards/GroupsAllCards';
