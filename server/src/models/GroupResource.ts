@@ -27,6 +27,10 @@ GroupResource.init(
       },
     },
   },
-  { sequelize, timestamps: false, tableName: "groupresources" }
+  {
+    sequelize,
+    timestamps: false,
+    tableName: "groupresources"
+  }
 );
 export default GroupResource;

@@ -1,51 +1,41 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
-
-import Resource from "./Resource";
-import Tag from "./Tag";
 import User from "./User";
+import Group from "./Group";
 
-class ResourceTag extends Model {
+class ShareGroup extends Model {
   public id: number;
-  public resourceId: number;
-  public tagid: number;
-  public createdate: Date;
-  public createdby: number;
+  public groupid: number;
+  public userid: number;
 }
 
-ResourceTag.init(
+ShareGroup.init(
   {
-    id: {
+    SharedID: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
-      unique: true,
     },
-    //FK
-    resourceid: {
+    GroupId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
-        model: Resource,
+        model: Group,
         key: "id",
       },
-      allowNull: false,
     },
-    //FK
-    tagid: {
+    Sharedby: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
-        model: Tag,
+        model: User,
         key: "id",
       },
-      allowNull: false,
     },
-    createdate: {
-      type: DataTypes.DATE,
-    },
-    //FK
-    createdby: {
+    UserId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: User,
         key: "id",
@@ -53,10 +43,11 @@ ResourceTag.init(
     },
   },
   {
+    // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: "resourceTags", // We need to choose the table name it correlates to
+    tableName: "sharegroup", // We need to choose the table name it correlates to
   }
 );
 
-export default ResourceTag;
+export default ShareGroup;

@@ -1,14 +1,13 @@
-import { Router, Request, Response, request } from "express";
+import { Router, Request, Response } from "express";
 import Resource from "../models/Resource";
 import Note from "../models/Note";
-import { not, notBetween } from "sequelize/types/lib/operators";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
  */
 class ResourceController {
-  // Path that is required in order to access the api http://localhost:8080/routes/api/resources
+  // Path that is required in order to access the api http://localhost:8080/api/resources
   public path = "/api/resources";
   public router = Router();
 
@@ -32,11 +31,12 @@ class ResourceController {
       .delete(this.deleteResource);
     this.router
       .route(this.path + "/resourcenotes/" + ":id")
-      .get(this.getResourceNotes)
+      .get(this.getResourceNotes);
     this.router
       .route(this.path + "/resourcethreads/" + ":id")
-      .get(this.getallThreads)
+      .get(this.getallThreads);
     // Need to add patch
+    this.router.route(this.path + "/download/:id").get(this.downloadResource);
   }
 
   // Goes to route /api/resources
@@ -68,15 +68,107 @@ class ResourceController {
     response: Response
   ): Promise<void> => {
     try {
-      // If missing non-nullable fields it will create an error
-      const resource = await Resource.create(request.body);
-      response.status(201).json({ resource });
+      console.log(request.body);
+      if (request.body.type === "Link") {
+        const resource = await Resource.create(request.body);
+        response.status(201).json({ resource });
+      } else {
+        if (request.files) {
+          response.status(500).json({ error: "No file uploaded" });
+        }
+
+        const file = request.files.file;
+        let moveTo: string;
+        let uri: string;
+        if (file.mimetype.includes("image")) {
+          moveTo = `${__dirname}/../storage/images/${file.name}`;
+          uri = `/storage/images/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              console.error(error.message);
+              return error.message;
+            }
+
+            return {
+              fileName: file.name,
+              filePath: uri,
+            };
+          });
+        } else if (file.mimetype.includes("text")) {
+          moveTo = `${__dirname}/../storage/text/${file.name}`;
+          uri = `/storage/text/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              console.error(error);
+              return error.message;
+            }
+
+            return {
+              fileName: file.name,
+              filePath: uri,
+            };
+          });
+        } else if (file.mimetype.includes("pdf")) {
+          moveTo = `${__dirname}/../storage/pdfs/${file.name}`;
+          uri = `/storage/pdfs/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              console.error(error);
+              return error.message;
+            }
+
+            return {
+              fileName: file.name,
+              filePath: uri,
+            };
+          });
+        }
+
+        const resource = await Resource.create({
+          type: request.body.type,
+          title: request.body.title,
+          description: request.body.description,
+          uri: uri,
+          mutable: request.body.mutable,
+          creatorid: request.body.creatorid,
+        });
+        response.status(201).json({ resource });
+      }
     } catch (error) {
+      console.error(error.message);
+
       response.status(500).send(error.message);
     }
   };
 
   // Goes to route /api/resources/:id
+
+  /**
+   * Grabs a specific resource based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  downloadResource = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; // Destructure the request.params object and grab only id
+      const resource = await Resource.findOne({
+        where: { id: id },
+      }); // Grabs the resources where the id is 0
+      const file = `${__dirname}/..` + resource.uri;
+      if (resource) {
+        response.download(file);
+      } else {
+        response
+          .status(404)
+          .send("Resource with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
 
   /**
    * Grabs a specific resources based off the ID provided
@@ -164,97 +256,104 @@ class ResourceController {
     try {
       const { id } = request.params; // Destructure the request.params object and grab only id
       const resourcenotes = await Note.findAll({
-        where: { resourceId: id }
-    }); // Return the notes with the specified resource id
+        where: { resourceId: id },
+      }); // Return the notes with the specified resource id
 
       if (resourcenotes) {
         response.status(201).json(resourcenotes);
-    }   else {
+      } else {
         response
-        .status(404)
-        .send("Resource with the specified ID does not exist");
+          .status(404)
+          .send("Resource with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
     }
-  } catch (error) {
-    response.status(500).send(error.message);
-  }
-};
+  };
 
-
-//method to return ordered threads
-getallThreads = async (
-  request: Request,
-  response: Response,
-): Promise<void> => {
-  try{
-      const { id } = request.params; //Grabs resource id only 
+  //method to return ordered threads
+  getallThreads = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; //Grabs resource id only
       //const rootnotes = await Note.findAll({where: {parentId: null, resourceId: id}
       //}); //returns all root notes of a given resource
 
-      //Algorithm to flatten an array recursively 
-      const flatDeep:(arr:any, d:number)=>any[] = (arr, d=1) => {
-        return d>0 ? arr.reduce((arr:any, val:any)=>arr.concat(Array.isArray(val) ? flatDeep(val, d-1) :val), []) : arr.slice()}
+      //Algorithm to flatten an array recursively
+      const flatDeep: (arr: any, d: number) => any[] = (arr, d = 1) => {
+        return d > 0
+          ? arr.reduce(
+              (arr: any, val: any) =>
+                arr.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
+              []
+            )
+          : arr.slice();
+      };
 
       //Returns a list of all root notes with their children
-     const getNoteTree = async ()=> {
-       let rootNote = await Note.findAll({
-            where : { 
-                resourceId: id, parentId: null
-            }
-        })
-        rootNote = await getChildNotes(rootNote)
+      const getNoteTree = async () => {
+        let rootNote = await Note.findAll({
+          where: {
+            resourceId: id,
+            parentId: null,
+          },
+        });
+        rootNote = await getChildNotes(rootNote);
         return rootNote;
-      }
+      };
 
       //helper method to recursively search for all children of root notes
-      const getChildNotes = async(rootNotes:any)=>{
-        const expendPromise:any = [];
-        rootNotes.forEach((item:any) => {
-            expendPromise.push(Note.findAll({
-                where : {
-                    parentId : item.id
-                }
-            }))
-        })
+      const getChildNotes = async (rootNotes: any) => {
+        const expendPromise: any = [];
+        rootNotes.forEach((item: any) => {
+          expendPromise.push(
+            Note.findAll({
+              where: {
+                parentId: item.id,
+              },
+            })
+          );
+        });
         const child = await Promise.all(expendPromise);
         //eslint-disable-next-line
-        for(let [idx, item] of child.entries()){
+        for (let [idx, item] of child.entries()) {
           //eslint-disable-next-line
           // @ts-ignore
-            if(item.length > 0){
-                item = await getChildNotes(item);
-            }
+          if (item.length > 0) {
+            item = await getChildNotes(item);
+          }
           //eslint-disable-next-line
-            if(item) // @ts-ignore
+          if (item)
+            // @ts-ignore
             rootNotes.push(item.flat());
-
         }
-        
+
         return rootNotes;
-      }
+      };
 
       //returns the array of root notes and their children
       const noteTree = await getNoteTree();
 
       //Separates the parent notes from the note tree
-      const parents = noteTree.filter(note=>note.parentId===null);
+      const parents = noteTree.filter((note) => note.parentId === null);
 
       //Separates the children arrays in their threads
-      const children = noteTree.filter(note=>Array.isArray(note));
+      const children = noteTree.filter((note) => Array.isArray(note));
 
       //Combines the roots and children into the same array, with the root starting the subarray followed by children
-      const parentsAndChildren = parents.map((parent:any, index:number)=>{
-      //eslint-disable-next-line
-      // @ts-ignore
-      return [parent, ...children[index]]
-     })
+      const parentsAndChildren = parents.map((parent: any, index: number) => {
+        //eslint-disable-next-line
+        // @ts-ignore
+        return [parent, ...children[index]];
+      });
 
       response.status(201).json(parentsAndChildren);
-
-  } catch (error) {
-    response.status(500).send(error.message);
-  }
-}
-
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
 }
 
 export default ResourceController;

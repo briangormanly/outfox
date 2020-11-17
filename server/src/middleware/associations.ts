@@ -1,7 +1,10 @@
 import User from "../models/User";
 import Group from "../models/Group";
 import Resource from "../models/Resource";
-import Note from "../models/Note"
+import Note from "../models/Note";
+import Friend from "../models/Friend";
+import ShareGroup from "../models/ShareGroup";
+import ShareResource from "../models/ShareResource";
 
 // Going to be Reconnected once we begin querying
 // import Category from "./Category";
@@ -23,45 +26,82 @@ async function Associations(): Promise<void> {
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
-    Resource.hasMany(Note, {foreignKey:"resourceId", sourceKey:"id"});
-    Note.belongsTo(Resource, {foreignKey:"resourceId", targetKey:"id"});
-    
-    
-    /* //Not sure if needed
-    User.hasMany(User);
-    User.belongsToMany(User, {
-      through:"friends",
-      timestamps: true})
-    */
+    Resource.hasMany(Note, { foreignKey: "resourceId", sourceKey: "id" });
+    Note.belongsTo(Resource, { foreignKey: "resourceId", targetKey: "id" });
 
+    Note.hasMany(Note, { as: "child", foreignKey: "parentId" });
 
-    Note.hasMany( Note, { as: 'child', foreignKey: 'parentId'});
-
+    // Friend Requests -----------------------------------------------------------------------------------------------------------------------------//
+    //User.hasMany(Friend, {as: "RequestSentFrom", foreignKey: "requesterid", sourceKey: "id" });
+    Friend.belongsTo(User, {
+      as: "RequestSentFrom",
+      foreignKey: "requesterid",
+      targetKey: "id",
+    });
+    Friend.belongsTo(User, {
+      as: "RequestSentTo",
+      foreignKey: "addresseeid",
+      targetKey: "id",
+    });
+    // End of Friend Requests -----------------------------------------------------------------------------------------------------------------------//
     Group.hasMany(Resource);
     Resource.belongsToMany(Group, {
       through: "groupresources",
       timestamps: false,
     });
-  } catch (error) {
-    throw new Error("Error setting up relationships");
-  }
 
-  // Tag.belongsToMany(Category, { through: CategoryTag });
-  // Category.belongsToMany(Tag, { through: CategoryTag });
-  // Group.belongsToMany(Category, { through: GroupCategory });
-  // Category.belongsToMany(Group, { through: GroupCategory });
-  // LinkOwnerType.belongsToMany(User, { through: Link });
-  // User.belongsToMany(LinkOwnerType, { through: Link });
-  // ResourceVersion.hasMany(Note);
-  // Note.belongsToMany(Tag, { through: NoteTag });
-  // Tag.belongsToMany(Note, { through: NoteTag });
-  // ResourceType.belongsToMany(User, { through: Resource });
-  // User.belongsToMany(ResourceType, { through: Resource });
-  // Tag.belongsToMany(ResourceVersion, { through: ResourceTag });
-  // ResourceVersion.belongsToMany(Tag, { through: ResourceTag });
-  // User.hasMany(ResourceTag);
-  // Resource.belongsToMany(Link, { through: ResourceVersion });
-  // Link.belongsToMany(Resource, { through: ResourceVersion });
+    // Group Sharing -------------------------------------------------------------------------------------------------------------------------------//
+    Group.belongsToMany(User, {
+      through: ShareGroup,
+      timestamps: false,
+    });
+
+    ShareGroup.belongsTo(Group, {
+      as: "GroupShared",
+      foreignKey: "GroupId",
+      targetKey: "id",
+    });
+
+    ShareGroup.belongsTo(User, {
+      as: "SharedTo",
+      foreignKey: "UserId",
+      targetKey: "id",
+    });
+
+    ShareGroup.belongsTo(User, {
+      as: "SharedFrom",
+      foreignKey: "Sharedby",
+      targetKey: "id",
+    });
+    // End of Group Sharing--------------------------------------------------------------------------------------------------------------------------//
+
+    // Resource Sharing ----------------------------------------------------------------------------------------------------------------------------//
+    Resource.belongsToMany(User, {
+      through: ShareResource,
+      timestamps: false,
+    });
+    ShareResource.belongsTo(Resource, {
+      as: "ResourceShared",
+      foreignKey: "ResourceId",
+      targetKey: "id",
+    });
+
+    ShareResource.belongsTo(User, {
+      as: "SharedTo",
+      foreignKey: "UserId",
+      targetKey: "id",
+    });
+
+    ShareResource.belongsTo(User, {
+      as: "SharedFrom",
+      foreignKey: "Sharedby",
+      targetKey: "id",
+    });
+
+    // End of Resource Sharing ----------------------------------------------------------------------------------------------------------------------//
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export default Associations;

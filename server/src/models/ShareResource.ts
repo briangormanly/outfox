@@ -1,24 +1,32 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 import User from "./User";
+import Resource from "./Resource";
 
-class Friend extends Model {
-  public friendRequestid: number;
-  public requesterid: number;
-  public addresseeid: number;
-  public status: Enumerator;
+class ShareResource extends Model {
+  public ShareResourceId: number;
+  public ResourceId: number;
+  public Sharedby: number;
+  public UserId: number;
 }
 
-Friend.init(
+ShareResource.init(
   {
-    friendRequestid: {
+    ShareResourceId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
-      unique: true,
       primaryKey: true,
     },
-    requesterid: {
+    ResourceId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Resource,
+        key: "id",
+      },
+    },
+    Sharedby: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -26,24 +34,21 @@ Friend.init(
         key: "id",
       },
     },
-    addresseeid: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: User,
         key: "id",
       },
-    },
-    status: {
-      type: DataTypes.ENUM("a", "r", "p"),
-      defaultValue: "p",
     },
   },
   {
+    // Other model options go here
     sequelize, // We need to pass the connection instance
     timestamps: false,
-    tableName: "friends", // We need to choose the table name it correlates to
+    tableName: "shareresource", // We need to choose the table name it correlates to
   }
 );
 
-export default Friend;
+export default ShareResource;
