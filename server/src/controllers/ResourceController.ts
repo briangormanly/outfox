@@ -68,7 +68,6 @@ class ResourceController {
     response: Response
   ): Promise<void> => {
     try {
-      console.log(request.body);
       if (request.body.type === "Link") {
         const resource = await Resource.create(request.body);
         response.status(201).json({ resource });
@@ -85,7 +84,6 @@ class ResourceController {
           uri = `/storage/images/${file.name}`;
           file.mv(moveTo, (error: Error) => {
             if (error) {
-              console.error(error.message);
               return error.message;
             }
 
@@ -99,7 +97,6 @@ class ResourceController {
           uri = `/storage/text/${file.name}`;
           file.mv(moveTo, (error: Error) => {
             if (error) {
-              console.error(error);
               return error.message;
             }
 
@@ -113,7 +110,6 @@ class ResourceController {
           uri = `/storage/pdfs/${file.name}`;
           file.mv(moveTo, (error: Error) => {
             if (error) {
-              console.error(error);
               return error.message;
             }
 
@@ -135,8 +131,6 @@ class ResourceController {
         response.status(201).json({ resource });
       }
     } catch (error) {
-      console.error(error.message);
-
       response.status(500).send(error.message);
     }
   };
@@ -278,78 +272,81 @@ class ResourceController {
   ): Promise<void> => {
     try {
       const { id } = request.params; //Grabs resource id only
-
-      //Algorithm to flatten an array recursively
-      const flatDeep: (arr: any, d: number) => any[] = (arr, d = 1) => {
-        return d > 0
-          ? arr.reduce(
-              (arr: any, val: any) =>
-                arr.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
-              []
-            )
-          : arr.slice();
-      };
-
-      //Returns a list of all root comments with their children
-      const getCommentTree = async () => {
-        let rootComments = await Comment.findAll({
-          where: {
-            commentedOnResource: id,
-          },
-        });
-        rootComments = await getChildComments(rootComments);
-        return rootComments;
-      };
-
-      //helper method to recursively search for all children of root comments
-      const getChildComments = async (rootComments: any) => {
-        const expendPromise: any = [];
-        rootComments.forEach((item: any) => {
-          expendPromise.push(
-            Comment.findAll({
-              where: {
-                threadID: item.id,
-              },
-            })
-          );
-        });
-        const child = await Promise.all(expendPromise);
-        //eslint-disable-next-line
-        for (let [idx, item] of child.entries()) {
-          //eslint-disable-next-line
-          // @ts-ignore
-          if (item.length > 0) {
-            item = await getChildComments(item);
-          }
-          //eslint-disable-next-line
-          if (item)
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            rootComments.push(item.flat());
-        }
-
-        return rootComments;
-      };
-
-      //returns the array of root comments and their children
-      const commentTree = await getCommentTree();
-
-      //Separates the parent comments from the comment tree
-      const parents = commentTree.filter(
-        (comment) => comment.threadID === null
-      );
-
-      //Separates the children arrays in their threads
-      const children = commentTree.filter((comment) => Array.isArray(comment));
-
-      //Combines the roots and children into the same array, with the root starting the subarray followed by children
-      const parentsAndChildren = parents.map((parent: any, index: number) => {
-        //eslint-disable-next-line
-        // @ts-ignore
-        return [parent, ...children[index]];
+      const threads = await Comment.findAll({
+        where: { id: id },
+        include: { association: "thread" },
       });
+      // //Algorithm to flatten an array recursively
+      // const flatDeep: (arr: any, d: number) => any[] = (arr, d = 1) => {
+      //   return d > 0
+      //     ? arr.reduce(
+      //         (arr: any, val: any) =>
+      //           arr.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
+      //         []
+      //       )
+      //     : arr.slice();
+      // };
 
-      response.status(201).json(parentsAndChildren);
+      // //Returns a list of all root comments with their children
+      // const getCommentTree = async () => {
+      //   let rootComments = await Comment.findAll({
+      //     where: {
+      //       commentedOnResource: id,
+      //     },
+      //   });
+      //   rootComments = await getChildComments(rootComments);
+      //   return rootComments;
+      // };
+
+      // //helper method to recursively search for all children of root comments
+      // const getChildComments = async (rootComments: any) => {
+      //   const expendPromise: any = [];
+      //   rootComments.forEach((item: any) => {
+      //     expendPromise.push(
+      //       Comment.findAll({
+      //         where: {
+      //           threadID: item.id,
+      //         },
+      //       })
+      //     );
+      //   });
+      //   const child = await Promise.all(expendPromise);
+      //   //eslint-disable-next-line
+      //   for (let [idx, item] of child.entries()) {
+      //     //eslint-disable-next-line
+      //     // @ts-ignore
+      //     if (item.length > 0) {
+      //       item = await getChildComments(item);
+      //     }
+      //     //eslint-disable-next-line
+      //     if (item)
+      //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //       // @ts-ignore
+      //       rootComments.push(item.flat());
+      //   }
+
+      //   return rootComments;
+      // };
+
+      // //returns the array of root comments and their children
+      // const commentTree = await getCommentTree();
+
+      // //Separates the parent comments from the comment tree
+      // const parents = commentTree.filter(
+      //   (comment) => comment.threadID === null
+      // );
+
+      // //Separates the children arrays in their threads
+      // const children = commentTree.filter((comment) => Array.isArray(comment));
+
+      // //Combines the roots and children into the same array, with the root starting the subarray followed by children
+      // const parentsAndChildren = parents.map((parent: any, index: number) => {
+      //   //eslint-disable-next-line
+      //   // @ts-ignore
+      //   return [parent, ...children[index]];
+      // });
+
+      response.status(201).json(threads);
     } catch (error) {
       response.status(500).send(error.message);
     }

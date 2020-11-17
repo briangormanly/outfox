@@ -52,7 +52,7 @@ Comment.init(
   },
   {
     sequelize,
-    timestamps: false,
+    updatedAt: false,
     tableName: "Comments",
   }
 );
