@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
-import { Json } from "sequelize/types/lib/utils";
 import Resource from "../models/Resource";
+import Note from "../models/Note";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
@@ -29,6 +29,13 @@ class ResourceController {
       .get(this.getResource)
       .put(this.updateResource)
       .delete(this.deleteResource);
+    this.router
+      .route(this.path + "/resourcenotes/" + ":id")
+      .get(this.getResourceNotes);
+    this.router
+      .route(this.path + "/resourcethreads/" + ":id")
+      .get(this.getallThreads);
+    // Need to add patch
     this.router.route(this.path + "/download/:id").get(this.downloadResource);
   }
 
@@ -241,59 +248,112 @@ class ResourceController {
     }
   };
 
-  // upload = async (request: Request): Promise<unknown> => {
-  //   if (request.files === null) {
-  //     return { msg: "No File Uploaded" };
-  //   }
+  //method to get all comments associated to a specific resource id
+  getResourceNotes = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; // Destructure the request.params object and grab only id
+      const resourcenotes = await Note.findAll({
+        where: { resourceId: id },
+      }); // Return the notes with the specified resource id
 
-  //   const file = request.files.file;
-  //   let uri: unknown = null;
+      if (resourcenotes) {
+        response.status(201).json(resourcenotes);
+      } else {
+        response
+          .status(404)
+          .send("Resource with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
 
-  //   if (file.mimetype.includes("image")) {
-  //     uri = file.mv(
-  //       `${__dirname}/../storage/images/${file.name}`,
-  //       (error: Error): unknown => {
-  //         if (error) {
-  //           console.error(error.message);
-  //           return error.message;
-  //         }
+  //method to return ordered threads
+  getallThreads = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; //Grabs resource id only
+      //const rootnotes = await Note.findAll({where: {parentId: null, resourceId: id}
+      //}); //returns all root notes of a given resource
 
-  //         return {
-  //           fileName: file.name,
-  //           filePath: `/storage/images/${file.name}`,
-  //         };
-  //       }
-  //     );
-  //     return uri;
-  //   } else if (file.mimetype.includes("text")) {
-  //     uri = file.mv(
-  //       `${__dirname}/storage/text/${file.name}`,
-  //       (error: Error) => {
-  //         if (error) {
-  //           console.error(error);
-  //           return error.message;
-  //         }
+      //Algorithm to flatten an array recursively
+      const flatDeep: (arr: any, d: number) => any[] = (arr, d = 1) => {
+        return d > 0
+          ? arr.reduce(
+              (arr: any, val: any) =>
+                arr.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
+              []
+            )
+          : arr.slice();
+      };
 
-  //         return {
-  //           fileName: file.name,
-  //           filePath: `/storage/text/${file.name}`,
-  //         };
-  //       }
-  //     );
-  //   } else if (file.mimetype.includes("pdf")) {
-  //     file.mv(`${__dirname}/storage/pdfs/${file.name}`, (error: Error) => {
-  //       if (error) {
-  //         console.error(error);
-  //         return error.message;
-  //       }
+      //Returns a list of all root notes with their children
+      const getNoteTree = async () => {
+        let rootNote = await Note.findAll({
+          where: {
+            resourceId: id,
+            parentId: null,
+          },
+        });
+        rootNote = await getChildNotes(rootNote);
+        return rootNote;
+      };
 
-  //       return {
-  //         fileName: file.name,
-  //         filePath: `/storage/pdfs/${file.name}`,
-  //       };
-  //     });
-  //   }
-  // };
+      //helper method to recursively search for all children of root notes
+      const getChildNotes = async (rootNotes: any) => {
+        const expendPromise: any = [];
+        rootNotes.forEach((item: any) => {
+          expendPromise.push(
+            Note.findAll({
+              where: {
+                parentId: item.id,
+              },
+            })
+          );
+        });
+        const child = await Promise.all(expendPromise);
+        //eslint-disable-next-line
+        for (let [idx, item] of child.entries()) {
+          //eslint-disable-next-line
+          // @ts-ignore
+          if (item.length > 0) {
+            item = await getChildNotes(item);
+          }
+          //eslint-disable-next-line
+          if (item)
+            // @ts-ignore
+            rootNotes.push(item.flat());
+        }
+
+        return rootNotes;
+      };
+
+      //returns the array of root notes and their children
+      const noteTree = await getNoteTree();
+
+      //Separates the parent notes from the note tree
+      const parents = noteTree.filter((note) => note.parentId === null);
+
+      //Separates the children arrays in their threads
+      const children = noteTree.filter((note) => Array.isArray(note));
+
+      //Combines the roots and children into the same array, with the root starting the subarray followed by children
+      const parentsAndChildren = parents.map((parent: any, index: number) => {
+        //eslint-disable-next-line
+        // @ts-ignore
+        return [parent, ...children[index]];
+      });
+
+      response.status(201).json(parentsAndChildren);
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
 }
 
 export default ResourceController;

@@ -1,9 +1,22 @@
 import User from "../models/User";
 import Group from "../models/Group";
 import Resource from "../models/Resource";
+import Note from "../models/Note";
+import Friend from "../models/Friend";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
-import Friend from "../models/Friend";
+
+// Going to be Reconnected once we begin querying
+// import Category from "./Category";
+// import CategoryTag from "./CategoryTag";
+// import GroupCategory from "./GroupCategory";
+// import Link from "./Link";
+// import LinkOwnerType from "./LinkOwnerType";
+// import NoteTag from "./NoteTag";
+// import ResourceTag from "./ResourceTag";
+// import ResourceType from "./ResourceType";
+// import ResourceVersion from "./ResourceVersion";
+// import Tag from "./Tag";
 
 async function Associations(): Promise<void> {
   try {
@@ -12,6 +25,11 @@ async function Associations(): Promise<void> {
 
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
+
+    Resource.hasMany(Note, { foreignKey: "resourceId", sourceKey: "id" });
+    Note.belongsTo(Resource, { foreignKey: "resourceId", targetKey: "id" });
+
+    Note.hasMany(Note, { as: "child", foreignKey: "parentId" });
 
     // Friend Requests -----------------------------------------------------------------------------------------------------------------------------//
     //User.hasMany(Friend, {as: "RequestSentFrom", foreignKey: "requesterid", sourceKey: "id" });
