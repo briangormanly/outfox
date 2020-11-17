@@ -189,3 +189,9 @@ ul {
 .ql-size span[data-value="large"]::before {
   font-size: 20px !important;
 }
+
+#postComment {
+    float:right;
+    margin-right: 2em;
+    font-weight: bold;
+}

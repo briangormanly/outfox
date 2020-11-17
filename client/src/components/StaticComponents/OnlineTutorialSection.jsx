@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import '../../static/css/base.css';
-//import TextEditor from './TextEditor';
-import TextEditor from './TextEditor';
+import TextEditor from './TextEditor.jsx';
 
 const OnlineTutorialsSection = () =>{
     return(
@@ -12,7 +11,9 @@ const OnlineTutorialsSection = () =>{
                 <p>
                     Coming Soon!!
                 </p>
-            <TextEditor />
+                <br /><br />
+            <div id = "container">
+            <TextEditor /></div>
         </Fragment>
     );
 }
