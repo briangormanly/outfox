@@ -2,6 +2,8 @@ import { Router, Request, Response } from "express";
 import Note from "../models/Note";
 import Controller from "../interfaces/ControllerInterface";
 //import Resource from "../models/Resource";
+import sequelize from "../middleware/databaseConnection";
+
 
 /**
  * The Note controller is responsible for handling the HTTP requests.
@@ -51,8 +53,12 @@ class NotesController implements Controller {
   createNote = async (request: Request, response: Response): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const note = await Note.create(request.body);
-      response.status(201).json({ note });
+      const result = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const note = await Note.create((request.body),{ transaction: t });
+        return note;
+      });
+      response.status(201).json({ result });
     } catch (error) {
       response.status(500).send(error.message);
     }

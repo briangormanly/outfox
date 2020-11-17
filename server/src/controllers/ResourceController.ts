@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import Resource from "../models/Resource";
+import sequelize from "../middleware/databaseConnection";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
@@ -61,8 +62,12 @@ class ResourceController {
   ): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const resource = await Resource.create(request.body);
-      response.status(201).json({ resource });
+      const result = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const resource = await Resource.create((request.body),{ transaction: t });
+        return resource;
+      });
+      response.status(201).json({ result });
     } catch (error) {
       response.status(500).send(error.message);
     }

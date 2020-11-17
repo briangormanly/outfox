@@ -2,6 +2,8 @@ import { Router, Request, Response } from "express";
 import Friend from "../models/Friend";
 import { Op } from "sequelize";
 import User from "../models/User";
+import sequelize from "../middleware/databaseConnection";
+
 /**
  * The friend controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
@@ -63,8 +65,12 @@ class FriendController {
   ): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const friend = await Friend.create(request.body);
-      response.status(201).json({ friend });
+      const result = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const friend = await Friend.create((request.body),{ transaction: t });
+        return friend;
+      });
+      response.status(201).json({ result });
     } catch (error) {
       response.status(500).send(error.message);
     }

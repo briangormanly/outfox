@@ -4,7 +4,7 @@ import User from "../models/User";
 import Controller from "../interfaces/ControllerInterface";
 import Resource from "../models/Resource";
 import Friend from "../models/Friend";
-
+import sequelize from "../middleware/databaseConnection";
 /**
  * The user controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
@@ -61,8 +61,14 @@ class UsersController implements Controller {
   createUser = async (request: Request, response: Response): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const user = await User.create(request.body);
-      response.status(200).json({ user });
+      const result = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const user = await User.create((request.body),{ transaction: t });
+        return user;
+      });
+      
+      response.status(200).json({ result });
+
     } catch (error) {
       response.status(500).send(error.message);
     }

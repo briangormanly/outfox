@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
 import Controller from "../interfaces/ControllerInterface";
+import sequelize from "../middleware/databaseConnection";
 
 /**
  * The share controller is responsible for handling the HTTP requests.
@@ -49,8 +50,12 @@ class ShareController implements Controller {
     response: Response
   ): Promise<void> => {
     try {
-      const newShare = await ShareGroup.create(request.body);
-      response.status(200).json(newShare);
+      const result = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const sharegroup = await ShareGroup.create((request.body),{ transaction: t });
+        return sharegroup;
+      });
+      response.status(200).json({ result });
     } catch (err) {
       response.status(500).send(err.message);
     }
