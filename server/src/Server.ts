@@ -4,7 +4,7 @@ import GroupsController from "./controllers/GroupsController";
 import ResourceController from "./controllers/ResourceController";
 import ShareController from "./controllers/ShareController";
 import FriendController from "./controllers/FriendsController";
-import NotesController from "./controllers/NoteController";
+import CommentController from "./controllers/CommentController";
 import TagsController from "./controllers/TagsController";
 // Creates a new Express App that takes a list of Controllers and a port
 const app = new App(
@@ -14,7 +14,7 @@ const app = new App(
     new ResourceController(),
     new ShareController(),
     new FriendController(),
-    new NotesController(),
+    new CommentController(),
     new TagsController(),
   ],
   8080
