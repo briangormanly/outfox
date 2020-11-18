@@ -1,3 +1,4 @@
+import { UploadedFile } from "express-fileupload";
 import { Router, Request, Response } from "express";
 import Resource from "../models/Resource";
 import Comment from "../models/Comment";
@@ -66,57 +67,50 @@ class ResourceController {
   createResource = async (
     request: Request,
     response: Response
-  ): Promise<void> => {
+  ): Promise<Response> => {
     try {
-      if (request.body.type === "Link") {
+      const formData = request.body;
+
+      if (formData.type.includes("Link")) {
         const resource = await Resource.create(request.body);
-        response.status(201).json({ resource });
+        return response.status(201).json({ resource });
       } else {
-        if (request.files) {
-          response.status(500).json({ error: "No file uploaded" });
+        if (request.files === null) {
+          return response.status(500).json({ error: "No file uploaded" });
         }
 
         const file = request.files.file;
         let moveTo: string;
         let uri: string;
-        if (file.mimetype.includes("image")) {
+
+        if (formData.type === "Image") {
           moveTo = `${__dirname}/../storage/images/${file.name}`;
           uri = `/storage/images/${file.name}`;
           file.mv(moveTo, (error: Error) => {
             if (error) {
-              return error.message;
+              return response.status(500).send(error);
             }
 
-            return {
-              fileName: file.name,
-              filePath: uri,
-            };
+            return;
           });
-        } else if (file.mimetype.includes("text")) {
+        } else if (formData.type === "Text") {
           moveTo = `${__dirname}/../storage/text/${file.name}`;
           uri = `/storage/text/${file.name}`;
           file.mv(moveTo, (error: Error) => {
             if (error) {
-              return error.message;
+              return response.status(500).send(error);
             }
 
-            return {
-              fileName: file.name,
-              filePath: uri,
-            };
+            return;
           });
-        } else if (file.mimetype.includes("pdf")) {
+        } else if (formData.type === "PDF") {
           moveTo = `${__dirname}/../storage/pdfs/${file.name}`;
           uri = `/storage/pdfs/${file.name}`;
           file.mv(moveTo, (error: Error) => {
             if (error) {
-              return error.message;
+              return response.status(500).send(error);
             }
-
-            return {
-              fileName: file.name,
-              filePath: uri,
-            };
+            return;
           });
         }
 
@@ -131,6 +125,7 @@ class ResourceController {
         response.status(201).json({ resource });
       }
     } catch (error) {
+      console.log(error);
       response.status(500).send(error.message);
     }
   };
@@ -151,6 +146,12 @@ class ResourceController {
       const resource = await Resource.findOne({
         where: { id: id },
       }); // Grabs the resources where the id is 0
+
+      if (resource.type === "Link") {
+        response
+          .status(500)
+          .send("No file associated with this resource. (Link Type)");
+      }
       const file = `${__dirname}/..` + resource.uri;
       if (resource) {
         response.download(file);
