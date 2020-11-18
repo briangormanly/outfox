@@ -9,6 +9,7 @@ class Resource extends Model {
   public title: string;
   public description: string;
   public link: string;
+  public uri: string;
   public mutable: boolean;
   public creatorid: number;
 }
@@ -34,7 +35,11 @@ Resource.init(
     },
     link: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    uri: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     mutable: {
       type: DataTypes.BOOLEAN,
@@ -42,6 +47,7 @@ Resource.init(
     },
     creatorid: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: User,
         key: "id",

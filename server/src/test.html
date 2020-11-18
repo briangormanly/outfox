@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submitting Form Test</title>
+  </head>
+  <body>
+    <form id="form">
+      <div>
+        <label for="type">File Type</label>
+        <select name="type" id="dropdown">
+          <option value="Link">Link</option>
+          <option value="PDF">PDF</option>
+          <option value="Text">Text</option>
+          <option value="Image">Image</option>
+        </select>
+        <br />
+        <input type="file" id="customFile" />
+        <br />
+        <label for="title">Title</label>
+        <input type="text" id="title" />
+        <br />
+        <label for="description">Description</label>
+        <input type="text" id="description" />
+        <br />
+        <label for="link">Link</label>
+        <input type="text" id="link" />
+        <br />
+        <label for="creatorid">Creator</label>
+        <input type="number" id="creatorid" />
+        <br />
+        <input type="submit" value="Upload" />
+      </div>
+    </form>
+
+    <script>
+      async function onSubmit(e) {
+        e.preventDefault();
+        const type = document.getElementById("dropdown").value;
+        const formData = new FormData();
+        formData.append("type", type);
+        formData.append("title", document.getElementById("title").value);
+        formData.append(
+          "description",
+          document.getElementById("description").value
+        );
+        formData.append("mutable", false);
+        formData.append(
+          "creatorid",
+          document.getElementById("creatorid").value
+        );
+        if (type === "Link") {
+          formData.append("link", document.getElementById("link").value);
+
+          try {
+            const res = await fetch("http://localhost:8080/api/resources", {
+              method: "POST",
+              body: formData,
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          const file = document.getElementById("customFile").files[0];
+          formData.append("file", file);
+          try {
+            const res = await fetch("http://localhost:8080/api/resources", {
+              method: "POST",
+              body: formData,
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
+      const form = document.getElementById("form");
+      form.addEventListener("submit", onSubmit);
+    </script>
+  </body>
+</html>
