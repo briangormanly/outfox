@@ -5,11 +5,13 @@ import {
 	ACCEPT_FRIEND_REQUEST,
 	SEND_FRIEND_REQUEST,
 	FRIEND_FAIL,
-	GET_PENDING_FRIEND_REQUEST
+	GET_PENDING_FRIEND_REQUEST,
+	DENY_FRIEND_REQUEST
 } from '../constants/friendsConstants';
 
 import friendService from '../../services/friends';
 
+// id is the current user
 export const getFriendsList = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: FRIEND_LIST_REQUEST });
@@ -58,4 +60,26 @@ const determinePendingRequest = (requestArr, id) => {
 	});
 
 	return filteredResults;
+};
+
+export const removeFriend = (id) => async (dispatch) => {
+	try {
+		await friendService.removeFriend(id);
+		console.log('Remove Success');
+		dispatch({ type: REMOVE_FRIEND, payload: id });
+	} catch (error) {
+		console.log('FAILED TO DELETE FRIEND');
+		dispatch({ type: FRIEND_FAIL });
+	}
+};
+
+export const denyFriendRequest = (id) => async (dispatch) => {
+	try {
+		await friendService.removeFriend(id);
+		console.log('Deny Success');
+		dispatch({ type: DENY_FRIEND_REQUEST, payload: id });
+	} catch (error) {
+		console.log('FAILED TO DENY FRIEND');
+		dispatch({ type: FRIEND_FAIL });
+	}
 };

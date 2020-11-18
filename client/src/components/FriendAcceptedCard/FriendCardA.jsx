@@ -4,6 +4,9 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import shareService from '../../services/sharing';
 
+import { useDispatch } from 'react-redux';
+import { removeFriend } from '../../redux/actions/friendsActions';
+
 import {
 	FriendContainer,
 	FriendButton,
@@ -16,7 +19,13 @@ import {
 	IconContainer
 } from '../ExploreUserCard/ExploreUserCard.elements';
 
-const FriendCardA = ({ RequestSentFrom, RequestSentTo, share, resourceId }) => {
+const FriendCardA = ({
+	RequestSentFrom,
+	RequestSentTo,
+	share,
+	resourceId,
+	friendRequestid
+}) => {
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ userName, setUserName ] = useState('');
@@ -26,6 +35,8 @@ const FriendCardA = ({ RequestSentFrom, RequestSentTo, share, resourceId }) => {
 	const history = useHistory();
 	const params = useParams();
 	const userId = parseFloat(params.id);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (userId !== RequestSentFrom.id) {
@@ -59,6 +70,11 @@ const FriendCardA = ({ RequestSentFrom, RequestSentTo, share, resourceId }) => {
 		console.log(response);
 	};
 
+	const handleRemove = async () => {
+		console.log(friendRequestid);
+		dispatch(removeFriend(friendRequestid));
+	};
+
 	return (
 		<FriendContainer>
 			<Content>
@@ -81,7 +97,9 @@ const FriendCardA = ({ RequestSentFrom, RequestSentTo, share, resourceId }) => {
 						<FriendButton edit onClick={handleViewPage}>
 							View Page
 						</FriendButton>
-						<FriendButton delete>Remove</FriendButton>
+						<FriendButton onClick={handleRemove} delete>
+							Remove
+						</FriendButton>
 					</Fragment>
 				)}
 			</FriendButtonGroup>

@@ -35,9 +35,6 @@ const Friends = () => {
 					);
 					const requestArr = reqArr.filter((request) => request.status === 'p');
 
-					console.log(response);
-					console.log(requestArr);
-
 					// Redux Dispatch
 					dispatch(getFriendsList(userId));
 					dispatch(getPendingFriendRequest(userId));

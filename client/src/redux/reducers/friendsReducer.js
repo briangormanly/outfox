@@ -1,12 +1,11 @@
 import {
 	FRIEND_LIST_REQUEST,
 	FRIEND_LIST_SUCCESS,
-	ADD_FRIEND,
 	REMOVE_FRIEND,
 	ACCEPT_FRIEND_REQUEST,
 	SEND_FRIEND_REQUEST,
-	FRIEND_FAIL,
-	GET_PENDING_FRIEND_REQUEST
+	GET_PENDING_FRIEND_REQUEST,
+	DENY_FRIEND_REQUEST
 } from '../constants/friendsConstants';
 
 export const friendsReducer = (
@@ -29,8 +28,18 @@ export const friendsReducer = (
 			return { ...state };
 		case SEND_FRIEND_REQUEST:
 			return { ...state };
-		case REMOVE_FRIEND:
-			return { ...state };
+		case REMOVE_FRIEND: {
+			const filteredFriendList = state.friendList.filter(
+				(friend) => friend.friendRequestid !== action.payload
+			);
+			return { ...state, friendList: [ ...filteredFriendList ] };
+		}
+		case DENY_FRIEND_REQUEST: {
+			const filteredRequestList = state.pendingFriendRequest.filter(
+				(request) => request.friendRequestid !== action.payload
+			);
+			return { ...state, pendingFriendRequest: [ ...filteredRequestList ] };
+		}
 		default:
 			return state;
 	}

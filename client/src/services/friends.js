@@ -22,9 +22,15 @@ const getFriendList = (id) => {
 	return response.then((response) => response.data);
 };
 
+const removeFriend = (id) => {
+	const response = axios.delete(`${baseURL}/${id}`);
+	return response.then((response) => response.data);
+};
+
 export default {
 	getAll,
 	sendFriendRequest,
 	acceptFriendRequest,
-	getFriendList
+	getFriendList,
+	removeFriend
 };

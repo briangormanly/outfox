@@ -3,6 +3,9 @@ import { FaUser } from 'react-icons/fa';
 import userService from '../../services/users';
 import friendService from '../../services/friends';
 import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { denyFriendRequest } from '../../redux/actions/friendsActions';
 
 import {
 	FriendContainer,
@@ -25,6 +28,9 @@ const FriendCard = ({ requesterid, status, friendRequestid, setUpdate, update })
 	const history = useHistory();
 	const params = useParams();
 	const userId = params.id;
+
+	// redux dispatch
+	const dispatch = useDispatch();
 
 	useEffect(
 		() => {
@@ -58,6 +64,11 @@ const FriendCard = ({ requesterid, status, friendRequestid, setUpdate, update })
 		console.log(response);
 	};
 
+	const handleDeny = async () => {
+		console.log(friendRequestid);
+		await dispatch(denyFriendRequest(friendRequestid));
+	};
+
 	return (
 		<FriendContainer>
 			<Content>
@@ -81,8 +92,14 @@ const FriendCard = ({ requesterid, status, friendRequestid, setUpdate, update })
 				) : (
 					''
 				)}
-				{status === 'p' ? <FriendButton delete>Deny</FriendButton> : ''}
-				{status === 'a' ? <FriendButton delete>Remove</FriendButton> : ''}
+				{status === 'p' ? (
+					<FriendButton onClick={handleDeny} delete>
+						Deny
+					</FriendButton>
+				) : (
+					''
+				)}
+				{/* {status === 'a' ? <FriendButton delete>Remove</FriendButton> : ''} */}
 			</FriendButtonGroup>
 		</FriendContainer>
 	);
