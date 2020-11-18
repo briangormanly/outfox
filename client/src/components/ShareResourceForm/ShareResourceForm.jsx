@@ -1,23 +1,77 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import friendService from '../../services/friends';
+import shareService from '../../services/sharing';
 
-import FormInput from '../Form-Input/Form-Input';
+import { CheckBoxGroup } from './ShareResourceForm.elements';
 import { ActionButton } from '../../styles';
 
 const ShareResourceForm = ({ resourceID, setShowModal }) => {
+	const [ shareArr, setShareArr ] = useState([]);
+
 	const { friendList } = useSelector((state) => state.friendDetail);
-	console.log(friendList);
+	const { user } = useSelector((state) => state.userDetail);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		try {
+			if (shareArr.length > 0) {
+				shareArr.map((friend) => {
+					const sendResource = async () => {
+						console.log(friend.id);
+						await shareService.shareResource({
+							ResourceId : resourceID,
+							Sharedby   : user.id,
+							UserId     : friend
+						});
+					};
+					sendResource();
+				});
+			} else {
+				return;
+			}
+		} catch (error) {
+			console.log(error);
+		}
+
+		setShowModal(false);
+	};
+
+	const handleChange = (e) => {
+		if (e.target.checked) {
+			const arr = [ ...shareArr, e.target.value ];
+			setShareArr(arr);
+		} else {
+			const arr = shareArr.filter((value) => value !== e.target.value);
+			setShareArr(arr);
+		}
 	};
 
 	return (
 		<Fragment>
 			<h1>Choose friends to share with:</h1>
-			<form onSubmit={handleSubmit}>{/*  */}</form>
+			<form onSubmit={handleSubmit}>
+				{friendList.map((friend) => (
+					<InputGroup
+						key={friend.friendRequestid}
+						{...friend}
+						handleChange={handleChange}
+					/>
+				))}
+				<ActionButton add fullWidth>
+					Share
+				</ActionButton>
+			</form>
 		</Fragment>
+	);
+};
+
+const InputGroup = ({ firstname, lastname, id, handleChange }) => {
+	return (
+		<CheckBoxGroup>
+			<label>{`${firstname} ${lastname}`}</label>
+			<input type="checkbox" value={id} onChange={handleChange} />
+		</CheckBoxGroup>
 	);
 };
 

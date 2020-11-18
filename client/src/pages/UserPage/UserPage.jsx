@@ -51,14 +51,15 @@ const UserPage = ({ match }) => {
 	const storeDispatch = useDispatch();
 	const { user, loading, error } = useSelector((state) => state.userDetail);
 	const { firstname, lastname } = user;
+	const userID = parseFloat(match.params.id);
 
 	useEffect(
 		() => {
-			storeDispatch(userAction(match.params.id));
-			storeDispatch(getFriendsList(match.params.id));
-			storeDispatch(getPendingFriendRequest(match.params.id));
-			storeDispatch(getSharedResources(match.params.id));
-			storeDispatch(getSharedGroups(match.params.id));
+			storeDispatch(userAction(userID));
+			storeDispatch(getFriendsList(userID));
+			storeDispatch(getPendingFriendRequest(userID));
+			storeDispatch(getSharedResources(userID));
+			storeDispatch(getSharedGroups(userID));
 		},
 		[ storeDispatch, match.params.id ]
 	);
