@@ -112,6 +112,24 @@ class ResourceController {
             }
             return;
           });
+        } else if (formData.type === "Powerpoint") {
+          moveTo = `${__dirname}/../storage/powerpoints/${file.name}`;
+          uri = `/storage/powerpoints/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              return response.status(500).send(error);
+            }
+            return;
+          });
+        } else if (formData.type === "Word") {
+          moveTo = `${__dirname}/../storage/word/${file.name}`;
+          uri = `/storage/word/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              return response.status(500).send(error);
+            }
+            return;
+          });
         }
 
         const resource = await Resource.create({
