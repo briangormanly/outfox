@@ -10,7 +10,9 @@ import {
 	AUTH_LOGOUT,
 	USER_ADD_RESOURCE,
 	USER_EDIT_RESOURCE,
-	USER_DELETE_RESOURCE
+	USER_DELETE_RESOURCE,
+	USER_GET_SHARED_GROUPS,
+	USER_GET_SHARED_RESOURCES
 } from '../constants/userConstants';
 
 import { DELETE_GROUP } from '../constants/groupPageConstants';
@@ -18,10 +20,12 @@ import { DELETE_GROUP } from '../constants/groupPageConstants';
 export const userReducer = (
 	state = {
 		user    : {
-			firstname : '',
-			lastname  : '',
-			Groups    : [],
-			Resources : []
+			firstname       : '',
+			lastname        : '',
+			Groups          : [],
+			Resources       : [],
+			SharedResources : [],
+			SharedGroups    : []
 		},
 		loading : false,
 		error   : null
@@ -32,7 +36,11 @@ export const userReducer = (
 		case USER_REQUEST:
 			return { ...state, loading: true };
 		case USER_SUCCESS:
-			return { ...state, loading: false, user: action.payload };
+			return {
+				...state,
+				loading: false,
+				user: { ...state.user, ...action.payload }
+			};
 		case USER_FAIL:
 			return { ...state, user: null, loading: false };
 		case USER_ADD_GROUP:
@@ -80,6 +88,16 @@ export const userReducer = (
 				user : { ...state.user, Groups: [ ...filteredGroups ] }
 			};
 		}
+		case USER_GET_SHARED_GROUPS:
+			return {
+				...state,
+				user : { ...state.user, SharedGroups: [ ...action.payload ] }
+			};
+		case USER_GET_SHARED_RESOURCES:
+			return {
+				...state,
+				user : { ...state.user, SharedResources: [ ...action.payload ] }
+			};
 		case USER_LOGOUT:
 			return {
 				...state,

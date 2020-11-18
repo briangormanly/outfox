@@ -10,12 +10,15 @@ import {
 	AUTH_LOGOUT,
 	USER_ADD_RESOURCE,
 	USER_EDIT_RESOURCE,
-	USER_DELETE_RESOURCE
+	USER_DELETE_RESOURCE,
+	USER_GET_SHARED_GROUPS,
+	USER_GET_SHARED_RESOURCES
 } from '../constants/userConstants';
 
 import userService from '../../services/users';
 import authService from '../../services/auth';
 import groupService from '../../services/groups';
+import shareService from '../../services/sharing';
 
 export const userAction = (id) => async (dispatch) => {
 	try {
@@ -94,6 +97,24 @@ export const addUserResource = (newResourceObject) => async (dispatch) => {
 		dispatch({ type: USER_ADD_RESOURCE, payload: resource });
 	} catch (error) {
 		console.log('An error occurred during add request');
+	}
+};
+
+export const getSharedGroups = (id) => async (dispatch) => {
+	try {
+		const data = await shareService.getSharedGroups(id);
+		dispatch({ type: USER_GET_SHARED_GROUPS, payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const getSharedResources = (id) => async (dispatch) => {
+	try {
+		const data = await shareService.getSharedGroups(id);
+		dispatch({ type: USER_GET_SHARED_RESOURCES, payload: data });
+	} catch (error) {
+		console.log(error);
 	}
 };
 

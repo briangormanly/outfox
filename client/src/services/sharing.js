@@ -4,7 +4,7 @@ const baseURL = 'http://localhost:8080/api/share';
 const groupShareURL = `${baseURL}/group`;
 const resourceShareURL = `${baseURL}/resource`;
 
-const getSharedGroup = (id) => {
+const getSharedGroups = (id) => {
 	const response = axios.get(`${groupShareURL}/${id}`);
 	return response.then((response) => response.data);
 };
@@ -18,7 +18,7 @@ const deleteSharedGroup = (id) => {};
 
 const deleteSharedResource = (id) => {};
 
-const getSharedResource = (id) => {
+const getSharedResources = (id) => {
 	const response = axios.get(`${resourceShareURL}/${id}`);
 	return response.then((response) => response.data);
 };
@@ -29,8 +29,8 @@ const shareResource = (newObject) => {
 };
 
 export default {
-	getSharedGroup,
+	getSharedGroups,
 	shareGroup,
-	getSharedResource,
+	getSharedResources,
 	shareResource
 };

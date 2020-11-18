@@ -1,6 +1,10 @@
 import React, { useEffect, useReducer, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAction } from '../../redux/actions/userActions';
+import {
+	userAction,
+	getSharedGroups,
+	getSharedResources
+} from '../../redux/actions/userActions';
 import {
 	getFriendsList,
 	getPendingFriendRequest
@@ -53,6 +57,8 @@ const UserPage = ({ match }) => {
 			storeDispatch(userAction(match.params.id));
 			storeDispatch(getFriendsList(match.params.id));
 			storeDispatch(getPendingFriendRequest(match.params.id));
+			storeDispatch(getSharedResources(match.params.id));
+			storeDispatch(getSharedGroups(match.params.id));
 		},
 		[ storeDispatch, match.params.id ]
 	);
