@@ -13,6 +13,8 @@ import {
 	USER_DELETE_RESOURCE
 } from '../constants/userConstants';
 
+import { DELETE_GROUP } from '../constants/groupPageConstants';
+
 export const userReducer = (
 	state = {
 		user    : {
@@ -64,11 +66,20 @@ export const userReducer = (
 		case USER_ADD_RESOURCE:
 			return {
 				...state,
-				user: {
+				user : {
 					...state.user,
-					Resources: [ ...state.user.Resources, action.payload ]
+					Resources : [ ...state.user.Resources, action.payload ]
 				}
 			};
+		case DELETE_GROUP: {
+			const filteredGroups = state.user.Groups.filter(
+				(group) => group.id !== action.payload
+			);
+			return {
+				...state,
+				user : { ...state.user, Groups: [ ...filteredGroups ] }
+			};
+		}
 		case USER_LOGOUT:
 			return {
 				...state,

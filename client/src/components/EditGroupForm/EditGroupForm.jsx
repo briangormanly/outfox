@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { editGroup } from '../../redux/actions/groupPageActions';
 import FormInput from '../Form-Input/Form-Input';
 
 import { ActionButton } from '../../styles';
@@ -9,6 +10,9 @@ import groupService from '../../services/groups';
 const EditGroupForm = ({ GroupId, setUpdateFlag, updateFlag, setShowModal }) => {
 	const [ name, setName ] = useState('');
 	const [ description, setDescription ] = useState('');
+
+	//redux
+	const dispatch = useDispatch();
 
 	useEffect(
 		() => {
@@ -38,11 +42,10 @@ const EditGroupForm = ({ GroupId, setUpdateFlag, updateFlag, setShowModal }) => 
 		};
 
 		try {
+			dispatch(editGroup(GroupId, newGroupObject));
 			setShowModal(false);
-			groupService.editGroup(GroupId, newGroupObject);
-			setUpdateFlag(updateFlag + 1);
 		} catch (error) {
-			console.log('An Error Occurred');
+			console.log(error);
 		}
 	};
 

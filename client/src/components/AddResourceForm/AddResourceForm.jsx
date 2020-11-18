@@ -1,6 +1,7 @@
 import React, { useReducer, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { addUserResource } from '../../redux/actions/userActions';
+import { addGroupResource } from '../../redux/actions/groupPageActions';
 import FormInput from '../Form-Input/Form-Input';
 
 import { ActionButton } from '../../styles';
@@ -45,7 +46,11 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 		}
 
 		try {
-			storeDispatch(addUserResource(newObject));
+			if (GroupId) {
+				storeDispatch(addGroupResource(newObject));
+			} else {
+				storeDispatch(addUserResource(newObject));
+			}
 			setShowModal(false);
 		} catch (error) {
 			console.log('An Error Occurred');
