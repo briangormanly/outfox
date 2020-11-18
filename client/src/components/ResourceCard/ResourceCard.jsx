@@ -48,12 +48,7 @@ const ResourceCard = ({
 		<Fragment>
 			{showEditModal && (
 				<Modal setShowModal={setShowEditModal}>
-					<EditResourceForm
-						setShowModal={setShowEditModal}
-						resourceID={id}
-						setUpdateFlag={setUpdateFlag}
-						updateFlag={updateFlag}
-					/>
+					<EditResourceForm setShowModal={setShowEditModal} resourceID={id} />
 				</Modal>
 			)}
 			{showDeleteModal && (
@@ -121,12 +116,6 @@ const ResourceCard = ({
 									</Button>
 								</Fragment>
 							)}
-							{/* <Button edit onClick={() => setShowEditModal(true)}>
-								Edit
-							</Button>
-							<Button delete onClick={() => setShowDeleteModal(true)}>
-								Delete
-							</Button> */}
 						</ButtonContainer>
 					)}
 				</Content>

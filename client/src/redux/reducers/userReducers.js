@@ -7,7 +7,10 @@ import {
 	AUTH_REQUEST,
 	AUTH_SUCCESS,
 	AUTH_FAIL,
-	AUTH_LOGOUT
+	AUTH_LOGOUT,
+	USER_ADD_RESOURCE,
+	USER_EDIT_RESOURCE,
+	USER_DELETE_RESOURCE
 } from '../constants/userConstants';
 
 export const userReducer = (
@@ -35,6 +38,31 @@ export const userReducer = (
 				...state,
 				user : { ...state.user, Groups: [ ...state.user.Groups, action.payload ] }
 			};
+		case USER_EDIT_RESOURCE: {
+			const newResourceList = state.user.Resources.map((resource) => {
+				if (resource.id === action.payload.id) {
+					return action.payload;
+				} else {
+					return resource;
+				}
+			});
+
+			return {
+				...state,
+				user : { ...state.user, Resources: [ ...newResourceList ] }
+			};
+		}
+		case USER_DELETE_RESOURCE: {
+			const filteredResourcs = state.user.Resources.filter(
+				(resource) => resource.id !== action.payload
+			);
+			return {
+				...state,
+				user : { ...state.user, Resources: [ ...filteredResourcs ] }
+			};
+		}
+		case USER_ADD_RESOURCE:
+			return { ...state };
 		case USER_LOGOUT:
 			return {
 				...state,

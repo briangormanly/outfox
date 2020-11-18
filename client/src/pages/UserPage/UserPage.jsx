@@ -25,7 +25,6 @@ import {
 	ExploreUser,
 	ExploreGroup,
 	Friends,
-	// Help,
 	Loader
 } from '../../components';
 
@@ -47,7 +46,7 @@ const UserPage = ({ match }) => {
 
 	const storeDispatch = useDispatch();
 	const { user, loading, error } = useSelector((state) => state.userDetail);
-	const { Groups, Resources, firstname, lastname } = user;
+	const { Groups, firstname, lastname } = user;
 
 	const [ updateFlag, setUpdateFlag ] = useState(1);
 
@@ -102,11 +101,7 @@ const UserPage = ({ match }) => {
 						/>
 
 						<Route exact path={`${match.path}/resources`}>
-							<ResourcesP
-								resources={Resources}
-								updateFlag={updateFlag}
-								setUpdateFlag={setUpdateFlag}
-							/>
+							<ResourcesP updateFlag={updateFlag} setUpdateFlag={setUpdateFlag} />
 						</Route>
 						<Route exact path={`${match.path}/explore`} component={Explore} />
 						<Route
@@ -120,25 +115,6 @@ const UserPage = ({ match }) => {
 							component={ExploreGroup}
 						/>
 						<Route exact path={`${match.path}/friends`} component={Friends} />
-						{/* {dashboardActive && (
-							<Dashboard
-								dashboardPaginate={userPageDispatch}
-								updateFlag={updateFlag}
-								setUpdateFlag={setUpdateFlag}
-							/>
-						)}
-						{groupsActive && <GroupsP groups={Groups} />}
-						{resourcesActive && (
-							<ResourcesP
-								resources={Resources}
-								updateFlag={updateFlag}
-								setUpdateFlag={setUpdateFlag}
-							/>
-						)}
-						{coursesActive && <Courses />}
-						{calendarActive && <Calendar />}
-						{friendsActive && <Friends />}
-						{helpActive && <Help />} */}
 					</ContentArea>
 				</UserPageContainer>
 			)}

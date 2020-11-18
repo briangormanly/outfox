@@ -1,10 +1,11 @@
 import React, { useReducer, Fragment, useEffect } from 'react';
-
+import { useDispatch } from 'react-redux';
 import FormInput from '../Form-Input/Form-Input';
 
 import { ActionButton } from '../../styles';
 
 import groupService from '../../services/groups';
+import { editUserResource } from '../../redux/actions/userActions';
 
 const initialState = {
 	type        : '',
@@ -20,14 +21,12 @@ function reducer(state, { field, value }) {
 	};
 }
 
-const EditResourceForm = ({
-	resourceID,
-	setShowModal,
-	setUpdateFlag,
-	updateFlag
-}) => {
+const EditResourceForm = ({ resourceID, setShowModal }) => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
 	const { type, title, description, link } = state;
+
+	// redux
+	const storeDispatch = useDispatch();
 
 	useEffect(
 		() => {
@@ -60,11 +59,7 @@ const EditResourceForm = ({
 		const newObject = { ...state };
 
 		try {
-			await groupService.editResource(resourceID, newObject);
-
-			if (updateFlag) {
-				setUpdateFlag(updateFlag + 1);
-			}
+			storeDispatch(editUserResource(resourceID, newObject));
 			setShowModal(false);
 		} catch (error) {
 			console.log('An Error Occurred');

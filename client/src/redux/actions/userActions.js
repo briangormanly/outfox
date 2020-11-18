@@ -7,7 +7,10 @@ import {
 	AUTH_REQUEST,
 	AUTH_FAIL,
 	AUTH_SUCCESS,
-	AUTH_LOGOUT
+	AUTH_LOGOUT,
+	USER_ADD_RESOURCE,
+	USER_EDIT_RESOURCE,
+	USER_DELETE_RESOURCE
 } from '../constants/userConstants';
 
 import userService from '../../services/users';
@@ -58,6 +61,30 @@ export const createGroupAction = (newGroupObject) => async (dispatch) => {
 		dispatch({ type: USER_ADD_GROUP, payload: data.group });
 	} catch (error) {
 		console.log('An Error has occurred');
+	}
+};
+
+export const editUserResource = (resourceID, newResourceObject) => async (
+	dispatch
+) => {
+	try {
+		const { resource } = await groupService.editResource(
+			resourceID,
+			newResourceObject
+		);
+		console.log(resource);
+		dispatch({ type: USER_EDIT_RESOURCE, payload: resource });
+	} catch (error) {
+		console.log('An error occurred during edit request');
+	}
+};
+
+export const deleteUserResource = (resourceID) => async (dispatch) => {
+	try {
+		await groupService.deleteResource(resourceID);
+		dispatch({ type: USER_DELETE_RESOURCE, payload: resourceID });
+	} catch (error) {
+		console.log('An error occurred during delete request');
 	}
 };
 

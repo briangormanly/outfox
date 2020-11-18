@@ -2,7 +2,10 @@ export const USER_REQUEST = 'USER_REQUEST';
 export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAIL = 'USER_FAIL';
 export const USER_ADD_GROUP = 'USER_ADD_GROUP';
+export const USER_ADD_RESOURCE = 'USER_ADD_RESOURCE';
+export const USER_EDIT_RESOURCE = 'USER_EDIT_RESOURCE';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_DELETE_RESOURCE = 'USER_DELETE_RESOURCE';
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
