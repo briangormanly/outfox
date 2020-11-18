@@ -7,12 +7,7 @@ import { ActionButton } from '../../styles';
 
 import { FriendCardAccepted } from '../index';
 
-const ShareResourceForm = ({
-	resourceID,
-	setShowModal,
-	setUpdateFlag,
-	updateFlag
-}) => {
+const ShareResourceForm = ({ resourceID, setShowModal }) => {
 	const [ value, setValue ] = useState('');
 
 	const [ friends, setFriends ] = useState([]);

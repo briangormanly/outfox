@@ -3,7 +3,7 @@ import {
 	FRIEND_LIST_SUCCESS,
 	REMOVE_FRIEND,
 	ACCEPT_FRIEND_REQUEST,
-	SEND_FRIEND_REQUEST,
+	// SEND_FRIEND_REQUEST,
 	FRIEND_FAIL,
 	GET_PENDING_FRIEND_REQUEST,
 	DENY_FRIEND_REQUEST
@@ -58,6 +58,7 @@ const determinePendingRequest = (requestArr, id) => {
 		if (addresseeid === id && status === 'p') {
 			return request;
 		}
+		return false;
 	});
 
 	return filteredResults;

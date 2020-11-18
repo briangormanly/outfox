@@ -72,7 +72,7 @@ export const editUserResource = (resourceID, newResourceObject) => async (
 			resourceID,
 			newResourceObject
 		);
-		console.log(resource);
+
 		dispatch({ type: USER_EDIT_RESOURCE, payload: resource });
 	} catch (error) {
 		console.log('An error occurred during edit request');
@@ -85,6 +85,15 @@ export const deleteUserResource = (resourceID) => async (dispatch) => {
 		dispatch({ type: USER_DELETE_RESOURCE, payload: resourceID });
 	} catch (error) {
 		console.log('An error occurred during delete request');
+	}
+};
+
+export const addUserResource = (newResourceObject) => async (dispatch) => {
+	try {
+		const { resource } = await groupService.createResource(newResourceObject);
+		dispatch({ type: USER_ADD_RESOURCE, payload: resource });
+	} catch (error) {
+		console.log('An error occurred during add request');
 	}
 };
 

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { ResourceCard } from '../index';
 import { ResourceContainer } from './Resources.elements';
 
-const Resources = ({ updateFlag, setUpdateFlag }) => {
+const Resources = () => {
 	const { user } = useSelector((state) => state.userDetail);
 	const { Resources } = user;
 
@@ -17,8 +17,6 @@ const Resources = ({ updateFlag, setUpdateFlag }) => {
 					showType
 					showDates
 					showDescription
-					setUpdateFlag={setUpdateFlag}
-					updateFlag={updateFlag}
 				/>
 			))}
 		</ResourceContainer>

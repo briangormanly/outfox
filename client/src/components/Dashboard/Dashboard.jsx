@@ -15,7 +15,7 @@ import {
 	SharedResourceContainer
 } from './Dashboard.elements';
 
-const Dashboard = ({ dashboardPaginate, updateFlag, setUpdateFlag }) => {
+const Dashboard = ({ dashboardPaginate }) => {
 	return (
 		<DashboardContainer>
 			<GroupContainer>
@@ -25,11 +25,7 @@ const Dashboard = ({ dashboardPaginate, updateFlag, setUpdateFlag }) => {
 				<DashboardFriends />
 			</FriendContainer>
 			<ResourceContainer>
-				<DashboardResources
-					dashboardPaginate={dashboardPaginate}
-					updateFlag={updateFlag}
-					setUpdateFlag={setUpdateFlag}
-				/>
+				<DashboardResources dashboardPaginate={dashboardPaginate} />
 			</ResourceContainer>
 			<SharedResourceContainer>
 				<DashboardSharedResources />

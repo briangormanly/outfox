@@ -20,20 +20,23 @@ const Friends = () => {
 		(state) => state.friendDetail
 	);
 
-	useEffect(() => {
-		let mounted = true;
-		const request = async () => {
-			if (mounted) {
-				// Redux Dispatch
-				dispatch(getFriendsList(userId));
-				dispatch(getPendingFriendRequest(userId));
-			}
-		};
+	useEffect(
+		() => {
+			let mounted = true;
+			const request = async () => {
+				if (mounted) {
+					// Redux Dispatch
+					dispatch(getFriendsList(userId));
+					dispatch(getPendingFriendRequest(userId));
+				}
+			};
 
-		request();
+			request();
 
-		return () => (mounted = false);
-	}, []);
+			return () => (mounted = false);
+		},
+		[ dispatch, userId ]
+	);
 
 	return (
 		<FriendContainer>

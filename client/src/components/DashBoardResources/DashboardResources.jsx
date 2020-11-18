@@ -11,7 +11,7 @@ import { ResourcesContainer, ResourceList } from './DashboardResources.elements'
 
 import { Modal, AddResourceForm, ResourceCard } from '../index';
 
-function DashboardResources({ dashboardPaginate, updateFlag, setUpdateFlag }) {
+function DashboardResources({ dashboardPaginate }) {
 	const [ showModal, setShowModal ] = useState(false);
 
 	const { user } = useSelector((state) => state.userDetail);
@@ -29,12 +29,7 @@ function DashboardResources({ dashboardPaginate, updateFlag, setUpdateFlag }) {
 		<ResourcesContainer>
 			{showModal && (
 				<Modal setShowModal={setShowModal}>
-					<AddResourceForm
-						updateFlag={updateFlag}
-						setUpdateFlag={setUpdateFlag}
-						creatorid={id}
-						setShowModal={setShowModal}
-					/>
+					<AddResourceForm creatorid={id} setShowModal={setShowModal} />
 				</Modal>
 			)}
 			<Header>

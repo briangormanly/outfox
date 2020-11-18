@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, Fragment, useState } from 'react';
+import React, { useEffect, useReducer, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAction } from '../../redux/actions/userActions';
 import {
@@ -46,9 +46,7 @@ const UserPage = ({ match }) => {
 
 	const storeDispatch = useDispatch();
 	const { user, loading, error } = useSelector((state) => state.userDetail);
-	const { Groups, firstname, lastname } = user;
-
-	const [ updateFlag, setUpdateFlag ] = useState(1);
+	const { firstname, lastname } = user;
 
 	useEffect(
 		() => {
@@ -56,7 +54,7 @@ const UserPage = ({ match }) => {
 			storeDispatch(getFriendsList(match.params.id));
 			storeDispatch(getPendingFriendRequest(match.params.id));
 		},
-		[ storeDispatch, match.params.id, updateFlag ]
+		[ storeDispatch, match.params.id ]
 	);
 
 	const handleClick = (e) => {
@@ -85,14 +83,10 @@ const UserPage = ({ match }) => {
 
 					<ContentArea>
 						<Route exact path={match.path}>
-							<Dashboard
-								dashboardPaginate={userPageDispatch}
-								updateFlag={updateFlag}
-								setUpdateFlag={setUpdateFlag}
-							/>
+							<Dashboard dashboardPaginate={userPageDispatch} />
 						</Route>
 						<Route exact path={`${match.path}/groups`}>
-							<GroupsP groups={Groups} />
+							<GroupsP />
 						</Route>
 						<Route
 							exact
@@ -101,7 +95,7 @@ const UserPage = ({ match }) => {
 						/>
 
 						<Route exact path={`${match.path}/resources`}>
-							<ResourcesP updateFlag={updateFlag} setUpdateFlag={setUpdateFlag} />
+							<ResourcesP />
 						</Route>
 						<Route exact path={`${match.path}/explore`} component={Explore} />
 						<Route

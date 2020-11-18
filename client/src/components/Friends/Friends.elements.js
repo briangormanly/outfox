@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors, ActionButton } from '../../styles';
+import { colors } from '../../styles';
 
 const { white } = colors;
 

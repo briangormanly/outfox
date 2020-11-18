@@ -62,7 +62,13 @@ export const userReducer = (
 			};
 		}
 		case USER_ADD_RESOURCE:
-			return { ...state };
+			return {
+				...state,
+				user: {
+					...state.user,
+					Resources: [ ...state.user.Resources, action.payload ]
+				}
+			};
 		case USER_LOGOUT:
 			return {
 				...state,

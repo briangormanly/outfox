@@ -1,9 +1,9 @@
 import React, { useReducer, Fragment } from 'react';
+import { useDispatch } from 'react-redux';
+import { addUserResource } from '../../redux/actions/userActions';
 import FormInput from '../Form-Input/Form-Input';
 
 import { ActionButton } from '../../styles';
-
-import groupService from '../../services/groups';
 
 const initialState = {
 	type        : '',
@@ -19,15 +19,12 @@ function reducer(state, { field, value }) {
 	};
 }
 
-const AddResourceForm = ({
-	creatorid,
-	GroupId,
-	setShowModal,
-	setUpdateFlag,
-	updateFlag
-}) => {
+const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
 	const { type, title, description, link } = state;
+
+	//redux
+	const storeDispatch = useDispatch();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -48,11 +45,7 @@ const AddResourceForm = ({
 		}
 
 		try {
-			await groupService.createResource(newObject);
-
-			if (updateFlag) {
-				setUpdateFlag(updateFlag + 1);
-			}
+			storeDispatch(addUserResource(newObject));
 			setShowModal(false);
 		} catch (error) {
 			console.log('An Error Occurred');

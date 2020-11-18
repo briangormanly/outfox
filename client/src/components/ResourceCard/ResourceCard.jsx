@@ -34,9 +34,7 @@ const ResourceCard = ({
 	showType,
 	showDates,
 	showDescription,
-	showSVG,
-	setUpdateFlag,
-	updateFlag
+	showSVG
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
@@ -53,22 +51,12 @@ const ResourceCard = ({
 			)}
 			{showDeleteModal && (
 				<Modal setShowModal={setShowDeleteModal}>
-					<DeleteResourceForm
-						setShowModal={setShowDeleteModal}
-						resourceID={id}
-						setUpdateFlag={setUpdateFlag}
-						updateFlag={updateFlag}
-					/>
+					<DeleteResourceForm setShowModal={setShowDeleteModal} resourceID={id} />
 				</Modal>
 			)}
 			{showShareModal && (
 				<Modal setShowModal={setShowShareModal}>
-					<ShareResourceForm
-						setShowModal={setShowShareModal}
-						resourceID={id}
-						setUpdateFlag={setUpdateFlag}
-						updateFlag={updateFlag}
-					/>
+					<ShareResourceForm setShowModal={setShowShareModal} resourceID={id} />
 				</Modal>
 			)}
 			<CardContainer small={small}>

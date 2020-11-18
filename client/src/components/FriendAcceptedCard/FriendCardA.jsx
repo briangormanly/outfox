@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useHistory, useParams } from 'react-router-dom';
 
