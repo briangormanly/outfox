@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../static/css/base.css';
 import TableOfContentsList from './TableOfContentsList';
+import TableOfContentsFooter from './TableOfContentsFooter';
 
 function TableOfContentsContainer() {
     return (  
@@ -9,6 +10,7 @@ function TableOfContentsContainer() {
                 Table of Contents
             </div>
             <TableOfContentsList />
+            <TableOfContentsFooter />
         </div>
     );
 }
