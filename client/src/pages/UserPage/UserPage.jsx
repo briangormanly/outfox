@@ -1,6 +1,10 @@
 import React, { useEffect, useReducer, Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAction } from '../../redux/actions/userActions';
+import {
+	getFriendsList,
+	getPendingFriendRequest
+} from '../../redux/actions/friendsActions';
 
 import { Route } from 'react-router-dom';
 
@@ -41,16 +45,6 @@ const initalState = {
 const UserPage = ({ match }) => {
 	const [ state, userPageDispatch ] = useReducer(userPageReducer, initalState);
 
-	// const {
-	// 	dashboardActive,
-	// 	groupsActive,
-	// 	resourcesActive,
-	// 	coursesActive,
-	// 	calendarActive,
-	// 	friendsActive,
-	// 	helpActive
-	// } = state;
-
 	const storeDispatch = useDispatch();
 	const { user, loading, error } = useSelector((state) => state.userDetail);
 	const { Groups, Resources, firstname, lastname } = user;
@@ -60,6 +54,8 @@ const UserPage = ({ match }) => {
 	useEffect(
 		() => {
 			storeDispatch(userAction(match.params.id));
+			storeDispatch(getFriendsList(match.params.id));
+			storeDispatch(getPendingFriendRequest(match.params.id));
 		},
 		[ storeDispatch, match.params.id, updateFlag ]
 	);

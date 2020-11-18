@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import userService from '../../services/users';
-import friendService from '../../services/friends';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -22,7 +21,7 @@ import {
 	IconContainer
 } from '../ExploreUserCard/ExploreUserCard.elements';
 
-const FriendCard = ({ requesterid, status, friendRequestid, setUpdate, update }) => {
+const FriendCard = ({ requesterid, status, friendRequestid }) => {
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ userName, setUserName ] = useState('');
@@ -62,14 +61,11 @@ const FriendCard = ({ requesterid, status, friendRequestid, setUpdate, update })
 	};
 
 	const handleAccept = async () => {
-		// const response = await friendService.acceptFriendRequest(friendRequestid);
 		dispatch(acceptFriendRequest(friendRequestid));
-		// setUpdate(update + 1);
 	};
 
-	const handleDeny = async () => {
-		console.log(friendRequestid);
-		await dispatch(denyFriendRequest(friendRequestid));
+	const handleDeny = () => {
+		dispatch(denyFriendRequest(friendRequestid));
 	};
 
 	return (
@@ -102,7 +98,6 @@ const FriendCard = ({ requesterid, status, friendRequestid, setUpdate, update })
 				) : (
 					''
 				)}
-				{/* {status === 'a' ? <FriendButton delete>Remove</FriendButton> : ''} */}
 			</FriendButtonGroup>
 		</FriendContainer>
 	);

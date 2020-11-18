@@ -7,9 +7,9 @@ import { friendsReducer } from './reducers/friendsReducer';
 
 // Reducers for application state
 const reducers = combineReducers({
-	userDetail : userReducer,
-	userAuth   : authReducer,
-	friends    : friendsReducer
+	userDetail   : userReducer,
+	userAuth     : authReducer,
+	friendDetail : friendsReducer
 });
 
 // Redux middlewares

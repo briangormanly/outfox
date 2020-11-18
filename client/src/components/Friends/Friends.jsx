@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import friendService from '../../services/friends';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -12,62 +11,42 @@ import { FriendContainer, UserContainer } from './Friends.elements';
 import { FriendCard, FriendCardAccepted } from '../index';
 
 const Friends = () => {
-	const [ friends, setFriends ] = useState([]);
-	const [ pendingRequest, setPendingRequest ] = useState([]);
-	const [ update, setUpdate ] = useState(0);
-
 	const params = useParams();
 	const userId = parseFloat(params.id);
 
 	// redux
 	const dispatch = useDispatch();
-
-	useEffect(
-		() => {
-			let mounted = true;
-			const request = async () => {
-				const response = await friendService.getAll();
-				const response2 = await friendService.getFriendList(userId);
-
-				if (mounted) {
-					const reqArr = response.filter(
-						(request) => request.addresseeid === userId
-					);
-					const requestArr = reqArr.filter((request) => request.status === 'p');
-
-					// Redux Dispatch
-					dispatch(getFriendsList(userId));
-					dispatch(getPendingFriendRequest(userId));
-
-					setPendingRequest(requestArr);
-					setFriends(response2);
-				}
-			};
-
-			request();
-
-			return () => (mounted = false);
-		},
-		[ update ]
+	const { friendList, pendingFriendRequest } = useSelector(
+		(state) => state.friendDetail
 	);
+
+	useEffect(() => {
+		let mounted = true;
+		const request = async () => {
+			if (mounted) {
+				// Redux Dispatch
+				dispatch(getFriendsList(userId));
+				dispatch(getPendingFriendRequest(userId));
+			}
+		};
+
+		request();
+
+		return () => (mounted = false);
+	}, []);
 
 	return (
 		<FriendContainer>
 			<h1>Friends</h1>
 			<UserContainer>
 				<h3>Pending Request:</h3>
-				{pendingRequest.map((request) => (
-					<FriendCard
-						key={request.friendRequestid}
-						{...request}
-						update={update}
-						setUpdate={setUpdate}
-					/>
+				{pendingFriendRequest.map((request) => (
+					<FriendCard key={request.friendRequestid} {...request} />
 				))}
 			</UserContainer>
 			<UserContainer>
 				<h3>Friends:</h3>
-				{friends.map((friend) => (
+				{friendList.map((friend) => (
 					<FriendCardAccepted key={friend.friendRequestid} {...friend} />
 				))}
 			</UserContainer>
