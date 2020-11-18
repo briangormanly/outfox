@@ -11,7 +11,6 @@ const DeleteResourceForm = ({ setShowModal, resourceID }) => {
 	const dispatch = useDispatch();
 
 	const params = useParams();
-	console.log(params);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

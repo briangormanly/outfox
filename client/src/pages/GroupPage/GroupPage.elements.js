@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { colors, Link } from '../../styles';
 
-const { primary, secondary, white, lightGrey } = colors;
+const { primary, secondary, white } = colors;
 
 export const GroupPageContainer = styled.div`
 	width: 100%;

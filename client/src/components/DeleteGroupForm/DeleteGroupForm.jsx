@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { deleteGroup } from '../../redux/actions/groupPageActions';
 
 import { ActionButton } from '../../styles';
-import groupService from '../../services/groups';
 
 const DeleteGroupForm = ({ GroupId, userID }) => {
 	const history = useHistory();
@@ -17,7 +16,6 @@ const DeleteGroupForm = ({ GroupId, userID }) => {
 		e.preventDefault();
 
 		try {
-			// await groupService.deleteGroup(GroupId);
 			dispatch(deleteGroup(parseFloat(GroupId)));
 			history.push(`/user/${userID}`);
 		} catch (error) {

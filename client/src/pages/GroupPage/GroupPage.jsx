@@ -41,6 +41,7 @@ const GroupPage = ({ match }) => {
 		() => {
 			try {
 				dispatch(getGroup(match.params.groupID));
+				setLoading(false);
 			} catch (error) {
 				console.log(error);
 			}

@@ -14,6 +14,10 @@ const shareGroup = (newObject) => {
 	return response.then((response) => response.data);
 };
 
+const deleteSharedGroup = (id) => {};
+
+const deleteSharedResource = (id) => {};
+
 const getSharedResource = (id) => {
 	const response = axios.get(`${resourceShareURL}/${id}`);
 	return response.then((response) => response.data);
