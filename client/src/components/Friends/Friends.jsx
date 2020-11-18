@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import friendService from '../../services/friends';
 
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	getFriendsList,
+	getPendingFriendRequest
+} from '../../redux/actions/friendsActions';
+
 import { FriendContainer, UserContainer } from './Friends.elements';
 import { FriendCard, FriendCardAccepted } from '../index';
 
@@ -12,6 +18,9 @@ const Friends = () => {
 
 	const params = useParams();
 	const userId = parseFloat(params.id);
+
+	// redux
+	const dispatch = useDispatch();
 
 	useEffect(
 		() => {
@@ -25,6 +34,13 @@ const Friends = () => {
 						(request) => request.addresseeid === userId
 					);
 					const requestArr = reqArr.filter((request) => request.status === 'p');
+
+					console.log(response);
+					console.log(requestArr);
+
+					// Redux Dispatch
+					dispatch(getFriendsList(userId));
+					dispatch(getPendingFriendRequest(userId));
 
 					setPendingRequest(requestArr);
 					setFriends(response2);
