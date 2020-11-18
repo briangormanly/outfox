@@ -20,7 +20,8 @@ export const FolderIcon = styled(FolderSVG)`
 export const CardContainer = styled.div`
 	position: relative;
 	min-height: 15rem;
-	min-width: 35rem;
+	/* min-width: 35rem; */
+	min-width: 60rem;
 	flex: 1 0 0;
 	margin: 0 1rem;
 	padding: 1rem;

@@ -1,10 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-	SharedResourceContainer,
-	SharedResourceList
-} from '../DashboardSharedR/DashboardSharedR.elements';
+import { SharedGroupContainer, SharedGroupList } from './DashboardSharedG.elements';
+
+import { GroupAllCard } from '../index';
 
 const DashboardSharedG = () => {
 	const userDetail = useSelector((state) => state.userDetail);
@@ -12,22 +11,20 @@ const DashboardSharedG = () => {
 	const { SharedGroups } = user;
 
 	return (
-		<SharedResourceContainer>
+		<SharedGroupContainer>
 			<h1>My Shared Groups</h1>
-			<SharedResourceList>
-				{/* {SharedResources.map((resource) => (
-        <ResourceCard
-          key={resource.ShareResourceId}
-          {...resource.ResourceShared}
-          sharedFrom={resource.SharedFrom}
-          showType
-          showDates
-          showDescription
-          shared
-        />
-      ))} */}
-			</SharedResourceList>
-		</SharedResourceContainer>
+			<SharedGroupList>
+				{SharedGroups &&
+					SharedGroups.map((group) => (
+						<GroupAllCard
+							key={group.SharedID}
+							{...group.GroupShared}
+							sharedFrom={group.SharedFrom}
+							shared
+						/>
+					))}
+			</SharedGroupList>
+		</SharedGroupContainer>
 	);
 };
 

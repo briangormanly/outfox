@@ -5,11 +5,13 @@ import shareService from '../../services/sharing';
 import { CheckBoxGroup } from './ShareResourceForm.elements';
 import { ActionButton } from '../../styles';
 
-const ShareResourceForm = ({ resourceID, setShowModal }) => {
+const ShareResourceForm = ({ resourceID, setShowModal, GroupID }) => {
 	const [ shareArr, setShareArr ] = useState([]);
 
 	const { friendList } = useSelector((state) => state.friendDetail);
 	const { user } = useSelector((state) => state.userDetail);
+
+	const groupID = parseFloat(GroupID);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -18,14 +20,26 @@ const ShareResourceForm = ({ resourceID, setShowModal }) => {
 			if (shareArr.length > 0) {
 				shareArr.map((friend) => {
 					const sendResource = async () => {
-						console.log(friend.id);
 						await shareService.shareResource({
 							ResourceId : resourceID,
 							Sharedby   : user.id,
 							UserId     : friend
 						});
 					};
-					sendResource();
+
+					const sendGroup = async () => {
+						await shareService.shareGroup({
+							GroupId  : groupID,
+							Sharedby : user.id,
+							UserId   : friend
+						});
+					};
+
+					if (groupID) {
+						sendGroup();
+					} else {
+						sendResource();
+					}
 				});
 			} else {
 				return;

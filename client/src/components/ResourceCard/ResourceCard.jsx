@@ -35,7 +35,8 @@ const ResourceCard = ({
 	showDates,
 	showDescription,
 	showSVG,
-	shared
+	shared,
+	sharedFrom
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
@@ -64,6 +65,11 @@ const ResourceCard = ({
 				{showSVG && <FolderIcon />}
 				{showDates && (
 					<Dates>
+						{shared && (
+							<span>
+								Shared By: {`${sharedFrom.firstname} ${sharedFrom.lastname}`}
+							</span>
+						)}
 						<span>Created: {createdAt.slice(0, 10)}</span>
 						<span>Updated: {updatedAt.slice(0, 10)}</span>
 					</Dates>

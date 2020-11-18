@@ -17,17 +17,18 @@ const DashboardSharedR = () => {
 		<SharedResourceContainer>
 			<h1>My Shared Resources</h1>
 			<SharedResourceList>
-				{SharedResources.map((resource) => (
-					<ResourceCard
-						key={resource.ShareResourceId}
-						{...resource.ResourceShared}
-						sharedFrom={resource.SharedFrom}
-						showType
-						showDates
-						showDescription
-						shared
-					/>
-				))}
+				{SharedResources &&
+					SharedResources.map((resource) => (
+						<ResourceCard
+							key={resource.ShareResourceId}
+							{...resource.ResourceShared}
+							sharedFrom={resource.SharedFrom}
+							showType
+							showDates
+							showDescription
+							shared
+						/>
+					))}
 			</SharedResourceList>
 		</SharedResourceContainer>
 	);

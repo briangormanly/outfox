@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FaArrowLeft, FaHammer, FaTrashAlt, FaPlus } from 'react-icons/fa';
+import { FaArrowLeft, FaHammer, FaTrashAlt, FaPlus, FaShare } from 'react-icons/fa';
 
 import { getGroup } from '../../redux/actions/groupPageActions';
 
@@ -11,7 +11,8 @@ import {
 	AddResourceForm,
 	ResourceCard,
 	DeleteGroupForm,
-	EditGroupForm
+	EditGroupForm,
+	ShareResourceForm
 } from '../../components';
 import {
 	GroupPageContainer,
@@ -30,6 +31,7 @@ const GroupPage = ({ match }) => {
 	const [ showAddModal, setShowAddModal ] = useState(false);
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
+	const [ showShareModal, setShowShareModal ] = useState(false);
 
 	// redux
 	const dispatch = useDispatch();
@@ -74,6 +76,15 @@ const GroupPage = ({ match }) => {
 							/>
 						</Modal>
 					)}
+					{showShareModal && (
+						<Modal setShowModal={setShowShareModal}>
+							<ShareResourceForm
+								GroupID={groupID}
+								setShowModal={setShowShareModal}
+								userID={userID}
+							/>
+						</Modal>
+					)}
 					<Container>
 						<Content>
 							<ReturnLink to={`/user/${userID}`}>
@@ -94,6 +105,10 @@ const GroupPage = ({ match }) => {
 								<Button delete flex onClick={() => setShowDeleteModal(true)}>
 									<FaTrashAlt />
 									<span>Delete Group</span>
+								</Button>
+								<Button add flex onClick={() => setShowShareModal(true)}>
+									<FaShare />
+									<span>Share Group</span>
 								</Button>
 							</ButtonContainer>
 							<ResourceContainer>
