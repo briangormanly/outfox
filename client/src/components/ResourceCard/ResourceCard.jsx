@@ -34,7 +34,8 @@ const ResourceCard = ({
 	showType,
 	showDates,
 	showDescription,
-	showSVG
+	showSVG,
+	shared
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
@@ -87,6 +88,11 @@ const ResourceCard = ({
 							</a>
 						</p>
 					</Attributes>
+					{shared && (
+						<ButtonContainer>
+							<Button edit>Add to...</Button>
+						</ButtonContainer>
+					)}
 					{showButtons && (
 						<ButtonContainer>
 							{params.exploreId ? (

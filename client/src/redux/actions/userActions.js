@@ -103,7 +103,6 @@ export const addUserResource = (newResourceObject) => async (dispatch) => {
 export const getSharedGroups = (id) => async (dispatch) => {
 	try {
 		const data = await shareService.getSharedGroups(id);
-		console.log(data);
 		dispatch({ type: USER_GET_SHARED_GROUPS, payload: data });
 	} catch (error) {
 		console.log(error);
@@ -113,7 +112,6 @@ export const getSharedGroups = (id) => async (dispatch) => {
 export const getSharedResources = (id) => async (dispatch) => {
 	try {
 		const data = await shareService.getSharedResources(id);
-		console.log(data);
 		dispatch({ type: USER_GET_SHARED_RESOURCES, payload: data });
 	} catch (error) {
 		console.log(error);

@@ -4,7 +4,8 @@ import {
 	DashboardGroups,
 	DashboardFriends,
 	DashboardResources,
-	DashboardSharedResources
+	DashboardSharedResources,
+	DashboardSharedGroups
 } from '../index';
 
 import {
@@ -12,7 +13,8 @@ import {
 	GroupContainer,
 	FriendContainer,
 	ResourceContainer,
-	SharedResourceContainer
+	SharedResourceContainer,
+	SharedGroupContainer
 } from './Dashboard.elements';
 
 const Dashboard = ({ dashboardPaginate }) => {
@@ -30,6 +32,9 @@ const Dashboard = ({ dashboardPaginate }) => {
 			<SharedResourceContainer>
 				<DashboardSharedResources />
 			</SharedResourceContainer>
+			<SharedGroupContainer>
+				<DashboardSharedGroups />
+			</SharedGroupContainer>
 		</DashboardContainer>
 	);
 };

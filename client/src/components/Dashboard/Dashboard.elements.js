@@ -22,7 +22,7 @@ export const DashboardContainer = styled.div`
 	grid-template-columns: 1fr 1fr 30rem;
 	grid-template-rows: 46rem 1fr;
 	grid-template-areas: 'groups groups friends' 'resources resources friends'
-		'sharedR sharedR friends';
+		'sharedR sharedR sharedR' 'sharedG sharedG sharedG';
 `;
 
 export const GroupContainer = styled(ChildContainer)`
@@ -41,5 +41,9 @@ export const CourseContainer = styled(ChildContainer)`
 `;
 
 export const SharedResourceContainer = styled(ChildContainer)`
-	grid-area: sharedR
+	grid-area: sharedR;
+`;
+
+export const SharedGroupContainer = styled(ChildContainer)`
+	grid-area: sharedG;
 `;

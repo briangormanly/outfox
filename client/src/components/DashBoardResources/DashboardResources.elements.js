@@ -9,10 +9,11 @@ export const ResourcesContainer = styled.div`
 `;
 
 export const ResourceList = styled.div`
+	padding: 1rem;
 	display: flex;
 	flex-wrap: wrap;
 	flex: 1 0 auto;
 	align-content: flex-start;
-	justify-content: center;
+	justify-content: flex-start;
 	margin-top: 4rem;
 `;
