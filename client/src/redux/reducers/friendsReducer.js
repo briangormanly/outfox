@@ -24,8 +24,17 @@ export const friendsReducer = (
 			return { ...state, loading: false, friendList: [ ...action.payload ] };
 		case GET_PENDING_FRIEND_REQUEST:
 			return { ...state, pendingFriendRequest: [ ...action.payload ] };
-		case ACCEPT_FRIEND_REQUEST:
-			return { ...state };
+		case ACCEPT_FRIEND_REQUEST: {
+			const filteredRequestList = state.pendingFriendRequest.filter(
+				(request) => request.friendRequestid !== action.payload.friendRequestid
+			);
+
+			return {
+				...state,
+				pendingFriendRequest: [ ...filteredRequestList ],
+				friendList: [ ...state.friendList, action.payload ]
+			};
+		}
 		case SEND_FRIEND_REQUEST:
 			return { ...state };
 		case REMOVE_FRIEND: {

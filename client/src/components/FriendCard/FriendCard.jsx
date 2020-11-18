@@ -5,7 +5,10 @@ import friendService from '../../services/friends';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { denyFriendRequest } from '../../redux/actions/friendsActions';
+import {
+	denyFriendRequest,
+	acceptFriendRequest
+} from '../../redux/actions/friendsActions';
 
 import {
 	FriendContainer,
@@ -59,9 +62,9 @@ const FriendCard = ({ requesterid, status, friendRequestid, setUpdate, update })
 	};
 
 	const handleAccept = async () => {
-		const response = await friendService.acceptFriendRequest(friendRequestid);
-		setUpdate(update + 1);
-		console.log(response);
+		// const response = await friendService.acceptFriendRequest(friendRequestid);
+		dispatch(acceptFriendRequest(friendRequestid));
+		// setUpdate(update + 1);
 	};
 
 	const handleDeny = async () => {

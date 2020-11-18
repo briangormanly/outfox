@@ -10,6 +10,7 @@ import {
 } from '../constants/friendsConstants';
 
 import friendService from '../../services/friends';
+import userService from '../../services/users';
 
 // id is the current user
 export const getFriendsList = (id) => async (dispatch) => {
@@ -80,6 +81,29 @@ export const denyFriendRequest = (id) => async (dispatch) => {
 		dispatch({ type: DENY_FRIEND_REQUEST, payload: id });
 	} catch (error) {
 		console.log('FAILED TO DENY FRIEND');
+		dispatch({ type: FRIEND_FAIL });
+	}
+};
+
+export const acceptFriendRequest = (requestID) => async (dispatch) => {
+	try {
+		const data = await friendService.acceptFriendRequest(requestID);
+		const { friendRequestid, requesterid } = data;
+		const { id, username, firstname, lastname, email } = await userService.getUser(
+			requesterid
+		);
+
+		const newFriendObject = {
+			id,
+			username,
+			firstname,
+			lastname,
+			email,
+			friendRequestid
+		};
+		console.log(newFriendObject);
+		dispatch({ type: ACCEPT_FRIEND_REQUEST, payload: newFriendObject });
+	} catch (error) {
 		dispatch({ type: FRIEND_FAIL });
 	}
 };
