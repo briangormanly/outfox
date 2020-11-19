@@ -130,6 +130,15 @@ class ResourceController {
             }
             return;
           });
+        } else {
+          moveTo = `${__dirname}/../storage/misc/${file.name}`;
+          uri = `/storage/misc/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              return response.status(500).send(error);
+            }
+            return;
+          });
         }
 
         const resource = await Resource.create({
