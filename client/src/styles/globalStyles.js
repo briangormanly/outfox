@@ -62,7 +62,7 @@ export const Container = styled.div`
 export const Link = styled(RouterLink)`
   text-decoration: none;
   font-size: 1.6rem;
-  color: ${colors.white};
+  /* color: ${colors.white}; */
   cursor: pointer;
   padding: 1rem;
   border: none;

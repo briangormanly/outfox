@@ -7,12 +7,18 @@ import {
 	AUTH_REQUEST,
 	AUTH_FAIL,
 	AUTH_SUCCESS,
-	AUTH_LOGOUT
+	AUTH_LOGOUT,
+	USER_ADD_RESOURCE,
+	USER_EDIT_RESOURCE,
+	USER_DELETE_RESOURCE,
+	USER_GET_SHARED_GROUPS,
+	USER_GET_SHARED_RESOURCES
 } from '../constants/userConstants';
 
 import userService from '../../services/users';
 import authService from '../../services/auth';
 import groupService from '../../services/groups';
+import shareService from '../../services/sharing';
 
 export const userAction = (id) => async (dispatch) => {
 	try {
@@ -58,6 +64,57 @@ export const createGroupAction = (newGroupObject) => async (dispatch) => {
 		dispatch({ type: USER_ADD_GROUP, payload: data.group });
 	} catch (error) {
 		console.log('An Error has occurred');
+	}
+};
+
+export const editUserResource = (resourceID, newResourceObject) => async (
+	dispatch
+) => {
+	try {
+		const { resource } = await groupService.editResource(
+			resourceID,
+			newResourceObject
+		);
+
+		dispatch({ type: USER_EDIT_RESOURCE, payload: resource });
+	} catch (error) {
+		console.log('An error occurred during edit request');
+	}
+};
+
+export const deleteUserResource = (resourceID) => async (dispatch) => {
+	try {
+		await groupService.deleteResource(resourceID);
+		dispatch({ type: USER_DELETE_RESOURCE, payload: resourceID });
+	} catch (error) {
+		console.log('An error occurred during delete request');
+	}
+};
+
+export const addUserResource = (newResourceObject) => async (dispatch) => {
+	try {
+		const { resource } = await groupService.createResource(newResourceObject);
+		dispatch({ type: USER_ADD_RESOURCE, payload: resource });
+	} catch (error) {
+		console.log('An error occurred during add request');
+	}
+};
+
+export const getSharedGroups = (id) => async (dispatch) => {
+	try {
+		const data = await shareService.getSharedGroups(id);
+		dispatch({ type: USER_GET_SHARED_GROUPS, payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const getSharedResources = (id) => async (dispatch) => {
+	try {
+		const data = await shareService.getSharedResources(id);
+		dispatch({ type: USER_GET_SHARED_RESOURCES, payload: data });
+	} catch (error) {
+		console.log(error);
 	}
 };
 

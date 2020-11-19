@@ -6,8 +6,8 @@ export const userPageReducer = (state = {}, action) => {
 				dashboardActive : true,
 				groupsActive    : false,
 				resourcesActive : false,
-				coursesActive   : false,
-				calendarActive  : false,
+				exploreActive   : false,
+
 				friendsActive   : false,
 				helpActive      : false
 			};
@@ -17,8 +17,8 @@ export const userPageReducer = (state = {}, action) => {
 				dashboardActive : false,
 				groupsActive    : true,
 				resourcesActive : false,
-				coursesActive   : false,
-				calendarActive  : false,
+				exploreActive   : false,
+
 				friendsActive   : false,
 				helpActive      : false
 			};
@@ -28,19 +28,19 @@ export const userPageReducer = (state = {}, action) => {
 				dashboardActive : false,
 				groupsActive    : false,
 				resourcesActive : true,
-				coursesActive   : false,
-				calendarActive  : false,
+				exploreActive   : false,
+
 				friendsActive   : false,
 				helpActive      : false
 			};
-		case 'courses':
+		case 'explore':
 			return {
 				...state,
 				dashboardActive : false,
 				groupsActive    : false,
 				resourcesActive : false,
-				coursesActive   : true,
-				calendarActive  : false,
+				exploreActive   : true,
+
 				friendsActive   : false,
 				helpActive      : false
 			};
@@ -50,8 +50,7 @@ export const userPageReducer = (state = {}, action) => {
 				dashboardActive : false,
 				groupsActive    : false,
 				resourcesActive : false,
-				coursesActive   : false,
-				calendarActive  : true,
+				exploreActive   : false,
 				friendsActive   : false,
 				helpActive      : false
 			};
@@ -61,8 +60,8 @@ export const userPageReducer = (state = {}, action) => {
 				dashboardActive : false,
 				groupsActive    : false,
 				resourcesActive : false,
-				coursesActive   : false,
-				calendarActive  : false,
+				exploreActive   : false,
+
 				friendsActive   : true,
 				helpActive      : false
 			};
@@ -72,8 +71,8 @@ export const userPageReducer = (state = {}, action) => {
 				dashboardActive : false,
 				groupsActive    : false,
 				resourcesActive : false,
-				coursesActive   : false,
-				calendarActive  : false,
+				exploreActive   : false,
+
 				friendsActive   : false,
 				helpActive      : true
 			};

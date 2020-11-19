@@ -7,16 +7,25 @@ import {
 	AUTH_REQUEST,
 	AUTH_SUCCESS,
 	AUTH_FAIL,
-	AUTH_LOGOUT
+	AUTH_LOGOUT,
+	USER_ADD_RESOURCE,
+	USER_EDIT_RESOURCE,
+	USER_DELETE_RESOURCE,
+	USER_GET_SHARED_GROUPS,
+	USER_GET_SHARED_RESOURCES
 } from '../constants/userConstants';
+
+import { DELETE_GROUP } from '../constants/groupPageConstants';
 
 export const userReducer = (
 	state = {
 		user    : {
-			firstname : '',
-			lastname  : '',
-			Groups    : [],
-			Resources : []
+			firstname       : '',
+			lastname        : '',
+			Groups          : [],
+			Resources       : [],
+			SharedResources : [],
+			SharedGroups    : []
 		},
 		loading : false,
 		error   : null
@@ -27,13 +36,67 @@ export const userReducer = (
 		case USER_REQUEST:
 			return { ...state, loading: true };
 		case USER_SUCCESS:
-			return { ...state, loading: false, user: action.payload };
+			return {
+				...state,
+				loading: false,
+				user: { ...state.user, ...action.payload }
+			};
 		case USER_FAIL:
 			return { ...state, user: null, loading: false };
 		case USER_ADD_GROUP:
 			return {
 				...state,
 				user : { ...state.user, Groups: [ ...state.user.Groups, action.payload ] }
+			};
+		case USER_EDIT_RESOURCE: {
+			const newResourceList = state.user.Resources.map((resource) => {
+				if (resource.id === action.payload.id) {
+					return action.payload;
+				} else {
+					return resource;
+				}
+			});
+
+			return {
+				...state,
+				user : { ...state.user, Resources: [ ...newResourceList ] }
+			};
+		}
+		case USER_DELETE_RESOURCE: {
+			const filteredResourcs = state.user.Resources.filter(
+				(resource) => resource.id !== action.payload
+			);
+			return {
+				...state,
+				user : { ...state.user, Resources: [ ...filteredResourcs ] }
+			};
+		}
+		case USER_ADD_RESOURCE:
+			return {
+				...state,
+				user : {
+					...state.user,
+					Resources : [ ...state.user.Resources, action.payload ]
+				}
+			};
+		case DELETE_GROUP: {
+			const filteredGroups = state.user.Groups.filter(
+				(group) => group.id !== action.payload
+			);
+			return {
+				...state,
+				user : { ...state.user, Groups: [ ...filteredGroups ] }
+			};
+		}
+		case USER_GET_SHARED_GROUPS:
+			return {
+				...state,
+				user : { ...state.user, SharedGroups: [ ...action.payload ] }
+			};
+		case USER_GET_SHARED_RESOURCES:
+			return {
+				...state,
+				user : { ...state.user, SharedResources: [ ...action.payload ] }
 			};
 		case USER_LOGOUT:
 			return {

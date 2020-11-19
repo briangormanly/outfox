@@ -1,20 +1,26 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
+import { deleteUserResource } from '../../redux/actions/userActions';
+import { deleteGroupResource } from '../../redux/actions/groupPageActions';
 
 import { ActionButton } from '../../styles';
-import groupService from '../../services/groups';
 
-const DeleteResourceForm = ({
-	setShowModal,
-	resourceID,
-	setUpdateFlag,
-	updateFlag
-}) => {
+const DeleteResourceForm = ({ setShowModal, resourceID }) => {
+	const dispatch = useDispatch();
+
+	const params = useParams();
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		try {
-			await groupService.deleteResource(resourceID);
-			setUpdateFlag(updateFlag + 1);
+			if (params.groupID) {
+				dispatch(deleteGroupResource(resourceID));
+			} else {
+				dispatch(deleteUserResource(resourceID));
+			}
 			setShowModal(false);
 		} catch (error) {
 			console.log('An Error Occurred');

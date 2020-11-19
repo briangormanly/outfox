@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useRef } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaPlus, FaArrowRight } from 'react-icons/fa';
 
@@ -15,6 +16,9 @@ const DashboardGroups = ({ dashboardPaginate }) => {
 	const [ showModal, setShowModal ] = useState(false);
 	const { user: { Groups } } = useSelector((state) => state.userDetail);
 
+	const history = useHistory();
+	const params = useParams();
+
 	const scrollRef = useRef(null);
 
 	const onWheel = (e) => {
@@ -25,6 +29,11 @@ const DashboardGroups = ({ dashboardPaginate }) => {
 			top  : 0,
 			left : containerScrollPosition + e.deltaY
 		});
+	};
+
+	const handleViewAll = () => {
+		dashboardPaginate({ type: 'groups' });
+		history.push(`/user/${params.id}/groups`);
 	};
 
 	return (
@@ -41,7 +50,7 @@ const DashboardGroups = ({ dashboardPaginate }) => {
 						<button onClick={() => setShowModal(true)}>
 							<span>Create Group</span> <FaPlus />
 						</button>
-						<button onClick={() => dashboardPaginate({ type: 'groups' })}>
+						<button onClick={handleViewAll}>
 							<span>View All</span>
 							<FaArrowRight />
 						</button>

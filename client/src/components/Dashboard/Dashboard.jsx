@@ -1,15 +1,23 @@
 import React from 'react';
 
-import { DashboardGroups, DashboardFriends, DashboardResources } from '../index';
+import {
+	DashboardGroups,
+	DashboardFriends,
+	DashboardResources,
+	DashboardSharedResources,
+	DashboardSharedGroups
+} from '../index';
 
 import {
 	DashboardContainer,
 	GroupContainer,
 	FriendContainer,
-	ResourceContainer
+	ResourceContainer,
+	SharedResourceContainer,
+	SharedGroupContainer
 } from './Dashboard.elements';
 
-const Dashboard = ({ dashboardPaginate, updateFlag, setUpdateFlag }) => {
+const Dashboard = ({ dashboardPaginate }) => {
 	return (
 		<DashboardContainer>
 			<GroupContainer>
@@ -19,12 +27,14 @@ const Dashboard = ({ dashboardPaginate, updateFlag, setUpdateFlag }) => {
 				<DashboardFriends />
 			</FriendContainer>
 			<ResourceContainer>
-				<DashboardResources
-					dashboardPaginate={dashboardPaginate}
-					updateFlag={updateFlag}
-					setUpdateFlag={setUpdateFlag}
-				/>
+				<DashboardResources dashboardPaginate={dashboardPaginate} />
 			</ResourceContainer>
+			<SharedResourceContainer>
+				<DashboardSharedResources />
+			</SharedResourceContainer>
+			<SharedGroupContainer>
+				<DashboardSharedGroups />
+			</SharedGroupContainer>
 		</DashboardContainer>
 	);
 };

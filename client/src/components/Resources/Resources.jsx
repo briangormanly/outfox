@@ -1,11 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { ResourceCard } from '../index';
 import { ResourceContainer } from './Resources.elements';
 
-const Resources = ({ updateFlag, setUpdateFlag, resources }) => {
+const Resources = () => {
+	const { user } = useSelector((state) => state.userDetail);
+	const { Resources } = user;
+
 	return (
 		<ResourceContainer>
-			{resources.map((resource) => (
+			{Resources.map((resource) => (
 				<ResourceCard
 					key={resource.id}
 					{...resource}
@@ -13,8 +17,6 @@ const Resources = ({ updateFlag, setUpdateFlag, resources }) => {
 					showType
 					showDates
 					showDescription
-					setUpdateFlag={setUpdateFlag}
-					updateFlag={updateFlag}
 				/>
 			))}
 		</ResourceContainer>

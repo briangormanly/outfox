@@ -1,13 +1,16 @@
 import React from 'react';
 
+import { Link } from '../../styles/globalStyles';
+
+import { useParams } from 'react-router-dom';
+
 import {
 	FaBookReader,
 	FaTools,
 	FaUserFriends,
 	FaRegFolderOpen,
 	FaCubes,
-	FaLayerGroup,
-	FaRegCalendarCheck
+	FaLayerGroup
 } from 'react-icons/fa';
 
 import { ReactComponent as Logo } from '../../assets/fox.svg';
@@ -25,15 +28,19 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 		dashboardActive,
 		groupsActive,
 		resourcesActive,
-		coursesActive,
-		calendarActive,
 		friendsActive,
+		exploreActive,
 		helpActive
 	} = state;
 
+	const locationParams = useParams();
+	const userURL = `/user/${locationParams.id}`;
+
 	return (
 		<UserSideNavContainer>
-			<Logo />
+			<Link to="/">
+				<Logo />
+			</Link>
 			<WelcomeMessage>
 				<p>Welcome,</p>
 				<p>
@@ -44,47 +51,52 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 				<Clock />
 			</WelcomeMessage>
 			<SideNavButton name="dashboard" onClick={handleClick} active={dashboardActive}>
-				<div>
-					<FaCubes />
-
-					<span>Dashboard</span>
-				</div>
+				<Link to={userURL}>
+					<div>
+						<FaCubes />
+						<span>Dashboard</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<SideNavButton name="groups" onClick={handleClick} active={groupsActive}>
-				<div>
-					<FaRegFolderOpen />
-					<span>Groups</span>
-				</div>
+				<Link to={`${userURL}/groups`}>
+					<div>
+						<FaRegFolderOpen />
+						<span>Groups</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<SideNavButton name="resources" onClick={handleClick} active={resourcesActive}>
-				<div>
-					<FaLayerGroup />
-					<span>Resources</span>
-				</div>
+				<Link to={`${userURL}/resources`}>
+					<div>
+						<FaLayerGroup />
+						<span>Resources</span>
+					</div>
+				</Link>
 			</SideNavButton>
-			<SideNavButton name="courses" onClick={handleClick} active={coursesActive}>
-				<div>
-					<FaBookReader />
-					<span>Courses</span>
-				</div>
-			</SideNavButton>
-			<SideNavButton name="calendar" onClick={handleClick} active={calendarActive}>
-				<div>
-					<FaRegCalendarCheck />
-					<span>Calendar</span>
-				</div>
+			<SideNavButton name="explore" onClick={handleClick} active={exploreActive}>
+				<Link to={`${userURL}/explore`}>
+					<div>
+						<FaBookReader />
+						<span>Explore</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<SideNavButton name="friends" onClick={handleClick} active={friendsActive}>
-				<div>
-					<FaUserFriends />
-					<span>Friends</span>
-				</div>
+				<Link to={`${userURL}/friends`}>
+					<div>
+						<FaUserFriends />
+						<span>Friends</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<SideNavButton name="help" onClick={handleClick} active={helpActive}>
-				<div>
-					<FaTools />
-					<span>Help</span>
-				</div>
+				<Link to={`${userURL}/help`}>
+					<div>
+						<FaTools />
+						<span>Help</span>
+					</div>
+				</Link>
 			</SideNavButton>
 			<DashboardSettings>
 				<p>You can change the dashboard settings</p>
