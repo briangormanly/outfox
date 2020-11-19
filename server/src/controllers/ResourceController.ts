@@ -1,7 +1,8 @@
-import { UploadedFile } from "express-fileupload";
+//import { UploadedFile } from "express-fileupload";
 import { Router, Request, Response } from "express";
 import Resource from "../models/Resource";
 import Comment from "../models/Comment";
+import sequelize from "../middleware/databaseConnection";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
