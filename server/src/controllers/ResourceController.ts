@@ -137,9 +137,11 @@ class ResourceController {
           title: request.body.title,
           description: request.body.description,
           uri: uri,
+          fileName: file.name,
           mutable: request.body.mutable,
           creatorid: request.body.creatorid,
         });
+
         response.status(201).json({ resource });
       }
     } catch (error) {

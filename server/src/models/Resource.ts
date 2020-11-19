@@ -10,6 +10,7 @@ class Resource extends Model {
   public description: string;
   public link: string;
   public uri: string;
+  public fileName: string;
   public mutable: boolean;
   public creatorid: number;
 }
@@ -40,6 +41,9 @@ Resource.init(
     uri: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    fileName: {
+      type: DataTypes.STRING,
     },
     mutable: {
       type: DataTypes.BOOLEAN,
