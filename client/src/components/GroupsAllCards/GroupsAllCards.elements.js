@@ -2,22 +2,24 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { primary, white } = colors;
+const { primary } = colors;
 
 export const GroupCard = styled.div`
-	height: 35rem;
+	height: 30rem;
 	width: 20rem;
-	background: rgb(139, 1, 1);
+	/* background: rgb(139, 1, 1);
 	background: linear-gradient(
 		170deg,
 		rgba(139, 1, 1, 1) 0%,
 		rgba(158, 60, 60, 1) 35%,
 		rgba(53, 157, 157, 1) 70%,
 		rgba(18, 150, 150, 1) 100%
-	);
+	); */
+
 	padding: 1.5rem;
-	color: ${white};
+	color: black;
 	border-radius: 25px;
+	border: 2px solid ${primary};
 	margin-right: 2rem;
 	margin-top: 1rem;
 

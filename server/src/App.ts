@@ -1,34 +1,38 @@
-import express, { Application } from "express";
-// Cors is only being used if we run React separately
-import cors from "cors";
-// Using Morgan for middleware. At the moment for basic logging
-import morgan from "morgan";
-import { Sequelize } from "sequelize";
-import sync from "./middleware/syncDatabase";
-import passport from "./middleware/passportConfig";
-import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
-import session from "express-session";
-import Controller from "./interfaces/ControllerInterface";
-import validLogin from "./middleware/validLogin";
+import express, { Application } from "express"; // Basic Routing Library used for the API
+import cors from "cors"; // Allows React and Express to Interact
+import morgan from "morgan"; // Basic Logging of Requests
+import { Sequelize } from "sequelize"; // ORM for the PostgreSQL Database
+import sync from "./middleware/syncDatabase"; // Currently used to synchronize our models (Should switch to migrations - Read more at https://sequelize.org/master/manual/migrations.html)
+import passport from "./middleware/passportConfig"; // Used for our Local Authentication Strategy
+import cookieParser from "cookie-parser"; // Allows us to use cookies for our sessions
+import bodyParser from "body-parser"; // Determines how our requests will come  in
+import session from "express-session"; // Allows for indiviudal sessions (When a user logs in it creates a session)
+import Controller from "./interfaces/ControllerInterface"; // The Interface declaring what a controller is (TypeScripts "Types" required otherwise ESLint gets mad at any)
+import validLogin from "./middleware/validLogin"; // Middleware Method used for authentication (Can be used for protected routes)
+import fileUpload from "express-fileupload"; // The library allowing us to upload files into the server (Should probably look into a online storage solution)
 
 /**
- * Used as the primarily class for the express server
+ * Used as the primary class for the express server
  */
 class App {
-  public app: Application;
-  public sequelize: Sequelize;
+  public app: Application; // Express requires you make an instance of the application
+  public sequelize: Sequelize; // The database might change the name to db
   public port: number;
 
+  // The constructor that will set up the initial server when a instance is created.
   constructor(controllers: Controller[], port: number) {
-    this.app = express();
+    this.app = express(); // Express Application Instance
     this.port = port;
-    this.initializeDatabaseConnection();
-    sync();
-    this.initializeMiddlewares();
-    this.initializeControllers(controllers);
+    this.initializeDatabaseConnection(); // Connects to the database and verifies the connection.
+    sync(); // Synchronizes the models (Probably should switch to migrations)
+    this.initializeMiddlewares(); // Connects the middleware methods to the application level (Highest Level)
+    this.initializeControllers(controllers); // Connects the applications router to the individual controllers routing
   }
 
+  /**
+   * Used to connect to our database
+   * TO DO: Delete the db connection file and then export App and use App.sequelize everywhere (!!!)
+   */
   private async initializeDatabaseConnection(): Promise<void> {
     this.sequelize = new Sequelize("outfoxdb", "sqlize", "", {
       host: "localhost",
@@ -59,13 +63,17 @@ class App {
       })
     );
     this.app.use(cookieParser("secretcode"));
+    this.app.use(fileUpload());
   }
 
   private initializeControllers(controllers: Controller[]): void {
+    const root1 = __dirname + "/../src";
     // Only here temp so we can get a home page instead of a 404
     this.app.get("/", (req, res) => {
-      res.send("Do not use .render() this isn't ejs");
+      //res.send("Do not use .render() this isn't ejs");
+      res.sendFile("test.html", { root: root1 });
     });
+
     this.app.post("/login", validLogin);
 
     for (const iterator of controllers) {

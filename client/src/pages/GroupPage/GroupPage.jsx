@@ -1,6 +1,9 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import groupService from '../../services/groups.js';
-import { FaArrowLeft, FaHammer, FaTrashAlt, FaPlus } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { FaArrowLeft, FaHammer, FaTrashAlt, FaPlus, FaShare } from 'react-icons/fa';
+
+import { getGroup } from '../../redux/actions/groupPageActions';
 
 import {
 	Loader,
@@ -8,7 +11,8 @@ import {
 	AddResourceForm,
 	ResourceCard,
 	DeleteGroupForm,
-	EditGroupForm
+	EditGroupForm,
+	ShareResourceForm
 } from '../../components';
 import {
 	GroupPageContainer,
@@ -23,32 +27,28 @@ import {
 const GroupPage = ({ match }) => {
 	const { params: { userID, groupID } } = match;
 
-	const [ title, setTitle ] = useState('');
-	const [ description, setDescription ] = useState('');
-	const [ resources, setResources ] = useState([]);
-	const [ date, setDate ] = useState('');
 	const [ loading, setLoading ] = useState(false);
 	const [ showAddModal, setShowAddModal ] = useState(false);
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
-	const [ updateFlag, setUpdateFlag ] = useState(1);
+	const [ showShareModal, setShowShareModal ] = useState(false);
+
+	// redux
+	const dispatch = useDispatch();
+	const { resources, title, description, date } = useSelector(
+		(state) => state.groupPageDetail
+	);
 
 	useEffect(
 		() => {
-			const request = async () => {
-				setLoading(true);
-				const response = await groupService.getGroupData(match.params.groupID);
-				const { datetimeadd, groupdescription, groupname, Resources } = response;
-				setTitle(groupname);
-				setDescription(groupdescription);
-				setResources(Resources);
-				setDate(datetimeadd.slice(0, 10));
+			try {
+				dispatch(getGroup(match.params.groupID));
 				setLoading(false);
-			};
-
-			request();
+			} catch (error) {
+				console.log(error);
+			}
 		},
-		[ match.params.groupID, updateFlag ]
+		[ match.params.groupID, dispatch ]
 	);
 
 	return (
@@ -59,22 +59,12 @@ const GroupPage = ({ match }) => {
 				<Fragment>
 					{showAddModal && (
 						<Modal setShowModal={setShowAddModal}>
-							<AddResourceForm
-								GroupId={groupID}
-								setUpdateFlag={setUpdateFlag}
-								updateFlag={updateFlag}
-								setShowModal={setShowAddModal}
-							/>
+							<AddResourceForm GroupId={groupID} setShowModal={setShowAddModal} />
 						</Modal>
 					)}
 					{showEditModal && (
 						<Modal setShowModal={setShowEditModal}>
-							<EditGroupForm
-								GroupId={groupID}
-								setUpdateFlag={setUpdateFlag}
-								updateFlag={updateFlag}
-								setShowModal={setShowEditModal}
-							/>
+							<EditGroupForm GroupId={groupID} setShowModal={setShowEditModal} />
 						</Modal>
 					)}
 					{showDeleteModal && (
@@ -82,6 +72,15 @@ const GroupPage = ({ match }) => {
 							<DeleteGroupForm
 								GroupId={groupID}
 								setShowModal={setShowDeleteModal}
+								userID={userID}
+							/>
+						</Modal>
+					)}
+					{showShareModal && (
+						<Modal setShowModal={setShowShareModal}>
+							<ShareResourceForm
+								GroupID={groupID}
+								setShowModal={setShowShareModal}
 								userID={userID}
 							/>
 						</Modal>
@@ -107,6 +106,10 @@ const GroupPage = ({ match }) => {
 									<FaTrashAlt />
 									<span>Delete Group</span>
 								</Button>
+								<Button add flex onClick={() => setShowShareModal(true)}>
+									<FaShare />
+									<span>Share Group</span>
+								</Button>
 							</ButtonContainer>
 							<ResourceContainer>
 								{resources.map((resource) => (
@@ -117,8 +120,6 @@ const GroupPage = ({ match }) => {
 										showType
 										showDates
 										showDescription
-										setUpdateFlag={setUpdateFlag}
-										updateFlag={updateFlag}
 									/>
 								))}
 							</ResourceContainer>

@@ -1,10 +1,13 @@
 import React, { useReducer, Fragment, useEffect } from 'react';
-
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import FormInput from '../Form-Input/Form-Input';
 
 import { ActionButton } from '../../styles';
 
 import groupService from '../../services/groups';
+import { editUserResource } from '../../redux/actions/userActions';
+import { editGroupResource } from '../../redux/actions/groupPageActions';
 
 const initialState = {
 	type        : '',
@@ -20,14 +23,16 @@ function reducer(state, { field, value }) {
 	};
 }
 
-const EditResourceForm = ({
-	resourceID,
-	setShowModal,
-	setUpdateFlag,
-	updateFlag
-}) => {
+const EditResourceForm = ({ resourceID, setShowModal }) => {
 	const [ state, dispatch ] = useReducer(reducer, initialState);
 	const { type, title, description, link } = state;
+
+	const params = useParams();
+	console.log(params);
+	console.log(params.groupID);
+
+	// redux
+	const storeDispatch = useDispatch();
 
 	useEffect(
 		() => {
@@ -57,13 +62,13 @@ const EditResourceForm = ({
 			return;
 		}
 
-		const newObject = { ...state };
+		let newObject = { ...state };
 
 		try {
-			await groupService.editResource(resourceID, newObject);
-
-			if (updateFlag) {
-				setUpdateFlag(updateFlag + 1);
+			if (params.groupID) {
+				storeDispatch(editGroupResource(resourceID, newObject));
+			} else {
+				storeDispatch(editUserResource(resourceID, newObject));
 			}
 			setShowModal(false);
 		} catch (error) {

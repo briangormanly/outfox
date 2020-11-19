@@ -1,13 +1,14 @@
+import { UploadedFile } from "express-fileupload";
 import { Router, Request, Response } from "express";
 import Resource from "../models/Resource";
-import sequelize from "../middleware/databaseConnection";
+import Comment from "../models/Comment";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
  */
 class ResourceController {
-  // Path that is required in order to access the api http://localhost:8080/routes/api/resources
+  // Path that is required in order to access the api http://localhost:8080/api/resources
   public path = "/api/resources";
   public router = Router();
 
@@ -29,7 +30,14 @@ class ResourceController {
       .get(this.getResource)
       .put(this.updateResource)
       .delete(this.deleteResource);
+    this.router
+      .route(this.path + "/resourcecomments/" + ":id")
+      .get(this.getResourceComments);
+    this.router
+      .route(this.path + "/resourcethreads/" + ":id")
+      .get(this.getallThreads);
     // Need to add patch
+    this.router.route(this.path + "/download/:id").get(this.downloadResource);
   }
 
   // Goes to route /api/resources
@@ -59,22 +67,121 @@ class ResourceController {
   createResource = async (
     request: Request,
     response: Response
-  ): Promise<void> => {
+  ): Promise<Response> => {
     try {
-      // If missing non-nullable fields it will create an error
-      const resource = await sequelize.transaction(async (t) => {
-        //makes transaction that will auto rollback if error occurs
-        const resource = await Resource.create((request.body),{ transaction: t });
-        return resource;
-      });
-      
-      response.status(201).json({ resource });
+      const formData = request.body;
+
+      if (formData.type.includes("Link")) {
+        const resource = await Resource.create(request.body);
+        return response.status(201).json({ resource });
+      } else {
+        if (request.files === null) {
+          return response.status(500).json({ error: "No file uploaded" });
+        }
+
+        const file = request.files.file;
+        let moveTo: string;
+        let uri: string;
+
+        if (formData.type === "Image") {
+          moveTo = `${__dirname}/../storage/images/${file.name}`;
+          uri = `/storage/images/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              return response.status(500).send(error);
+            }
+
+            return;
+          });
+        } else if (formData.type === "Text") {
+          moveTo = `${__dirname}/../storage/text/${file.name}`;
+          uri = `/storage/text/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              return response.status(500).send(error);
+            }
+
+            return;
+          });
+        } else if (formData.type === "PDF") {
+          moveTo = `${__dirname}/../storage/pdfs/${file.name}`;
+          uri = `/storage/pdfs/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              return response.status(500).send(error);
+            }
+            return;
+          });
+        } else if (formData.type === "Powerpoint") {
+          moveTo = `${__dirname}/../storage/powerpoints/${file.name}`;
+          uri = `/storage/powerpoints/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              return response.status(500).send(error);
+            }
+            return;
+          });
+        } else if (formData.type === "Word") {
+          moveTo = `${__dirname}/../storage/word/${file.name}`;
+          uri = `/storage/word/${file.name}`;
+          file.mv(moveTo, (error: Error) => {
+            if (error) {
+              return response.status(500).send(error);
+            }
+            return;
+          });
+        }
+
+        const resource = await Resource.create({
+          type: request.body.type,
+          title: request.body.title,
+          description: request.body.description,
+          uri: uri,
+          mutable: request.body.mutable,
+          creatorid: request.body.creatorid,
+        });
+        response.status(201).json({ resource });
+      }
     } catch (error) {
+      console.log(error);
       response.status(500).send(error.message);
     }
   };
 
   // Goes to route /api/resources/:id
+
+  /**
+   * Grabs a specific resource based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  downloadResource = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; // Destructure the request.params object and grab only id
+      const resource = await Resource.findOne({
+        where: { id: id },
+      }); // Grabs the resources where the id is 0
+
+      if (resource.type === "Link") {
+        response
+          .status(500)
+          .send("No file associated with this resource. (Link Type)");
+      }
+      const file = `${__dirname}/..` + resource.uri;
+      if (resource) {
+        response.download(file);
+      } else {
+        response
+          .status(404)
+          .send("Resource with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
 
   /**
    * Grabs a specific resources based off the ID provided
@@ -150,6 +257,116 @@ class ResourceController {
       } else {
         response.status(404).send("Resource with the specified ID does not exist");
       }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  //method to get all comments associated to a specific resource id
+  getResourceComments = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; // Destructure the request.params object and grab only id
+      const resourcecomments = await Comment.findAll({
+        where: { commentedOnResource: id },
+      }); // Return the comments with the specified resource id
+
+      if (resourcecomments) {
+        response.status(201).json(resourcecomments);
+      } else {
+        response
+          .status(404)
+          .send("Resource with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  //method to return ordered threads
+  getallThreads = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params; //Grabs resource id only
+      const threads = await Comment.findAll({
+        where: { id: id },
+        include: { association: "thread" },
+      });
+      // //Algorithm to flatten an array recursively
+      // const flatDeep: (arr: any, d: number) => any[] = (arr, d = 1) => {
+      //   return d > 0
+      //     ? arr.reduce(
+      //         (arr: any, val: any) =>
+      //           arr.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
+      //         []
+      //       )
+      //     : arr.slice();
+      // };
+
+      // //Returns a list of all root comments with their children
+      // const getCommentTree = async () => {
+      //   let rootComments = await Comment.findAll({
+      //     where: {
+      //       commentedOnResource: id,
+      //     },
+      //   });
+      //   rootComments = await getChildComments(rootComments);
+      //   return rootComments;
+      // };
+
+      // //helper method to recursively search for all children of root comments
+      // const getChildComments = async (rootComments: any) => {
+      //   const expendPromise: any = [];
+      //   rootComments.forEach((item: any) => {
+      //     expendPromise.push(
+      //       Comment.findAll({
+      //         where: {
+      //           threadID: item.id,
+      //         },
+      //       })
+      //     );
+      //   });
+      //   const child = await Promise.all(expendPromise);
+      //   //eslint-disable-next-line
+      //   for (let [idx, item] of child.entries()) {
+      //     //eslint-disable-next-line
+      //     // @ts-ignore
+      //     if (item.length > 0) {
+      //       item = await getChildComments(item);
+      //     }
+      //     //eslint-disable-next-line
+      //     if (item)
+      //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //       // @ts-ignore
+      //       rootComments.push(item.flat());
+      //   }
+
+      //   return rootComments;
+      // };
+
+      // //returns the array of root comments and their children
+      // const commentTree = await getCommentTree();
+
+      // //Separates the parent comments from the comment tree
+      // const parents = commentTree.filter(
+      //   (comment) => comment.threadID === null
+      // );
+
+      // //Separates the children arrays in their threads
+      // const children = commentTree.filter((comment) => Array.isArray(comment));
+
+      // //Combines the roots and children into the same array, with the root starting the subarray followed by children
+      // const parentsAndChildren = parents.map((parent: any, index: number) => {
+      //   //eslint-disable-next-line
+      //   // @ts-ignore
+      //   return [parent, ...children[index]];
+      // });
+
+      response.status(201).json(threads);
     } catch (error) {
       response.status(500).send(error.message);
     }

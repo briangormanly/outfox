@@ -14,7 +14,11 @@ const getGroupData = async (id) => {
 };
 
 const createResource = async (newResourceObject) => {
-	const response = await axios.post(resourceURL, newResourceObject);
+	const response = await axios.post(resourceURL, newResourceObject, {
+		headers : {
+			'Content-Type' : 'multipart/form-data'
+		}
+	});
 	return response.data;
 };
 
@@ -31,6 +35,51 @@ const deleteResource = async (id) => {
 const editResource = async (id, newObject) => {
 	const response = await axios.put(`${resourceURL}/${id}`, newObject);
 	return response.data;
+};
+
+const downloadResource = async (id, type, name) => {
+	// const response = await axios.get(`${resourceURL}/download/${id}`);
+	// console.log(response);
+	// return response.data;
+	axios({
+		url          : `${resourceURL}/download/${id}`, //your url
+		method       : 'GET',
+		responseType : 'blob' // important
+	}).then((response) => {
+		console.log(response);
+		const url = window.URL.createObjectURL(new Blob([ response.data ]));
+		const link = document.createElement('a');
+		link.href = url;
+
+		let extension = '';
+
+		switch (type) {
+			case 'Text':
+				extension = '.txt';
+				break;
+			case 'PDF':
+				extension = '.pdf';
+				break;
+
+			case 'Image':
+				extension = '.JPG';
+				break;
+
+			case 'DOCX':
+				extension = '.docx';
+				break;
+			case 'PPTX':
+				extension = '.pptx';
+			default:
+				break;
+		}
+
+		let filename = `${name}${extension}`;
+
+		link.setAttribute('download', filename); //or any other extension
+		document.body.appendChild(link);
+		link.click();
+	});
 };
 
 const editGroup = async (id, newObject) => {
@@ -51,5 +100,6 @@ export default {
 	deleteResource,
 	editResource,
 	editGroup,
-	getResourceData
+	getResourceData,
+	downloadResource
 };

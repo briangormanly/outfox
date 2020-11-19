@@ -20,7 +20,8 @@ export const FolderIcon = styled(FolderSVG)`
 export const CardContainer = styled.div`
 	position: relative;
 	min-height: 15rem;
-	min-width: 35rem;
+	/* min-width: 35rem; */
+	min-width: 60rem;
 	flex: 1 0 0;
 	margin: 0 1rem;
 	padding: 1rem;
@@ -139,4 +140,19 @@ export const Attributes = styled.div`
 				font-size: 1.4rem;
 			}
 		`};
+`;
+
+export const DownloadButton = styled.button`
+	color: ${secondary};
+	border: none;
+	background-color: white;
+	font-size: 1.4rem;
+	font-weight: bolder;
+	display: flex;
+	align-items: center;
+
+	span {
+		font-family: 'Roboto';
+		color: ${secondary};
+	}
 `;

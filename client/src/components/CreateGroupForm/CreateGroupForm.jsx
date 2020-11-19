@@ -29,7 +29,11 @@ const CreateGroupForm = ({ setShowModal }) => {
 			datetimeadd      : new Date().toLocaleDateString()
 		};
 
-		storeDispatch(createGroupAction(newGroupObject));
+		try {
+			storeDispatch(createGroupAction(newGroupObject));
+		} catch (error) {
+			console.log(error);
+		}
 
 		setName('');
 		setDescription('');

@@ -15,7 +15,7 @@ export const GroupContainer = styled.div`
 	box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
 
 	display: flex;
-	justify-content: space-around;
+	justify-content: start;
 	align-items: flex-start;
 	flex-wrap: wrap;
 `;

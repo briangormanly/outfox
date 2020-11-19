@@ -3,11 +3,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import { userReducer, authReducer } from './reducers/userReducers';
+import { friendsReducer } from './reducers/friendsReducer';
+import { groupPageReducer } from './reducers/groupPageReducers';
 
 // Reducers for application state
 const reducers = combineReducers({
-	userDetail : userReducer,
-	userAuth   : authReducer
+	userDetail      : userReducer,
+	userAuth        : authReducer,
+	friendDetail    : friendsReducer,
+	groupPageDetail : groupPageReducer
 });
 
 // Redux middlewares
