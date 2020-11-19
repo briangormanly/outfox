@@ -1,6 +1,8 @@
 import React, { useState, Fragment } from 'react';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaDownload } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
+
+import groupService from '../../services/groups';
 
 import {
 	CardContainer,
@@ -8,7 +10,8 @@ import {
 	Content,
 	ButtonContainer,
 	Attributes,
-	FolderIcon
+	FolderIcon,
+	DownloadButton
 } from './ResourceCard.elements';
 
 import { ActionButton as Button } from '../../styles';
@@ -36,13 +39,24 @@ const ResourceCard = ({
 	showDescription,
 	showSVG,
 	shared,
-	sharedFrom
+	sharedFrom,
+	uri
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 	const [ showShareModal, setShowShareModal ] = useState(false);
 
 	const params = useParams();
+
+	const handleDownload = () => {
+		try {
+			groupService.downloadResource(id, type, title);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	console.log(uri);
 
 	return (
 		<Fragment>
@@ -89,9 +103,18 @@ const ResourceCard = ({
 						)}
 
 						<p>
-							<a href={link} target="_blank" rel="noopener noreferrer">
+							{uri ? (
+								<DownloadButton onClick={handleDownload}>
+									<span>Download</span> <FaDownload />
+								</DownloadButton>
+							) : (
+								<a href={link} target="_blank" rel="noopener noreferrer">
+									<span>Go To Resource</span> <FaExternalLinkAlt />
+								</a>
+							)}
+							{/* <a href={link} target="_blank" rel="noopener noreferrer">
 								<span>Go To Resource</span> <FaExternalLinkAlt />
-							</a>
+							</a> */}
 						</p>
 					</Attributes>
 					{shared && (

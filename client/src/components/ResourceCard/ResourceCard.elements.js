@@ -141,3 +141,18 @@ export const Attributes = styled.div`
 			}
 		`};
 `;
+
+export const DownloadButton = styled.button`
+	color: ${secondary};
+	border: none;
+	background-color: white;
+	font-size: 1.4rem;
+	font-weight: bolder;
+	display: flex;
+	align-items: center;
+
+	span {
+		font-family: 'Roboto';
+		color: ${secondary};
+	}
+`;
