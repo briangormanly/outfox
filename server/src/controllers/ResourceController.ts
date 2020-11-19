@@ -139,15 +139,16 @@ class ResourceController {
   ): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await Resource.destroy({
-        where: { id: id },
-      }); // Delete the resource with the specified id
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await Resource.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
         response.status(204).send("Resource Deleted");
       } else {
-        response
-          .status(404)
-          .send("Resource with the specified ID does not exist");
+        response.status(404).send("Resource with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);

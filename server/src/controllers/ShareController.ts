@@ -111,16 +111,16 @@ class ShareController implements Controller {
   ): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await ShareGroup.destroy({
-        where: { SharedID: id },
-      }); // Delete the sharedgroup with the specified id
-
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await ShareGroup.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
-        response.status(204).send("Share Group Deleted");
+        response.status(204).send("ShareGroup Deleted");
       } else {
-        response
-          .status(404)
-          .send("Shared Group with the specified ID does not exist");
+        response.status(404).send("ShareGroup with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);
@@ -141,8 +141,12 @@ class ShareController implements Controller {
     response: Response
   ): Promise<void> => {
     try {
-      const sharedresource = await ShareResource.create(request.body);
-      response.status(201).json({ sharedresource });
+      const shareresource = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const shareresource = await ShareResource.create((request.body),{ transaction: t });
+        return shareresource;
+      });
+      response.status(200).json({ shareresource });
     } catch (error) {
       response.status(500).send(error.message);
     }
@@ -198,17 +202,17 @@ class ShareController implements Controller {
     response: Response
   ): Promise<void> => {
     try {
-      const { id } = request.params;
-      const deleted = await ShareResource.destroy({
-        where: { ShareResourceId: id },
-      }); // Delete the sharedresource with the specified id
-
+      const { id } = request.params; // Destructure the object to only grab the id coming from the request
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await ShareResource.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
-        response.status(204).send("Share Resource Deleted");
+        response.status(204).send("ShareResource Deleted");
       } else {
-        response
-          .status(404)
-          .send("Shared Resource with the specified ID does not exist");
+        response.status(404).send("ShareResource with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);

@@ -144,15 +144,16 @@ class FriendController {
   ): Promise<void> => {
     try {
       const { friendRequestid } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await Friend.destroy({
-        where: { friendRequestid: friendRequestid },
-      }); // Delete the friend with the specified id
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await Friend.destroy({where: {friendRequestid: friendRequestid}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
         response.status(204).send("Friend Deleted");
       } else {
-        response
-          .status(404)
-          .send("Friend with the specified ID does not exist");
+        response.status(404).send("Friend with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);

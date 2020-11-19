@@ -152,9 +152,12 @@ class UsersController implements Controller {
   deleteUser = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await User.destroy({
-        where: { id: id },
-      }); // Delete the user with the specified id
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await User.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
         response.status(204).send("User Deleted");
       } else {
