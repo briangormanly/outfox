@@ -53,12 +53,13 @@ class TagsController implements Controller {
   createTag = async (request: Request, response: Response): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const result = await sequelize.transaction(async (t) => {
+      const tag = await sequelize.transaction(async (t) => {
         //makes transaction that will auto rollback if error occurs
         const tag = await Tag.create((request.body),{ transaction: t });
         return tag;
       });
-      response.status(201).json({ result });
+      
+      response.status(201).json({ tag });
     } catch (error) {
       response.status(500).send(error.message);
     }

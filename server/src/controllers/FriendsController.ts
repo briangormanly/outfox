@@ -65,12 +65,12 @@ class FriendController {
   ): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const result = await sequelize.transaction(async (t) => {
+      const friend = await sequelize.transaction(async (t) => {
         //makes transaction that will auto rollback if error occurs
         const friend = await Friend.create((request.body),{ transaction: t });
         return friend;
       });
-      response.status(201).json({ result });
+      response.status(201).json({ friend });
     } catch (error) {
       response.status(500).send(error.message);
     }

@@ -61,13 +61,13 @@ class UsersController implements Controller {
   createUser = async (request: Request, response: Response): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const result = await sequelize.transaction(async (t) => {
+      const user = await sequelize.transaction(async (t) => {
         //makes transaction that will auto rollback if error occurs
         const user = await User.create((request.body),{ transaction: t });
         return user;
       });
       
-      response.status(200).json({ result });
+      response.status(200).json({ user });
 
     } catch (error) {
       response.status(500).send(error.message);

@@ -50,12 +50,13 @@ class ShareController implements Controller {
     response: Response
   ): Promise<void> => {
     try {
-      const result = await sequelize.transaction(async (t) => {
+      const sharegroup = await sequelize.transaction(async (t) => {
         //makes transaction that will auto rollback if error occurs
         const sharegroup = await ShareGroup.create((request.body),{ transaction: t });
         return sharegroup;
       });
-      response.status(200).json({ result });
+      
+      response.status(200).json({ sharegroup });
     } catch (err) {
       response.status(500).send(err.message);
     }
