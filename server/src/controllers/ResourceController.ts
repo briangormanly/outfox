@@ -73,7 +73,11 @@ class ResourceController {
       const formData = request.body;
 
       if (formData.type.includes("Link")) {
-        const resource = await Resource.create(request.body);
+        const resource = await sequelize.transaction(async (t) => {
+          //makes transaction that will auto rollback if error occurs
+          const resource = await Resource.create((request.body),{ transaction: t });
+          return resource;
+        });
         return response.status(201).json({ resource });
       } else {
         if (request.files === null) {
@@ -133,14 +137,19 @@ class ResourceController {
           });
         }
 
-        const resource = await Resource.create({
-          type: request.body.type,
-          title: request.body.title,
-          description: request.body.description,
-          uri: uri,
-          mutable: request.body.mutable,
-          creatorid: request.body.creatorid,
+        const resource = await sequelize.transaction(async (t) => {
+          //makes transaction that will auto rollback if error occurs
+          const resource = await Resource.create({
+            type: request.body.type,
+            title: request.body.title,
+            description: request.body.description,
+            uri: uri,
+            mutable: request.body.mutable,
+            creatorid: request.body.creatorid,
+          },{transaction: t});
+          return resource;
         });
+
         response.status(201).json({ resource });
       }
     } catch (error) {
