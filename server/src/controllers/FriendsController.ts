@@ -114,9 +114,13 @@ class FriendController {
   ): Promise<void> => {
     try {
       const { friendRequestid } = request.params; // Destructure the object to only grab the id coming from the request
-      const [updated] = await Friend.update(request.body, {
-        where: { friendRequestid: friendRequestid },
-      }); // Destructure the array so we grab the updated version of our friends
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await Friend.update(request.body, {
+          where: { friendRequestid: friendRequestid }, transaction: t
+        });
+        return updated;
+      });
 
       if (updated) {
         const updatedFriend = await Friend.findOne({

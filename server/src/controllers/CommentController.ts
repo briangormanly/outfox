@@ -112,8 +112,12 @@ class CommentController implements Controller {
     try {
       const { id } = request.params;
 
-      const [updated] = await Comment.update(request.body, {
-        where: { id: id },
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await Comment.update(request.body, {
+          where: { id: id }, transaction: t
+        });
+        return updated;
       });
 
       if (updated) {

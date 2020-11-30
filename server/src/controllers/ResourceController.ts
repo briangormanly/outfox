@@ -219,9 +219,13 @@ class ResourceController {
   ): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const [updated] = await Resource.update(request.body, {
-        where: { id: id },
-      }); // Destructure the array so we grab the updated version of our resources
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await Resource.update(request.body, {
+          where: { id: id }, transaction: t
+        });
+        return updated;
+      });
 
       if (updated) {
         const updatedResource = await Resource.findOne({ where: { id: id } }); // Grab the update resource
