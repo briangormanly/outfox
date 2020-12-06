@@ -10,6 +10,7 @@ import session from "express-session"; // Allows for indiviudal sessions (When a
 import Controller from "./interfaces/ControllerInterface"; // The Interface declaring what a controller is (TypeScripts "Types" required otherwise ESLint gets mad at any)
 import validLogin from "./middleware/validLogin"; // Middleware Method used for authentication (Can be used for protected routes)
 import fileUpload from "express-fileupload"; // The library allowing us to upload files into the server (Should probably look into a online storage solution)
+import helmet from "helmet";
 
 /**
  * Used as the primary class for the express server
@@ -50,6 +51,7 @@ class App {
   // Application Level Middleware Initialization
   private initializeMiddlewares(): void {
     this.app.use(morgan("common"));
+    this.app.use(helmet());
     this.app.use(express.json());
     this.app.use(cors());
     this.app.use(bodyParser.json());
@@ -67,12 +69,12 @@ class App {
   }
 
   private initializeControllers(controllers: Controller[]): void {
-    const root1 = __dirname + "/../src";
-    // Only here temp so we can get a home page instead of a 404
-    this.app.get("/", (req, res) => {
-      //res.send("Do not use .render() this isn't ejs");
-      res.sendFile("test.html", { root: root1 });
-    });
+    // const root1 = __dirname + "/../src";
+    // // Only here temp so we can get a home page instead of a 404
+    // this.app.get("/", (req, res) => {
+    //   //res.send("Do not use .render() this isn't ejs");
+    //   res.sendFile("test.html", { root: root1 });
+    // });
 
     this.app.post("/login", validLogin);
 
