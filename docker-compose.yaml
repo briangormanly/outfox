@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: outfoxdb
+      POSTGRES_USER: sqlize
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  server:
+      build: './server'
+  client:
+      build: './client'
+  outfox:
+      build: '.'
+
+volumes:
+  db-data:
