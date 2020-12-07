@@ -233,12 +233,14 @@ class FriendController {
           ],
           [Op.and]: { status: "p" },
         },
-        include: {
-          model: User,
-          attributes: {
-            exclude: ["hashpw", "country", "city", "phonenum"],
-          },
-        },
+        include: [ 
+          { 
+            association: "RequestSentFrom",
+            attributes: {
+                    exclude: ["hashpw", "country", "city", "phonenum"],
+                  },
+          }
+        ],
       }); // Grabs the friends where the id is 0
 
       if (friend) {
