@@ -234,7 +234,7 @@ class FriendController {
           [Op.and]: { status: "p" },
         },
         include: {
-          model: User,
+          association: "RequestSentFrom",
           attributes: {
             exclude: ["hashpw", "country", "city", "phonenum"],
           },
