@@ -157,4 +157,56 @@ export const DownloadButton = styled.button`
 	}
 `;
 
-export const Description = styled.div`padding-left: 3rem;`;
+export const Description = styled.div`font-size: 1.4rem;`;
+
+export const ShowCommentButton = styled.button`
+	margin-top: 1.5rem;
+	/* width: 12rem; */
+	padding: 1rem 3rem;
+	background: none;
+	border: none;
+	color: ${secondary};
+	font-size: 1.4rem;
+	outline: none;
+
+	svg {
+		padding-left: 0.2rem;
+	}
+`;
+
+export const CommentContent = styled.div`
+	/* background-color: pink; */
+	margin: 0 auto;
+	width: 60rem;
+	display: flex;
+	flex-direction: column;
+`;
+
+export const CommentInput = styled.input`
+	width: 80%;
+	padding: 0.5rem 1rem;
+	border: none;
+	border-bottom: 1px solid black;
+	outline: none;
+`;
+
+export const CommentButton = styled.button`
+	width: 20%;
+	background-color: white;
+	border: 1px solid;
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
+`;
+
+export const CommentCardContent = styled.div`
+	border-bottom: 1px solid lightgray;
+	margin-bottom: 0.75rem;
+
+	p {
+		font-size: 1.4rem;
+
+		span {
+			color: ${primary};
+		}
+	}
+`;

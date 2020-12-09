@@ -86,6 +86,7 @@ const ExploreUser = () => {
 									showType
 									showDates
 									showDescription
+									resourceAttributes={resource}
 								/>
 							))}
 						</FlexContainer>

@@ -59,9 +59,40 @@ export const createUserAction = (newUserObject) => async (dispatch) => {
 };
 
 //  TODO: Add loading and better error catching
-export const createGroupAction = (newGroupObject) => async (dispatch) => {
+export const createGroupAction = (newGroupObject, resources) => async (dispatch) => {
 	try {
 		const data = await groupService.createGroup(newGroupObject);
+		const { group } = data;
+		console.log(resources);
+		console.log(group);
+
+		if (resources) {
+			console.log('IN HERE');
+			resources.map((resource) => {
+				console.log(resource);
+				const { description, fileName, link, title, type, uri } = resource;
+
+				const formData = new FormData();
+
+				if (uri) {
+					formData.append('uri', uri);
+				}
+
+				formData.append('link', link);
+				formData.append('type', type);
+				formData.append('title', title);
+				formData.append('description', description);
+				formData.append('mutable', false);
+				formData.append('fileName', fileName);
+				formData.append('GroupId', group.id);
+
+				try {
+					dispatch(addUserResource(formData));
+				} catch (error) {
+					console.log(error);
+				}
+			});
+		}
 
 		dispatch({ type: USER_ADD_GROUP, payload: data.group });
 	} catch (error) {

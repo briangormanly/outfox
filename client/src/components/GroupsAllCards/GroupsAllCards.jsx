@@ -1,8 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { deleteSharedGroup } from '../../redux/actions/userActions';
+import groupService from '../../services/groups.js';
+
+import {
+	deleteSharedGroup,
+	createGroupAction
+} from '../../redux/actions/userActions';
 
 import { GroupCard, ButtonGroup } from './GroupsAllCards.elements';
 
@@ -24,6 +29,8 @@ const GroupsAllCards = ({
 	//redux
 	const dispatch = useDispatch();
 
+	const { user } = useSelector((state) => state.userDetail);
+
 	const handleClick = () => {
 		history.push(`${location.pathname}/${id}`);
 	};
@@ -40,6 +47,24 @@ const GroupsAllCards = ({
 		}
 	};
 
+	const handleAddToMyGroups = async () => {
+		const response = await groupService.getGroupData(id);
+		// console.log(response);
+
+		const { Resources, groupdescription, groupname } = response;
+
+		const newObject = {
+			Resources,
+			groupdescription,
+			groupname,
+			createdby        : user.id,
+			datetimeadd      : new Date().toLocaleDateString()
+		};
+		console.log(newObject);
+
+		dispatch(createGroupAction(newObject, Resources));
+	};
+
 	return (
 		<GroupCard>
 			{sharedFrom && (
@@ -49,7 +74,7 @@ const GroupsAllCards = ({
 			<h2>{groupname}</h2>
 			<p>{groupdescription}</p>
 			<ButtonGroup>
-				{shared && <button>Add to My Groups</button>}
+				{shared && <button onClick={handleAddToMyGroups}>Add to My Groups</button>}
 				{shared && <button onClick={handleRemoveSharedGroup}>Remove</button>}
 				{shared ? (
 					<button onClick={viewSharedGroup}>View Group</button>
