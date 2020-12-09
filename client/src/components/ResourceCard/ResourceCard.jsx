@@ -1,8 +1,17 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaExternalLinkAlt, FaDownload } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+
+import parse from 'html-react-parser';
+
 import groupService from '../../services/groups';
+import commentService from '../../services/comments';
+import userService from '../../services/users';
+
+import { deleteSharedResource } from '../../redux/actions/userActions';
 
 import {
 	CardContainer,
@@ -11,7 +20,13 @@ import {
 	ButtonContainer,
 	Attributes,
 	FolderIcon,
-	DownloadButton
+	DownloadButton,
+	Description,
+	ShowCommentButton,
+	CommentContent,
+	CommentInput,
+	CommentButton,
+	CommentCardContent
 } from './ResourceCard.elements';
 
 import { ActionButton as Button } from '../../styles';
@@ -20,7 +35,8 @@ import {
 	Modal,
 	DeleteResourceForm,
 	EditResourceForm,
-	ShareResourceForm
+	ShareResourceForm,
+	AddSharedResourceForm
 } from '../index';
 
 const ResourceCard = ({
@@ -40,23 +56,39 @@ const ResourceCard = ({
 	showSVG,
 	shared,
 	sharedFrom,
-	uri
+	shareResourceId,
+	uri,
+	fileName,
+	resourceAttributes
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 	const [ showShareModal, setShowShareModal ] = useState(false);
+	const [ showAddToModal, setShowAddToModal ] = useState(false);
+
+	const [ showComments, setShowComments ] = useState(false);
 
 	const params = useParams();
 
+	// redux
+	const dispatch = useDispatch();
+
 	const handleDownload = () => {
 		try {
-			groupService.downloadResource(id, type, title);
+			groupService.downloadResource(id, type, title, fileName);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	console.log(uri);
+	const handleRemoveShared = () => {
+		try {
+			// shareService.deleteSharedResource(shareResourceId);
+			dispatch(deleteSharedResource(shareResourceId));
+		} catch (error) {
+			console.log('Caught an error');
+		}
+	};
 
 	return (
 		<Fragment>
@@ -73,6 +105,15 @@ const ResourceCard = ({
 			{showShareModal && (
 				<Modal setShowModal={setShowShareModal}>
 					<ShareResourceForm setShowModal={setShowShareModal} resourceID={id} />
+				</Modal>
+			)}
+			{showAddToModal && (
+				<Modal setShowModal={setShowAddToModal}>
+					<AddSharedResourceForm
+						setShowModal={setShowAddToModal}
+						resourceID={id}
+						resourceAttributes={resourceAttributes}
+					/>
 				</Modal>
 			)}
 			<CardContainer small={small}>
@@ -97,9 +138,9 @@ const ResourceCard = ({
 							</p>
 						)}
 						{showDescription && (
-							<p>
-								<span>Description:</span> {description}
-							</p>
+							<Description>
+								<span>Description:</span> {parse(description)}
+							</Description>
 						)}
 
 						<p>
@@ -107,10 +148,12 @@ const ResourceCard = ({
 								<DownloadButton onClick={handleDownload}>
 									<span>Download</span> <FaDownload />
 								</DownloadButton>
-							) : (
+							) : link ? (
 								<a href={link} target="_blank" rel="noopener noreferrer">
 									<span>Go To Resource</span> <FaExternalLinkAlt />
 								</a>
+							) : (
+								''
 							)}
 							{/* <a href={link} target="_blank" rel="noopener noreferrer">
 								<span>Go To Resource</span> <FaExternalLinkAlt />
@@ -119,13 +162,20 @@ const ResourceCard = ({
 					</Attributes>
 					{shared && (
 						<ButtonContainer>
-							<Button edit>Add to...</Button>
+							<Button edit onClick={() => setShowAddToModal(true)}>
+								Add to...
+							</Button>
+							<Button delete onClick={handleRemoveShared}>
+								Remove
+							</Button>
 						</ButtonContainer>
 					)}
 					{showButtons && (
 						<ButtonContainer>
 							{params.exploreId ? (
-								<Button edit>Add to...</Button>
+								<Button edit onClick={() => setShowAddToModal(true)}>
+									Add to...
+								</Button>
 							) : (
 								<Fragment>
 									<Button edit onClick={() => setShowEditModal(true)}>
@@ -142,8 +192,112 @@ const ResourceCard = ({
 						</ButtonContainer>
 					)}
 				</Content>
+
+				{showComments ? (
+					<ShowCommentButton onClick={() => setShowComments(false)}>
+						Hide Comments
+						<FaArrowUp />
+					</ShowCommentButton>
+				) : (
+					<ShowCommentButton onClick={() => setShowComments(true)}>
+						Show Comments
+						<FaArrowDown />
+					</ShowCommentButton>
+				)}
+
+				{showComments && <CommentContainer resourceID={id} />}
 			</CardContainer>
 		</Fragment>
+	);
+};
+
+const CommentContainer = ({ resourceID }) => {
+	const [ comment, setComment ] = useState('');
+	const [ commentArr, setCommentArr ] = useState([]);
+	const [ update, setUpdate ] = useState(0);
+
+	const userDetail = useSelector((state) => state.userDetail);
+	const { user } = userDetail;
+
+	useEffect(
+		() => {
+			const getComments = async () => {
+				const response = await commentService.getResourceComments(resourceID);
+				setCommentArr(response);
+			};
+
+			getComments();
+		},
+		[ resourceID, update ]
+	);
+
+	const handleChange = (e) => {
+		setComment(e.currentTarget.value);
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const commentObject = {
+			commentedOnResource : resourceID,
+			title               : 'comment',
+			threadID            : null,
+			body                : comment,
+			createdBy           : user.id
+		};
+
+		const response = await commentService.createComment(commentObject);
+
+		setComment('');
+		setUpdate(update + 1);
+	};
+
+	return (
+		<CommentContent>
+			{commentArr.map((comment) => <CommentCard key={comment.id} {...comment} />)}
+			<form onSubmit={handleSubmit}>
+				<CommentInput
+					placeholder="Add a public comment..."
+					value={comment}
+					onChange={handleChange}
+				/>
+				<CommentButton type="submit">Comment</CommentButton>
+			</form>
+		</CommentContent>
+	);
+};
+
+const CommentCard = ({ createdBy, id, body }) => {
+	const [ firstName, setFirstName ] = useState('');
+	const [ lastName, setLastName ] = useState('');
+
+	useEffect(
+		() => {
+			let mounted = true;
+			const getUser = async () => {
+				const response = await userService.getUser(createdBy);
+				if (mounted) {
+					setFirstName(response.firstname);
+					setLastName(response.lastname);
+				}
+			};
+
+			getUser();
+
+			return () => (mounted = false);
+		},
+		[ createdBy ]
+	);
+
+	return (
+		<CommentCardContent>
+			<p>
+				<span>
+					{firstName} {lastName} :
+				</span>{' '}
+				{body}
+			</p>
+		</CommentCardContent>
 	);
 };
 

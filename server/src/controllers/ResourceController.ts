@@ -74,6 +74,9 @@ class ResourceController {
       if (formData.type.includes("Link")) {
         const resource = await Resource.create(request.body);
         return response.status(201).json({ resource });
+      } else if (request.files === null && formData.type != "Link") {
+        const resource = await Resource.create(request.body);
+        return response.status(201).json({ resource });
       } else {
         if (request.files === null) {
           return response.status(500).json({ error: "No file uploaded" });
@@ -83,7 +86,7 @@ class ResourceController {
         let moveTo: string;
         let uri: string;
 
-        if (formData.type === "Image") {
+        if (formData.type === "JPG") {
           moveTo = `${__dirname}/../storage/images/${file.name}`;
           uri = `/storage/images/${file.name}`;
           file.mv(moveTo, (error: Error) => {
@@ -93,7 +96,7 @@ class ResourceController {
 
             return;
           });
-        } else if (formData.type === "Text") {
+        } else if (formData.type === "txt") {
           moveTo = `${__dirname}/../storage/text/${file.name}`;
           uri = `/storage/text/${file.name}`;
           file.mv(moveTo, (error: Error) => {
@@ -103,7 +106,7 @@ class ResourceController {
 
             return;
           });
-        } else if (formData.type === "PDF") {
+        } else if (formData.type === "pdf") {
           moveTo = `${__dirname}/../storage/pdfs/${file.name}`;
           uri = `/storage/pdfs/${file.name}`;
           file.mv(moveTo, (error: Error) => {
@@ -112,7 +115,7 @@ class ResourceController {
             }
             return;
           });
-        } else if (formData.type === "Powerpoint") {
+        } else if (formData.type === "pptx") {
           moveTo = `${__dirname}/../storage/powerpoints/${file.name}`;
           uri = `/storage/powerpoints/${file.name}`;
           file.mv(moveTo, (error: Error) => {
@@ -121,7 +124,7 @@ class ResourceController {
             }
             return;
           });
-        } else if (formData.type === "Word") {
+        } else if (formData.type === "docx") {
           moveTo = `${__dirname}/../storage/word/${file.name}`;
           uri = `/storage/word/${file.name}`;
           file.mv(moveTo, (error: Error) => {
@@ -142,6 +145,7 @@ class ResourceController {
         }
 
         const resource = await Resource.create({
+          ...request.body,
           type: request.body.type,
           title: request.body.title,
           description: request.body.description,

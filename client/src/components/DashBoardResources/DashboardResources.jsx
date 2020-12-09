@@ -28,7 +28,7 @@ function DashboardResources({ dashboardPaginate }) {
 	return (
 		<ResourcesContainer>
 			{showModal && (
-				<Modal setShowModal={setShowModal}>
+				<Modal large setShowModal={setShowModal}>
 					<AddResourceForm creatorid={id} setShowModal={setShowModal} />
 				</Modal>
 			)}

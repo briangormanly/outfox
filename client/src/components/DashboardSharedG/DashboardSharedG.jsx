@@ -20,6 +20,7 @@ const DashboardSharedG = () => {
 							key={group.SharedID}
 							{...group.GroupShared}
 							sharedFrom={group.SharedFrom}
+							sharedGroupID={group.SharedID}
 							shared
 						/>
 					))}

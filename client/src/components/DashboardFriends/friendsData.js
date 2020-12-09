@@ -7,7 +7,7 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Created Group CompSci',
 		time      : 'Now',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	},
 	{
 		id        : 2,
@@ -15,7 +15,7 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Added to Math',
 		time      : 'Now',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	},
 	{
 		id        : 3,
@@ -23,7 +23,7 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Create Group CMPT-424',
 		time      : '2 Hours ago',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	},
 	{
 		id        : 4,
@@ -31,7 +31,7 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Edited Group English',
 		time      : '4 Hours ago',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	},
 	{
 		id        : 5,
@@ -39,7 +39,7 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Created Group CMPT-475',
 		time      : '5 Hours ago',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	},
 	{
 		id        : 6,
@@ -47,7 +47,7 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Added New Resource',
 		time      : '8 Hours ago',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	},
 	{
 		id        : 7,
@@ -55,7 +55,7 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Deleted Group Art',
 		time      : '9 Hours ago',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	},
 	{
 		id        : 8,
@@ -63,7 +63,7 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Added to Data Structures',
 		time      : 'Yesterday',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	},
 	{
 		id        : 9,
@@ -71,6 +71,6 @@ export const friendsData = [
 		lastName  : faker.name.lastName(),
 		activity  : 'Followed Group Data Science',
 		time      : 'Yesterday',
-		image     : faker.image.avatar()
+		image     : faker.image.image()
 	}
 ];

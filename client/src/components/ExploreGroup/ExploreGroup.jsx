@@ -47,6 +47,8 @@ const ExploreGroup = ({ match }) => {
 		[ match.params.groupId, match.params.exploreId ]
 	);
 
+	console.log(date);
+
 	return (
 		<ExploreGroupContainer>
 			{loading ? (
@@ -73,6 +75,7 @@ const ExploreGroup = ({ match }) => {
 									showType
 									showDates
 									showDescription
+									resourceAttributes={resource}
 								/>
 							))}
 						</ResourceContainer>
