@@ -32,6 +32,10 @@ const AddSharedResForm = ({ setShowModal, resourceAttributes }) => {
 		if (option === 'myResources') {
 			const formData = new FormData();
 
+			if (uri) {
+				formData.append('uri', uri);
+			}
+
 			formData.append('link', link);
 			formData.append('type', type);
 			formData.append('title', title);

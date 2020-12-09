@@ -92,7 +92,7 @@ const GroupPage = ({ match }) => {
 							</ReturnLink>
 							<h1>{title}</h1>
 							<p>{description}</p>
-							<p>Create Date: {date}</p>
+							<p>Create Date: {date.slice(0, 10)}</p>
 							<ButtonContainer>
 								<Button add flex onClick={() => setShowAddModal(true)}>
 									<FaPlus />
