@@ -51,6 +51,9 @@ export { default as EditGroupForm } from './EditGroupForm/EditGroupForm';
 export {
 	default as ShareResourceForm
 } from './ShareResourceForm/ShareResourceForm.jsx';
+export {
+	default as AddSharedResourceForm
+} from './AddSharedResourceForm/AddSharedResForm';
 
 // User Page pagination
 export { default as GroupsP } from './Groups/Groups';

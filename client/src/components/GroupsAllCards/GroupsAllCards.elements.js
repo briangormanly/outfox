@@ -42,9 +42,9 @@ export const GroupCard = styled.div`
 		margin-top: 1.5rem;
 	}
 
-	button {
+	/* button {
 		display: block;
-		margin-top: auto;
+		margin-top: 2rem;
 		margin-bottom: 3rem;
 		background-color: ${primary};
 		border-radius: 5px;
@@ -56,6 +56,32 @@ export const GroupCard = styled.div`
 
 		&:hover {
 			transform: scale(1.1);
+		}
+	} */
+`;
+
+export const ButtonGroup = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	flex: 1 0 0;
+
+	button {
+		margin-top: 1rem;
+		width: 100%;
+		display: block;
+		background-color: ${primary};
+		border-radius: 5px;
+		border: none;
+		color: white;
+		padding: 0.7rem 1rem;
+		transition: 0.2s;
+		cursor: pointer;
+
+		&:hover {
+			background-color: white;
+			color: ${primary};
+			border: 1px solid ${primary};
 		}
 	}
 `;

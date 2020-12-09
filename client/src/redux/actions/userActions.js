@@ -12,7 +12,9 @@ import {
 	USER_EDIT_RESOURCE,
 	USER_DELETE_RESOURCE,
 	USER_GET_SHARED_GROUPS,
-	USER_GET_SHARED_RESOURCES
+	USER_GET_SHARED_RESOURCES,
+	USER_DELETE_SHARED_GROUP,
+	USER_DELETE_SHARED_RESOURCE
 } from '../constants/userConstants';
 
 import userService from '../../services/users';
@@ -113,6 +115,24 @@ export const getSharedResources = (id) => async (dispatch) => {
 	try {
 		const data = await shareService.getSharedResources(id);
 		dispatch({ type: USER_GET_SHARED_RESOURCES, payload: data });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const deleteSharedResource = (id) => async (dispatch) => {
+	try {
+		await shareService.deleteSharedResource(id);
+		dispatch({ type: USER_DELETE_SHARED_RESOURCE, payload: id });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const deleteSharedGroup = (id) => async (dispatch) => {
+	try {
+		await shareService.deleteSharedGroup(id);
+		dispatch({ type: USER_DELETE_SHARED_GROUP, payload: id });
 	} catch (error) {
 		console.log(error);
 	}

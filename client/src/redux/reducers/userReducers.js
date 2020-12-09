@@ -12,7 +12,9 @@ import {
 	USER_EDIT_RESOURCE,
 	USER_DELETE_RESOURCE,
 	USER_GET_SHARED_GROUPS,
-	USER_GET_SHARED_RESOURCES
+	USER_GET_SHARED_RESOURCES,
+	USER_DELETE_SHARED_RESOURCE,
+	USER_DELETE_SHARED_GROUP
 } from '../constants/userConstants';
 
 import { DELETE_GROUP } from '../constants/groupPageConstants';
@@ -38,8 +40,8 @@ export const userReducer = (
 		case USER_SUCCESS:
 			return {
 				...state,
-				loading: false,
-				user: { ...state.user, ...action.payload }
+				loading : false,
+				user    : { ...state.user, ...action.payload }
 			};
 		case USER_FAIL:
 			return { ...state, user: null, loading: false };
@@ -98,6 +100,24 @@ export const userReducer = (
 				...state,
 				user : { ...state.user, SharedResources: [ ...action.payload ] }
 			};
+		case USER_DELETE_SHARED_RESOURCE: {
+			const filteredSharedResources = state.user.SharedResources.filter(
+				(resource) => resource.ShareResourceId !== action.payload
+			);
+			return {
+				...state,
+				user : { ...state.user, SharedResources: [ ...filteredSharedResources ] }
+			};
+		}
+		case USER_DELETE_SHARED_GROUP: {
+			const filteredSharedGroups = state.user.SharedGroups.filter(
+				(resource) => resource.SharedID !== action.payload
+			);
+			return {
+				...state,
+				user : { ...state.user, SharedGroups: [ ...filteredSharedGroups ] }
+			};
+		}
 		case USER_LOGOUT:
 			return {
 				...state,

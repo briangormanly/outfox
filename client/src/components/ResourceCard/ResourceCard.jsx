@@ -1,8 +1,12 @@
 import React, { useState, Fragment } from 'react';
+import { useDispatch } from 'react-redux';
 import { FaExternalLinkAlt, FaDownload } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 
 import groupService from '../../services/groups';
+import shareService from '../../services/sharing';
+
+import { deleteSharedResource } from '../../redux/actions/userActions';
 
 import {
 	CardContainer,
@@ -20,7 +24,8 @@ import {
 	Modal,
 	DeleteResourceForm,
 	EditResourceForm,
-	ShareResourceForm
+	ShareResourceForm,
+	AddSharedResourceForm
 } from '../index';
 
 const ResourceCard = ({
@@ -40,23 +45,41 @@ const ResourceCard = ({
 	showSVG,
 	shared,
 	sharedFrom,
-	uri
+	shareResourceId,
+	uri,
+	fileName,
+	resourceAttributes
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 	const [ showShareModal, setShowShareModal ] = useState(false);
+	const [ showAddToModal, setShowAddToModal ] = useState(false);
 
 	const params = useParams();
 
+	// redux
+	const dispatch = useDispatch();
+
 	const handleDownload = () => {
 		try {
-			groupService.downloadResource(id, type, title);
+			groupService.downloadResource(id, type, title, fileName);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	console.log(uri);
+	const handleRemoveShared = () => {
+		try {
+			console.log('Remove shared resource');
+			console.log(shareResourceId);
+			// shareService.deleteSharedResource(shareResourceId);
+			dispatch(deleteSharedResource(shareResourceId));
+		} catch (error) {
+			console.log('Caught an error');
+		}
+	};
+
+	const handleAddTo = () => {};
 
 	return (
 		<Fragment>
@@ -73,6 +96,15 @@ const ResourceCard = ({
 			{showShareModal && (
 				<Modal setShowModal={setShowShareModal}>
 					<ShareResourceForm setShowModal={setShowShareModal} resourceID={id} />
+				</Modal>
+			)}
+			{showAddToModal && (
+				<Modal setShowModal={setShowAddToModal}>
+					<AddSharedResourceForm
+						setShowModal={setShowAddToModal}
+						resourceID={id}
+						resourceAttributes={resourceAttributes}
+					/>
 				</Modal>
 			)}
 			<CardContainer small={small}>
@@ -119,13 +151,20 @@ const ResourceCard = ({
 					</Attributes>
 					{shared && (
 						<ButtonContainer>
-							<Button edit>Add to...</Button>
+							<Button edit onClick={() => setShowAddToModal(true)}>
+								Add to...
+							</Button>
+							<Button delete onClick={handleRemoveShared}>
+								Remove
+							</Button>
 						</ButtonContainer>
 					)}
 					{showButtons && (
 						<ButtonContainer>
 							{params.exploreId ? (
-								<Button edit>Add to...</Button>
+								<Button edit onClick={() => setShowAddToModal(true)}>
+									Add to...
+								</Button>
 							) : (
 								<Fragment>
 									<Button edit onClick={() => setShowEditModal(true)}>

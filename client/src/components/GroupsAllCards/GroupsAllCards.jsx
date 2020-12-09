@@ -1,7 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-import { GroupCard } from './GroupsAllCards.elements';
+import { deleteSharedGroup } from '../../redux/actions/userActions';
+
+import { GroupCard, ButtonGroup } from './GroupsAllCards.elements';
 
 const GroupsAllCards = ({
 	id,
@@ -9,16 +12,17 @@ const GroupsAllCards = ({
 	groupdescription,
 	groupname,
 	shared,
-	sharedFrom
+	sharedFrom,
+	sharedGroupID
 }) => {
 	const date = datetimeadd.slice(0, 10);
 	const history = useHistory();
 	// const params = useParams();
 	const location = useLocation();
 	const params = useParams();
-	console.log(params);
 
-	console.log(sharedFrom);
+	//redux
+	const dispatch = useDispatch();
 
 	const handleClick = () => {
 		history.push(`${location.pathname}/${id}`);
@@ -27,6 +31,15 @@ const GroupsAllCards = ({
 	const viewSharedGroup = () => {
 		history.push(`/user/${params.id}/explore/${sharedFrom.id}/${id}`);
 	};
+
+	const handleRemoveSharedGroup = () => {
+		try {
+			dispatch(deleteSharedGroup(sharedGroupID));
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<GroupCard>
 			{sharedFrom && (
@@ -35,12 +48,15 @@ const GroupsAllCards = ({
 			<div>Created: {date}</div>
 			<h2>{groupname}</h2>
 			<p>{groupdescription}</p>
-			{shared ? <button>Add to...</button> : ''}
-			{shared ? (
-				<button onClick={viewSharedGroup}>View Group</button>
-			) : (
-				<button onClick={handleClick}>View Group</button>
-			)}
+			<ButtonGroup>
+				{shared && <button>Add to My Groups</button>}
+				{shared && <button onClick={handleRemoveSharedGroup}>Remove</button>}
+				{shared ? (
+					<button onClick={viewSharedGroup}>View Group</button>
+				) : (
+					<button onClick={handleClick}>View Group</button>
+				)}
+			</ButtonGroup>
 		</GroupCard>
 	);
 };

@@ -4,7 +4,14 @@ import { addUserResource } from '../../redux/actions/userActions';
 import { addGroupResource } from '../../redux/actions/groupPageActions';
 import FormInput from '../Form-Input/Form-Input';
 
-import { ButtonGroup, FileInput, TypeField } from './AddResourceForm.elements';
+import {
+	ButtonGroup,
+	FileInput,
+	TypeField,
+	SelectResourceText,
+	TypeButton,
+	HeaderText
+} from './AddResourceForm.elements';
 
 import { ActionButton } from '../../styles';
 
@@ -24,6 +31,7 @@ function reducer(state, { field, value }) {
 const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 	const [ type, setType ] = useState('Link');
 	const [ file, setFile ] = useState('');
+	const [ fileName, setFileName ] = useState('');
 
 	const [ state, dispatch ] = useReducer(reducer, initialState);
 	const { title, description, link } = state;
@@ -33,7 +41,6 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Submitted');
 
 		if (!title || !description) {
 			console.log('Please Enter All Fields');
@@ -41,10 +48,28 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 		}
 
 		const formData = new FormData();
-		formData.append('type', type);
+
+		if (type === 'File') {
+			console.log('A file was uploaded');
+			console.log(fileName);
+
+			for (let i = fileName.length; i >= 0; i--) {
+				if (fileName[i] === '.') {
+					formData.append('type', fileName.slice(i + 1));
+					break;
+				}
+			}
+
+			// formData.append('type', type);
+		} else {
+			console.log('A Link was uploaded');
+			formData.append('type', type);
+		}
+
 		formData.append('title', title);
 		formData.append('description', description);
 		formData.append('mutable', false);
+		formData.append('fileName', fileName);
 
 		if (type === 'Link') {
 			formData.append('link', link);
@@ -53,6 +78,12 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 		}
 
 		let newObject = {};
+
+		console.log('Group ID:');
+		console.log(GroupId);
+
+		console.log('CreatorId:');
+		console.log(creatorid);
 
 		if (GroupId) {
 			formData.append('GroupId', GroupId);
@@ -84,32 +115,24 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 
 	const handleChange = (e) => {
 		setFile(e.target.files[0]);
+		setFileName(e.target.files[0].name);
 	};
 
 	return (
 		<Fragment>
-			<h1>Add Resource</h1>
+			<HeaderText>Add Resource</HeaderText>
 			<form onSubmit={handleSubmit}>
-				<h2>Select Resource Type:</h2>
+				<SelectResourceText>Select Resource Type:</SelectResourceText>
 				<ButtonGroup>
-					<button type="button" onClick={() => setType('Link')}>
+					<TypeButton type="button" onClick={() => setType('Link')}>
 						Link
-					</button>
-					<button type="button" onClick={() => setType('PDF')}>
-						PDF
-					</button>
-					<button type="button" onClick={() => setType('Image')}>
-						Image
-					</button>
-					<button type="button" onClick={() => setType('Text')}>
-						TXT
-					</button>
-					<button type="button" onClick={() => setType('PPTX')}>
-						PPTX
-					</button>
-					<button type="button" onClick={() => setType('DOCX')}>
-						DOCX
-					</button>
+					</TypeButton>
+					<TypeButton type="button" onClick={() => setType('File')}>
+						File
+					</TypeButton>
+					<TypeButton type="button" onClick={() => setType('Text')}>
+						Text Editor
+					</TypeButton>
 				</ButtonGroup>
 				<TypeField>
 					<h3>Type: {type}</h3>
