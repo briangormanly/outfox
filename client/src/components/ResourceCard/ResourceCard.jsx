@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { FaExternalLinkAlt, FaDownload } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 
+import parse from 'html-react-parser';
+
 import groupService from '../../services/groups';
 import shareService from '../../services/sharing';
 
@@ -15,7 +17,8 @@ import {
 	ButtonContainer,
 	Attributes,
 	FolderIcon,
-	DownloadButton
+	DownloadButton,
+	Description
 } from './ResourceCard.elements';
 
 import { ActionButton as Button } from '../../styles';
@@ -79,8 +82,6 @@ const ResourceCard = ({
 		}
 	};
 
-	const handleAddTo = () => {};
-
 	return (
 		<Fragment>
 			{showEditModal && (
@@ -130,7 +131,7 @@ const ResourceCard = ({
 						)}
 						{showDescription && (
 							<p>
-								<span>Description:</span> {description}
+								<span>Description:</span> {parse(description)}
 							</p>
 						)}
 
@@ -139,10 +140,12 @@ const ResourceCard = ({
 								<DownloadButton onClick={handleDownload}>
 									<span>Download</span> <FaDownload />
 								</DownloadButton>
-							) : (
+							) : link ? (
 								<a href={link} target="_blank" rel="noopener noreferrer">
 									<span>Go To Resource</span> <FaExternalLinkAlt />
 								</a>
+							) : (
+								''
 							)}
 							{/* <a href={link} target="_blank" rel="noopener noreferrer">
 								<span>Go To Resource</span> <FaExternalLinkAlt />

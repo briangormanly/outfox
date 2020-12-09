@@ -16,6 +16,8 @@ const AddSharedResForm = ({ setShowModal, resourceAttributes }) => {
 	const [ option, setOption ] = useState('myResources');
 	const [ groupArr, setGroupArr ] = useState([]);
 
+	console.log(groupArr);
+
 	const { user } = useSelector((state) => state.userDetail);
 	console.log(user);
 	const dispatch = useDispatch();
@@ -37,7 +39,6 @@ const AddSharedResForm = ({ setShowModal, resourceAttributes }) => {
 			formData.append('mutable', false);
 			formData.append('fileName', fileName);
 			formData.append('creatorid', user.id);
-			formData.append('uri', uri);
 
 			try {
 				dispatch(addUserResource(formData));
@@ -45,6 +46,11 @@ const AddSharedResForm = ({ setShowModal, resourceAttributes }) => {
 				console.log(error);
 			}
 		}
+
+		if (option === 'myGroups') {
+		}
+
+		setShowModal(false);
 	};
 
 	const handleChange = (e) => {
