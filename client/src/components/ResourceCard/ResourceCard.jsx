@@ -40,7 +40,8 @@ const ResourceCard = ({
 	showSVG,
 	shared,
 	sharedFrom,
-	uri
+	uri,
+	fileName
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
@@ -50,13 +51,14 @@ const ResourceCard = ({
 
 	const handleDownload = () => {
 		try {
-			groupService.downloadResource(id, type, title);
+			groupService.downloadResource(id, type, title, fileName);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	console.log(uri);
+	console.log('From resource card');
+	console.log(fileName);
 
 	return (
 		<Fragment>

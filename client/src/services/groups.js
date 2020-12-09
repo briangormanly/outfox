@@ -37,7 +37,7 @@ const editResource = async (id, newObject) => {
 	return response.data;
 };
 
-const downloadResource = async (id, type, name) => {
+const downloadResource = async (id, type, name, fileName) => {
 	// const response = await axios.get(`${resourceURL}/download/${id}`);
 	// console.log(response);
 	// return response.data;
@@ -74,9 +74,9 @@ const downloadResource = async (id, type, name) => {
 				break;
 		}
 
-		let filename = `${name}${extension}`;
+		// let filename = `${name}${extension}`;
 
-		link.setAttribute('download', filename); //or any other extension
+		link.setAttribute('download', fileName); //or any other extension
 		document.body.appendChild(link);
 		link.click();
 	});

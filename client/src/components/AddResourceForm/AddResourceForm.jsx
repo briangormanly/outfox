@@ -24,6 +24,7 @@ function reducer(state, { field, value }) {
 const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 	const [ type, setType ] = useState('Link');
 	const [ file, setFile ] = useState('');
+	const [ fileName, setFileName ] = useState('');
 
 	const [ state, dispatch ] = useReducer(reducer, initialState);
 	const { title, description, link } = state;
@@ -45,6 +46,7 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 		formData.append('title', title);
 		formData.append('description', description);
 		formData.append('mutable', false);
+		formData.append('fileName', fileName);
 
 		if (type === 'Link') {
 			formData.append('link', link);
@@ -84,6 +86,7 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 
 	const handleChange = (e) => {
 		setFile(e.target.files[0]);
+		setFileName(e.target.files[0].name);
 	};
 
 	return (
