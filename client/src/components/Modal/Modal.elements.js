@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 
 import { colors } from '../../styles';
@@ -40,6 +40,8 @@ export const ModalContent = styled(motion.div)`
   display: flex;
   flex-direction: column;
 	z-index: 20;
+
+	${(props) => props.large && css`max-width: 60rem;`}
 `;
 
 export const ExitButtonContainer = styled.div`

@@ -156,3 +156,5 @@ export const DownloadButton = styled.button`
 		color: ${secondary};
 	}
 `;
+
+export const Description = styled.div`padding-left: 3rem;`;

@@ -29,7 +29,7 @@ const contentVariants = {
 	}
 };
 
-const Modal = ({ setShowModal, children }) => {
+const Modal = ({ setShowModal, children, large }) => {
 	return (
 		<ModalContainer>
 			<BackDrop
@@ -38,7 +38,12 @@ const Modal = ({ setShowModal, children }) => {
 				initial="hidden"
 				animate="visible"
 			/>
-			<ModalContent variants={contentVariants} initial="hidden" animate="visible">
+			<ModalContent
+				large={large}
+				variants={contentVariants}
+				initial="hidden"
+				animate="visible"
+			>
 				<ExitButtonContainer>
 					<button onClick={() => setShowModal(false)}>
 						<FaTimes />
