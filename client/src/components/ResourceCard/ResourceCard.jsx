@@ -1,8 +1,12 @@
 import React, { useState, Fragment } from 'react';
+import { useDispatch } from 'react-redux';
 import { FaExternalLinkAlt, FaDownload } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 
 import groupService from '../../services/groups';
+import shareService from '../../services/sharing';
+
+import { deleteSharedResource } from '../../redux/actions/userActions';
 
 import {
 	CardContainer,
@@ -40,6 +44,7 @@ const ResourceCard = ({
 	showSVG,
 	shared,
 	sharedFrom,
+	shareResourceId,
 	uri,
 	fileName
 }) => {
@@ -49,11 +54,25 @@ const ResourceCard = ({
 
 	const params = useParams();
 
+	// redux
+	const dispatch = useDispatch();
+
 	const handleDownload = () => {
 		try {
 			groupService.downloadResource(id, type, title, fileName);
 		} catch (error) {
 			console.log(error);
+		}
+	};
+
+	const handleRemoveShared = () => {
+		try {
+			console.log('Remove shared resource');
+			console.log(shareResourceId);
+			// shareService.deleteSharedResource(shareResourceId);
+			dispatch(deleteSharedResource(shareResourceId));
+		} catch (error) {
+			console.log('Caught an error');
 		}
 	};
 
@@ -119,6 +138,9 @@ const ResourceCard = ({
 					{shared && (
 						<ButtonContainer>
 							<Button edit>Add to...</Button>
+							<Button delete onClick={handleRemoveShared}>
+								Remove
+							</Button>
 						</ButtonContainer>
 					)}
 					{showButtons && (

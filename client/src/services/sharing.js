@@ -14,9 +14,15 @@ const shareGroup = (newObject) => {
 	return response.then((response) => response.data);
 };
 
-const deleteSharedGroup = (id) => {};
+const deleteSharedGroup = (id) => {
+	const response = axios.delete(`${groupShareURL}/${id}`);
+	return response.then((response) => response.data);
+};
 
-const deleteSharedResource = (id) => {};
+const deleteSharedResource = (id) => {
+	const response = axios.delete(`${resourceShareURL}/${id}`);
+	return response.then((response) => response.data);
+};
 
 const getSharedResources = (id) => {
 	const response = axios.get(`${resourceShareURL}/${id}`);
@@ -32,5 +38,7 @@ export default {
 	getSharedGroups,
 	shareGroup,
 	getSharedResources,
-	shareResource
+	shareResource,
+	deleteSharedResource,
+	deleteSharedGroup
 };

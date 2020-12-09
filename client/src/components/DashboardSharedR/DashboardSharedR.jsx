@@ -23,6 +23,7 @@ const DashboardSharedR = () => {
 							key={resource.ShareResourceId}
 							{...resource.ResourceShared}
 							sharedFrom={resource.SharedFrom}
+							shareResourceId={resource.ShareResourceId}
 							showType
 							showDates
 							showDescription

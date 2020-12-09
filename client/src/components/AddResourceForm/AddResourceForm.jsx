@@ -135,15 +135,6 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 					<TypeButton type="button" onClick={() => setType('Text')}>
 						Text Editor
 					</TypeButton>
-					{/* <button type="button" onClick={() => setType('Text')}>
-						TXT
-					</button>
-					<button type="button" onClick={() => setType('PPTX')}>
-						PPTX
-					</button>
-					<button type="button" onClick={() => setType('DOCX')}>
-						DOCX
-					</button> */}
 				</ButtonGroup>
 				<TypeField>
 					<h3>Type: {type}</h3>
