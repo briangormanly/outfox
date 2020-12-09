@@ -28,6 +28,7 @@ const DashboardSharedR = () => {
 							showDates
 							showDescription
 							shared
+							resourceAttributes={resource.ResourceShared}
 						/>
 					))}
 			</SharedResourceList>

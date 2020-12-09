@@ -24,7 +24,8 @@ import {
 	Modal,
 	DeleteResourceForm,
 	EditResourceForm,
-	ShareResourceForm
+	ShareResourceForm,
+	AddSharedResourceForm
 } from '../index';
 
 const ResourceCard = ({
@@ -46,11 +47,13 @@ const ResourceCard = ({
 	sharedFrom,
 	shareResourceId,
 	uri,
-	fileName
+	fileName,
+	resourceAttributes
 }) => {
 	const [ showEditModal, setShowEditModal ] = useState(false);
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 	const [ showShareModal, setShowShareModal ] = useState(false);
+	const [ showAddToModal, setShowAddToModal ] = useState(false);
 
 	const params = useParams();
 
@@ -76,6 +79,8 @@ const ResourceCard = ({
 		}
 	};
 
+	const handleAddTo = () => {};
+
 	return (
 		<Fragment>
 			{showEditModal && (
@@ -91,6 +96,15 @@ const ResourceCard = ({
 			{showShareModal && (
 				<Modal setShowModal={setShowShareModal}>
 					<ShareResourceForm setShowModal={setShowShareModal} resourceID={id} />
+				</Modal>
+			)}
+			{showAddToModal && (
+				<Modal setShowModal={setShowAddToModal}>
+					<AddSharedResourceForm
+						setShowModal={setShowAddToModal}
+						resourceID={id}
+						resourceAttributes={resourceAttributes}
+					/>
 				</Modal>
 			)}
 			<CardContainer small={small}>
@@ -137,7 +151,9 @@ const ResourceCard = ({
 					</Attributes>
 					{shared && (
 						<ButtonContainer>
-							<Button edit>Add to...</Button>
+							<Button edit onClick={() => setShowAddToModal(true)}>
+								Add to...
+							</Button>
 							<Button delete onClick={handleRemoveShared}>
 								Remove
 							</Button>
@@ -146,7 +162,9 @@ const ResourceCard = ({
 					{showButtons && (
 						<ButtonContainer>
 							{params.exploreId ? (
-								<Button edit>Add to...</Button>
+								<Button edit onClick={() => setShowAddToModal(true)}>
+									Add to...
+								</Button>
 							) : (
 								<Fragment>
 									<Button edit onClick={() => setShowEditModal(true)}>
