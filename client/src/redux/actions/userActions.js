@@ -66,7 +66,8 @@ export const createGroupAction = (newGroupObject, resources) => async (dispatch)
 		console.log(resources);
 		console.log(group);
 
-		if (resources.length > 0) {
+		if (resources) {
+			console.log('IN HERE');
 			resources.map((resource) => {
 				console.log(resource);
 				const { description, fileName, link, title, type, uri } = resource;
