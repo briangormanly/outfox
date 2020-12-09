@@ -136,6 +136,7 @@ class ResourceController {
 				}
 
 				const resource = await Resource.create({
+					...request.body,
 					type: request.body.type,
 					title: request.body.title,
 					description: request.body.description,

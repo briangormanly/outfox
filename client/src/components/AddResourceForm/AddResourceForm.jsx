@@ -49,8 +49,6 @@ const AddResourceForm = ({ creatorid, GroupId, setShowModal }) => {
 
 		const formData = new FormData();
 
-		console.log(type);
-
 		if (type === 'File') {
 			console.log('A file was uploaded');
 			console.log(fileName);
