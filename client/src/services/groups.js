@@ -38,11 +38,8 @@ const editResource = async (id, newObject) => {
 };
 
 const downloadResource = async (id, type, name, fileName) => {
-	// const response = await axios.get(`${resourceURL}/download/${id}`);
-	// console.log(response);
-	// return response.data;
 	axios({
-		url          : `${resourceURL}/download/${id}`, //your url
+		url          : `${resourceURL}/download/${id}`,
 		method       : 'GET',
 		responseType : 'blob' // important
 	}).then((response) => {
@@ -51,32 +48,7 @@ const downloadResource = async (id, type, name, fileName) => {
 		const link = document.createElement('a');
 		link.href = url;
 
-		let extension = '';
-
-		switch (type) {
-			case 'Text':
-				extension = '.txt';
-				break;
-			case 'PDF':
-				extension = '.pdf';
-				break;
-
-			case 'Image':
-				extension = '.JPG';
-				break;
-
-			case 'DOCX':
-				extension = '.docx';
-				break;
-			case 'PPTX':
-				extension = '.pptx';
-			default:
-				break;
-		}
-
-		// let filename = `${name}${extension}`;
-
-		link.setAttribute('download', fileName); //or any other extension
+		link.setAttribute('download', fileName);
 		document.body.appendChild(link);
 		link.click();
 	});

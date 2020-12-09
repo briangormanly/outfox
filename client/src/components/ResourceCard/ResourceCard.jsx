@@ -57,9 +57,6 @@ const ResourceCard = ({
 		}
 	};
 
-	console.log('From resource card');
-	console.log(fileName);
-
 	return (
 		<Fragment>
 			{showEditModal && (
