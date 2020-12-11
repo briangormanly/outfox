@@ -34,7 +34,10 @@ class App {
    * TO DO: Delete the db connection file and then export App and use App.sequelize everywhere (!!!)
    */
   private async initializeDatabaseConnection(): Promise<void> {
-    this.sequelize = new Sequelize("outfoxdb", "sqlize", "", {
+    /**
+     * TODO - URBG: Database settings should be moved out to env or properties file
+     */
+    this.sequelize = new Sequelize("outfox", "outfox", "outfoxdevpass", {
       host: "localhost",
       dialect: "postgres",
     });

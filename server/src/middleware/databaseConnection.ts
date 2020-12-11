@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize";
-const sequelize = new Sequelize("outfoxdb", "sqlize", "", {
+const sequelize = new Sequelize("outfox", "outfox", "outfoxdevpass", {
   host: "localhost",
-  username: "sqlize",
   dialect: "postgres",
   logging: false,
 });

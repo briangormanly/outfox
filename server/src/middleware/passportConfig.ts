@@ -20,10 +20,15 @@ passport.use(
       }
 
       // Match password
-      const isMatch = bcrypt.compareSync(password, user.hashpw);
-      if (isMatch) {
-        done(null, user);
-      } else {
+      if(user) {
+        const isMatch = bcrypt.compareSync(password, user.hashpw);
+        if (isMatch) {
+          done(null, user);
+        } else {
+          done(null, false);
+        }
+      }
+      else {
         done(null, false);
       }
     }
