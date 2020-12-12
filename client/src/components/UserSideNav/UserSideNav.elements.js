@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { primary, white } = colors;
+const { primary, white, primaryDark } = colors;
 
 export const UserSideNavContainer = styled.div`
 	width: 100%;
@@ -66,10 +66,10 @@ export const SideNavButton = styled.button`
 	${({ active }) =>
 		active &&
 		css`
-			background: ${primary};
+			background: ${primaryDark};
 			color: ${white};
 		`} &:hover {
-		background: ${primary};
+		background: ${primaryDark};
 		color: ${white};
 	}
 `;

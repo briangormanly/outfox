@@ -37,9 +37,9 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const colors = {
-	primary        : '#8B0101',
-	primaryLight   : '#f5abab',
-	primaryDark    : '#400000',
+	primary        : '#87847a',
+	primaryLight   : '#d1ccbc',
+	primaryDark    : '#5c584d',
 	secondary      : '#129696',
 	secondaryLight : '#2ed1d1',
 	secondaryDark  : '',
@@ -70,20 +70,20 @@ export const Link = styled(RouterLink)`
 `;
 
 export const SignInButton = styled(Link)`
-  background-color: ${colors.primary};
+  background-color: ${colors.primaryDark};
   color: ${colors.white};
   border-radius: 50px;
 
   &:hover{
     background-color: ${colors.white};
-    color: ${colors.primary};
-    border: 1px solid ${colors.primary};
+    color: ${colors.primaryDark};
+    border: 1px solid ${colors.primaryDark};
   }
 `;
 
 export const Button = styled.button`
 	border-radius: 4px;
-	background: ${colors.primary};
+	background: ${colors.primaryDark};
 	white-space: nowrap;
 	padding: 1rem 2rem;
 	color: ${colors.white};

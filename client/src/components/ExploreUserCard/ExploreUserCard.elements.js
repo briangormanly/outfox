@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors, ActionButton } from '../../styles';
 
-const { primary, mediumGrey, darkGrey } = colors;
+const { primary, primaryDark, mediumGrey, darkGrey } = colors;
 
 export const ExploreCard = styled.div`
 	display: flex;

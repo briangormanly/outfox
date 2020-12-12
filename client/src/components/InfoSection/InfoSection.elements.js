@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 import { colors, Container } from '../../styles/globalStyles';
 
-const { primary, lightGrey, black } = colors;
+const { primary, primaryLight, primaryDark, lightGrey, black, white } = colors;
 
 export const InfoSec = styled.section`
-	height: 70vh;
+	height: 50vh;
 	width: 100%;
-	background-color: ${lightGrey};
-	margin-top: 3rem;
+	background-color: ${primaryLight};
+	margin-top: 0rem;
 `;
 
 export const InfoContainer = styled(Container)`
@@ -46,12 +46,12 @@ export const Column2 = styled(Column1)`
 export const Header = styled.h3`
 	font-size: 3em;
 	margin-top: 5rem;
-	color: ${primary};
+	color: ${white};
 	padding-left: 4rem;
 `;
 
 export const Description = styled.p`
-	color: ${black};
+	color: ${primaryDark};
 	margin-top: 3rem;
 	max-width: 45rem;
 	line-height: 1.5;

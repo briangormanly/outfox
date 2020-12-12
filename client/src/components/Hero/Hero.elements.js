@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 import { Container, colors, SignInButton } from '../../styles/globalStyles';
 
-const { lightGrey, primary, black } = colors;
+const { lightGrey, primary, primaryDark, black } = colors;
 
 export const HeroSection = styled.section`
-	height: 85vh;
+	height: 50vh;
 	background-color: ${lightGrey};
 `;
 
@@ -58,7 +58,7 @@ export const Img = styled.img`
 
 export const HeroHeader = styled.h1`
 	font-size: 6rem;
-	color: ${primary};
+	color: ${primaryDark};
 	margin-top: 10rem;
 
 	@media screen and (max-width: 620px) {

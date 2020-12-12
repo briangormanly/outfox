@@ -17,8 +17,14 @@ import {
 	LoginMessage,
 	ErrorMessage
 } from './SignUp.elements';
+
+import {
+	AppLogo
+} from '../HomeNavbar/HomeNavbar.elements';
+import logoImage from '../../assets/new-fox.png';
+
 import { Link } from '../../styles';
-import { ReactComponent as Logo } from '../../assets/fox.svg';
+//import { ReactComponent as Logo } from '../../assets/fox.svg';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
 
@@ -55,7 +61,6 @@ const SignIn = () => {
 		<SignUpSection>
 			<SignUpContainer>
 				<HeaderContainer>
-					<Logo />
 					<HeaderText>Outfox</HeaderText>
 				</HeaderContainer>
 				<AuthButtons />

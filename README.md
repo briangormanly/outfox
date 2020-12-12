@@ -12,21 +12,13 @@ More detail:
 
 (In PostgreSQL)
 ```
-CREATE ROLE outfox WITH CREATEDB CREATEROLE LOGIN INHERIT PASSWORD 'yoursecurepassword!';
+CREATE ROLE outfox WITH CREATEDB CREATEROLE LOGIN INHERIT PASSWORD 'outfoxdevpass!';
 CREATE DATABASE outfox;
 GRANT ALL PRIVILEGES ON DATABASE outfox TO outfox;
 ```
 
-3. Populate the database
-(Example in PostgreSQL)
-```
-psql outfox -d outfox -a -f ./Database/CreateTables.sql
-(optional)
-psql outfox -d outfox -a -f ./Database/SampleData.sql
-```
-
 3. Configure the database
-(In ./server/src/App.ts set initializeDatabaseConnection with correct DB settings (database, user, password))
+(In ./server/src/middleware/databaseConnection.ts set initializeDatabaseConnection with correct DB settings (database, user, password))
 See Sequelize documentation here: https://sequelize.org/master/manual/getting-started.html
 
 4. Resolve dependancies

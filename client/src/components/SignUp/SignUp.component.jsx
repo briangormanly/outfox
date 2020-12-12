@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
-import { ReactComponent as Logo } from '../../assets/fox.svg';
+//import { ReactComponent as Logo } from '../../assets/fox.svg';
+import {
+	AppLogo
+} from '../HomeNavbar/HomeNavbar.elements';
+import logoImage from '../../assets/new-fox.png';
 
 import {
 	SignUpSection,
@@ -85,7 +89,6 @@ const SignUpComponent = () => {
 		<SignUpSection>
 			<SignUpContainer>
 				<HeaderContainer>
-					<Logo />
 					<HeaderText>Outfox</HeaderText>
 				</HeaderContainer>
 				<AuthButtons />

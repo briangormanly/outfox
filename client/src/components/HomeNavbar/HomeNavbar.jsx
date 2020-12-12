@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
-import { ReactComponent as Logo } from '../../assets/fox-unfilled.svg';
+//import { ReactComponent as Logo } from '../../assets/fox-unfilled.svg';
+
 
 import {
 	Nav,
@@ -15,8 +16,10 @@ import {
 	MobileIcon,
 	MobileItem,
 	MobileNavLink,
-	MobileButton
+	MobileButton,
+	AppLogo
 } from './HomeNavbar.elements';
+import logoImage from '../../assets/outfox-banner-1280x720.png';
 
 const HomeNavbar = () => {
 	const [ click, setClick ] = useState(false);
@@ -30,8 +33,7 @@ const HomeNavbar = () => {
 			<NavContainer>
 				<NavLink to="/">
 					<LogoContainer>
-						<Logo />
-						<LogoText>Outfox</LogoText>
+						<AppLogo src={logoImage} />
 					</LogoContainer>
 				</NavLink>
 				<LinkContainer>

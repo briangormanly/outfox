@@ -13,13 +13,19 @@ import {
 	FaLayerGroup
 } from 'react-icons/fa';
 
-import { ReactComponent as Logo } from '../../assets/fox.svg';
+//import { ReactComponent as Logo } from '../../assets/fox.svg';
 import {
 	UserSideNavContainer,
 	WelcomeMessage,
 	SideNavButton,
 	DashboardSettings
 } from './UserSideNav.elements';
+
+import {
+	AppLogo
+} from '../HomeNavbar/HomeNavbar.elements';
+import logoImage from '../../assets/new-fox.png';
+
 
 import Clock from '../Clock/Clock';
 
@@ -39,7 +45,7 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 	return (
 		<UserSideNavContainer>
 			<Link to="/">
-				<Logo />
+				<AppLogo src={logoImage} />
 			</Link>
 			<WelcomeMessage>
 				<p>Welcome,</p>
@@ -48,7 +54,6 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 						{firstName} {lastName}
 					</strong>
 				</p>
-				<Clock />
 			</WelcomeMessage>
 			<SideNavButton name="dashboard" onClick={handleClick} active={dashboardActive}>
 				<Link to={userURL}>

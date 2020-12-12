@@ -55,6 +55,10 @@ export const LogoText = styled.span`
 	margin-left: 1rem;
 `;
 
+export const AppLogo = styled.img`
+  height: 120px;
+`
+
 export const LinkContainer = styled.ul`
 	display: flex;
 	justify-content: space-around;

@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 import { Container, colors } from '../../styles/globalStyles';
 
-const { primary, white, darkGrey } = colors;
+const { primary, white, darkGrey, primaryDark, primaryLight } = colors;
 
 export const FeatureSection = styled.div`
+	color: ${white};
 	min-height: 60vh;
 	width: 100%;
-	background-color: ${white};
+	background-color: ${primaryDark};
 `;
 
 export const FeaturesContainer = styled(Container)`
@@ -20,13 +21,13 @@ export const FeaturesContainer = styled(Container)`
 export const Header = styled.h3`
 	font-size: 4rem;
 	margin-top: 7rem;
-	color: ${primary};
+	color: ${white};
 `;
 
 export const SubHead = styled.p`
 	font-size: 2.5rem;
 	margin-top: 2rem;
-	color: ${darkGrey};
+	color: ${primaryLight};
 `;
 
 export const CardContainer = styled.div`
