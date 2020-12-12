@@ -2,6 +2,8 @@ import express, { Application } from "express"; // Basic Routing Library used fo
 import cors from "cors"; // Allows React and Express to Interact
 import morgan from "morgan"; // Basic Logging of Requests
 import { Sequelize } from "sequelize"; // ORM for the PostgreSQL Database
+import dbConnection from "./middleware/databaseConnection";
+
 import sync from "./middleware/syncDatabase"; // Currently used to synchronize our models (Should switch to migrations - Read more at https://sequelize.org/master/manual/migrations.html)
 import passport from "./middleware/passportConfig"; // Used for our Local Authentication Strategy
 import cookieParser from "cookie-parser"; // Allows us to use cookies for our sessions
@@ -23,7 +25,7 @@ class App {
   constructor(controllers: Controller[], port: number) {
     this.app = express(); // Express Application Instance
     this.port = port;
-    this.initializeDatabaseConnection(); // Connects to the database and verifies the connection.
+    //this.initializeDatabaseConnection(); // Connects to the database and verifies the connection.
     sync(); // Synchronizes the models (Probably should switch to migrations)
     this.initializeMiddlewares(); // Connects the middleware methods to the application level (Highest Level)
     this.initializeControllers(controllers); // Connects the applications router to the individual controllers routing
@@ -36,18 +38,16 @@ class App {
   private async initializeDatabaseConnection(): Promise<void> {
     /**
      * TODO - URBG: Database settings should be moved out to env or properties file
-     */
-    this.sequelize = new Sequelize("outfox", "outfox", "outfoxdevpass", {
-      host: "localhost",
-      dialect: "postgres",
-    });
+     *
+    
 
     try {
       await this.sequelize.authenticate();
-      console.log("Connection has been established successfully");
+      console.log("**** CONNECTION 2 ***** Connection has been established successfully");
     } catch (err) {
-      console.error("Unable to connect to the databse:", err);
+      console.error("****** CONNECTION 2 ****** Unable to connect to the databse:", err);
     }
+    */
   }
 
   // Application Level Middleware Initialization
