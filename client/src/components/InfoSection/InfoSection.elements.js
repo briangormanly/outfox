@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors, Container } from '../../styles/globalStyles';
 
-const { primary, primaryLight, primaryDark, lightGrey, black, white } = colors;
+const { primary, primaryLight, primaryDark, lightGrey, black, white, secondaryLight } = colors;
 
 export const InfoSec = styled.section`
 	height: 50vh;
@@ -46,7 +46,7 @@ export const Column2 = styled(Column1)`
 export const Header = styled.h3`
 	font-size: 3em;
 	margin-top: 5rem;
-	color: ${white};
+	color: ${primary};
 	padding-left: 4rem;
 `;
 
