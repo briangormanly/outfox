@@ -2,6 +2,8 @@ import { Router, Request, Response } from "express";
 import Group from "../models/Group";
 import Controller from "../interfaces/ControllerInterface";
 import Resource from "../models/Resource";
+import sequelize from "../middleware/databaseConnection";
+
 
 /**
  * The group controller is responsible for handling the HTTP requests.
@@ -60,7 +62,11 @@ class GroupsController implements Controller {
   createGroup = async (request: Request, response: Response): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const group = await Group.create(request.body);
+      const group = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const group = await Group.create((request.body),{ transaction: t });
+        return group;
+      });
       response.status(201).json({ group });
     } catch (error) {
       response.status(500).send(error.message);
@@ -100,9 +106,13 @@ class GroupsController implements Controller {
   updateGroup = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const [updated] = await Group.update(request.body, {
-        where: { id: id },
-      }); // Destructure the array so we grab the updated version of our group
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await Group.update(request.body, {
+          where: { id: id }, transaction: t
+        });
+        return updated;
+      });
 
       if (updated) {
         const updatedGroup = await Group.findOne({ where: { id: id } }); // Grab the update group
@@ -146,9 +156,12 @@ class GroupsController implements Controller {
   deleteGroup = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await Group.destroy({
-        where: { id: id },
-      }); // Delete the group with the specified id
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await Group.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
         response.status(204).send("Group Deleted");
       } else {

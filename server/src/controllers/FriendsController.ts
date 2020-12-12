@@ -2,6 +2,8 @@ import { Router, Request, Response } from "express";
 import Friend from "../models/Friend";
 import { Op } from "sequelize";
 import User from "../models/User";
+import sequelize from "../middleware/databaseConnection";
+
 /**
  * The friend controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
@@ -63,7 +65,11 @@ class FriendController {
   ): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const friend = await Friend.create(request.body);
+      const friend = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const friend = await Friend.create((request.body),{ transaction: t });
+        return friend;
+      });
       response.status(201).json({ friend });
     } catch (error) {
       response.status(500).send(error.message);
@@ -108,9 +114,13 @@ class FriendController {
   ): Promise<void> => {
     try {
       const { friendRequestid } = request.params; // Destructure the object to only grab the id coming from the request
-      const [updated] = await Friend.update(request.body, {
-        where: { friendRequestid: friendRequestid },
-      }); // Destructure the array so we grab the updated version of our friends
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await Friend.update(request.body, {
+          where: { friendRequestid: friendRequestid }, transaction: t
+        });
+        return updated;
+      });
 
       if (updated) {
         const updatedFriend = await Friend.findOne({
@@ -138,15 +148,16 @@ class FriendController {
   ): Promise<void> => {
     try {
       const { friendRequestid } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await Friend.destroy({
-        where: { friendRequestid: friendRequestid },
-      }); // Delete the friend with the specified id
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await Friend.destroy({where: {friendRequestid: friendRequestid}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
         response.status(204).send("Friend Deleted");
       } else {
-        response
-          .status(404)
-          .send("Friend with the specified ID does not exist");
+        response.status(404).send("Friend with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);

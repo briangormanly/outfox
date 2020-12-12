@@ -4,7 +4,7 @@ import User from "../models/User";
 import Controller from "../interfaces/ControllerInterface";
 import Resource from "../models/Resource";
 import Friend from "../models/Friend";
-
+import sequelize from "../middleware/databaseConnection";
 /**
  * The user controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
@@ -61,8 +61,14 @@ class UsersController implements Controller {
   createUser = async (request: Request, response: Response): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const user = await User.create(request.body);
+      const user = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const user = await User.create((request.body),{ transaction: t });
+        return user;
+      });
+      
       response.status(200).json({ user });
+
     } catch (error) {
       response.status(500).send(error.message);
     }
@@ -123,9 +129,16 @@ class UsersController implements Controller {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
 
-      const [updated] = await User.update(request.body, {
-        where: { id: id },
-      }); // Destructure the array so we grab the updated version of our user
+       // Destructure the array so we grab the updated version of our user
+
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await User.update(request.body, {
+          where: { id: id }, transaction: t
+        });
+        return updated;
+      });
+      
 
       if (updated) {
         const updatedUser = await User.findOne({ where: { id: id } }); // Grab the update user
@@ -146,9 +159,12 @@ class UsersController implements Controller {
   deleteUser = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await User.destroy({
-        where: { id: id },
-      }); // Delete the user with the specified id
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await User.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
         response.status(204).send("User Deleted");
       } else {

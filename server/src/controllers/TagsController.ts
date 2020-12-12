@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Tag from "../models/Tag";
 import Controller from "../interfaces/ControllerInterface";
+import sequelize from "../middleware/databaseConnection";
 
 /**
  * The tags controller is responsible for handling the HTTP requests.
@@ -52,7 +53,12 @@ class TagsController implements Controller {
   createTag = async (request: Request, response: Response): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const tag = await Tag.create(request.body);
+      const tag = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const tag = await Tag.create((request.body),{ transaction: t });
+        return tag;
+      });
+      
       response.status(201).json({ tag });
     } catch (error) {
       response.status(500).send(error.message);
@@ -91,10 +97,13 @@ class TagsController implements Controller {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
       
-      // check if there is an id that matches the id in request
-      const [updated] = await Tag.update(request.body, {
-        where: { id: id },
-      }); // Destructure the array so we grab the updated version of our tag
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await Tag.update(request.body, {
+          where: { id: id }, transaction: t
+        });
+        return updated;
+      });
 
       if (updated) {
         const updatedTag = await Tag.findOne({ where: { id: id } }); // Grab the update tag
@@ -115,9 +124,12 @@ class TagsController implements Controller {
   deleteTag = async (request: Request, response: Response): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await Tag.destroy({
-        where: { id: id },
-      }); // Delete the tag with the specified id
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await Tag.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
         response.status(204).send("Tag Deleted");
       } else {

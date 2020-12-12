@@ -1,7 +1,8 @@
-import { UploadedFile } from "express-fileupload";
+//import { UploadedFile } from "express-fileupload";
 import { Router, Request, Response } from "express";
 import Resource from "../models/Resource";
 import Comment from "../models/Comment";
+import sequelize from "../middleware/databaseConnection";
 
 /**
  * The resource controller is responsible for handling the HTTP requests.
@@ -72,7 +73,11 @@ class ResourceController {
       const formData = request.body;
 
       if (formData.type.includes("Link")) {
-        const resource = await Resource.create(request.body);
+        const resource = await sequelize.transaction(async (t) => {
+          //makes transaction that will auto rollback if error occurs
+          const resource = await Resource.create((request.body),{ transaction: t });
+          return resource;
+        });
         return response.status(201).json({ resource });
       } else if (request.files === null && formData.type != "Link") {
         const resource = await Resource.create(request.body);
@@ -144,15 +149,17 @@ class ResourceController {
           });
         }
 
-        const resource = await Resource.create({
-          ...request.body,
-          type: request.body.type,
-          title: request.body.title,
-          description: request.body.description,
-          uri: uri,
-          fileName: file.name,
-          mutable: request.body.mutable,
-          creatorid: request.body.creatorid,
+        const resource = await sequelize.transaction(async (t) => {
+          //makes transaction that will auto rollback if error occurs
+          const resource = await Resource.create({
+            type: request.body.type,
+            title: request.body.title,
+            description: request.body.description,
+            uri: uri,
+            mutable: request.body.mutable,
+            creatorid: request.body.creatorid,
+          },{transaction: t});
+          return resource;
         });
 
         response.status(201).json({ resource });
@@ -233,9 +240,13 @@ class ResourceController {
   ): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const [updated] = await Resource.update(request.body, {
-        where: { id: id },
-      }); // Destructure the array so we grab the updated version of our resources
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await Resource.update(request.body, {
+          where: { id: id }, transaction: t
+        });
+        return updated;
+      });
 
       if (updated) {
         const updatedResource = await Resource.findOne({ where: { id: id } }); // Grab the update resource
@@ -261,15 +272,16 @@ class ResourceController {
   ): Promise<void> => {
     try {
       const { id } = request.params; // Destructure the object to only grab the id coming from the request
-      const deleted = await Resource.destroy({
-        where: { id: id },
-      }); // Delete the resource with the specified id
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await Resource.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
       if (deleted) {
         response.status(204).send("Resource Deleted");
       } else {
-        response
-          .status(404)
-          .send("Resource with the specified ID does not exist");
+        response.status(404).send("Resource with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);

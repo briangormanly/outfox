@@ -1,4 +1,7 @@
 import { Sequelize } from "sequelize";
+/*
+MySQL
+*
 const sequelize = new Sequelize("outfox", "outfox", "outfoxdevpass", {
   host: "localhost",
     dialect: "mysql",
@@ -15,6 +18,16 @@ const sequelize = new Sequelize("outfox", "outfox", "outfoxdevpass", {
     define: {
         paranoid: true
     }
+});
+*/
+
+/*
+PostgreSQL
+*/
+const sequelize = new Sequelize("outfox", "outfox", "outfoxdevpass", {
+  host: "localhost",
+  dialect: "postgres",
+  logging: false,
 });
 
 export default sequelize;

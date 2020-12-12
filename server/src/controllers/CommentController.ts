@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import Comment from "../models/Comment";
 import Controller from "../interfaces/ControllerInterface";
 //import Resource from "../models/Resource";
+import sequelize from "../middleware/databaseConnection";
 
 /**
  * The Comment controller is responsible for handling the HTTP requests.
@@ -63,7 +64,11 @@ class CommentController implements Controller {
   ): Promise<void> => {
     try {
       // If missing non-nullable fields it will create an error
-      const comment = await Comment.create(request.body);
+      const comment = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const comment = await Comment.create((request.body),{ transaction: t });
+        return comment;
+      });
       response.status(201).json({ comment });
     } catch (error) {
       response.status(500).send(error.message);
@@ -107,8 +112,12 @@ class CommentController implements Controller {
     try {
       const { id } = request.params;
 
-      const [updated] = await Comment.update(request.body, {
-        where: { id: id },
+      const updated = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const [updated] = await Comment.update(request.body, {
+          where: { id: id }, transaction: t
+        });
+        return updated;
       });
 
       if (updated) {
@@ -134,17 +143,17 @@ class CommentController implements Controller {
     response: Response
   ): Promise<void> => {
     try {
-      const { id } = request.params;
-      const deleted = await Comment.destroy({
-        where: { id: id },
-      }); // Delete the Comment with the specified id
-      const deletedChild = await Comment.destroy({ where: { threadID: id } });
-      if (deleted || deletedChild) {
-        response.status(204).send("Comment Successdully Deleted");
+      const { id } = request.params; // Destructure the object to only grab the id coming from the request
+      const deleted = await sequelize.transaction(async (t) => {
+        //makes transaction that will auto rollback if error occurs
+        const deleted = await Comment.destroy({where: {id:id}, transaction: t});
+        return deleted;
+      });
+      //verifies that the object has been deleted
+      if (deleted) {
+        response.status(204).send("Comment Deleted");
       } else {
-        response
-          .status(404)
-          .send("Comment with the specified ID does not exist");
+        response.status(404).send("Comment with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);
