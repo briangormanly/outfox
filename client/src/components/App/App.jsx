@@ -7,6 +7,8 @@ import { HomePage, SignIn, SignUp, UserPage } from '../../pages';
 
 // Testing
 import TestPage from '../../pages/TestPage/TestPage';
+import AboutPage from '../../pages/AboutPage/AboutPage';
+import Documentation from '../../pages/Documentation/Documentation'
 
 const App = () => {
 	const { auth, userID } = useSelector((state) => state.userAuth);
@@ -16,6 +18,9 @@ const App = () => {
 			<GlobalStyles />
 			<div>
 				<Route exact path="/" component={HomePage} />
+				<Route exact path="/about" component={AboutPage} />
+				<Route exact path="/docs" component={Documentation} />
+
 				<Route
 					exact
 					path="/signin"
