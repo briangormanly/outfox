@@ -11,7 +11,7 @@ export const AboutSection = styled.div`
     padding-left: 20rem;
     padding-right: 20rem;
     background-color: ${lightGrey};
-    @media screen and (max-width: 920px) {
+    @media screen and (max-width: 968px) {
         font-size: 1.6rem;
         padding-left: 12rem;
         padding-right: 12rem;
@@ -27,14 +27,16 @@ export const FoxBanner = styled.img`
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 40%;
+    width: 450px;
+    @media screen and (max-width: 968px) {
+        display:none;
+    }
 `;
 
 export const AboutCentered = styled.div`
-display: block;
-margin-left: auto;
-margin-right: auto;
-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const AboutSubTitle = styled.div`
@@ -83,36 +85,4 @@ export const AboutListItem = styled.li`
     position: relative;
     font-size: 1.5rem;
     margin-bottom: 20px;
-`;
-
-export const FeaturesContainer = styled(Container)`
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-`;
-
-export const Header = styled.h3`
-	font-size: 4rem;
-	margin-top: 7rem;
-	color: ${white};
-`;
-
-export const SubHead = styled.p`
-	font-size: 2.5rem;
-	margin-top: 2rem;
-	color: ${primaryLight};
-`;
-
-export const CardContainer = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	width: 100%;
-	margin-top: 4rem;
-
-	@media screen and (max-width: 778px) {
-		flex-direction: column;
-		align-items: center;
-	}
 `;
