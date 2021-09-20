@@ -10,7 +10,9 @@ import {
 	FaUserFriends,
 	FaRegFolderOpen,
 	FaCubes,
-	FaLayerGroup
+	FaLayerGroup,
+	FaRegClipboard,
+	FaChalkboardTeacher
 } from 'react-icons/fa';
 
 import { ReactComponent as Logo } from '../../assets/fox.svg';
@@ -30,6 +32,8 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 		resourcesActive,
 		friendsActive,
 		exploreActive,
+		assignmentsActive,
+		lessonsActive,
 		helpActive
 	} = state;
 
@@ -38,7 +42,7 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 
 	return (
 		<UserSideNavContainer>
-			<Link to="/">
+			<Link to={userURL}>
 				<Logo />
 			</Link>
 			<WelcomeMessage>
@@ -74,6 +78,14 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 					</div>
 				</Link>
 			</SideNavButton>
+			<SideNavButton name="assignments" onClick={handleClick} active={assignmentsActive}>
+				<Link to={`${userURL}/assignments`}>
+					<div>
+						<FaRegClipboard />
+						<span>Assignments</span>
+					</div>
+				</Link>
+			</SideNavButton>
 			<SideNavButton name="explore" onClick={handleClick} active={exploreActive}>
 				<Link to={`${userURL}/explore`}>
 					<div>
@@ -87,6 +99,14 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 					<div>
 						<FaUserFriends />
 						<span>Friends</span>
+					</div>
+				</Link>
+			</SideNavButton>
+			<SideNavButton name="lessons" onClick={handleClick} active={lessonsActive}>
+				<Link to={`${userURL}/lessons`}>
+					<div>
+						<FaChalkboardTeacher />
+						<span>Lessons</span>
 					</div>
 				</Link>
 			</SideNavButton>

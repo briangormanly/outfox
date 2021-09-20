@@ -42,6 +42,8 @@ const initalState = {
 	resourcesActive : false,
 	exploreActive   : false,
 	friendsActive   : false,
+	assignmentsActive : false,
+	lessonsActive   : false,
 	helpActive      : false
 };
 
