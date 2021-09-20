@@ -27,10 +27,18 @@ export const Nav = styled.nav`
 export const NavContainer = styled(Container)`
   display: flex;
   position: relative;
-  justify-content: space-between;
   align-items: center;
   height: 8rem;
   max-width: 1600px;
+`;
+
+export const NavContainer2 = styled(Container)`
+  display: flex;
+  position: relative;
+  align-items: left;
+  justify-content: space-between;
+  height: 8rem;
+  left: 375px;
 `;
 
 export const LogoContainer = styled.div`

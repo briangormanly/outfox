@@ -81,5 +81,5 @@ export const footerObject = {
 		}
 	],
 	trademark :
-		' 2020 Outfox. Marist Fall Capping & Brian Gormanly. All rights reserved'
+		' 2020-2021 Outfox. Marist Fall Capping & Brian Gormanly. All rights reserved'
 };

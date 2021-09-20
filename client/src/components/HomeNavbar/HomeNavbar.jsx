@@ -6,6 +6,7 @@ import { ReactComponent as Logo } from '../../assets/fox-unfilled.svg';
 import {
 	Nav,
 	NavContainer,
+	NavContainer2,
 	LogoContainer,
 	LogoText,
 	LinkContainer,
@@ -48,6 +49,8 @@ const HomeNavbar = () => {
 						<NavLink to="/">Resources</NavLink>
 					</NavItem>
 				</LinkContainer>
+			</NavContainer>
+			<NavContainer2>
 				<LinkContainer>
 					<NavItem>
 						<NavLink to="/signin">Log In</NavLink>
@@ -79,7 +82,7 @@ const HomeNavbar = () => {
 						<MobileButton to="/signup">Sign Up</MobileButton>
 					</MobileItem>
 				</MobileMenu>
-			</NavContainer>
+			</NavContainer2>
 		</Nav>
 	);
 };
