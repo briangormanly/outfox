@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logoutAction } from '../../redux/actions/userActions';
-
+import { useParams } from 'react-router-dom';
 import { TopNavContainer, SearchField, LinkContainer } from './UserTopNav.elements';
 import {
 	FaSearch,
@@ -14,6 +14,8 @@ import {
 } from 'react-icons/fa';
 
 const UserTopNav = () => {
+	const locationParams = useParams();
+	const userURL = `/user/${locationParams.id}`;
 	let history = useHistory();
 	let storeDispatch = useDispatch();
 
@@ -22,6 +24,9 @@ const UserTopNav = () => {
 		history.push('/');
 	};
 
+	const handleSettings= () => {
+		history.push(`${userURL}/Settings`);
+	};
 	return (
 		<TopNavContainer>
 			<SearchField>
@@ -39,7 +44,7 @@ const UserTopNav = () => {
 				<button>
 					<FaBell />
 				</button>
-				<button>
+				<button onClick={handleSettings}>
 					<FaCog />
 				</button>
 				<button>
