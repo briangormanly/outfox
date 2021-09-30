@@ -76,3 +76,4 @@ Assignments.init(
 
     },{sequelize, timestamps: true, tableName: "assignments"}
 );
+export default Assignments;

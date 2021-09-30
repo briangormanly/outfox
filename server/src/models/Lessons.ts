@@ -35,4 +35,6 @@ Lessons.init(
         }
     },
     {sequelize, timestamps: true, tableName: "lessons"}
-)
+);
+
+export default Lessons;
