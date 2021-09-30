@@ -32,4 +32,5 @@ LessonAssignments.init(
         timestamps: false,
         tableName: "lessonassignments"
     }
-)
+);
+export default LessonAssignments;
