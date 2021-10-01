@@ -62,6 +62,8 @@ class FriendController {
     response: Response
   ): Promise<void> => {
     try {
+      // make another query to pending request, check if the request is already pending
+      // response.status(500).json({message: "You already have a pending request"});
       // If missing non-nullable fields it will create an error
       const friend = await Friend.create(request.body);
       response.status(201).json({ friend });

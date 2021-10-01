@@ -5,6 +5,10 @@ import Comment from "../models/Comment";
 import Friend from "../models/Friend";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
+import Assignments from "../models/Assignments";
+import Lessons from "../models/Lessons";
+import ShareAssignments from "../models/ShareAssignments";
+import ShareLessons from "../models/ShareLessons";
 
 // Going to be Reconnected once we begin querying
 // import Category from "./Category";

@@ -1,6 +1,8 @@
 import { Router, Request, Response } from "express";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
+import ShareLessons from "../models/ShareLessons";
+import ShareAssignments from "../models/ShareAssignments";
 import Controller from "../interfaces/ControllerInterface";
 
 /**
@@ -34,6 +36,10 @@ class ShareController implements Controller {
       .route(this.path + "/resource" + "/:id")
       .get(this.getSharedResources)
       .delete(this.deleteShareResource);
+
+    // Share Assignments Routes
+
+    // Share Lessons Routes
   }
 
   // SHARED GROUP SECTION
@@ -208,6 +214,12 @@ class ShareController implements Controller {
       response.status(500).send(error.message);
     }
   };
+
+  // SHARED ASSIGNMENTS SECTION
+  // route: /api/share/assignments
+
+  // SHARED LESSONS SECTION
+  // route: /api/share/lessons
 }
 
 export default ShareController;
