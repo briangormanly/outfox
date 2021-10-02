@@ -30,6 +30,12 @@ async function Associations(): Promise<void> {
     User.hasMany(Resource, { foreignKey: "creatorid", sourceKey: "id" });
     Resource.belongsTo(User, { foreignKey: "creatorid", targetKey: "id" });
 
+    User.hasMany(Assignments, { foreignKey: "creatorid", sourceKey: "id"});
+    Assignments.belongsTo(User, { foreignKey: "creatorid", targetKey: "id"});
+
+    User.hasMany(Lessons, { foreignKey: "creatorid", sourceKey: "id"});
+    Lessons.belongsTo(User, { foreignKey: "creatorid", targetKey: "id"});
+
     Resource.hasMany(Comment, {
       foreignKey: "commentedOnResource",
       sourceKey: "id",
@@ -109,6 +115,13 @@ async function Associations(): Promise<void> {
     });
 
     // End of Resource Sharing ----------------------------------------------------------------------------------------------------------------------//
+  
+    // Start of Assignment Sharing --------------------------------------------------------------------------------------------
+    // End of Assignment Sharing -------------------------------------------------------------------------------------------------------
+
+    // Start of Lesson Sharing -----------------------------------------------------------------------------------------------------------------------
+    // End of Lesson Sharing ----------------------------------------------------------------------------------------------------------------------------
+  
   } catch (error) {
     console.log(error);
   }
