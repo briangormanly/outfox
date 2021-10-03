@@ -45,6 +45,15 @@ async function Associations(): Promise<void> {
       targetKey: "id",
     });
 
+    Assignments.hasMany(Comment, {
+      foreignKey: "commentedOnAssignment",
+      sourceKey: "id"
+    });
+    Comment.belongsTo(Resource, {
+      foreignKey: "commentedOnAssignment",
+      targetKey: "id"
+    });
+
     Comment.hasMany(Comment, { as: "thread", foreignKey: "threadID" });
 
     // Friend Requests -----------------------------------------------------------------------------------------------------------------------------//
@@ -117,9 +126,51 @@ async function Associations(): Promise<void> {
     // End of Resource Sharing ----------------------------------------------------------------------------------------------------------------------//
   
     // Start of Assignment Sharing --------------------------------------------------------------------------------------------
+    Assignments.belongsToMany(User, {
+      through: ShareAssignments,
+      timestamps: false,
+    });
+    ShareAssignments.belongsTo(Assignments, {
+      as: "AssignmentShared",
+      foreignKey: "AssignmentId",
+      targetKey: "id",
+    });
+
+    ShareAssignments.belongsTo(User, {
+      as: "SharedTo",
+      foreignKey: "UserId",
+      targetKey: "id",
+    });
+
+    ShareAssignments.belongsTo(User, {
+      as: "SharedFrom",
+      foreignKey: "Sharedby",
+      targetKey: "id",
+    });
     // End of Assignment Sharing -------------------------------------------------------------------------------------------------------
 
     // Start of Lesson Sharing -----------------------------------------------------------------------------------------------------------------------
+    Lessons.belongsToMany(User, {
+      through: ShareLessons,
+      timestamps: false,
+    });
+    ShareLessons.belongsTo(Lessons, {
+      as: "LessonShared",
+      foreignKey: "LessonId",
+      targetKey: "id",
+    });
+
+    ShareLessons.belongsTo(User, {
+      as: "SharedTo",
+      foreignKey: "UserId",
+      targetKey: "id",
+    });
+
+    ShareLessons.belongsTo(User, {
+      as: "SharedFrom",
+      foreignKey: "Sharedby",
+      targetKey: "id",
+    });
     // End of Lesson Sharing ----------------------------------------------------------------------------------------------------------------------------
   
   } catch (error) {

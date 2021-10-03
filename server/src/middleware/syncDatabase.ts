@@ -2,9 +2,13 @@ import Group from "../models/Group";
 import Note from "../models/Comment";
 import Resource from "../models/Resource";
 import User from "../models/User";
+import Lessons from "../models/Lessons";
+import Assignments from "../models/Assignments";
 import Associations from "./associations";
 import ShareResource from "../models/ShareResource";
 import ShareGroup from "../models/ShareGroup";
+import ShareAssignments from "../models/ShareAssignments";
+import ShareLessons from "../models/ShareLessons";
 import Friend from "../models/Friend";
 import sequelize from "./databaseConnection";
 
@@ -13,8 +17,12 @@ const models = [
   User,
   Group,
   Resource,
+  Lessons,
+  Assignments,
   ShareGroup,
   ShareResource,
+  ShareAssignments,
+  ShareLessons,
   Friend,
   Note,
   //  NoteTag,
@@ -35,8 +43,8 @@ async function sync(): Promise<void> {
     Associations();
 
     // sequelize.sync({ alter: true });
-    // sequelize.sync({ force: true });
-    sequelize.sync();
+     sequelize.sync({ force: true });
+    //sequelize.sync();
   } catch (error) {
     throw new Error("Associations not hooked up");
   }
