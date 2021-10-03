@@ -29,8 +29,12 @@ import {
 	ExploreUser,
 	ExploreGroup,
 	Friends,
-	Loader
+	Loader,
 } from '../../components';
+
+import Assignments from '../../components/Assignments/Assignments';
+import Lessons from '../../components/Lessons/Lessons';
+import { Help } from '../../components';
 
 import { GroupPage } from '../index';
 
@@ -106,6 +110,9 @@ const UserPage = ({ match }) => {
 						<Route exact path={`${match.path}/resources`}>
 							<ResourcesP />
 						</Route>
+						<Route exact path={`${match.path}/assignments`}>
+							<Assignments />
+						</Route>
 						<Route exact path={`${match.path}/explore`} component={Explore} />
 						<Route
 							exact
@@ -118,6 +125,8 @@ const UserPage = ({ match }) => {
 							component={ExploreGroup}
 						/>
 						<Route exact path={`${match.path}/friends`} component={Friends} />
+						<Route exact path={`${match.path}/lessons`} component={Lessons} />
+						<Route exact path={`${match.path}/help`} component={Help} />
 					</ContentArea>
 				</UserPageContainer>
 			)}
