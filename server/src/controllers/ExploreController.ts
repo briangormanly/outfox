@@ -1,13 +1,20 @@
 import { Router, Request, Response, response } from "express";
 import Controller from "../interfaces/ControllerInterface";
-
-
-class ExploreController{
-    public path = "/api/explore"
+import fetch from "node-fetch";
+class ResponseObj{
+    public recordList = {};
+    constructor(obj:any){
+        this.recordList = obj;
+    }
+}
+class ExploreController implements Controller{
+   
+    public path = "/api/explore";
     public router = Router();
 
     constructor(){
         this.initializeRoutes();
+        
     }
 
     public initializeRoutes(): void { // setting up routes
@@ -16,9 +23,9 @@ class ExploreController{
         this.router.route(this.path + "/resources/:userid").get(this.getRecResorces);
 
     }
+   
 
-
-    private  async getResponse(type: string,userid: number): Promise<any>{ // used to communicate with outfox-ai
+     public async getResponse(type: string,userid: number): Promise<ResponseObj>{ // used to communicate with outfox-ai
         let endPoint;
         switch(type){   // easier than writing the whole thing out every time
             case "user":
@@ -27,26 +34,23 @@ class ExploreController{
             case "group":
                 endPoint = "getRecGroups";
                 break;
-            case "resource":
+            case "resource":    
                 endPoint = "getRecResources";
                 break;
         }
+
         
-
-
-        fetch(`http://96.249.211.3:105/${endPoint}/?userid=${userid}`,  // talking to outfox-ai
-        {
-            method: 'get',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            },
-        }).then(response => response.json()).then(res => response.json());
-        return res;
+        const response = await fetch(`http://96.249.211.3:105/${endPoint}?userid=${userid}`);
+        const data = await response.json();
+        return new ResponseObj(data);
+ 
         
     }
-        
+    
+  
+   
   /**
-   * Grabs all friends in the database and sends them as a response in json
+   
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
@@ -54,24 +58,30 @@ class ExploreController{
 private getRecGroups = async (
       request: Request,
       response: Response
-  ): Promise<void> => {
+  ): Promise<Response> => {
       try{
           const {userid} = request.params;
           const id: number = parseInt(userid);
-          const res = await this.getResponse("group", id);
-          if(res){
-              response.status(200).json(res);
+          try{
+            const res =  await this.getResponse("group", id);
+            // const res = {"this": "dataa"};
+               if(res){
+                  return response.status(200).json(res.recordList);
+               }
+            //  response.status(200).json(res.recordList);
+          }catch(err){
+            return  response.status(405).json({"error": "error making connection to outfox-ai", "erText": err.stack});
           }
-         
+          
           // get the stuff from reccomendation
       }catch(err){
-        response.status(400).json({ message: "Something went wrong" });
+      return response.status(400).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
       }
-  }
+  };
 
   
   /**
-   * Grabs all friends in the database and sends them as a response in json
+   *
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
@@ -79,24 +89,30 @@ private getRecGroups = async (
    private getRecUsers = async (
     request: Request,
     response: Response
-): Promise<void> => {
+): Promise<Response> => {
     try{
         const {userid} = request.params;
         const id: number = parseInt(userid);
-          const res = await this.getResponse("user", id);
-          if(res){
-              response.status(200).json(res);
-          }
+        try{
+          const res =  await this.getResponse("user", id);
+          // const res = {"this": "dataa"};
+             if(res){
+                return response.status(200).json(res.recordList);
+             }
+          //  response.status(200).json(res.recordList);
+        }catch(err){
+          return  response.status(405).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+        }
+        
         // get the stuff from reccomendation
     }catch(err){
-      response.status(400).json({ message: "Something went wrong" });
+    return response.status(400).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
     }
-}
+};
 
 
 
   /**
-   * Grabs all friends in the database and sends them as a response in json
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
@@ -104,19 +120,26 @@ private getRecGroups = async (
   private  getRecResorces = async (
     request: Request,
     response: Response
-): Promise<void> => {
+): Promise<Response> => {
     try{
         const {userid} = request.params;
         const id: number = parseInt(userid);
-          const res = await this.getResponse("resource", id);
-          if(res){
-              response.status(200).json(res);
-          }
+        try{
+          const res =  await this.getResponse("resource", id);
+          // const res = {"this": "dataa"};
+             if(res){
+                return response.status(200).json(res.recordList);
+             }
+          //  response.status(200).json(res.recordList);
+        }catch(err){
+          return  response.status(405).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+        }
+        
         // get the stuff from reccomendation
     }catch(err){
-      response.status(400).json({ message: "Something went wrong" });
+    return response.status(400).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
     }
-}
+};
    
 }
 

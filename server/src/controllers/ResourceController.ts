@@ -82,7 +82,7 @@ class ResourceController {
           return response.status(500).json({ error: "No file uploaded" });
         }
 
-        const file = request.files.file;
+        const file  = request.files.file as UploadedFile;
         let moveTo: string;
         let uri: string;
 
