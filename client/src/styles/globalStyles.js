@@ -1,6 +1,6 @@
-import styled, { createGlobalStyle, css } from 'styled-components';
-import { Link as RouterLink } from 'react-router-dom';
-import { FaFirefoxBrowser } from 'react-icons/fa';
+import styled, { createGlobalStyle, css } from "styled-components";
+import { Link as RouterLink } from "react-router-dom";
+import { FaFirefoxBrowser } from "react-icons/fa";
 
 export const GlobalStyles = createGlobalStyle`
   html{
@@ -37,26 +37,27 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const colors = {
-	primary        : '#8B0101',
-	primaryLight   : '#f5abab',
-	primaryDark    : '#400000',
-	secondary      : '#129696',
-	secondaryLight : '#2ed1d1',
-	secondaryDark  : '',
-	black          : '#000',
-	white          : '#fff',
-	lightGrey      : '#f4f4f4',
-	darkGrey       : '#333333',
-	mediumGrey     : '#dedede'
+  primary: "#8B0101",
+  primaryLight: "#f5abab",
+  primaryDark: "#400000",
+  secondary: "#129696",
+  secondaryLight: "#2ed1d1",
+  secondaryDark: "",
+  black: "#000",
+  white: "#fff",
+  lightGrey: "#f4f4f4",
+  darkGrey: "#333333",
+  mediumGrey: "#dedede",
+  tan: "#f6eee0",
 };
 
-export const transition = 'all 0.3s ease-out';
+export const transition = "all 0.3s ease-out";
 
 export const Container = styled.div`
-	max-width: 1300px;
-	margin: 0 auto;
-	width: 100%;
-	padding: 0 3rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 3rem;
 `;
 
 export const Link = styled(RouterLink)`
@@ -74,7 +75,7 @@ export const SignInButton = styled(Link)`
   color: ${colors.white};
   border-radius: 50px;
 
-  &:hover{
+  &:hover {
     background-color: ${colors.white};
     color: ${colors.primary};
     border: 1px solid ${colors.primary};
@@ -82,84 +83,84 @@ export const SignInButton = styled(Link)`
 `;
 
 export const Button = styled.button`
-	border-radius: 4px;
-	background: ${colors.primary};
-	white-space: nowrap;
-	padding: 1rem 2rem;
-	color: ${colors.white};
-	font-size: 1.6rem;
-	outline: none;
-	border: none;
-	cursor: pointer;
-	transition: ${transition};
+  border-radius: 4px;
+  background: ${colors.primary};
+  white-space: nowrap;
+  padding: 1rem 2rem;
+  color: ${colors.white};
+  font-size: 1.6rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: ${transition};
 `;
 
 export const ActionButton = styled.button`
-	border: none;
-	border-radius: 25px;
-	padding: 1rem 1rem;
-	color: ${colors.white};
+  border: none;
+  border-radius: 25px;
+  padding: 1rem 1rem;
+  color: ${colors.white};
 
-	${(props) =>
-		props.add &&
-		css`
-			background-color: green;
+  ${(props) =>
+    props.add &&
+    css`
+      background-color: green;
 
-			&:hover {
-				color: green;
-				background-color: ${colors.white};
-				border: 1px solid green;
-			}
-		`};
+      &:hover {
+        color: green;
+        background-color: ${colors.white};
+        border: 1px solid green;
+      }
+    `};
 
-	${(props) =>
-		props.edit &&
-		css`
-			background-color: ${colors.secondary};
+  ${(props) =>
+    props.edit &&
+    css`
+      background-color: ${colors.secondary};
 
-			&:hover {
-				color: ${colors.secondary};
-				background-color: ${colors.white};
-				border: 1px solid ${colors.secondary};
-			}
-		`};
+      &:hover {
+        color: ${colors.secondary};
+        background-color: ${colors.white};
+        border: 1px solid ${colors.secondary};
+      }
+    `};
 
-	${(props) =>
-		props.delete &&
-		css`
-			background-color: ${colors.primary};
+  ${(props) =>
+    props.delete &&
+    css`
+      background-color: ${colors.primary};
 
-			&:hover {
-				color: ${colors.primary};
-				background-color: ${colors.white};
-				border: 1px solid ${colors.primary};
-			}
-		`};
+      &:hover {
+        color: ${colors.primary};
+        background-color: ${colors.white};
+        border: 1px solid ${colors.primary};
+      }
+    `};
 
-	${(props) =>
-		props.flex &&
-		css`
-			display: flex;
-			align-items: center;
+  ${(props) =>
+    props.flex &&
+    css`
+      display: flex;
+      align-items: center;
 
-			span {
-				padding-left: 0.5rem;
-			}
-		`};
+      span {
+        padding-left: 0.5rem;
+      }
+    `};
 
-	${(props) =>
-		props.fullWidth &&
-		css`
-			display: block;
-			width: 100%;
-			margin-top: 3rem;
-		`};
+  ${(props) =>
+    props.fullWidth &&
+    css`
+      display: block;
+      width: 100%;
+      margin-top: 3rem;
+    `};
 `;
 
 export const LogoContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const LogoIcon = styled(FaFirefoxBrowser)`
@@ -167,8 +168,8 @@ export const LogoIcon = styled(FaFirefoxBrowser)`
 `;
 
 export const LogoText = styled.span`
-	display: inline-block;
-	font-size: 3rem;
-	font-weight: bold;
-	margin-left: 1rem;
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-left: 1rem;
 `;
