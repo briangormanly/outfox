@@ -51,19 +51,35 @@ export const LinkContainer = styled.div`
       font-size: 1.6rem;
       outline: none;
       background: #fff
-        url(https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/svgs/solid/search.svg)
+        url(https://raw.githubusercontent.com/briangormanly/outfox/98d4bc96e454c8245cb8f4a15f4fcf68e11a1fc0/client/src/components/UserTopNav/red-search-icon.svg)
         no-repeat 1px;
       background-size: 20px 20px;
       background-position: center;
-    }
-    input:focus {
+      
+      &:focus {
       margin-right: 35rem;
       width: 40rem;
       border-radius: 50px;
       color: black;
       padding-left: 32px;
       background-position: 95%;
-
+      
+      &:hover{
+        background: #fff
+        url(https://raw.githubusercontent.com/briangormanly/outfox/98d4bc96e454c8245cb8f4a15f4fcf68e11a1fc0/client/src/components/UserTopNav/red-search-icon.svg)
+        no-repeat 1px;
+        background-size: 20px 20px;
+        background-position: 95%;
+      }
+    }
+      
+      &:hover {
+      background: ${primary}
+        url(https://raw.githubusercontent.com/briangormanly/outfox/98d4bc96e454c8245cb8f4a15f4fcf68e11a1fc0/client/src/components/UserTopNav/white-search-icon.svg)
+        no-repeat 1px;
+        background-size: 20px 20px;
+        background-position: center;
     }
     
+    }
 `;
