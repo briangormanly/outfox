@@ -1,49 +1,59 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { colors } from '../../styles';
+import { colors } from "../../styles";
 
-const { white } = colors;
+const { white, primary } = colors;
 
 const ChildContainer = styled.div`
-	padding: 2rem;
-	border-radius: 25px;
-	background-color: ${white};
-	-webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
-	box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
+  padding: 2rem;
+  border-radius: 25px;
+  background-color: ${white};
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
 `;
 
 export const DashboardContainer = styled.div`
-	width: 100%;
-	height: 100%;
-	padding: 3rem;
-	display: grid;
-	gap: 3rem;
-	grid-template-columns: 1fr 1fr 30rem;
-	grid-template-rows: 46rem 1fr;
-	grid-template-areas: 'groups groups friends' 'resources resources friends'
-		'sharedR sharedR sharedR' 'sharedG sharedG sharedG';
+  width: 100%;
+  height: 100%;
+  padding: 3rem;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: 1fr 1fr 30rem;
+  grid-template-rows: 46rem 1fr;
+  grid-template-areas:
+    "groups groups friends" "resources resources friends" "sharedW sharedW friends"
+    "sharedR sharedR sharedR" "sharedG sharedG sharedG";
 `;
 
 export const GroupContainer = styled(ChildContainer)`
-	grid-area: groups;
+  grid-area: groups;
 `;
 export const FriendContainer = styled(ChildContainer)`
-	grid-area: friends;
-
+  grid-area: friends;
 `;
 export const ResourceContainer = styled(ChildContainer)`
-	grid-area: resources;
+  grid-area: resources;
 `;
 
 export const CourseContainer = styled(ChildContainer)`
-	grid-area: courses;
+  grid-area: courses;
 `;
 
 export const SharedResourceContainer = styled(ChildContainer)`
-	grid-area: sharedR;
+  grid-area: sharedR;
 `;
 
 export const SharedGroupContainer = styled(ChildContainer)`
-	grid-area: sharedG;
+  grid-area: sharedG;
+`;
+
+const ChildContainerTest = styled.div`
+  padding: 2rem;
+  border-radius: 5px;
+  background: none;
+`;
+
+export const SharedWithMeContainer = styled(ChildContainerTest)`
+  grid-area: sharedW;
 `;
