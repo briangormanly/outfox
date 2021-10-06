@@ -41,7 +41,7 @@ export const colors = {
   primary: "#8B0101",
   primaryLight: "#f5abab",
   primaryDark: "#400000",
-  secondary: "#129696",
+  secondary: "#D91918",
   secondaryLight: "#2ed1d1",
   secondaryDark: "",
   black: "#000",
