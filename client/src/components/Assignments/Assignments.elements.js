@@ -9,18 +9,21 @@ export const AssignmentContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
   button {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    margin-right: 6rem;
+    align-self: flex-end;
     font-family: inherit;
     font-size: 1.6rem;
     padding: 0.7rem 1rem;
     display: flex;
-    margin-left: 1rem;
     justify-content: space-around;
     align-items: center;
     cursor: pointer;
     background-color: ${secondary};
-    border: none;
+    border: 1px solid ${secondary};
     border-radius: 5px;
     color: ${white};
 
@@ -39,7 +42,7 @@ export const AssignmentContainer = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-  min-height: 95vh;
+  min-height: 65vh;
   width: 90%;
   padding: 3rem;
   margin: 0 auto;
@@ -60,7 +63,7 @@ export const InnerContainer = styled.div`
 `;
 
 export const Content = styled.div`
-  min-height: 85vh;
+  min-height: 55vh;
   width: 100%;
   border-radius: 5px;
   padding: 2rem;
@@ -68,10 +71,31 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   box-shadow: inset 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
 
   svg {
     font-size: 10rem;
     color: rgba(229, 229, 229, 0.5);
   }
+
+  p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    margin-top: 0;
+    margin-right: 0;
+    align-self: center;
+  }
+`;
+
+export const VerticalLine = styled.div`
+  border: 2px solid rgba(229, 229, 229, 0.5);
+  position: relative;
+  transform: rotate(48deg);
+  border-left: 2px solid ${white};
+  top: 125px;
+  height: 150px;
 `;
