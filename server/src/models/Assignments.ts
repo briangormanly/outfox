@@ -6,6 +6,9 @@ class Assignments extends Model{
     public id: number;
     public title: string;
     public description: string;
+    public uri: string;
+    public attach_filename: string;
+    public submit_filename: string;
     public attachment_type: string;
     public submission_type: string;
     public creatorid: number;
@@ -32,6 +35,18 @@ Assignments.init(
         description: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        uri:{
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        attach_filename: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        submit_filename: {
+            type: DataTypes.STRING,
+            allowNull: true
         },
         attachment_type: {
             type: DataTypes.STRING,
