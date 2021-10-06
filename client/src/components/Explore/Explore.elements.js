@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-import { colors } from '../../styles';
+import { colors, ActionButton } from '../../styles';
 
 const { white } = colors;
 
 export const ExploreContainer = styled.div`
 	margin: 3rem 5rem;
+	margin-left:-5rem;
 	min-height: 90%;
 	padding: 2rem;
 	border-radius: 25px;
@@ -29,4 +30,30 @@ export const UserContainer = styled.div`
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+`;
+
+export const HeadButtonGroup = styled.div`
+	margin-top: 0rem;
+	margin-left: 10rem;
+`;
+
+export const UserSelectBtn = styled(ActionButton)`
+  font-size: 1.6rem;
+  padding: 1.3rem;
+  width: 15%;
+  margin-left:16rem;
+`;
+
+export const GroupSelectBtn = styled(ActionButton)`
+  font-size: 1.6rem;
+  padding: 1.3rem;
+  width: 15%;
+  margin-left:10rem;
+`;
+
+export const ResSelectBtn = styled(ActionButton)`
+  font-size: 1.6rem;
+  padding: 1.3rem;
+  width: 15%;
+  margin-left:10rem;
 `;
