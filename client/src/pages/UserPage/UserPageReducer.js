@@ -80,6 +80,7 @@ export const userPageReducer = (state = {}, action) => {
 				resourcesActive : false,
 				assignmentsActive : false,
 				exploreActive   : false,
+				lessonsActive   : false,
 				friendsActive   : false,
 				helpActive      : false
 			};
@@ -91,7 +92,7 @@ export const userPageReducer = (state = {}, action) => {
 				resourcesActive : false,
 				assignmentsActive : false,
 				exploreActive   : false,
-
+				lessonsActive   : false,
 				friendsActive   : true,
 				helpActive      : false
 			};
@@ -103,7 +104,7 @@ export const userPageReducer = (state = {}, action) => {
 				resourcesActive : false,
 				assignmentsActive : false,
 				exploreActive   : false,
-
+				lessonsActive   : false,
 				friendsActive   : false,
 				helpActive      : true
 			};

@@ -29,7 +29,7 @@ class AssignmentController {
             .route(this.path + "/download/:id")
             .get(this.downloadAssignment);
     }
-    
+
     /**
      * Grabs a specific assignment based off the ID provided
      * @param request HTTP browser request
@@ -40,7 +40,8 @@ class AssignmentController {
         response: Response
     ): Promise<void> => {
         try{
-            return null // need to implement submitting a file for an assignment
+           const formData = request.body;
+
         }catch(error){
             response.status(500).send(error.message);
         }
