@@ -1,16 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 import User from "./User";
+import File from "./File";
 
 class Assignments extends Model{
     public id: number;
     public title: string;
     public description: string;
     public uri: string;
-    public attach_filename: string;
-    public submit_filename: string;
-    public attachment_type: string;
-    public submission_type: string;
     public creatorid: number;
     public opendate: Date;
     public duedate: Date;
@@ -18,6 +15,7 @@ class Assignments extends Model{
     public status: string;
     public grade: string;
     public mutable: boolean;
+    public uuid: string;
 }
 
 Assignments.init(
@@ -39,22 +37,6 @@ Assignments.init(
         uri:{
             type: DataTypes.STRING,
             allowNull: true
-        },
-        attach_filename: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        submit_filename: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        attachment_type: {
-            type: DataTypes.STRING,
-            allowNull: true      // an assignment does not need to have an attachment with it
-        },
-        submission_type: {
-            type: DataTypes.STRING,
-            allowNull: false    // an assignment must allow for a submission
         },
         creatorid: {
             type: DataTypes.INTEGER,
@@ -87,6 +69,14 @@ Assignments.init(
         mutable:{
             type: DataTypes.BOOLEAN,
             allowNull: false
+        },
+        uuid:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            references:{
+                model: File,
+                key: "uuid"
+            }
         }
 
     },{sequelize, timestamps: true, tableName: "assignments"}
