@@ -22,7 +22,8 @@ export const DashboardContainer = styled.div`
   grid-template-columns: 1fr 1fr 30rem;
   grid-template-rows: 46rem 1fr;
   grid-template-areas:
-    "groups groups friends" "resources resources friends" "sharedW sharedW friends"
+    "groups groups friends" "resources resources friends"
+    "sharedW sharedW friends" "lessons lessons friends"
     "sharedR sharedR sharedR" "sharedG sharedG sharedG";
 `;
 
@@ -48,12 +49,42 @@ export const SharedGroupContainer = styled(ChildContainer)`
   grid-area: sharedG;
 `;
 
-const ChildContainerTest = styled.div`
+const ChildContainerDropdown = styled.div`
   padding: 2rem;
   border-radius: 5px;
   background: none;
+
+  .Collapsible {
+    border-radius: 5px;
+    background-color: ${primary};
+    color: ${white};
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+
+    span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h1 {
+        font-size: 20px;
+      }
+
+      svg {
+        font-size: 25px;
+      }
+    }
+  }
 `;
 
-export const SharedWithMeContainer = styled(ChildContainerTest)`
+export const SharedWithMeContainer = styled(ChildContainerDropdown)`
   grid-area: sharedW;
+`;
+
+export const LessonsContainer = styled(ChildContainerDropdown)`
+  grid-area: lessons;
 `;
