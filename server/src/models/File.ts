@@ -7,6 +7,7 @@ import Assignments from "./Assignments";
 class File extends Model{
     public id: number;
     public uuid: string;
+    public uri: string;
     public filename: string;
     public filetype: string;
     public dateupload: Date;
@@ -25,6 +26,10 @@ File.init(
         uuid:{
             type: DataTypes.STRING,
             primaryKey: true,
+            allowNull: false
+        },
+        uri:{
+            type: DataTypes.STRING,
             allowNull: false
         },
         filename:{
