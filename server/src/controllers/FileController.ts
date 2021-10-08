@@ -15,7 +15,7 @@ class FileController {
     public initializeRoutes(): void{
        this.router.route(this.path).post(this.saveFile);
 
-       this.router.route(this.path + "/:id").get(this.getFile).put(this.updateFile).delete(this.deleteFile);
+       this.router.route(this.path + "/:uuid").get(this.getFile).put(this.updateFile).delete(this.deleteFile);
      
     }
 
@@ -81,17 +81,17 @@ class FileController {
         response: Response
     ): Promise<void> => {
         try {
-            const { id } = request.params; // Destructure the request.params object and grab only udid
-            const beforeUpdate = await File.findOne({where: { id: id }});
+            const { uuid } = request.params; // Destructure the request.params object and grab only udid
+            const beforeUpdate = await File.findOne({where: { uuid: uuid }});
 
             fs.rename(`${__dirname}/../storage/`+beforeUpdate.uuid, 
                 `${__dirname}/../storage/` + request.body.uuid,
                 () => {console.log("\nFile Renamed!\n")});
 
-            const updated = await File.update(request.body,{where: { id: id }});
+            const updated = await File.update(request.body,{where: { uuid: uuid }});
 
             if (updated) {
-                const updatedFile = await File.findOne({where:{id: id}});
+                const updatedFile = await File.findOne({where:{id: uuid}});
                 response.status(200).json({file: updatedFile});
             } else {
                 response
@@ -108,15 +108,15 @@ class FileController {
         response: Response
     ): Promise<void> => {
         try{
-            const { id } = request.params; // Destructure the object to only grab the id coming from the request
-            const beforeDelete = await File.findOne({where: { id: id }});
+            const { uuid } = request.params; // Destructure the object to only grab the id coming from the request
+            const beforeDelete = await File.findOne({where: { uuid: uuid }});
 
             fs.rmdir(`${__dirname}/../storage/` + beforeDelete.uuid + beforeDelete.filetype,
             () => {
                 console.log(beforeDelete.filename + " Deleted!");
             });
 
-            const deleted = await File.destroy({where: { id: id }}); // Delete the file with the specified id
+            const deleted = await File.destroy({where: { uuid: uuid }}); // Delete the file with the specified id
             if (deleted) {
                 response.status(204).send("File Deleted");
             } else {
@@ -128,6 +128,29 @@ class FileController {
             response.status(500).send(error.message);
         }
     };
+
+    downloadFile = async (
+        request: Request,
+        response: Response
+      ): Promise<void> => {
+        try {
+          const { uuid } = request.params; // Destructure the request.params object and grab only id
+          const file = await File.findOne({
+            where: { uuid: uuid },
+          });
+    
+          const filepath = `${__dirname}/../storage/` + uuid;
+          if (file) {
+            response.download(filepath);
+          } else {
+            response
+              .status(404)
+              .send("File does not exist");
+          }
+        } catch (error) {
+          response.status(500).send(error.message);
+        }
+      };
 }
 
 export default FileController;
