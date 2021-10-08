@@ -77,12 +77,7 @@ class AssignmentController {
             const assignment = await Assignments.findOne({
                 where: { id: id },
             });
-
-            if (assignment.attachment_type === "Link") {
-                response
-                .status(500)
-                .send("No file associated with this Assignment. (Link Type)");
-            }
+            
             const file = `${__dirname}/..` + assignment.uri;
             if (assignment) {
                 response.download(file);

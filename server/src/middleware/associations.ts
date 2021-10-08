@@ -9,6 +9,7 @@ import Assignments from "../models/Assignments";
 import Lessons from "../models/Lessons";
 import ShareAssignments from "../models/ShareAssignments";
 import ShareLessons from "../models/ShareLessons";
+import File from "../models/File";
 
 // Going to be Reconnected once we begin querying
 // import Category from "./Category";
@@ -35,6 +36,9 @@ async function Associations(): Promise<void> {
 
     User.hasMany(Lessons, { foreignKey: "creatorid", sourceKey: "id"});
     Lessons.belongsTo(User, { foreignKey: "creatorid", targetKey: "id"});
+
+    User.hasMany(File, {foreignKey: "userid", sourceKey: "id"});
+    File.belongsTo(User, {foreignKey: "userid", targetKey: "id"});
 
     Resource.hasMany(Comment, {
       foreignKey: "commentedOnResource",
