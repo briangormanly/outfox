@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { colors } from "../../styles";
 
-const { white, primary } = colors;
+const { white, primary, secondary } = colors;
 
 const ChildContainer = styled.div`
   padding: 2rem;
@@ -23,7 +23,8 @@ export const DashboardContainer = styled.div`
   grid-template-rows: 46rem 1fr;
   grid-template-areas:
     "groups groups friends" "resources resources friends"
-    "sharedW sharedW friends" "lessons lessons friends"
+    "resources2 resources2 friends"
+    "assignments assignments friends" "lessons lessons friends" "sharedW sharedW friends"
     "sharedR sharedR sharedR" "sharedG sharedG sharedG";
 `;
 
@@ -33,12 +34,13 @@ export const GroupContainer = styled(ChildContainer)`
 export const FriendContainer = styled(ChildContainer)`
   grid-area: friends;
 `;
-export const ResourceContainer = styled(ChildContainer)`
-  grid-area: resources;
-`;
 
 export const CourseContainer = styled(ChildContainer)`
   grid-area: courses;
+`;
+
+export const ResourceContainer = styled(ChildContainer)`
+  grid-area: resources;
 `;
 
 export const SharedResourceContainer = styled(ChildContainer)`
@@ -57,9 +59,8 @@ const ChildContainerDropdown = styled.div`
   .Collapsible {
     border-radius: 5px;
     background-color: ${primary};
-    color: ${white};
     cursor: pointer;
-    padding: 18px;
+    padding: 3rem;
     width: 100%;
     border: none;
     text-align: left;
@@ -72,13 +73,74 @@ const ChildContainerDropdown = styled.div`
 
       h1 {
         font-size: 20px;
+        color: ${white};
       }
 
       svg {
         font-size: 25px;
+        color: ${white};
+      }
+    }
+
+    .is-open {
+      h1 {
+        padding-bottom: 2rem;
+      }
+      svg {
+        transform: rotate(180deg);
       }
     }
   }
+
+  .Collapsible__contentOuter {
+    height: auto;
+    transition: all 400ms linear 0s;
+    overflow: hidden;
+  }
+
+  .Collapsible__contentInner {
+    min-height: 40vh;
+    width: 100%;
+    border-radius: 5px;
+    padding: 2rem;
+    background-color: ${white};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    cursor: default;
+
+    p {
+      margin-top: 5rem;
+    }
+
+    button {
+      margin-top: 5rem;
+      margin-bottom: 5rem;
+      font-family: inherit;
+      font-size: 1.6rem;
+      padding: 0.7rem 1rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      cursor: pointer;
+      background-color: ${secondary};
+      border: 1px solid ${secondary};
+      border-radius: 5px;
+      color: ${white};
+
+      &:hover {
+        color: ${secondary};
+        background-color: ${white};
+        border: 1px solid ${secondary};
+      }
+    }
+  }
+`;
+
+export const ResourceContainer2 = styled(ChildContainerDropdown)`
+  grid-area: resources2;
 `;
 
 export const SharedWithMeContainer = styled(ChildContainerDropdown)`
@@ -87,4 +149,8 @@ export const SharedWithMeContainer = styled(ChildContainerDropdown)`
 
 export const LessonsContainer = styled(ChildContainerDropdown)`
   grid-area: lessons;
+`;
+
+export const AssignmentsContainer = styled(ChildContainerDropdown)`
+  grid-area: assignments;
 `;

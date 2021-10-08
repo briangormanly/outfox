@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { colors } from "../../styles";
 
-const { white, primary, secondary } = colors;
+const { primary, secondary, white } = colors;
 
 export const AssignmentContainer = styled.div`
   width: 100%;
