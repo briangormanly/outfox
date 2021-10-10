@@ -2,7 +2,7 @@ import fileUpload, { UploadedFile } from "express-fileupload";
 import { Router, Request, Response, request } from "express";
 import File from "../models/File";
 import * as fs from "fs";
-import { UUIDV4 } from "sequelize/types";
+import { v4 as uuidv4 } from 'uuid'; 
 
 class FileController {
     public path = "/api/file";
@@ -24,7 +24,7 @@ class FileController {
         response: Response
     ): Promise<void> => {
         try{
-            const uuid = UUIDV4;
+            const uuid = uuidv4();
             const upfile = request.files.file;
             const moveTo = `${__dirname}/../storage/`+uuid;
             const uri = `/storage/`+uuid;
