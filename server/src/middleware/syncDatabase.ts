@@ -43,6 +43,8 @@ async function sync(): Promise<void> {
 
   try {
     Associations();
+    // use force: true to sync the database after changes are made to the database!!!!!!!!!!!
+    // if something isn't working on the front end, then try this!!!!!!!
 
     //sequelize.sync({ alter: true });
     //sequelize.sync({ force: true });

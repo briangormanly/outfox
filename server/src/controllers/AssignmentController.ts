@@ -25,9 +25,6 @@ class AssignmentController {
             .route(this.path + "/assignmentcomments/" + ":id")
             .get(this.getAssignmentComments);
         // do we even need threads here?
-        this.router
-            .route(this.path + "/download/:id")
-            .get(this.downloadAssignment);
     }
 
     /**
@@ -40,53 +37,28 @@ class AssignmentController {
         response: Response
     ): Promise<void> => {
         try{
-           const formData = request.body;
-
+            // If missing non-nullable fields it will create an error
+            const assignment = await Assignments.create(request.body);
+            response.status(201).json({ assignment });
         }catch(error){
             response.status(500).send(error.message);
         }
     };
 
+    // might not need this. Move this to share controller
+    // A user can only submit an assignment if its been shared with them
     /**
      * Grabs a specific assignment based off the ID provided
      * @param request HTTP browser request
      * @param response HTTP browser response
     */
-    uploadAssignment = async (
+    submitAssignment = async (
         request: Request,
         response: Response
     ): Promise<void> => {
         try{
-            return null // need to implement submitting a file for an assignment
+            return null; // check the submission form and see if there is any content in the text editor
         }catch(error){
-            response.status(500).send(error.message);
-        }
-    };
-
-    /**
-     * Grabs a specific assignment based off the ID provided
-     * @param request HTTP browser request
-     * @param response HTTP browser response
-    */
-    downloadAssignment = async (
-        request: Request,
-        response: Response
-    ): Promise<void> => {
-        try {
-            const { id } = request.params; // Destructure the request.params object and grab only id
-            const assignment = await Assignments.findOne({
-                where: { id: id },
-            });
-            
-            const file = `${__dirname}/..` + assignment.uri;
-            if (assignment) {
-                response.download(file);
-            } else {
-                response
-                .status(404)
-                .send("Assignment with the specified ID does not exist");
-            }
-        } catch (error) {
             response.status(500).send(error.message);
         }
     };
@@ -149,7 +121,7 @@ class AssignmentController {
 
             if (updated) {
                 const updatedAssignment = await Assignments.findOne({ where: { id: id } }); // Grab the update assignment
-                response.status(200).json({ resource: updatedAssignment }); // Return the updated assignment
+                response.status(200).json({ assignment: updatedAssignment }); // Return the updated assignment
             } else {
                 response
                 .status(404)
