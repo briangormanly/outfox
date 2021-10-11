@@ -79,6 +79,12 @@ async function Associations(): Promise<void> {
       timestamps: false,
     });
 
+    Assignments.hasMany(Resource);
+    Resource.belongsToMany(Assignments, {
+      through: "assignmentresources",
+      timestamps: false
+    })
+
     // Group Sharing -------------------------------------------------------------------------------------------------------------------------------//
     Group.belongsToMany(User, {
       through: ShareGroup,

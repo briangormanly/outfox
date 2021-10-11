@@ -1,8 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
 import User from "./User";
-import Resource from "./Resource";
-import Assignments from "./Assignments";
 
 class File extends Model{
     public id: number;
@@ -12,8 +10,6 @@ class File extends Model{
     public filetype: string;
     public dateupload: Date;
     public userid: number;
-    public resourceid: number;
-    public assignmentid: number;
 }
 
 File.init(
@@ -50,23 +46,7 @@ File.init(
               model: User,
               key: "id",
             },
-        },
-        resourceid: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            references: {
-              model: Resource,
-              key: "id",
-            },
-        },
-        assignmentid: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            references: {
-              model: Assignments,
-              key: "id",
-            },
-        },
+        }
     },{sequelize, timestamps: true, tableName: "file"}
 );
 
