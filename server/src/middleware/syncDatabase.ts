@@ -44,6 +44,8 @@ async function sync(): Promise<void> {
   try {
     Associations();
     // use force: true to sync the database after changes are made to the database!!!!!!!!!!!
+    // only have line 52 uncommented if making a change to the database!!!!!
+    // only have one line uncommented at a time
     // if something isn't working on the front end, then try this!!!!!!!
 
     //sequelize.sync({ alter: true });
