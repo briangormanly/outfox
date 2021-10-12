@@ -60,6 +60,8 @@ async function Associations(): Promise<void> {
 
     Comment.hasMany(Comment, { as: "thread", foreignKey: "threadID" });
 
+    //Resource.hasOne(File);
+
     // Friend Requests -----------------------------------------------------------------------------------------------------------------------------//
     //User.hasMany(Friend, {as: "RequestSentFrom", foreignKey: "requesterid", sourceKey: "id" });
     Friend.belongsTo(User, {
