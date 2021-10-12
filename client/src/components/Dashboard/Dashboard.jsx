@@ -15,7 +15,6 @@ import {
   ResourceContainer,
   // SharedResourceContainer,
   //SharedGroupContainer,
-  ResourceContainer2,
   AssignmentsContainer,
   SharedWithMeContainer,
   LessonsContainer,
@@ -23,7 +22,6 @@ import {
 
 import Collapsible from "react-collapsible";
 import { FaAngleDown } from "react-icons/fa";
-import { Content } from "../Assignments/Assignments.elements";
 
 const Dashboard = ({ dashboardPaginate }) => {
   return (
@@ -46,19 +44,6 @@ const Dashboard = ({ dashboardPaginate }) => {
             <SharedGroupContainer>
                 <DashboardSharedGroups />
             </SharedGroupContainer>*/}
-
-      <ResourceContainer2>
-        <Collapsible
-          trigger={
-            <React.Fragment>
-              <h1>My Resources2</h1>
-              <FaAngleDown />
-            </React.Fragment>
-          }
-        >
-          <DashboardResources dashboardPaginate={dashboardPaginate} />
-        </Collapsible>
-      </ResourceContainer2>
 
       <AssignmentsContainer>
         <Collapsible

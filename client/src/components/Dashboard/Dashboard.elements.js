@@ -23,7 +23,6 @@ export const DashboardContainer = styled.div`
   grid-template-rows: 46rem 1fr;
   grid-template-areas:
     "groups groups friends" "resources resources friends"
-    "resources2 resources2 friends"
     "assignments assignments friends" "lessons lessons friends" "sharedW sharedW friends"
     "sharedR sharedR sharedR" "sharedG sharedG sharedG";
 `;
@@ -137,10 +136,6 @@ const ChildContainerDropdown = styled.div`
       }
     }
   }
-`;
-
-export const ResourceContainer2 = styled(ChildContainerDropdown)`
-  grid-area: resources2;
 `;
 
 export const SharedWithMeContainer = styled(ChildContainerDropdown)`
