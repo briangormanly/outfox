@@ -23,6 +23,7 @@ export { default as DashboardFriendsCard } from "./DashboardFriendsCard/Dashboar
 export { default as DashboardResources } from "./DashBoardResources/DashboardResources";
 export { default as DashboardSharedResources } from "./DashboardSharedR/DashboardSharedR";
 export { default as DashboardSharedGroups } from "./DashboardSharedG/DashboardSharedG";
+export { default as DashboardAssignments } from "./DashboardAssignments/DashboardAssignments";
 
 // Group Components
 export { default as GroupAllCard } from "./GroupsAllCards/GroupsAllCards";

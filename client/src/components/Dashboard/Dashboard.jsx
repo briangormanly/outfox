@@ -4,6 +4,7 @@ import {
   DashboardGroups,
   DashboardFriends,
   DashboardResources,
+  DashboardAssignments,
   //DashboardSharedResources,
   //DashboardSharedGroups,
 } from "../index";
@@ -46,17 +47,7 @@ const Dashboard = ({ dashboardPaginate }) => {
             </SharedGroupContainer>*/}
 
       <AssignmentsContainer>
-        <Collapsible
-          trigger={
-            <React.Fragment>
-              <h1>My Assignments</h1>
-              <FaAngleDown />
-            </React.Fragment>
-          }
-        >
-          <p> You do not have any assignments</p>
-          <button> Create Assignment </button>
-        </Collapsible>
+        <DashboardAssignments />
       </AssignmentsContainer>
 
       <LessonsContainer>
