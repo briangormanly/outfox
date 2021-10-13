@@ -18,14 +18,48 @@ class ExploreController implements Controller{
     }
 
     public initializeRoutes(): void { // setting up routes
-        this.router.route(this.path + "/groups/:userid").get(this.getRecGroups);
-        this.router.route(this.path + "/users/:userid").get(this.getRecUsers);
-        this.router.route(this.path + "/resources/:userid").get(this.getRecResorces);
+        this.router.route(this.path + "/groupspgn/:userid").get(this.getGroupsPageAmt); // **pgn endpoints used to allow the explore page to see how many pages there are
+        this.router.route(this.path + "/userspgn/:userid").get(this.getUsersPageAmt);
+        this.router.route(this.path + "/resourcespgn/:userid").get(this.getResourcesPageAmt);
+        this.router.route(this.path + "/groups/:userid/:page").get(this.getRecGroups);
+        this.router.route(this.path + "/users/:userid/:page").get(this.getRecUsers);
+        this.router.route(this.path + "/resources/:userid/:page").get(this.getRecResorces);
+        
 
     }
-   
+    
+    
 
-     public async getResponse(type: string,userid: number): Promise<ResponseObj>{ // used to communicate with outfox-ai
+ 
+  /**
+   * @param type type of request to make specifying endpoint
+   * @param userid user id
+   */
+
+    private async getPageNResponse(type: string, userid: number): Promise<ResponseObj>{
+        let endPoint;
+        switch(type){   // easier than writing the whole thing out every time
+            case "user":
+                endPoint = "getUserPgs";
+                break;
+            case "group":
+                endPoint = "getGroupPgs";
+                break;
+            case "resource":    
+                endPoint = "getResourcePgs";
+                break;
+        }
+        const response = await fetch(`http://96.249.211.3:105/${endPoint}?userid=${userid}`);
+        const data = await response.json();
+        return new ResponseObj(data);
+    }
+    
+  /**
+   * @param type type of request to make specifying endpoint
+   * @param userid user id
+   * @param page page number
+   */
+     private async getRecordResponse(type: string,userid: number, page: number): Promise<ResponseObj>{ // used to communicate with outfox-ai
         let endPoint;
         switch(type){   // easier than writing the whole thing out every time
             case "user":
@@ -40,17 +74,101 @@ class ExploreController implements Controller{
         }
 
         
-        const response = await fetch(`http://96.249.211.3:105/${endPoint}?userid=${userid}`);
+        const response = await fetch(`http://96.249.211.3:105/${endPoint}?userid=${userid}&page=${page}`);
         const data = await response.json();
         return new ResponseObj(data);
  
         
     }
-    
-  
+
+  /**
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+
+    private getGroupsPageAmt = async (
+        request: Request,
+        response: Response
+    ): Promise<Response> => {
+        try{
+            const {userid} = request.params;
+            const id: number = parseInt(userid);
+            try{
+              const res =  await this.getPageNResponse("group", id);
+              // const res = {"this": "dataa"};
+                 if(res){
+                    return response.status(200).json(res.recordList);
+                 }
+              //  response.status(200).json(res.recordList);
+            }catch(err){
+              return  response.status(500).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+            }
+            
+            // get the stuff from reccomendation
+        }catch(err){
+        return response.status(500).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
+        }
+    };
    
   /**
-   
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+
+       private getUsersPageAmt = async (
+        request: Request,
+        response: Response
+    ): Promise<Response> => {
+        try{
+            const {userid} = request.params;
+            const id: number = parseInt(userid);
+            try{
+              const res =  await this.getPageNResponse("user", id);
+              // const res = {"this": "dataa"};
+                 if(res){
+                    return response.status(200).json(res.recordList);
+                 }
+              //  response.status(200).json(res.recordList);
+            }catch(err){
+              return  response.status(500).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+            }
+            
+            // get the stuff from reccomendation
+        }catch(err){
+        return response.status(500).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
+        }
+    };
+
+  /**
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+
+       private getResourcesPageAmt = async (
+        request: Request,
+        response: Response
+    ): Promise<Response> => {
+        try{
+            const {userid} = request.params;
+            const id: number = parseInt(userid);
+            try{
+              const res =  await this.getPageNResponse("resource", id);
+              // const res = {"this": "dataa"};
+                 if(res){
+                    return response.status(200).json(res.recordList);
+                 }
+              //  response.status(200).json(res.recordList);
+            }catch(err){
+              return  response.status(500).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+            }
+            
+            // get the stuff from reccomendation
+        }catch(err){
+        return response.status(500).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
+        }
+    };
+
+  /**
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
@@ -60,22 +178,23 @@ private getRecGroups = async (
       response: Response
   ): Promise<Response> => {
       try{
-          const {userid} = request.params;
+          const {userid, page} = request.params;
           const id: number = parseInt(userid);
+          const pg: number = parseInt(page);
           try{
-            const res =  await this.getResponse("group", id);
+            const res =  await this.getRecordResponse("group", id, pg);
             // const res = {"this": "dataa"};
                if(res){
                   return response.status(200).json(res.recordList);
                }
             //  response.status(200).json(res.recordList);
           }catch(err){
-            return  response.status(405).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+            return  response.status(500).json({"error": "error making connection to outfox-ai", "erText": err.stack});
           }
           
           // get the stuff from reccomendation
       }catch(err){
-      return response.status(400).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
+      return response.status(500).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
       }
   };
 
@@ -91,22 +210,23 @@ private getRecGroups = async (
     response: Response
 ): Promise<Response> => {
     try{
-        const {userid} = request.params;
+        const {userid, page} = request.params;
         const id: number = parseInt(userid);
+        const pg: number = parseInt(page);
         try{
-          const res =  await this.getResponse("user", id);
+          const res =  await this.getRecordResponse("user", id, pg);
           // const res = {"this": "dataa"};
              if(res){
                 return response.status(200).json(res.recordList);
              }
           //  response.status(200).json(res.recordList);
         }catch(err){
-          return  response.status(405).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+          return  response.status(500).json({"error": "error making connection to outfox-ai", "erText": err.stack});
         }
         
         // get the stuff from reccomendation
     }catch(err){
-    return response.status(400).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
+    return response.status(500).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
     }
 };
 
@@ -122,22 +242,23 @@ private getRecGroups = async (
     response: Response
 ): Promise<Response> => {
     try{
-        const {userid} = request.params;
+        const {userid, page} = request.params;
         const id: number = parseInt(userid);
+        const pg: number = parseInt(page);
         try{
-          const res =  await this.getResponse("resource", id);
+          const res =  await this.getRecordResponse("resource", id, pg);
           // const res = {"this": "dataa"};
              if(res){
                 return response.status(200).json(res.recordList);
              }
           //  response.status(200).json(res.recordList);
         }catch(err){
-          return  response.status(405).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+          return  response.status(500).json({"error": "error making connection to outfox-ai", "erText": err.stack});
         }
         
         // get the stuff from reccomendation
     }catch(err){
-    return response.status(400).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
+    return response.status(500).json({ message: "Something went wrong", "inputtedID": request.params['userid'], "error": err.stack });
     }
 };
    
