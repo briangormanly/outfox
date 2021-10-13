@@ -4,7 +4,7 @@ import { colors, ActionButton } from '../../styles';
 
 const { white } = colors;
 
-export const ExploreContainer = styled.div`
+export const ExploreGroupContainer = styled.div`
 	margin: 3rem 5rem;
 	margin-left:-5rem;
 	min-height: 90%;

@@ -65,6 +65,7 @@ export { default as FriendCard } from './FriendCard/FriendCard';
 export { default as FriendCardAccepted } from './FriendAcceptedCard/FriendCardA';
 export { default as Help } from './Help/Help';
 export { default as Explore } from './Explore/Explore';
+export { default as ExploreGroups } from './ExploreGroups/ExploreGroups';
 export { default as ExploreUserCard } from './ExploreUserCard/ExploreUserCard';
 export { default as ExploreUser } from './ExploreUser/ExploreUser';
 export { default as ExploreGroup } from './ExploreGroup/ExploreGroup';

@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory, useLocation} from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import userService from '../../services/users';
 import groupService from '../../services/groups';
 
 import {
-	ExploreContainer,
-	UserContainer,
+	ExploreGroupContainer,
+	GroupContainer,
 	HeadButtonGroup,
 	UserSelectBtn,
 	GroupSelectBtn,
 	ResSelectBtn
-} from './Explore.elements';
+} from './ExploreGroups.elements';
 
-import { ExploreUserCard } from '../index';
-// import {ExploreGroupCard} from '../index';
-// import { ExploreGroup } from '../index';
-// import { ExploreGroups } from '../index';
+import { GroupCard } from '../index';
 
 
-const Explore = () => {
+
+const ExploreGroups = () => {
 	const [users, setUsers] = useState([]);
 	const Uparams = useParams();
 	const currentUserId = parseFloat(Uparams.id);
@@ -29,11 +27,15 @@ const Explore = () => {
 	const currentGroupId = parseFloat(Gparams.id);
 
 	const history = useHistory();
-	const location = useLocation();
+    const location = useLocation();
 
-	const handleGroupRoute = () =>{
-		history.push(`${location.pathname}/${"/ExploreGroups"}`);
+	const handleUserRoute = () =>{
+		history.push("/Explore");
 	}
+
+    // const handleUserRoute = () =>{
+	// 	history.push(`${location.pathname}/${"/Explore"}`);
+	// }
 
 	useEffect(() => {
 		let mounted = true;
@@ -57,29 +59,28 @@ const Explore = () => {
 		return () => (mounted = false);
 	}, []);
 
-	const filteredUsers = users.filter((user) => user.id !== currentUserId);
-	//const filteredGroups = groups.filter((group) => group.id !== currentGroupId);
+	const filteredGroups = groups.filter((group) => group.id !== currentGroupId);
 
 	return (
 		<HeadButtonGroup>{/*THESE ARE THE BUTTONS AT THE TOP OF THE EXPLORE PAGE */}
-			<UserSelectBtn edit onClick={console.log("HERE" + 1)}>
+			<UserSelectBtn edit onClick={handleUserRoute}>
 				Users
 			</UserSelectBtn>
-			<GroupSelectBtn edit onClick={handleGroupRoute}>
+			<GroupSelectBtn edit onClick={console.log("HERE" + 2)}>
 				Groups
 			</GroupSelectBtn>
 			<ResSelectBtn edit onClick={console.log("HERE" + 3)}>
 				Resources
 			</ResSelectBtn>
-			<ExploreContainer>
+			<ExploreGroupContainer>
 				<h1>Explore</h1>
-				<UserContainer>
-					{filteredUsers &&
-						filteredUsers.map((user) => <ExploreUserCard key={user.id} {...user} />)}
-				</UserContainer>
-			</ExploreContainer>
+				<GroupContainer>
+					{filteredGroups &&
+						filteredGroups.map((group) => <GroupCard key={group.id} {...group} />)}
+				</GroupContainer>
+			</ExploreGroupContainer>
 		</HeadButtonGroup>
 	);
 };
 
-export default Explore;
+export default ExploreGroups;
