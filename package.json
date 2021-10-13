@@ -19,7 +19,9 @@
 		"url": "https://github.com/briangormanly/outfox/issues"
 	},
 	"homepage": "https://github.com/briangormanly/outfox#readme",
-	"dependencies": {},
+	"dependencies": {
+		"react-step-progress-bar": "^1.0.3"
+	},
 	"devDependencies": {
 		"concurrently": "^5.3.0",
 		"nodemon": "^2.0.4"

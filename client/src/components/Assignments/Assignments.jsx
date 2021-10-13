@@ -8,7 +8,7 @@ import {
 } from "./Assignments.elements";
 
 import { FaClipboard } from "react-icons/fa";
-import { CreateAssignmentForm, Modal } from "../index";
+import { CreateAssignmentForm, Modal, AssignmentCard } from "../index";
 
 const Assignments = () => {
   const [showModal, setShowModal] = useState(false);
@@ -48,6 +48,8 @@ const Assignments = () => {
           </InnerContainer>
         </TitleContainer>
       </AssignmentContainer>
+
+      <AssignmentCard />
     </Fragment>
   );
 };

@@ -32,6 +32,9 @@ export { default as GroupCard } from "./GroupCard/GroupCard";
 // Resource Components
 export { default as ResourceCard } from "./ResourceCard/ResourceCard";
 
+// Assignment Components
+export { default as AssignmentCard } from "./AssignmentCard/AssignmentCard";
+
 // Forms
 export { default as CreateAssignmentForm } from "./CreateAssignmentForm/CreateAssignmentForm";
 export { default as CreateGroupForm } from "./CreateGroupForm/CreateGroupForm";
