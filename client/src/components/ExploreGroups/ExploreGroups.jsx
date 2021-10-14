@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import userService from '../../services/users';
@@ -14,13 +15,52 @@ import {
 } from './ExploreGroups.elements';
 
 import { GroupCard } from '../index';
+import { getGroup } from '../../redux/actions/groupPageActions';
+
+// parent function
+// when you click on groups
+
+// Part I --> Roxy, but done 
+// it calls API and gets data
+const getPages = async (userId) => {
+// number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
+    const groupsNURL = "http://localhost:8080//api/explore/groupspgn/" + userId;
+	const groupResponse = await axios.get(groupsNURL);
+    return groupResponse;
+};
+
+// make the second API call and pass the userid and page 1 to get user records
+
+// Part II --> Roxy
+// making a new expanded array 
+// in a foor loop for every single record it does the getGroup() with the ids, returning json array
+const loopingPages = async (userId, groupResponse) => {
+    const groupsIds = "http://localhost:8080//api/explore/groups/" + userId  + groupResponse; //pages;
+    for (records = 0; records <= userId.length; records++){
+        getGroups(records);
+        const response = await axios.get(groupsIds);
+        // put it into a json array /js object, plop that into a new array, do that process for every record
+    }
+}
+
+ // Part III --> Sam
+ // take each record from the second array and turn it into a component
+
+ // Part IV --> Andy
+ // render() the componenet
+ // call the page which makes the component (another loop), returning the object
 
 
+    // const handleUserRoute = () =>{
+	// 	history.push(`${location.pathname}/${"/Explore"}`);
+	// }
 
-const ExploreGroups = () => {
+const ExploreGroups = async () => {
 	const [users, setUsers] = useState([]);
 	const Uparams = useParams();
 	const currentUserId = parseFloat(Uparams.id);
+
+    const userPages = await getPages(currentUserId);
 
 	const [groups, setGroup] = useState([]);
 	const Gparams = useParams();
@@ -32,10 +72,6 @@ const ExploreGroups = () => {
 	const handleUserRoute = () =>{
 		history.push("/Explore");
 	}
-
-    // const handleUserRoute = () =>{
-	// 	history.push(`${location.pathname}/${"/Explore"}`);
-	// }
 
 	useEffect(() => {
 		let mounted = true;
