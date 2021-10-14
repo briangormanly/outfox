@@ -49,7 +49,8 @@ const Assignments = () => {
         </TitleContainer>
       </AssignmentContainer>
 
-      <AssignmentCard />
+      <AssignmentCard isOwner={true} />
+      <AssignmentCard isOwner={false} />
     </Fragment>
   );
 };
