@@ -9,13 +9,16 @@ import {
   AssignmentCardContent,
   TitleContainer,
   StatusBarContainer,
-  ViewResourceContainer,
+  OwnerResourceContainer,
+  ReceiverResourceContainer,
   DatesDescriptionActionContainer,
   DatesContainer,
   DatesContainerQuestions,
   DatesContainerAnswers,
   DescriptionContainer,
   ActionContainer,
+  ViewResourceButton,
+  SubmitButton,
 } from "./AssignmentCard.elements";
 
 import {
@@ -106,9 +109,16 @@ const AssignmentCard = (props) => {
             )}
           </ActionContainer>
         </DatesDescriptionActionContainer>
-        <ViewResourceContainer>
-          <button> View Resource </button>
-        </ViewResourceContainer>
+        {isOwner ? (
+          <OwnerResourceContainer>
+            <ViewResourceButton> View Resource </ViewResourceButton>
+          </OwnerResourceContainer>
+        ) : (
+          <ReceiverResourceContainer>
+            <ViewResourceButton> View Resource </ViewResourceButton>
+            <SubmitButton> Submit Assignment </SubmitButton>
+          </ReceiverResourceContainer>
+        )}
       </AssignmentCardContent>
     </AssignmentCardContainer>
   );

@@ -72,6 +72,7 @@ export const ResourceContainer = styled.div`
 
   button {
     background-color: #757575;
+    border: 1px solid #757575;
     font-size: 1rem;
     width: 50%;
     height: 2rem;
@@ -79,7 +80,7 @@ export const ResourceContainer = styled.div`
     &:hover {
       color: ${white};
       background-color: #989595;
-      border: none;
+      border: 1px solid #989595;
     }
   }
 
