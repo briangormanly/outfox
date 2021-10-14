@@ -20,7 +20,7 @@ import { getGroup } from '../../redux/actions/groupPageActions';
 // parent function
 // when you click on groups
 
-// Part I --> Roxy, but done 
+// Part I 
 // it calls API and gets data
 const getPages = async (userId) => {
 // number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
@@ -31,7 +31,7 @@ const getPages = async (userId) => {
 
 // make the second API call and pass the userid and page 1 to get user records
 
-// Part II --> Roxy
+// Part II
 // making a new expanded array 
 // in a foor loop for every single record it does the getGroup() with the ids, returning json array
 const loopingPages = async (userId, groupResponse) => {
@@ -43,10 +43,10 @@ const loopingPages = async (userId, groupResponse) => {
     }
 }
 
- // Part III --> Sam
+ // Part III
  // take each record from the second array and turn it into a component
 
- // Part IV --> Andy
+ // Part IV
  // render() the componenet
  // call the page which makes the component (another loop), returning the object
 

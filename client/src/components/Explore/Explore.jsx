@@ -19,9 +19,9 @@ import { ExploreUserCard } from '../index';
 // import { ExploreGroups } from '../index';
 
 // parent functions
-// when you click on groups...
+// when you click on explore...
 
-// Part I --> Roxy, but done 
+// Part I --> Roxy
 // it calls API and gets data
 // number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
 	
@@ -29,7 +29,7 @@ import { ExploreUserCard } from '../index';
 // Part II --> Roxy
 // make the second API call and pass the userid and page 1 to get user records
 // making a new expanded array 
-// in a foor loop for every single record it does the getGroup() with the ids, returning json array
+// in a foor loop for every single record it does the getUsers() with the ids, returning json array
 // put it into a json array /js object, plop that into a new array, do that process for every record
 
 // Part III --> Sam
@@ -45,7 +45,7 @@ const Explore = () => {
 	const Uparams = useParams();
 	const currentUserId = parseFloat(Uparams.id);
 
-	const userPages = await getPages(currentUserId);
+	//const userPages = await getPages(currentUserId);
 
 
 	const [groups, setGroup] = useState([]);
