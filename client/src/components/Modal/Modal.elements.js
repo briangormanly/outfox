@@ -32,7 +32,7 @@ export const ModalContent = styled(motion.div)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  max-width: 40rem;
+  max-width: 50rem;
   width: 100%;
   padding: 3rem;
   background-color: ${primary};

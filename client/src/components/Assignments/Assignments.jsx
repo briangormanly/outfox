@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   AssignmentContainer,
   TitleContainer,
@@ -8,21 +8,41 @@ import {
 } from "./Assignments.elements";
 
 import { FaClipboard } from "react-icons/fa";
-import { CreateAssignmentForm, Modal, AssignmentCard } from "../index";
-import AssignmentCardSmall from "../AssignmentCardSmall/AssignmentCardSmall";
+import {
+  CreateAssignmentForm,
+  Modal,
+  AssignmentCard,
+  //AssignmentCardSmall,
+  SubmitAssignmentForm,
+} from "../index";
 
 const Assignments = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showCreateAssignmentModal, setShowCreateAssignmentModal] = useState(
+    false
+  );
+
+  const [showSubmitAssignmentModal, setShowSubmitAssignmentModal] = useState(
+    false
+  );
 
   return (
     <Fragment>
-      {showModal && (
-        <Modal setShowModal={setShowModal}>
-          <CreateAssignmentForm setShowModal={setShowModal} />
+      {showCreateAssignmentModal && (
+        <Modal setShowModal={setShowCreateAssignmentModal}>
+          <CreateAssignmentForm setShowModal={setShowCreateAssignmentModal} />
         </Modal>
       )}
+
+      {showSubmitAssignmentModal && (
+        <Modal setShowModal={setShowSubmitAssignmentModal}>
+          <SubmitAssignmentForm setShowModal={setShowSubmitAssignmentModal} />
+        </Modal>
+      )}
+      {/*without assignments*/}
       <AssignmentContainer>
-        <button onClick={() => setShowModal(true)}> Create Assignment </button>
+        <button onClick={() => setShowCreateAssignmentModal(true)}>
+          Create Assignment{" "}
+        </button>
         <TitleContainer>
           <h1>My Assignments</h1>
           <InnerContainer>
@@ -30,7 +50,7 @@ const Assignments = () => {
               <VerticalLine />
               <FaClipboard />
               <p> You do not have any assignments</p>
-              <button onClick={() => setShowModal(true)}>
+              <button onClick={() => setShowCreateAssignmentModal(true)}>
                 {" "}
                 Create Assignment{" "}
               </button>
@@ -50,7 +70,8 @@ const Assignments = () => {
         </TitleContainer>
       </AssignmentContainer>
 
-      <AssignmentContainer>
+      {/*with assignments*/}
+      {/*      <AssignmentContainer>
         <TitleContainer>
           <h1>My Assignments</h1>
           <InnerContainer>
@@ -62,10 +83,13 @@ const Assignments = () => {
             </Content>
           </InnerContainer>
         </TitleContainer>
-      </AssignmentContainer>
+      </AssignmentContainer>*/}
 
       {/*<AssignmentCard isOwner={true} />*/}
-      {/*<AssignmentCard isOwner={false} />*/}
+      <AssignmentCard
+        isOwner={false}
+        setShowSubmitAssignmentModal={setShowSubmitAssignmentModal}
+      />
     </Fragment>
   );
 };

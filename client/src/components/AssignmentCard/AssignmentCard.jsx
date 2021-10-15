@@ -31,6 +31,7 @@ import {
 
 const AssignmentCard = (props) => {
   const isOwner = props.isOwner;
+  const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
 
   const { secondary } = colors;
   const statusBarSteps = document.getElementsByClassName("RSPBstep");
@@ -116,7 +117,10 @@ const AssignmentCard = (props) => {
         ) : (
           <ReceiverResourceContainer>
             <ViewResourceButton> View Resource </ViewResourceButton>
-            <SubmitButton> Submit Assignment </SubmitButton>
+            <SubmitButton onClick={() => setShowSubmitAssignmentModal(true)}>
+              {" "}
+              Submit Assignment{" "}
+            </SubmitButton>
           </ReceiverResourceContainer>
         )}
       </AssignmentCardContent>
