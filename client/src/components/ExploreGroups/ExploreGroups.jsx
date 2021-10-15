@@ -36,11 +36,15 @@ const getPages = async (userId) => {
 // in a foor loop for every single record it does the getGroup() with the ids, returning json array
 const loopingPages = async (userId, groupResponse) => {
     const groupsIds = "http://localhost:8080//api/explore/groups/" + userId  + groupResponse; //pages;
-    for (records = 0; records <= userId.length; records++){
+    for (var records = 0; records <= userId.length; records++){
         getGroups(records);
         const response = await axios.get(groupsIds);
         // put it into a json array /js object, plop that into a new array, do that process for every record
     }
+}
+
+const getGroups = async(records) =>{
+	//Create function so page compiles
 }
 
  // Part III
