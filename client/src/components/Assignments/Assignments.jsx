@@ -9,6 +9,7 @@ import {
 
 import { FaClipboard } from "react-icons/fa";
 import { CreateAssignmentForm, Modal, AssignmentCard } from "../index";
+import AssignmentCardSmall from "../AssignmentCardSmall/AssignmentCardSmall";
 
 const Assignments = () => {
   const [showModal, setShowModal] = useState(false);
@@ -49,8 +50,22 @@ const Assignments = () => {
         </TitleContainer>
       </AssignmentContainer>
 
-      <AssignmentCard isOwner={true} />
-      <AssignmentCard isOwner={false} />
+      <AssignmentContainer>
+        <TitleContainer>
+          <h1>My Assignments</h1>
+          <InnerContainer>
+            <Content>
+              <AssignmentCardSmall
+                name={"AssignmentName"}
+                description={"AssignmentDescription"}
+              />
+            </Content>
+          </InnerContainer>
+        </TitleContainer>
+      </AssignmentContainer>
+
+      {/*<AssignmentCard isOwner={true} />*/}
+      {/*<AssignmentCard isOwner={false} />*/}
     </Fragment>
   );
 };

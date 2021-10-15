@@ -38,8 +38,20 @@ const CreateAssignmentForm = ({ setShowModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !description) {
-      console.log("Please fill out all fields");
+    if (
+      !name ||
+      !description ||
+      !openDateMonth ||
+      !openDateDay ||
+      !openDateYear ||
+      !dueDateMonth ||
+      !dueDateDay ||
+      !dueDateYear ||
+      !closeDateMonth ||
+      !closeDateDay ||
+      !closeDateYear
+    ) {
+      console.log("Please fill out all required fields");
       return;
     }
 
