@@ -2,6 +2,7 @@ import React from "react";
 
 import { useState } from "react";
 
+
 import {
   LessonsContainer,
   TitleContainer,
@@ -10,8 +11,11 @@ import {
   VerticalLine,
 } from "./Lessons.elements";
 
-import { Modal, CreateLessonForm, ResourceCard } from "../index";
+import { CreateLessonForm, ResourceCard } from "../index";
 import { FaPlus, FaArrowRight, FaClipboard } from "react-icons/fa";
+import {Modal, AddResourceForm , CreateAssignmentForm} from "../index";
+
+import {MContent} from './Lessons.elements';
 
 import { useSelector } from "react-redux";
 
@@ -29,7 +33,7 @@ function Lessons({ dashboardPaginate }) {
         <React.Fragment>
         {showModal && (
             <Modal large setShowModal={setShowModal} >
-            <CreateLessonForm creatorid={id} setShowModal={setShowModal} />
+            <CreateLessonForm creatorid={id} setShowModal={setShowModal}/>
             </Modal>
         )}
 
