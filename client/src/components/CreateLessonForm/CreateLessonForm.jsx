@@ -1,24 +1,28 @@
 import React, { useReducer, Fragment, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-//import { addUserResource } from '../../redux/actions/userActions';
-//import { addGroupResource } from '../../redux/actions/groupPageActions';
+import Popup from 'reactjs-popup';
 
-//import { addLesson } from '../../redux/actions/userActions';
+
+import { addLesson } from '../../redux/actions/userActions';
+
 
 import FormInput from '../Form-Input/Form-Input';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import {BodyContainer} from './CreateLessonForm.elements';
-import {QuillContainer} from './CreateLessonForm.elements';
-import {PlusContainer} from './CreateLessonForm.elements';
-import {CreateContainer} from './CreateLessonForm.elements';
-import {FormContainer} from './CreateLessonForm.elements';
-import {ModalsContent} from './CreateLessonForm.elements';
+import {BodyContainer, 
+        ButtonContainer,
+        QuillContainer, 
+        ResourceContainer, 
+        AssignContainer,
+        PlusContainer, 
+        PopContainer,
+        CreateContainer,
+        FormContainer,
+        ModalsContent} 
+from './CreateLessonForm.elements';
 
-
-import { createGroupAction } from "../../redux/actions/userActions";
 
 import { Modal, PlusForm, ResourceCard } from "../index";
 
@@ -29,6 +33,8 @@ import {
 } from './CreateLessonForm.elements';
 
 import { ActionButton } from '../../styles';
+import { Text } from '../ExploreUserCard/ExploreUserCard.elements';
+import { name } from 'faker';
 
 const initialState = {
     title       : '',
@@ -42,12 +48,12 @@ function reducer(state, { field, value }) {
     };
 }
 
-const CreateLessonForm = ({ creatorid, GroupId }) => {
+const CreateLessonForm = ({ creatorid, LessonId }) => {
     const [ type, setType ] = useState('Text');
     const [ value, setValue ] = useState('');
-
+    const [ file, setFile ] = useState('');
+    const [ fileName, setFileName ] = useState('');
     const [ state, dispatch ] = useReducer(reducer, initialState);
-    //const { title, description, link } = state;
 
     const [title, setTitle] =  useState('');
     const [description, setDescription] =  useState('');
@@ -65,27 +71,37 @@ const CreateLessonForm = ({ creatorid, GroupId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!title) {
-            console.log('Please Enter All Fields');
+        if (!title || !description) {
+            console.log('Please fill out all fields');
             return;
+        }
+
+
+        const newLessonObject = {
+            lesonname : title,
+            lessondescription : description,
+
+            createdby: id
         }
 
         const formData = new FormData();
 
-        const newLessonObject = {
-            lessonname: title,
-            lessondescription: description,
 
-            createdby: id,
-        };
+        
 
         try {
-            storeDispatch(createGroupAction(newLessonObject));
-          } catch (error) {
-            console.log(error);
-          }
+            
+            storeDispatch(addLesson(newLessonObject));
+            setShowModal(false);
 
+        } catch (error) {
+            console.log('An Error Occurred');
+        }
+
+        setTitle('');
+        setDescription('');
         setShowModal(false);
+
     };
 
 
@@ -93,7 +109,7 @@ const CreateLessonForm = ({ creatorid, GroupId }) => {
         dispatch({ field: e.target.name, value: e.target.value });
     };
 
-    const handleNameChange = (e) => {
+    const handleTitleChange = (e) => {
         setTitle(e.target.value);
     };
     
@@ -124,7 +140,7 @@ const CreateLessonForm = ({ creatorid, GroupId }) => {
                     name="lessonname"
                     label="Title"
                     value={title}
-                    onChange={handleInput}
+                    onChange={handleTitleChange}
                 />
 
                 <FormInput
@@ -132,7 +148,7 @@ const CreateLessonForm = ({ creatorid, GroupId }) => {
                     name="lessondescription"
                     label="Description"
                     value={description}
-                    onChange={handleInput}
+                    onChange={handleDescriptionChange}
                 /> 
                 </FormContainer>
 
@@ -156,7 +172,9 @@ const CreateLessonForm = ({ creatorid, GroupId }) => {
                 </ModalsContent>
                 </button>
                 
+                
                 </PlusContainer>
+
                 <br />
                 <br />
                 <br />
