@@ -127,29 +127,48 @@ export const ActionContainer = styled.div`
   }
 `;
 
-export const ViewResourceContainer = styled.div`
+export const OwnerResourceContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+`;
 
-  button {
-    align-self: flex-end;
-    font-family: inherit;
-    font-size: 1.6rem;
-    padding: 0.7rem 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    cursor: pointer;
-    background-color: ${secondary};
-    border: 1px solid ${secondary};
-    border-radius: 5px;
+const Button = styled.button`
+  align-self: flex-end;
+  font-family: inherit;
+  font-size: 1.6rem;
+  padding: 0.7rem 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  color: ${white};
+`;
+
+export const ViewResourceButton = styled(Button)`
+  background-color: #757575;
+  border: 1px solid #757575;
+
+  &:hover {
     color: ${white};
-
-    &:hover {
-      color: ${secondary};
-      background-color: ${white};
-      border: 1px solid ${secondary};
-    }
+    background-color: #989595;
+    border: 1px solid #989595;
   }
+`;
+
+export const SubmitButton = styled(Button)`
+  background-color: ${secondary};
+  border: 1px solid ${secondary};
+
+  &:hover {
+    color: ${secondary};
+    background-color: ${white};
+    border: 1px solid ${secondary};
+  }
+`;
+export const ReceiverResourceContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;

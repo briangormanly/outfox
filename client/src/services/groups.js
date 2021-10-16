@@ -4,7 +4,7 @@ const groupsURL = 'http://localhost:8080/api/groups';
 const resourceURL = 'http://localhost:8080/api/resources';
 const fileURL = 'http://localhost:8080/api/file';
 
-// GROUPS
+// GROUPS  ------------------------------------------------------------------------------------------
 const createGroup = async (newGroupObject) => {
 	const response = await axios.post(groupsURL, newGroupObject);
 	return response.data;

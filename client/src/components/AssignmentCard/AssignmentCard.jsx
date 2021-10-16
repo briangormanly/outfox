@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
 
@@ -9,13 +9,16 @@ import {
   AssignmentCardContent,
   TitleContainer,
   StatusBarContainer,
-  ViewResourceContainer,
+  OwnerResourceContainer,
+  ReceiverResourceContainer,
   DatesDescriptionActionContainer,
   DatesContainer,
   DatesContainerQuestions,
   DatesContainerAnswers,
   DescriptionContainer,
   ActionContainer,
+  ViewResourceButton,
+  SubmitButton,
 } from "./AssignmentCard.elements";
 
 import {
@@ -26,15 +29,23 @@ import {
   FaTrashAlt,
 } from "react-icons/fa";
 
-const AssignmentCard = () => {
+const AssignmentCard = (props) => {
+  const isOwner = props.isOwner;
+  const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
+
   const { secondary } = colors;
-  const RSPBsteps = document.getElementsByClassName("RSPBstep");
-  if (RSPBsteps[0]) {
-    RSPBsteps[0].style.left = "10%";
+  const statusBarSteps = document.getElementsByClassName("RSPBstep");
+
+  //fixes styling issue for status bar
+  for (let i = 0; i < statusBarSteps.length; i++) {
+    if (statusBarSteps[i].style.left === "0%") {
+      statusBarSteps[i].style.left = "10%";
+    }
+    if (statusBarSteps[i].style.left === "100%") {
+      statusBarSteps[i].style.left = "90%";
+    }
   }
-  if (RSPBsteps[2]) {
-    RSPBsteps[2].style.left = "90%";
-  }
+
   return (
     <AssignmentCardContainer>
       <AssignmentCardContent>
@@ -88,15 +99,30 @@ const AssignmentCard = () => {
           </DescriptionContainer>
 
           <ActionContainer>
-            <FaPencilAlt />
             <FaComments />
-            <FaShare />
-            <FaTrashAlt />
+            {isOwner && (
+              <Fragment>
+                <FaPencilAlt />
+
+                <FaShare />
+                <FaTrashAlt />
+              </Fragment>
+            )}
           </ActionContainer>
         </DatesDescriptionActionContainer>
-        <ViewResourceContainer>
-          <button> View Resource </button>
-        </ViewResourceContainer>
+        {isOwner ? (
+          <OwnerResourceContainer>
+            <ViewResourceButton> View Resource </ViewResourceButton>
+          </OwnerResourceContainer>
+        ) : (
+          <ReceiverResourceContainer>
+            <ViewResourceButton> View Resource </ViewResourceButton>
+            <SubmitButton onClick={() => setShowSubmitAssignmentModal(true)}>
+              {" "}
+              Submit Assignment{" "}
+            </SubmitButton>
+          </ReceiverResourceContainer>
+        )}
       </AssignmentCardContent>
     </AssignmentCardContainer>
   );

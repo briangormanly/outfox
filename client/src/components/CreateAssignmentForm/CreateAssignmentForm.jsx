@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   CreateAssignmentContainer,
-  SmallInputContainer,
+  DatesContainer,
+  GradeContainer,
+  StatusContainer,
+  ResourceContainer,
 } from "./CreateAssignmentForm.elements";
 
 import FormInput from "../Form-Input/Form-Input";
@@ -35,8 +38,20 @@ const CreateAssignmentForm = ({ setShowModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !description) {
-      console.log("Please fill out all fields");
+    if (
+      !name ||
+      !description ||
+      !openDateMonth ||
+      !openDateDay ||
+      !openDateYear ||
+      !dueDateMonth ||
+      !dueDateDay ||
+      !dueDateYear ||
+      !closeDateMonth ||
+      !closeDateDay ||
+      !closeDateYear
+    ) {
+      console.log("Please fill out all required fields");
       return;
     }
 
@@ -127,8 +142,8 @@ const CreateAssignmentForm = ({ setShowModal }) => {
           onChange={handleDescriptionChange}
         />
 
-        <SmallInputContainer>
-          <p>Open Date:</p>
+        <DatesContainer>
+          <p>*Open Date:</p>
           <FormInput
             type="number"
             name="openDateM"
@@ -154,10 +169,10 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             onChange={handleOpenDateYearChange}
             className={"small"}
           />
-        </SmallInputContainer>
+        </DatesContainer>
 
-        <SmallInputContainer>
-          <p>Due Date:</p>
+        <DatesContainer>
+          <p>*Due Date:</p>
           <FormInput
             type="number"
             name="dueDateM"
@@ -183,10 +198,10 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             onChange={handleDueDateYearChange}
             className={"small"}
           />
-        </SmallInputContainer>
+        </DatesContainer>
 
-        <SmallInputContainer>
-          <p>Close Date:</p>
+        <DatesContainer>
+          <p>*Close Date:</p>
           <FormInput
             type="number"
             name="closeDateM"
@@ -212,9 +227,14 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             onChange={handleCloseDateYearChange}
             className={"small"}
           />
-        </SmallInputContainer>
+        </DatesContainer>
 
-        <SmallInputContainer>
+        <StatusContainer>
+          <p>Status:</p>
+          <p>Open</p>
+        </StatusContainer>
+
+        <GradeContainer>
           <p>Grade:</p>
           <FormInput
             type="text"
@@ -225,7 +245,11 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             className={"small"}
             disabled={true}
           />
-        </SmallInputContainer>
+        </GradeContainer>
+        <ResourceContainer>
+          <button>Add Resource </button>
+          <p>No Resource Chosen</p>
+        </ResourceContainer>
 
         <button type="submit">Create Assignment</button>
       </form>
