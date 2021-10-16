@@ -5,12 +5,12 @@ import {
   InnerContainer,
   Content,
   VerticalLine,
-} from "./AssignmentLessons.elements";
+} from "./AssignmentLesson.elements";
 
 import { FaClipboard } from "react-icons/fa";
 import { CreateAssignmentForm, Modal, AssignmentCard } from "../index";
 
-const AssignmentLessons = () => {
+const AssignmentLesson = () => {
 
   const [showModal, setShowModal] = useState(false);
 
@@ -45,4 +45,4 @@ const AssignmentLessons = () => {
   );
 };
 
-export default AssignmentLessons;
+export default AssignmentLesson;
