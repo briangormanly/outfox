@@ -5,12 +5,12 @@ import {
   InnerContainer,
   Content,
   VerticalLine,
-} from "./ResourceLessons.elements";
+} from "./ResourceLesson.elements";
 
 import { FaClipboard } from "react-icons/fa";
 import {Modal, AddResourceForm} from "../index";
 
-const ResourceLessons = () => {
+const ResourceLesson = () => {
 
   const [showModal, setShowModal] = useState(false);
 
@@ -41,4 +41,4 @@ const ResourceLessons = () => {
   );
 };
 
-export default ResourceLessons;
+export default ResourceLesson;
