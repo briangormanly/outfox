@@ -99,3 +99,16 @@ export const VerticalLine = styled.div`
   top: 125px;
   height: 150px;
 `;
+
+export const MContent = styled.div`
+
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  top: 0%;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  
+`;
