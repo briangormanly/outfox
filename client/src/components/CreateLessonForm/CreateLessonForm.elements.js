@@ -15,6 +15,42 @@ overflow-y: auto
 
 `;
 
+export const AssignContainer = styled.div`
+
+position: absolute;
+  right: 70%;
+  left: 0%;
+  top: 90%;
+
+`;
+
+export const PopContainer = styled.div`
+
+position: absolute;
+  right: 50%;
+  left: 0%;
+  top: 80%;
+  background-color: ${primary};
+  color: ${primary};
+
+  margin: auto;
+ 
+  width: 50%;
+  padding: 5px;
+`;
+
+
+
+export const ResourceContainer = styled.div`
+
+position: absolute;
+  right: 70%;
+  left: 0%;
+  top: 0%;
+  bottom: 80;
+
+`;
+
 export const FormContainer = styled.div`
 
 position: absolute;
@@ -31,6 +67,10 @@ position: absolute;
   left: 90%;
   top: 85%;
 
+  background-color: ${primary};
+
+  color: ${primary};
+
 `;
 
 export const CreateContainer = styled.div`
@@ -41,6 +81,8 @@ position: absolute;
   top: 87%;
 
 `;
+
+
 
 export const BodyContainer = styled.div`
   min-height: 65vh;
@@ -149,6 +191,7 @@ export const ModalsContent = styled(motion.div)`
   flex-direction: column;
     z-index: 20;
   centered;
+  margin: auto;
 
     ${(props) => props.large && css`max-width: 20rem;`}
 `;
