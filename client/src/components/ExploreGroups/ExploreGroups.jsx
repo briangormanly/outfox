@@ -14,7 +14,7 @@ import {
 	ResSelectBtn
 } from './ExploreGroups.elements';
 
-import { GroupCard } from '../index';
+import { ExploreGroup } from '../index';
 import { getGroup } from '../../redux/actions/groupPageActions';
 
 // parent function
@@ -116,7 +116,7 @@ const ExploreGroups = async () => {
 				<h1>Explore</h1>
 				<GroupContainer>
 					{filteredGroups &&
-						filteredGroups.map((group) => <GroupCard key={group.id} {...group} />)}
+						filteredGroups.map((group) => <ExploreGroup key={group.id} {...group} />)}
 				</GroupContainer>
 			</ExploreGroupContainer>
 		</HeadButtonGroup>

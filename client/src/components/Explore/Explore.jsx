@@ -56,9 +56,12 @@ const Explore = () => {
 	const location = useLocation();
 
 	const handleGroupRoute = () =>{
-		history.push(`${location.pathname}/${"/ExploreGroups"}`);
+		history.push(`${location.pathname}/${"ExploreGroups"}`);
 	}
 
+	const handleResourceRoute = () => {
+		history.push(`${location.pathname}/${"ExploreResources"}`);
+	}
 
 	useEffect(() => {
 		let mounted = true;
@@ -93,7 +96,7 @@ const Explore = () => {
 			<GroupSelectBtn edit onClick={handleGroupRoute}>
 				Groups
 			</GroupSelectBtn>
-			<ResSelectBtn edit onClick={console.log("HERE" + 3)}>
+			<ResSelectBtn edit onClick={handleResourceRoute}>
 				Resources
 			</ResSelectBtn>
 			<ExploreContainer>
