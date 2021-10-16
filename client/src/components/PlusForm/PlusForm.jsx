@@ -6,13 +6,14 @@ import {BodyContainer} from './PlusForm.elements';
 import {AddContainer} from './PlusForm.elements';
 import {ButtonsContainer} from './PlusForm.elements';
 
-import { Modal, AddResourceForm} from "../index";
+import { Modal, ResourceLessons, AssignmentLessons} from "../index";
 
 import {
     HeaderText,
 } from './PlusForm.elements';
 
 import { ActionButton } from '../../styles';
+
 
 
 const PlusForm = ({ creatorid, GroupId }) => {
@@ -27,7 +28,7 @@ const PlusForm = ({ creatorid, GroupId }) => {
 
         {showModal && (
             <Modal small setShowModal={setShowModal} >
-            <AddResourceForm creatorid={id} setShowModal={setShowModal} />
+            <ResourceLessons creatorid={id} setShowModal={setShowModal} />
             </Modal>
         )}
        
