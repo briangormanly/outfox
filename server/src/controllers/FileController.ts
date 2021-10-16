@@ -111,7 +111,7 @@ class FileController {
             const { uuid } = request.params; // Destructure the object to only grab the id coming from the request
             const beforeDelete = await File.findOne({where: { uuid: uuid }});
 
-            fs.rmdir(`${__dirname}/../storage/` + beforeDelete.uuid + beforeDelete.filetype,
+            fs.rmdir(`${__dirname}/../storage/` + beforeDelete.uuid,
             () => {
                 console.log(beforeDelete.filename + " Deleted!");
             });
@@ -139,7 +139,7 @@ class FileController {
             where: { uuid: uuid },
           });
     
-          const filepath = `${__dirname}/../storage/` + uuid;
+          const filepath = `${__dirname}/../storage/` + file.uuid;
           if (file) {
             response.download(filepath);
           } else {
