@@ -11,6 +11,9 @@ import {
 	USER_ADD_RESOURCE,
 	USER_EDIT_RESOURCE,
 	USER_DELETE_RESOURCE,
+	USER_ADD_LESSON,
+    USER_EDIT_LESSON,
+    USER_DELETE_LESSON,
 	USER_GET_SHARED_GROUPS,
 	USER_GET_SHARED_RESOURCES,
 	USER_DELETE_SHARED_GROUP,
@@ -21,6 +24,8 @@ import userService from '../../services/users';
 import authService from '../../services/auth';
 import groupService from '../../services/groups';
 import shareService from '../../services/sharing';
+import lessonService from '../../services/lesson';
+
 
 export const userAction = (id) => async (dispatch) => {
 	try {
@@ -172,4 +177,37 @@ export const deleteSharedGroup = (id) => async (dispatch) => {
 export const logoutAction = () => (dispatch) => {
 	dispatch({ type: AUTH_LOGOUT });
 	dispatch({ type: USER_LOGOUT });
+};
+
+export const addLesson = (newLessonObject) => async (dispatch) => {
+    try {
+        const { lesson } = await lessonService.createLesson(newLessonObject);
+        dispatch({ type: USER_ADD_LESSON, payload: lesson });
+    } catch (error) {
+        console.log('An error occurred during add request');
+    }
+};
+
+export const editUserLesson = (lessonID, newLessonObject) => async (
+    dispatch
+) => {
+    try {
+        const { lesson } = await lessonService.editLesson(
+            lessonID,
+            newLessonObject
+        );
+
+        dispatch({ type: USER_EDIT_LESSON, payload: lesson });
+    } catch (error) {
+        console.log('An error occurred during edit request');
+    }
+};
+
+export const deleteUserLesson = (lessonID) => async (dispatch) => {
+    try {
+        await lessonService.deleteLesson(lessonID);
+        dispatch({ type: USER_DELETE_LESSON, payload: lessonID });
+    } catch (error) {
+        console.log('An error occurred during delete request');
+    }
 };
