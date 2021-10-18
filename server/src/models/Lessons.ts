@@ -4,6 +4,7 @@ import User from "./User";
 
 class Lessons extends Model{
     public id: number;
+    public title: string;
     public description: string;
     public creatorid: number;
     public mutable: boolean;
@@ -16,6 +17,10 @@ Lessons.init(
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
+        },
+        title:{
+            type: DataTypes.STRING,
+            allowNull: false
         },
         description: {
             type: DataTypes.STRING,

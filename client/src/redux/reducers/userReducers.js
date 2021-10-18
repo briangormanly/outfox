@@ -29,8 +29,10 @@ export const userReducer = (
 			lastname        : '',
 			Groups          : [],
 			Resources       : [],
+			Lessons         : [],
 			SharedResources : [],
-			SharedGroups    : []
+			SharedGroups    : [],
+			SharedLessons   : []
 		},
 		loading : false,
 		error   : null
@@ -91,6 +93,38 @@ export const userReducer = (
 			return {
 				...state,
 				user : { ...state.user, Groups: [ ...filteredGroups ] }
+			};
+		}
+		case USER_ADD_LESSON: {
+			return {
+				...state,
+				user : {
+					...state.user,
+					Lessons : [ ...state.user.Lessons, action.payload]
+				}
+			}
+		}
+		case USER_EDIT_LESSON: {
+			const newLessonList = state.user.Lessons.map((lesson) => {
+				if (lesson.id === action.payload.id) {
+					return action.payload;
+				} else {
+					return lesson;
+				}
+			});
+
+			return {
+				...state,
+				user : { ...state.user, Lessons: [ ...newLessonList ] }
+			};
+		}
+		case USER_DELETE_LESSON: {
+			const filteredLessons = state.user.Lessons.filter(
+				(lesson) => lesson.id !== action.payload
+			);
+			return {
+				...state,
+				user : { ...state.user, Lessons: [ ...filteredLessons ] }
 			};
 		}
 		case USER_GET_SHARED_GROUPS:
