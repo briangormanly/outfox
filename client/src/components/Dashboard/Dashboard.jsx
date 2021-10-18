@@ -47,7 +47,7 @@ const Dashboard = ({ dashboardPaginate }) => {
             </SharedGroupContainer>*/}
 
       <AssignmentsContainer>
-        <DashboardAssignments />
+        <DashboardAssignments dashboardPaginate={dashboardPaginate} />
       </AssignmentsContainer>
 
       <LessonsContainer>
