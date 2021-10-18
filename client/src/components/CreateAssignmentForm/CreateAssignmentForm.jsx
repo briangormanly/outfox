@@ -56,11 +56,28 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     }
 
     const newAssignmentObject = {
-      assignmentname: name,
+      title: name,
       assignmentdescription: description,
-
       createdby: id,
       datetimeadd: new Date().toLocaleDateString(),
+      opendate: new Date(
+        parseInt(openDateYear),
+        parseInt(openDateMonth),
+        parseInt(openDateDay)
+      ),
+      duedate: new Date(
+        parseInt(dueDateYear),
+        parseInt(dueDateMonth),
+        parseInt(dueDateDay)
+      ),
+      closedate: new Date(
+        parseInt(closeDateYear),
+        parseInt(closeDateMonth),
+        parseInt(closeDateDay)
+      ),
+      status: "open",
+      grade: null,
+      mutable: true,
     };
 
     try {
