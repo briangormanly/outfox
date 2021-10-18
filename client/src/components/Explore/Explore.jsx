@@ -23,14 +23,27 @@ import { ExploreUserCard } from '../index';
 
 // Part I --> Roxy
 // it calls API and gets data
-// number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
-	
+const getPages = async (userId) => {
+	// number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
+	const usersNURL = "http://localhost:8080//api/explore//userspgn/" + userId;
+	const usersResponse = await axios.get(usersNURL);
+	return usersResponse;
+};
+
 
 // Part II --> Roxy
 // make the second API call and pass the userid and page 1 to get user records
 // making a new expanded array 
 // in a foor loop for every single record it does the getUsers() with the ids, returning json array
-// put it into a json array /js object, plop that into a new array, do that process for every record
+const loopingPages = async (userId, usersResponse) => {
+	const usersIds = "http://localhost:8080//api/explore/users/" + userId + usersResponse; //pages, maybe pass in userPages;
+	for (records = 0; records <= userId.length; records++) {
+		getUsers(records);
+		const response = await axios.get(usersIds);
+		// put it into a json array /js object, plop that into a new array, do that process for every record
+	}
+}
+	
 
 // Part III --> Sam
 // take each record from the second array and turn it into a component
@@ -45,7 +58,7 @@ const Explore = () => {
 	const Uparams = useParams();
 	const currentUserId = parseFloat(Uparams.id);
 
-	//const userPages = await getPages(currentUserId);
+	const userPages = await getPages(currentUserId);
 
 
 	const [groups, setGroup] = useState([]);
