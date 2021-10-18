@@ -18,6 +18,7 @@ import {
   USER_GET_SHARED_RESOURCES,
   USER_DELETE_SHARED_GROUP,
   USER_DELETE_SHARED_RESOURCE,
+  USER_DELETE_SHARED_ASSIGNMENT,
   USER_ADD_ASSIGNMENT,
   USER_EDIT_ASSIGNMENT,
   USER_DELETE_ASSIGNMENT,
@@ -110,6 +111,50 @@ export const createGroupAction = (newGroupObject, resources) => async (
   }
 };
 
+export const createAssignmentAction = (
+  newAssignmentObject,
+  resources
+) => async (dispatch) => {
+  try {
+    const data = await assignmentService.createAssignment(newAssignmentObject);
+    const { assignment } = data;
+    console.log(resources);
+    console.log(assignment);
+
+    if (resources) {
+      console.log("IN HERE");
+      resources.map((resource) => {
+        console.log(resource);
+        const { description, fileName, link, title, type, uri } = resource;
+
+        const formData = new FormData();
+
+        if (uri) {
+          formData.append("uri", uri);
+        }
+
+        formData.append("link", link);
+        formData.append("type", type);
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("mutable", false);
+        formData.append("fileName", fileName);
+        formData.append("AssignmentId", assignment.id);
+
+        try {
+          dispatch(addUserResource(formData));
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    dispatch({ type: USER_ADD_GROUP, payload: data.group });
+  } catch (error) {
+    console.log("An Error has occurred");
+  }
+};
+
 export const editUserResource = (resourceID, newResourceObject) => async (
   dispatch
 ) => {
@@ -174,6 +219,15 @@ export const deleteSharedGroup = (id) => async (dispatch) => {
   try {
     await shareService.deleteSharedGroup(id);
     dispatch({ type: USER_DELETE_SHARED_GROUP, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteSharedAssignment = (id) => async (dispatch) => {
+  try {
+    await shareService.deleteSharedAssignment(id);
+    dispatch({ type: USER_DELETE_SHARED_ASSIGNMENT, payload: id });
   } catch (error) {
     console.log(error);
   }
