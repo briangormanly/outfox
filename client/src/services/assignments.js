@@ -6,7 +6,7 @@ const assignmentURL = 'http://localhost:8080/api/assignments';
 const createAssignment= async (newAssignmentObject) => {
     const response = await axios.post(assignmentURL, newAssignmentObject, {
         headers : {
-            'Content-Type' : 'multipart/form-data'
+            'Content-Type' : 'application/json'
         }
     });
     return response.data;

@@ -10,7 +10,7 @@ import {
 } from "./CreateAssignmentForm.elements";
 
 import FormInput from "../Form-Input/Form-Input";
-import { createAssignmentAction } from "../../redux/actions/userActions";
+import { addAssignment, createAssignmentAction } from "../../redux/actions/userActions";
 
 const CreateAssignmentForm = ({ setShowModal }) => {
   const [name, setName] = useState("");
@@ -57,9 +57,8 @@ const CreateAssignmentForm = ({ setShowModal }) => {
 
     const newAssignmentObject = {
       title: name,
-      assignmentdescription: description,
+      description: description,
       createdby: id,
-      datetimeadd: new Date().toLocaleDateString(),
       opendate: new Date(
         parseInt(openDateYear),
         parseInt(openDateMonth),
@@ -81,7 +80,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     };
 
     try {
-      storeDispatch(createAssignmentAction(newAssignmentObject));
+      storeDispatch(addAssignment(newAssignmentObject));
     } catch (error) {
       console.log(error);
     }
