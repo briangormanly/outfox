@@ -34,13 +34,13 @@ export { default as ResourceCard } from "./ResourceCard/ResourceCard";
 
 // Assignment Components
 export { default as AssignmentCard } from "./AssignmentCard/AssignmentCard";
-export { default as AssignmentCardSmall } from "./AssignmentCardSmall/AssignmentCardSmall";
+export { default as AssignmentCardAllCards } from "./AssignmentAllCards/AssignmentAllCards";
 
 //lesson components
 export { default as CreateLessonForm } from "./CreateLessonForm/CreateLessonForm";
 export { default as PlusForm } from "./PlusForm/PlusForm";
-export {default as AssignmentLesson} from './AssignmentLesson/AssignmentLesson';
-export {default as ResourceLesson} from './ResourceLesson/ResourceLesson';
+export { default as AssignmentLesson } from "./AssignmentLesson/AssignmentLesson";
+export { default as ResourceLesson } from "./ResourceLesson/ResourceLesson";
 
 // Forms
 export { default as CreateAssignmentForm } from "./CreateAssignmentForm/CreateAssignmentForm";

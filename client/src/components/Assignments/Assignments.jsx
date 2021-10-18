@@ -12,7 +12,7 @@ import {
   CreateAssignmentForm,
   Modal,
   AssignmentCard,
-  //AssignmentCardSmall,
+  //AssignmentAllCards,
   SubmitAssignmentForm,
 } from "../index";
 
@@ -76,7 +76,7 @@ const Assignments = () => {
           <h1>My Assignments</h1>
           <InnerContainer>
             <Content>
-              <AssignmentCardSmall
+              <AssignmentAllCards
                 name={"AssignmentName"}
                 description={"AssignmentDescription"}
               />

@@ -10,7 +10,7 @@ import {
 } from "./CreateAssignmentForm.elements";
 
 import FormInput from "../Form-Input/Form-Input";
-import { createGroupAction } from "../../redux/actions/userActions";
+import { createAssignmentAction } from "../../redux/actions/userActions";
 
 const CreateAssignmentForm = ({ setShowModal }) => {
   const [name, setName] = useState("");
@@ -64,7 +64,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     };
 
     try {
-      storeDispatch(createGroupAction(newAssignmentObject));
+      storeDispatch(createAssignmentAction(newAssignmentObject));
     } catch (error) {
       console.log(error);
     }

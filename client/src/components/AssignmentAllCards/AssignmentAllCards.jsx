@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Card } from "./AssignmentCardSmall.elements";
+import { Card } from "./AssignmentAllCards.elements";
 
-const AssignmentCardSmall = (props) => {
+const AssignmentAllCards = (props) => {
   const name = props.name;
   const description = props.description;
 
@@ -15,4 +15,4 @@ const AssignmentCardSmall = (props) => {
   );
 };
 
-export default AssignmentCardSmall;
+export default AssignmentAllCards;
