@@ -57,7 +57,7 @@ Assignments.init(
         },
         grade:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         mutable:{
             type: DataTypes.BOOLEAN,
