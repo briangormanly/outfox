@@ -1,9 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { GroupContainer } from "./Groups.elements";
 import { GroupAllCard } from "../index";
-import { Content, InnerContainer, TitleContainer } from "./Groups.elements";
+import {
+  GroupContainer,
+  Content,
+  InnerContainer,
+  TitleContainer,
+} from "./Groups.elements";
 
 const Groups = () => {
   const { user } = useSelector((state) => state.userDetail);

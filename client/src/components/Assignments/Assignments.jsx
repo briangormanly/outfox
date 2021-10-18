@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+/*import React, { Fragment, useState } from "react";
 import {
   AssignmentContainer,
   TitleContainer,
@@ -14,9 +14,20 @@ import {
   AssignmentCard,
   //AssignmentAllCards,
   SubmitAssignmentForm,
-} from "../index";
+} from "../index";*/
 
-const Assignments = () => {
+import React from "react";
+import { useSelector } from "react-redux";
+
+import { AssignmentAllCards } from "../index";
+import {
+  AssignmentContainer,
+  Content,
+  InnerContainer,
+  TitleContainer,
+} from "./Assignments.elements";
+
+/*const Assignments = () => {
   const [showCreateAssignmentModal, setShowCreateAssignmentModal] = useState(
     false
   );
@@ -38,7 +49,7 @@ const Assignments = () => {
           <SubmitAssignmentForm setShowModal={setShowSubmitAssignmentModal} />
         </Modal>
       )}
-      {/*without assignments*/}
+      {/!*without assignments*!/}
       <AssignmentContainer>
         <button onClick={() => setShowCreateAssignmentModal(true)}>
           Create Assignment{" "}
@@ -70,8 +81,8 @@ const Assignments = () => {
         </TitleContainer>
       </AssignmentContainer>
 
-      {/*with assignments*/}
-      {/*      <AssignmentContainer>
+      {/!*with assignments*!/}
+      {/!*      <AssignmentContainer>
         <TitleContainer>
           <h1>My Assignments</h1>
           <InnerContainer>
@@ -83,15 +94,35 @@ const Assignments = () => {
             </Content>
           </InnerContainer>
         </TitleContainer>
-      </AssignmentContainer>*/}
+      </AssignmentContainer>*!/}
 
-      {/*<AssignmentCard isOwner={true} />*/}
+      {/!*<AssignmentCard isOwner={true} />*!/}
       <AssignmentCard
         isOwner={false}
         setShowSubmitAssignmentModal={setShowSubmitAssignmentModal}
       />
     </Fragment>
   );
-};
+};*/
 
+const Assignments = () => {
+  const { user } = useSelector((state) => state.userDetail);
+  const { Assignments } = user;
+
+  return (
+    <AssignmentContainer>
+      <button> Create Assignment </button>
+      <TitleContainer>
+        <h1>My Assignments</h1>
+        <InnerContainer>
+          <Content>
+            {Assignments.map((assignment) => (
+              <AssignmentAllCards key={assignment.id} {...assignment} />
+            ))}
+          </Content>
+        </InnerContainer>
+      </TitleContainer>
+    </AssignmentContainer>
+  );
+};
 export default Assignments;

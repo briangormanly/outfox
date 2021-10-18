@@ -34,7 +34,7 @@ export { default as ResourceCard } from "./ResourceCard/ResourceCard";
 
 // Assignment Components
 export { default as AssignmentCard } from "./AssignmentCard/AssignmentCard";
-export { default as AssignmentCardAllCards } from "./AssignmentAllCards/AssignmentAllCards";
+export { default as AssignmentAllCards } from "./AssignmentAllCards/AssignmentAllCards";
 
 //lesson components
 export { default as CreateLessonForm } from "./CreateLessonForm/CreateLessonForm";
