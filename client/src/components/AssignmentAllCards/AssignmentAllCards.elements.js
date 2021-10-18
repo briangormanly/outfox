@@ -4,9 +4,17 @@ import { colors } from "../../styles";
 
 const { primary } = colors;
 
-export const Card = styled.div`
+export const AssignmentCard = styled.div`
   height: 30rem;
-  max-width: fit-content;
+  width: 20rem;
+  /* background: rgb(139, 1, 1);
+	background: linear-gradient(
+		170deg,
+		rgba(139, 1, 1, 1) 0%,
+		rgba(158, 60, 60, 1) 35%,
+		rgba(53, 157, 157, 1) 70%,
+		rgba(18, 150, 150, 1) 100%
+	); */
 
   padding: 1.5rem;
   color: black;
@@ -17,8 +25,6 @@ export const Card = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
 
   div {
     text-align: right;
@@ -39,7 +45,7 @@ export const Card = styled.div`
   /* button {
 		display: block;
 		margin-top: 2rem;
-		margin-bottom: 5rem;
+		margin-bottom: 3rem;
 		background-color: ${primary};
 		border-radius: 5px;
 		border: none;
@@ -47,10 +53,35 @@ export const Card = styled.div`
 		padding: 0.7rem 1rem;
 		transition: 0.2s;
 		cursor: pointer;
-		width: 100%;
 
 		&:hover {
 			transform: scale(1.1);
 		}
 	} */
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1 0 0;
+
+  button {
+    margin-top: 1rem;
+    width: 100%;
+    display: block;
+    background-color: ${primary};
+    border-radius: 5px;
+    border: none;
+    color: white;
+    padding: 0.7rem 1rem;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: white;
+      color: ${primary};
+      border: 1px solid ${primary};
+    }
+  }
 `;

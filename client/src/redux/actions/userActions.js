@@ -29,7 +29,7 @@ import authService from "../../services/auth";
 import groupService from "../../services/groups";
 import shareService from "../../services/sharing";
 import lessonService from "../../services/lesson";
-import assignmentService from "../../services/assignment";
+import assignmentService from "../../services/assignments";
 
 export const userAction = (id) => async (dispatch) => {
   try {
