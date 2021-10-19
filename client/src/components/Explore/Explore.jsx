@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory, useLocation} from 'react-router-dom';
+import axios from 'axios';
 
 import userService from '../../services/users';
 import groupService from '../../services/groups';
@@ -37,21 +38,15 @@ const getPages = async (userId) => {
 const loopingPages = async (userId, usersResponse) => {
 	// make a new expanded array 
 	var secondArray = [];
-	var users = {
-		'firstName': firstName,
-		'lastName': lastName,
-		'username': username,
-		'email': email
-	}
 
 
 	const usersIds = "http://localhost:8080//api/explore/users/" + userId + usersResponse; //pages, maybe pass in userPages;
 	// loop through every single record, and do getUsers() with the userids, return json array
-	for (record = 0; record <= userId.length; record++) {
+	for (var record = 0; record <= userId.length; record++) {
 		getUsers(userId);
 		const response = await axios.get(usersIds);
 		// for every record, add the user info to the second array
-		secondArray.push(users);
+		secondArray.push(response);
 	}
 }
 	
@@ -69,7 +64,7 @@ const Explore = () => {
 	const Uparams = useParams();
 	const currentUserId = parseFloat(Uparams.id);
 
-	const userPages = await getPages(currentUserId);
+	//const userPages = await getPages(currentUserId);
 
 
 	const [groups, setGroup] = useState([]);
