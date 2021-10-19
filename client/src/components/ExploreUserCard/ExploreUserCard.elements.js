@@ -16,6 +16,7 @@ export const ExploreCard = styled.div`
 export const Content = styled.div`
 	display: flex;
 	align-items: center;
+	
 `;
 
 export const IconContainer = styled.div`
@@ -46,6 +47,15 @@ export const Text = styled.div`
 		font-size: 1.3rem;
 		padding-top: 0.2rem;
 	}
+	li{
+		font-size:1.2rem;
+		padding-top: .2rem;
+		background-color:rgba(245, 153, 39, 0.54) !important;
+		border-radius: 10px;
+		margin-top:3px;
+		text-align:center;
+	}
+	
 `;
 
 export const ButtonGroup = styled.div`
@@ -54,6 +64,8 @@ export const ButtonGroup = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 12rem;
+	margin-right:15px;
+	margin-left: 10px;
 `;
 
 export const Button = styled(ActionButton)`

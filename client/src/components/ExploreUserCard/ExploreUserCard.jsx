@@ -29,11 +29,7 @@ const ExploreUserCard = (props) => {
 				<Text>
 					<h2>{`${firstname} ${lastname}`}</h2>
 					<p>{`${username}`}</p>
-					<ul>
-						<li>{`${tags[0]}`}</li>
-						<li>{`${tags[1]}`}</li>
-						<li>{`${tags[2]}`}</li>
-					</ul>
+					
 				</Text>
 			</Content>
 			<ButtonGroup>
@@ -41,6 +37,14 @@ const ExploreUserCard = (props) => {
 					View Page
 				</Button>
 			</ButtonGroup>
+			<Text>
+				<h3>Related Tags</h3>
+			<ul>
+				<li>{`${tags[0]}`}</li>
+				<li>{`${tags[1]}`}</li>
+				<li>{`${tags[2]}`}</li>
+			</ul>
+			</Text>
 		</ExploreCard>
 	);
 };
