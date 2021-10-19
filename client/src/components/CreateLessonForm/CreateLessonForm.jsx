@@ -1,6 +1,8 @@
 import React, { useReducer, Fragment, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Popup from 'reactjs-popup';
+import { createUserAction } from '../../redux/actions/userActions';
+
 
 
 import { addLesson } from '../../redux/actions/userActions';
@@ -78,10 +80,12 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
 
 
         const newLessonObject = {
-            lesonname : title,
-            lessondescription : description,
-
-            createdby: id
+            
+            description : description,
+            title :title,
+            mutable: true
+           
+            
         }
 
         const formData = new FormData();
@@ -101,6 +105,8 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
         setTitle('');
         setDescription('');
         setShowModal(false);
+
+        storeDispatch(createUserAction(newLessonObject));
 
     };
 
