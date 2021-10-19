@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useParams, useHistory, useLocation} from 'react-router-dom';
 import axios from 'axios';
 
 import userService from '../../services/users';
-import groupService from '../../services/groups';
+
 
 import {
 	ExploreContainer,
@@ -22,33 +22,7 @@ import { ExploreUserCard } from '../index';
 // parent functions
 // when you click on explore...
 
-// Part I --> Roxy
-// it calls API and gets data
-const getPages = async (userId) => {
-	// number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
-	const usersNURL = "http://localhost:8080//api/explore//userspgn/" + userId;
-	const usersResponse = await axios.get(usersNURL);
-	return usersResponse;
-};
 
-
-// Part II --> Roxy
-// make the second API call and pass the userid and page 1 to get user records
-
-const loopingPages = async (userId, usersResponse) => {
-	// make a new expanded array 
-	var secondArray = [];
-
-
-	const usersIds = "http://localhost:8080//api/explore/users/" + userId + usersResponse; //pages, maybe pass in userPages;
-	// loop through every single record, and do getUsers() with the userids, return json array
-	for (var record = 0; record <= userId.length; record++) {
-		getUsers(userId);
-		const response = await axios.get(usersIds);
-		// for every record, add the user info to the second array
-		secondArray.push(response);
-	}
-}
 	
 
 // Part III --> Sam
@@ -58,18 +32,34 @@ const loopingPages = async (userId, usersResponse) => {
 // render() the component
 // call the page which makes the component (another loop), returning the object
 
+ function getPages(userId){
+	// number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
+	const usersNURL = "http://localhost:8080/api/explore/userspgn/" + userId;
+	const usersResponse =  axios.get(usersNURL);
+	return usersResponse;
+}
 
-const Explore = () => {
-	const [users, setUsers] = useState([]);
+
+// Part II --> Roxy
+// make the second API call and pass the userid and page 1 to get user records
+async function aiCall(userid, page){
+	const usersIds = "http://localhost:8080/api/explore/users/" + userid + "/"+ page; //pages, maybe pass in userPages;
+	// loop through every single record, and do getUsers() with the userids, return json array
+	const response = await axios.get(usersIds);
+	return response;
+}
+
+
+
+
+
+
+const Explore =  () => {
+
 	const Uparams = useParams();
 	const currentUserId = parseFloat(Uparams.id);
-
-	//const userPages = await getPages(currentUserId);
-
-
-	const [groups, setGroup] = useState([]);
-	const Gparams = useParams();
-	const currentGroupId = parseFloat(Gparams.id);
+	const [expUsers, setExpUsers] = useState([]);
+	const [setUp, setSetUp] = useState(false);
 
 	const history = useHistory();
 	const location = useLocation();
@@ -82,37 +72,39 @@ const Explore = () => {
 		history.push(`${location.pathname}/${"ExploreResources"}`);
 	}
 
+
+	const setExpData = async  (userId, pageNumber)=>{
+		const userData =  await aiCall(userId, pageNumber);
+			var resJsonRaw = userData.data;
+			var resJson = resJsonRaw.users;
+		for (var record of resJson) {
+			const userDat = await userService.getUser(parseInt(record.id));
+				record.firstname =  userDat.firstname;
+				record.lastname  =  userDat.lastname;
+				record.hashedpw = "REDACTED"; 
+		}
+		setExpUsers(resJson);
+	};
+
+	
 	useEffect(() => {
-		let mounted = true;
+		
+		if(!setUp){
+			setExpData(currentUserId,1);
+			setSetUp(true);
+		}
 
-		const getUsers = async () => {
-			const response = await userService.getAll();
-			if (mounted) {
-				setUsers(response);
-			}
-		};
+	}, [setExpData]);
 
-		const getGroups = async () => {
-			const response = await groupService.getGroupData();
-			if (mounted) {
-				setGroup(response);
-			}
-		};
-		getUsers();
-		getGroups();
-
-		return () => (mounted = false);
-	}, []);
-
-	const filteredUsers = users.filter((user) => user.id !== currentUserId);
-	const filteredGroups = groups.filter((group) => group.id !== currentGroupId);
+	//const filteredUsers = expUsers.filter((expUser) => expUser.id !== currentUserId);
+	//const filteredGroups = groups.filter((group) => group.id !== currentGroupId);
 
 	return (
 		<HeadButtonGroup>{/*THESE ARE THE BUTTONS AT THE TOP OF THE EXPLORE PAGE */}
 			<UserSelectBtn edit onClick={console.log("HERE" + 1)}>
 				Users
 			</UserSelectBtn>
-			<GroupSelectBtn edit onClick={handleGroupRoute}>
+			<GroupSelectBtn edit onClick={console.log(expUsers)}>
 				Groups
 			</GroupSelectBtn>
 			<ResSelectBtn edit onClick={handleResourceRoute}>
@@ -120,10 +112,8 @@ const Explore = () => {
 			</ResSelectBtn>
 			<ExploreContainer>
 				<h1>Explore</h1>
-				<UserContainer>
-					{filteredUsers &&
-						filteredUsers.map((user) => <ExploreUserCard key={user.id} {...user} />)}
-				</UserContainer>
+			{expUsers &&
+					expUsers.map((expUser) => <ExploreUserCard key={expUser.id} {...expUser} />)} 
 			</ExploreContainer>
 		</HeadButtonGroup>
 	);
