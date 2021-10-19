@@ -33,14 +33,25 @@ const getPages = async (userId) => {
 
 // Part II --> Roxy
 // make the second API call and pass the userid and page 1 to get user records
-// making a new expanded array 
-// in a foor loop for every single record it does the getUsers() with the ids, returning json array
+
 const loopingPages = async (userId, usersResponse) => {
+	// make a new expanded array 
+	var secondArray = [];
+	var users = {
+		'firstName': firstName,
+		'lastName': lastName,
+		'username': username,
+		'email': email
+	}
+
+
 	const usersIds = "http://localhost:8080//api/explore/users/" + userId + usersResponse; //pages, maybe pass in userPages;
-	for (records = 0; records <= userId.length; records++) {
-		getUsers(records);
+	// loop through every single record, and do getUsers() with the userids, return json array
+	for (record = 0; record <= userId.length; record++) {
+		getUsers(userId);
 		const response = await axios.get(usersIds);
-		// put it into a json array /js object, plop that into a new array, do that process for every record
+		// for every record, add the user info to the second array
+		secondArray.push(users);
 	}
 }
 	
