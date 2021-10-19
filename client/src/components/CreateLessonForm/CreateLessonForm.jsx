@@ -82,7 +82,7 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
         const newLessonObject = {
             
             description : description,
-            title :title,
+            creatorid :title,
             mutable: true
            
             
