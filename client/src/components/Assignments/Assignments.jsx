@@ -96,9 +96,9 @@ import {
         </TitleContainer>
       </AssignmentContainer>*!/}
 
-      {/!*<AssignmentCard isOwner={true} />*!/}
+      {/!*<AssignmentCard mutable={true} />*!/}
       <AssignmentCard
-        isOwner={false}
+        mutable={false}
         setShowSubmitAssignmentModal={setShowSubmitAssignmentModal}
       />
     </Fragment>

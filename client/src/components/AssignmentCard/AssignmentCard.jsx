@@ -34,7 +34,7 @@ import {
 } from "react-icons/fa";*/
 
 /*const AssignmentCard = (props) => {
-    const isOwner = props.isOwner;
+    const mutable = props.mutable;
     const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
 
     const { secondary } = colors;
@@ -104,7 +104,7 @@ import {
 
                     <ActionContainer>
                         <FaComments />
-                        {isOwner && (
+                        {mutable && (
                             <Fragment>
                                 <FaPencilAlt />
 
@@ -114,7 +114,7 @@ import {
                         )}
                     </ActionContainer>
                 </DatesDescriptionActionContainer>
-                {isOwner ? (
+                {mutable ? (
                     <OwnerResourceContainer>
                         <ViewResourceButton> View Resource </ViewResourceButton>
                     </OwnerResourceContainer>
