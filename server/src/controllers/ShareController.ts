@@ -40,6 +40,12 @@ class ShareController implements Controller {
     // Share Assignments Routes
 
     // Share Lessons Routes
+    this.router.route(this.path + "/lessons").post(this.createShareLessons);
+    this.router
+      .route(this.path + "/lessons" + "/:id")
+      .get(this.getSharedLessons)
+      .delete(this.deleteShareLessons);
+
   }
 
   // SHARED GROUP SECTION
@@ -220,6 +226,84 @@ class ShareController implements Controller {
 
   // SHARED LESSONS SECTION
   // route: /api/share/lessons
+  createShareLessons = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const sharedlesson = await ShareResource.create(request.body);
+      response.status(201).json({ sharedlesson });
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  // Goes to route /api/share/lessons/:id
+
+  /**
+   * Grabs a specific sharedresource based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getSharedLessons = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params;
+      const sharedLesson = await ShareLessons.findAll({
+        attributes: { exclude: ["SharedId", "Sharedby", "UserId"] },
+        where: { UserId: id },
+        include: [
+          {
+            association: "SharedFrom",
+            attributes: { exclude: ["hashpw", "country", "city", "phonenum"] },
+          },
+          {
+            association: "LessonShared",
+          },
+        ],
+        //include: ["SharedFrom", "SharedTo", "GroupShared"],
+      }); // Grabs the sharedlesson based on the specific 'id' of a user
+
+      if (sharedLesson) {
+        response.status(200).json(sharedLesson);
+      } else {
+        response
+          .status(404)
+          .send("Share Lesson with the specified ID does not exist");
+      }
+    } catch (err) {
+      response.status(500).send(err.message);
+    }
+  };
+
+  /**
+   * Deletes a sharedlesson based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  deleteShareLessons = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params;
+      const deleted = await ShareLessons.destroy({
+        where: { ShareLessonId: id },
+      }); // Delete the sharedlesson with the specified id
+
+      if (deleted) {
+        response.status(204).send("Share Lesson Deleted");
+      } else {
+        response
+          .status(404)
+          .send("Shared Lesson with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
 }
 
 export default ShareController;
