@@ -58,7 +58,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     const newAssignmentObject = {
       title: name,
       description: description,
-      createdby: id,
+      creatorid: id,
       opendate: new Date(
         parseInt(openDateYear),
         parseInt(openDateMonth),
@@ -145,14 +145,14 @@ const CreateAssignmentForm = ({ setShowModal }) => {
       <form onSubmit={handleSubmit}>
         <FormInput
           type="text"
-          name="assignmentName"
+          name="title"
           label="*Title"
           value={name}
           onChange={handleNameChange}
         />
         <FormInput
           type="text"
-          name="assignmentDescription"
+          name="description"
           label="*Description"
           value={description}
           onChange={handleDescriptionChange}

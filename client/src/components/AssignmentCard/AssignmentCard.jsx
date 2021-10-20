@@ -132,7 +132,7 @@ import {
     );
 };*/
 
-const AssignmentCard = ({ name, description, id }) => {
+const AssignmentCard = ({ title, description, id }) => {
   const history = useHistory();
   const params = useParams();
 
@@ -142,7 +142,7 @@ const AssignmentCard = ({ name, description, id }) => {
 
   return (
     <Card>
-      <h2>{name}</h2>
+      <h2>{title}</h2>
       <p>{description}</p>
       <button onClick={handleClick}>View Assignment</button>
     </Card>

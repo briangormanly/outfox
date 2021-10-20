@@ -15,8 +15,8 @@ import { AssignmentCard, ButtonGroup } from "./AssignmentAllCards.elements";
 const AssignmentAllCards = (
   id,
   datetimeadd,
-  assignmentdescription,
-  assignmentname,
+  description,
+  title,
   shared,
   sharedFrom,
   sharedAssignmentID
@@ -52,12 +52,12 @@ const AssignmentAllCards = (
     const response = await assignmentService.getAssignmentData(id);
     // console.log(response);
 
-    const { Resources, assignmentdescription, assignmentname } = response;
+    const { Resources, description, title } = response;
 
     const newObject = {
       Resources,
-      assignmentdescription,
-      assignmentname,
+      description,
+      title,
       createdby: user.id,
       datetimeadd: new Date().toLocaleDateString(),
     };
@@ -72,8 +72,8 @@ const AssignmentAllCards = (
         <div>Shared By: {`${sharedFrom.firstname} ${sharedFrom.lastname}`}</div>
       )}
       <div>Created: {date}</div>
-      <h2>{assignmentname}</h2>
-      <p>{assignmentdescription}</p>
+      <h2>{title}</h2>
+      <p>{description}</p>
       <ButtonGroup>
         {shared && (
           <button onClick={handleAddToMyAssignments}>

@@ -74,8 +74,8 @@ const DashboardAssignments = (dashboardPaginate) => {
             <AssignmentCard
               key={assignment.id}
               id={assignment.id}
-              name={assignment.assignmentname}
-              description={assignment.assignmentdescription}
+              title={assignment.title}
+              description={assignment.description}
             />
           ))}
         </CardContainer>
