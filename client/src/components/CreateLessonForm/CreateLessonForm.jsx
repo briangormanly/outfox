@@ -1,17 +1,11 @@
 import React, { useReducer, Fragment, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Popup from 'reactjs-popup';
-import { createUserAction } from '../../redux/actions/userActions';
-
-
-
+import ReactDOM, { render } from "react-dom"
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { addLesson } from '../../redux/actions/userActions';
-
-
 import FormInput from '../Form-Input/Form-Input';
-
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
 import {BodyContainer, 
         ButtonContainer,
@@ -26,7 +20,7 @@ import {BodyContainer,
 from './CreateLessonForm.elements';
 
 
-import { Modal, PlusForm, ResourceCard } from "../index";
+import { Modal, PlusForm} from "../index";
 
 import { FaPlus} from "react-icons/fa";
 
@@ -35,8 +29,7 @@ import {
 } from './CreateLessonForm.elements';
 
 import { ActionButton } from '../../styles';
-import { Text } from '../ExploreUserCard/ExploreUserCard.elements';
-import { name } from 'faker';
+
 
 const initialState = {
     title       : '',
@@ -51,14 +44,13 @@ function reducer(state, { field, value }) {
 }
 
 const CreateLessonForm = ({ creatorid, LessonId }) => {
+
     const [ type, setType ] = useState('Text');
     const [ value, setValue ] = useState('');
     const [ file, setFile ] = useState('');
     const [ fileName, setFileName ] = useState('');
     const [ state, dispatch ] = useReducer(reducer, initialState);
-
-    const [title, setTitle] =  useState('');
-    const [description, setDescription] =  useState('');
+    const { title, description, link} = state;
 
     const { user: { id } } = useSelector((state) => state.userDetail);
 
@@ -73,40 +65,41 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!title || !description) {
+        if (!title) {
             console.log('Please fill out all fields');
             return;
         }
 
-
-        const newLessonObject = {
-            
-            description : description,
-            creatorid :title,
-            mutable: true
-           
-            
-        }
-
         const formData = new FormData();
 
+        formData.append('title', title);
 
-        
+
+        if (value) {
+            formData.append('description', value);
+        } else {
+            formData.append('description', description);
+        }
+
+        formData.append('mutable', false);
+
+        let newObject = {};
+
+        if (creatorid) {
+            formData.append('creatorid', creatorid);
+            newObject = { ...state, mutable: true, creatorid: creatorid };
+        }
 
         try {
             
-            storeDispatch(addLesson(newLessonObject));
+            storeDispatch(addLesson(formData));
             setShowModal(false);
 
         } catch (error) {
             console.log('An Error Occurred');
         }
 
-        setTitle('');
-        setDescription('');
         setShowModal(false);
-
-        storeDispatch(createUserAction(newLessonObject));
 
     };
 
@@ -114,16 +107,6 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
     const handleInput = (e) => {
         dispatch({ field: e.target.name, value: e.target.value });
     };
-
-    const handleTitleChange = (e) => {
-        setTitle(e.target.value);
-    };
-    
-    const handleDescriptionChange = (e) => {
-        setDescription(e.target.value);
-    };
-
-    
 
     return (
 
@@ -143,42 +126,36 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
                 <FormContainer>
                 <FormInput
                     type="text"
-                    name="lessonname"
-                    label="Title"
+                    name="title"
+                    label="title"
                     value={title}
-                    onChange={handleTitleChange}
+                    onChange={handleInput}
                 />
-
+    
                 <FormInput
                     type="text"
-                    name="lessondescription"
+                    name="description"
                     label="Description"
-                    value={description}
-                    onChange={handleDescriptionChange}
-                /> 
+                    value={value}
+                    onChange={handleInput}
+                />
                 </FormContainer>
 
                 <br />
                 <br />
                 <br />
 
-                <QuillContainer>
-                {type === 'Text' && (
-                    <ReactQuill theme="snow" value={value} onChange={setValue} style={stylequill}  />
-                    
-                )}
+                <QuillContainer> 
+                <ReactQuill theme="snow" value={value} onChange={setValue} style={stylequill}/>  
                 </QuillContainer>
                 <br />
                 
                 <PlusContainer>
-
                 <button onClick={() => setShowModal(true)}>
                 <ModalsContent>
                 <span><FaPlus style={plus} /></span> 
                 </ModalsContent>
                 </button>
-                
-                
                 </PlusContainer>
 
                 <br />
@@ -186,7 +163,7 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
                 <br />
                 
                 <CreateContainer>
-                <ActionButton edit fullWidth type="submit" value="Upload">
+                <ActionButton edit fullWidth type="submit" value= "Upload">
                     Create Lesson
                 </ActionButton>
                 </CreateContainer>
