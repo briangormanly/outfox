@@ -10,6 +10,7 @@ const FormInput = ({
   label,
   className,
   disabled = false,
+  min,
 }) => (
   <InputGroup value={value} className={className}>
     <input
@@ -18,6 +19,7 @@ const FormInput = ({
       value={value}
       onChange={onChange}
       disabled={disabled}
+      min={min}
     />
     <label>{label}</label>
   </InputGroup>

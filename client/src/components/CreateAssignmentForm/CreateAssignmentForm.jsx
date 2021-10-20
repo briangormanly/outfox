@@ -10,7 +10,10 @@ import {
 } from "./CreateAssignmentForm.elements";
 
 import FormInput from "../Form-Input/Form-Input";
-import { addAssignment, createAssignmentAction } from "../../redux/actions/userActions";
+import {
+  addAssignment,
+  createAssignmentAction,
+} from "../../redux/actions/userActions";
 
 const CreateAssignmentForm = ({ setShowModal }) => {
   const [name, setName] = useState("");
@@ -139,6 +142,8 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     setGrade(e.target.value);
   };
 
+  const currentYear = parseInt(new Date().getFullYear().toString());
+
   return (
     <CreateAssignmentContainer>
       <h1>Create Assignment </h1>
@@ -167,6 +172,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={openDateMonth}
             onChange={handleOpenDateMonthChange}
             className={"small"}
+            min="0"
           />
 
           <FormInput
@@ -176,6 +182,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={openDateDay}
             onChange={handleOpenDateDayChange}
             className={"small"}
+            min="0"
           />
           <FormInput
             type="number"
@@ -184,6 +191,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={openDateYear}
             onChange={handleOpenDateYearChange}
             className={"small"}
+            min={currentYear} // new Date().getFullYear()
           />
         </DatesContainer>
 
@@ -196,6 +204,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={dueDateMonth}
             onChange={handleDueDateMonthChange}
             className={"small"}
+            min="0"
           />
 
           <FormInput
@@ -205,6 +214,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={dueDateDay}
             onChange={handleDueDateDayChange}
             className={"small"}
+            min="0"
           />
           <FormInput
             type="number"
@@ -213,6 +223,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={dueDateYear}
             onChange={handleDueDateYearChange}
             className={"small"}
+            min={currentYear}
           />
         </DatesContainer>
 
@@ -225,6 +236,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={closeDateMonth}
             onChange={handleCloseDateMonthChange}
             className={"small"}
+            min="0"
           />
 
           <FormInput
@@ -234,6 +246,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={closeDateDay}
             onChange={handleCloseDateDayChange}
             className={"small"}
+            min="0"
           />
           <FormInput
             type="number"
@@ -242,6 +255,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             value={closeDateYear}
             onChange={handleCloseDateYearChange}
             className={"small"}
+            min={currentYear}
           />
         </DatesContainer>
 

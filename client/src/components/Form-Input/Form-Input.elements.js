@@ -51,11 +51,11 @@ export const InputGroup = styled.div.attrs((props) => ({
   }
 
   &.small {
-    width: 50px;
+    width: 75px;
     margin-right: 15px;
 
     input {
-      width: 50px;
+      width: 75px;
     }
   }
 
