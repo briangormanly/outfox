@@ -59,7 +59,7 @@ export const CardContainer = styled.div`
 	height: 100%;
 	display: flex;
 	overflow-x: scroll;
-	padding-bottom: 1rem;
+	padding: 5rem;
 
 	&::-webkit-scrollbar {
 		width: 10px;

@@ -36,7 +36,7 @@ function DashboardResources({ dashboardPaginate }) {
         </Modal>
       )}
       <Header>
-        <h1>My Resources</h1>
+
         <ButtonContainer>
           <button onClick={() => setShowModal(true)}>
             <span>Create Resource</span> <FaPlus />

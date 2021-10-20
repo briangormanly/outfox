@@ -13,10 +13,10 @@ export const Card = styled.div`
 	display: flex;
 	flex-direction: column;
 
-	background-color: ${primary};
-	/* border: 1px solid black; */
+	background-color: ${white};
+	border: 2px solid ${primary};
 	border-radius: 16px;
-	color: white;
+	color: black;
 
 	-webkit-box-shadow: -29px 6px 15px -10px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: -29px 6px 15px -10px rgba(0, 0, 0, 0.75);

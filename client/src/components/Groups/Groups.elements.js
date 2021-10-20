@@ -10,6 +10,7 @@ export const GroupContainer = styled.div`
   flex-direction: column;
   justify-content: center;
 
+
   button {
     margin-top: 5rem;
     margin-bottom: 5rem;
@@ -66,6 +67,7 @@ export const Content = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   box-shadow: inset 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
 
   svg {

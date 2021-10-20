@@ -33,10 +33,6 @@ const DashboardGroups = ({ dashboardPaginate }) => {
     });
   };
 
-  const handleViewAll = () => {
-    dashboardPaginate({ type: "groups" });
-    history.push(`/user/${params.id}/groups`);
-  };
 
   return (
     <Fragment>
@@ -46,18 +42,7 @@ const DashboardGroups = ({ dashboardPaginate }) => {
         </Modal>
       )}
       <GroupsContainer>
-        <Header>
-          <h1>My Groups</h1>
-          <ButtonContainer>
-            <button onClick={() => setShowModal(true)}>
-              <span>Create Group</span> <FaPlus />
-            </button>
-            <button onClick={handleViewAll}>
-              <span>View All</span>
-              <FaArrowRight />
-            </button>
-          </ButtonContainer>
-        </Header>
+
         <CardContainer ref={scrollRef} onWheel={onWheel}>
           {Groups.map((group) => (
             <GroupCard

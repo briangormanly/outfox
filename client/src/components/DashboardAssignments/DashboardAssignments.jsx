@@ -58,7 +58,7 @@ const DashboardAssignments = (dashboardPaginate) => {
       </Collapsible>*/}
       <AssignmentsContainer>
         <Header>
-          <h1>My Assignments</h1>
+
           <ButtonContainer>
             <button onClick={() => setShowModal(true)}>
               <span>Create Assignment</span> <FaPlus />
