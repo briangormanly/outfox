@@ -5,18 +5,29 @@ import { colors } from '../../styles';
 
 const { secondary, white, primary, primaryLight } = colors;
 
+export const PopContainer = styled.div`
+
+position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+ 
+`;
+
 
 
 export const BodyContainer = styled.div`
-  min-height: 10vh;
-  width: 90%;
+  text-align: center;
+  
+  
   padding: 3rem;
-  margin: 0 auto;
+  display: block;
+  margin: auto;
   margin-bottom: 5rem;
   background-color: ${primary};
   border-top: solid ${primary} 10px;
   border-radius: 5px;
-  overflow-y: scroll;
+  
 
   h1 {
     color: ${white};
