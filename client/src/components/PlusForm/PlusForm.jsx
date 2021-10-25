@@ -5,6 +5,7 @@ import {useSelector } from 'react-redux';
 import {BodyContainer} from './PlusForm.elements';
 import {AddContainer} from './PlusForm.elements';
 import {ButtonsContainer} from './PlusForm.elements';
+import {PopContainer} from './PlusForm.elements';
 
 import { Modal, ResourceLesson, AssignmentLesson} from "../index";
 
@@ -22,24 +23,31 @@ const PlusForm = ({ creatorid, GroupId }) => {
     const [showModal, setShowModal] = useState(false);
     const { user: { id } } = useSelector((state) => state.userDetail);
 
-    return (
+    const [ showAssignmentModal, setShowAssignmentModal ] = useState(false);
+    const [ showResourceModal, setShowResourceModal ] = useState(false);
 
+    const stylemodal = { height: "100px", width: "100px"};
+
+    return (
         <React.Fragment>
 
-        {showModal && (
-            <Modal small setShowModal={setShowModal} >
-            <ResourceLesson creatorid={id} setShowModal={setShowModal} />
+        {showResourceModal && (
+            <Modal large setShowModal={setShowResourceModal} >
+            <ResourceLesson creatorid={id} setShowModal={setShowResourceModal} />
+            </Modal>
+        )}
+
+        {showAssignmentModal && (
+            <Modal small setShowModal={setShowAssignmentModal} >
+            <AssignmentLesson creatorid={id} setShowModal={setShowAssignmentModal} />
             </Modal>
         )}
        
-        <BodyContainer>
-        
-       
+        <BodyContainer >
             <HeaderText>Add</HeaderText>
 
-            
             <ButtonsContainer>
-            <button onClick={() => setShowModal(true)}>
+            <button onClick={() => setShowAssignmentModal(true)}>
                 <span>Assignment</span> 
             </button>
             </ButtonsContainer>
@@ -47,13 +55,11 @@ const PlusForm = ({ creatorid, GroupId }) => {
             <br />
             
             <ButtonsContainer>
-            <button onClick={() => setShowModal(true)}>  
+            <button onClick={() => setShowResourceModal(true)}>  
                 <span>Resource</span>    
             </button>
             </ButtonsContainer>
             
-
-
             <AddContainer>
             <ActionButton edit fullWidth type="submit" value="Upload">
                 Add
