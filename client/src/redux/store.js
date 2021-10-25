@@ -5,13 +5,15 @@ import thunk from 'redux-thunk';
 import { userReducer, authReducer } from './reducers/userReducers';
 import { friendsReducer } from './reducers/friendsReducer';
 import { groupPageReducer } from './reducers/groupPageReducers';
+import { assignmentReducer } from './reducers/assignmentReducers';
 
 // Reducers for application state
 const reducers = combineReducers({
 	userDetail      : userReducer,
 	userAuth        : authReducer,
 	friendDetail    : friendsReducer,
-	groupPageDetail : groupPageReducer
+	groupPageDetail : groupPageReducer,
+	assignmnet : assignmentReducer
 });
 
 // Redux middlewares
