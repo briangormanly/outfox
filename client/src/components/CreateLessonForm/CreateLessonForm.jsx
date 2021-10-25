@@ -43,21 +43,22 @@ function reducer(state, { field, value }) {
     };
 }
 
-const CreateLessonForm = ({ creatorid, LessonId }) => {
+const CreateLessonForm = ({ creatorid, LessonId, setShowModal }) => {
 
-    const [ type, setType ] = useState('Text');
     const [ value, setValue ] = useState('');
-    const [ file, setFile ] = useState('');
-    const [ fileName, setFileName ] = useState('');
     const [ state, dispatch ] = useReducer(reducer, initialState);
     const { title, description, link} = state;
 
     const { user: { id } } = useSelector((state) => state.userDetail);
 
-    const plus = { color: "white", fontSize: "2.5em", float: "right"}
-    const stylequill = { background: "white", height: "35em", width: "54em", minheight: "100% ", overflowy:"auto"}
-
-    const [showModal, setShowModal] = useState(false);
+    const plus = { color: "white", fontSize: "2.5em"};
+    const stylequill = { background: "white", height: "35em", width: "54em", minheight: "100% ", overflowy:"auto"};
+    const stylemodal = { float: "left"};
+    //const [showModal, setShowModal] = useState(false);
+    
+    const lessonarray = [];
+    
+    const [ showPlusModal, setShowPlusModal ] = useState(false);
 
     //redux
     const storeDispatch = useDispatch();
@@ -108,12 +109,14 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
         dispatch({ field: e.target.name, value: e.target.value });
     };
 
+    
+
     return (
 
         <React.Fragment>
-        {showModal && (
-            <Modal small setShowModal={setShowModal} >
-            <PlusForm creatorid={id} setShowModal={setShowModal} />
+        {showPlusModal && (
+            <Modal small setShowModal={setShowPlusModal}>
+            <PlusForm creatorid={id} setShowModal={setShowPlusModal} />
             </Modal>
         )}
         
@@ -135,7 +138,7 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
                 <FormInput
                     type="text"
                     name="description"
-                    label="Description"
+                    //label="Description"
                     value={value}
                     onChange={handleInput}
                 />
@@ -151,10 +154,12 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
                 <br />
                 
                 <PlusContainer>
-                <button onClick={() => setShowModal(true)}>
+                <button onClick={() => setShowPlusModal(true)}>
+                    
                 <ModalsContent>
                 <span><FaPlus style={plus} /></span> 
                 </ModalsContent>
+
                 </button>
                 </PlusContainer>
 
@@ -163,7 +168,7 @@ const CreateLessonForm = ({ creatorid, LessonId }) => {
                 <br />
                 
                 <CreateContainer>
-                <ActionButton edit fullWidth type="submit" value= "Upload">
+                <ActionButton edit fullWidth type="submit" value= "Upload" >
                     Create Lesson
                 </ActionButton>
                 </CreateContainer>
