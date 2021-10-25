@@ -24,6 +24,7 @@ export { default as DashboardResources } from "./DashBoardResources/DashboardRes
 export { default as DashboardSharedResources } from "./DashboardSharedR/DashboardSharedR";
 export { default as DashboardSharedGroups } from "./DashboardSharedG/DashboardSharedG";
 export { default as DashboardAssignments } from "./DashboardAssignments/DashboardAssignments";
+export { default as DashboardLessons } from "./DashboardLessons/DashboardLessons";
 
 // Group Components
 export { default as GroupAllCard } from "./GroupsAllCards/GroupsAllCards";
@@ -41,6 +42,11 @@ export { default as CreateLessonForm } from "./CreateLessonForm/CreateLessonForm
 export { default as PlusForm } from "./PlusForm/PlusForm";
 export { default as AssignmentLesson } from "./AssignmentLesson/AssignmentLesson";
 export { default as ResourceLesson } from "./ResourceLesson/ResourceLesson";
+export { default as LessonCard } from "./LessonCard/LessonCard";
+export { default as ViewLesson } from "./ViewLesson/ViewLesson";
+export { default as EditLessonForm } from "./EditLessonForm/EditLessonForm";
+export { default as DeleteLessonForm } from "./DeleteLessonForm/DeleteLessonForm";
+
 
 // Forms
 export { default as CreateAssignmentForm } from "./CreateAssignmentForm/CreateAssignmentForm";
