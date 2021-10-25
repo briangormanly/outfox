@@ -83,7 +83,7 @@ export const userReducer = (
         user: { ...state.user, Resources: [...filteredResourcs] },
       };
     }
-    case USER_ADD_RESOURCE:
+    case USER_ADD_RESOURCE: {
       return {
         ...state,
         user: {
@@ -91,6 +91,7 @@ export const userReducer = (
           Resources: [...state.user.Resources, action.payload],
         },
       };
+    }
     case DELETE_GROUP: {
       const filteredGroups = state.user.Groups.filter(
         (group) => group.id !== action.payload

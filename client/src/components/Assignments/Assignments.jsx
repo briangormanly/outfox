@@ -16,10 +16,10 @@ import {
   SubmitAssignmentForm,
 } from "../index";*/
 
-import React from "react";
+import React, { useState, Fragment } from "react";
 import { useSelector } from "react-redux";
 
-import { AssignmentAllCards } from "../index";
+import { AssignmentAllCards, CreateAssignmentForm, Modal } from "../index";
 import {
   AssignmentContainer,
   Content,
@@ -109,20 +109,29 @@ const Assignments = () => {
   const { user } = useSelector((state) => state.userDetail);
   const { Assignments } = user;
 
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <AssignmentContainer>
-      <button> Create Assignment </button>
-      <TitleContainer>
-        <h1>My Assignments</h1>
-        <InnerContainer>
-          <Content>
-            {Assignments.map((assignment) => (
-              <AssignmentAllCards key={assignment.id} {...assignment} />
-            ))}
-          </Content>
-        </InnerContainer>
-      </TitleContainer>
-    </AssignmentContainer>
+    <Fragment>
+      {showModal && (
+        <Modal setShowModal={setShowModal}>
+          <CreateAssignmentForm setShowModal={setShowModal} />
+        </Modal>
+      )}
+      <AssignmentContainer>
+        <button onClick={() => setShowModal(true)}> Create Assignment </button>
+        <TitleContainer>
+          <h1>My Assignments</h1>
+          <InnerContainer>
+            <Content>
+              {Assignments.map((assignment) => (
+                <AssignmentAllCards key={assignment.id} {...assignment} />
+              ))}
+            </Content>
+          </InnerContainer>
+        </TitleContainer>
+      </AssignmentContainer>
+    </Fragment>
   );
 };
 export default Assignments;

@@ -33,6 +33,15 @@ export const CreateAssignmentContainer = styled.div`
   }
 `;
 
+export const Page1Container = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  display: none;
+  &.is-active {
+    display: block;
+  }
+`;
+
 export const DatesContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -63,7 +72,7 @@ export const GradeContainer = styled.div`
   }
 `;
 
-export const ResourceContainer = styled.div`
+export const AddResourceContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -88,4 +97,23 @@ export const ResourceContainer = styled.div`
     font-size: 1rem;
     width: initial;
   }
+`;
+
+export const Page2Container = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  display: none;
+  svg {
+    font-size: 25px;
+    color: ${white};
+  }
+
+  &.is-active {
+    display: block;
+  }
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
