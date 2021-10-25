@@ -13,7 +13,7 @@ const reducers = combineReducers({
 	userAuth        : authReducer,
 	friendDetail    : friendsReducer,
 	groupPageDetail : groupPageReducer,
-	assignmnet : assignmentReducer
+	assignment : assignmentReducer,
 });
 
 // Redux middlewares
