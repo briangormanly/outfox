@@ -6,13 +6,12 @@ import { colors } from "../../styles";
 const { primary, secondary, white } = colors;
 
 export const ModalContainer = styled.div`
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  height: 100vh;
-  width: 100vw;
+  
   z-index: 10;
 `;
 
