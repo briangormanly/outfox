@@ -3,10 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   CreateAssignmentContainer,
+  Page1Container,
   DatesContainer,
   GradeContainer,
   StatusContainer,
-  ResourceContainer,
+  AddResourceContainer,
+  Page2Container,
+  TitleContainer,
 } from "./CreateAssignmentForm.elements";
 
 import FormInput from "../Form-Input/Form-Input";
@@ -14,6 +17,7 @@ import {
   addAssignment,
   createAssignmentAction,
 } from "../../redux/actions/userActions";
+import { FaAngleLeft } from "react-icons/fa";
 
 const CreateAssignmentForm = ({ setShowModal }) => {
   const [name, setName] = useState("");
@@ -142,147 +146,163 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     setGrade(e.target.value);
   };
 
+  const handleAddResource = (e) => {
+    let page1 = document.getElementById("page1");
+    page1.classList.toggle("is-active");
+
+    let page2 = document.getElementById("page2");
+    page2.classList.toggle("is-active");
+  };
+
   const currentYear = parseInt(new Date().getFullYear().toString());
 
   return (
     <CreateAssignmentContainer>
-      <h1>Create Assignment </h1>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          type="text"
-          name="title"
-          label="*Title"
-          value={name}
-          onChange={handleNameChange}
-        />
-        <FormInput
-          type="text"
-          name="description"
-          label="*Description"
-          value={description}
-          onChange={handleDescriptionChange}
-        />
-
-        <DatesContainer>
-          <p>*Open Date:</p>
-          <FormInput
-            type="number"
-            name="openDateM"
-            label="M"
-            value={openDateMonth}
-            onChange={handleOpenDateMonthChange}
-            className={"small"}
-            min="0"
-          />
-
-          <FormInput
-            type="number"
-            name="openDateD"
-            label="D"
-            value={openDateDay}
-            onChange={handleOpenDateDayChange}
-            className={"small"}
-            min="0"
-          />
-          <FormInput
-            type="number"
-            name="openDateY"
-            label="Y"
-            value={openDateYear}
-            onChange={handleOpenDateYearChange}
-            className={"small"}
-            min={currentYear} // new Date().getFullYear()
-          />
-        </DatesContainer>
-
-        <DatesContainer>
-          <p>*Due Date:</p>
-          <FormInput
-            type="number"
-            name="dueDateM"
-            label="M"
-            value={dueDateMonth}
-            onChange={handleDueDateMonthChange}
-            className={"small"}
-            min="0"
-          />
-
-          <FormInput
-            type="number"
-            name="dueDateD"
-            label="D"
-            value={dueDateDay}
-            onChange={handleDueDateDayChange}
-            className={"small"}
-            min="0"
-          />
-          <FormInput
-            type="number"
-            name="dueDateY"
-            label="Y"
-            value={dueDateYear}
-            onChange={handleDueDateYearChange}
-            className={"small"}
-            min={currentYear}
-          />
-        </DatesContainer>
-
-        <DatesContainer>
-          <p>*Close Date:</p>
-          <FormInput
-            type="number"
-            name="closeDateM"
-            label="M"
-            value={closeDateMonth}
-            onChange={handleCloseDateMonthChange}
-            className={"small"}
-            min="0"
-          />
-
-          <FormInput
-            type="number"
-            name="closeDateD"
-            label="D"
-            value={closeDateDay}
-            onChange={handleCloseDateDayChange}
-            className={"small"}
-            min="0"
-          />
-          <FormInput
-            type="number"
-            name="dueDateY"
-            label="Y"
-            value={closeDateYear}
-            onChange={handleCloseDateYearChange}
-            className={"small"}
-            min={currentYear}
-          />
-        </DatesContainer>
-
-        <StatusContainer>
-          <p>Status:</p>
-          <p>Open</p>
-        </StatusContainer>
-
-        <GradeContainer>
-          <p>Grade:</p>
+      <Page1Container id={"page1"} className={"is-active"}>
+        <h1>Create Assignment </h1>
+        <form onSubmit={handleSubmit}>
           <FormInput
             type="text"
-            name="grade"
-            label=""
-            value={grade}
-            onChange={handleGradeChange}
-            className={"small"}
-            disabled={true}
+            name="title"
+            label="*Title"
+            value={name}
+            onChange={handleNameChange}
           />
-        </GradeContainer>
-        <ResourceContainer>
-          <button>Add Resource </button>
-          <p>No Resource Chosen</p>
-        </ResourceContainer>
+          <FormInput
+            type="text"
+            name="description"
+            label="*Description"
+            value={description}
+            onChange={handleDescriptionChange}
+          />
 
-        <button type="submit">Create Assignment</button>
-      </form>
+          <DatesContainer>
+            <p>*Open Date:</p>
+            <FormInput
+              type="number"
+              name="openDateM"
+              label="M"
+              value={openDateMonth}
+              onChange={handleOpenDateMonthChange}
+              className={"small"}
+              min="0"
+            />
+
+            <FormInput
+              type="number"
+              name="openDateD"
+              label="D"
+              value={openDateDay}
+              onChange={handleOpenDateDayChange}
+              className={"small"}
+              min="0"
+            />
+            <FormInput
+              type="number"
+              name="openDateY"
+              label="Y"
+              value={openDateYear}
+              onChange={handleOpenDateYearChange}
+              className={"small"}
+              min={currentYear} // new Date().getFullYear()
+            />
+          </DatesContainer>
+
+          <DatesContainer>
+            <p>*Due Date:</p>
+            <FormInput
+              type="number"
+              name="dueDateM"
+              label="M"
+              value={dueDateMonth}
+              onChange={handleDueDateMonthChange}
+              className={"small"}
+              min="0"
+            />
+
+            <FormInput
+              type="number"
+              name="dueDateD"
+              label="D"
+              value={dueDateDay}
+              onChange={handleDueDateDayChange}
+              className={"small"}
+              min="0"
+            />
+            <FormInput
+              type="number"
+              name="dueDateY"
+              label="Y"
+              value={dueDateYear}
+              onChange={handleDueDateYearChange}
+              className={"small"}
+              min={currentYear}
+            />
+          </DatesContainer>
+
+          <DatesContainer>
+            <p>*Close Date:</p>
+            <FormInput
+              type="number"
+              name="closeDateM"
+              label="M"
+              value={closeDateMonth}
+              onChange={handleCloseDateMonthChange}
+              className={"small"}
+              min="0"
+            />
+
+            <FormInput
+              type="number"
+              name="closeDateD"
+              label="D"
+              value={closeDateDay}
+              onChange={handleCloseDateDayChange}
+              className={"small"}
+              min="0"
+            />
+            <FormInput
+              type="number"
+              name="dueDateY"
+              label="Y"
+              value={closeDateYear}
+              onChange={handleCloseDateYearChange}
+              className={"small"}
+              min={currentYear}
+            />
+          </DatesContainer>
+
+          <StatusContainer>
+            <p>Status:</p>
+            <p>Open</p>
+          </StatusContainer>
+
+          <GradeContainer>
+            <p>Grade:</p>
+            <FormInput
+              type="text"
+              name="grade"
+              label=""
+              value={grade}
+              onChange={handleGradeChange}
+              className={"small"}
+              disabled={true}
+            />
+          </GradeContainer>
+          <AddResourceContainer>
+            <button onClick={handleAddResource}>Add Resource </button>
+            <p>No Resource Chosen</p>
+          </AddResourceContainer>
+
+          <button type="submit">Create Assignment</button>
+        </form>
+      </Page1Container>
+      <Page2Container id={"page2"}>
+        <TitleContainer>
+          <FaAngleLeft onClick={handleAddResource} />
+          <h1>My Resources</h1>
+        </TitleContainer>
+      </Page2Container>
     </CreateAssignmentContainer>
   );
 };
