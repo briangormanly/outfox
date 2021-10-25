@@ -26,17 +26,15 @@ position: absolute;
 
 export const PopContainer = styled.div`
 
-position: absolute;
-  right: 50%;
-  left: 0%;
-  top: 80%;
-  background-color: ${primary};
-  color: ${primary};
+position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  
 
   margin: auto;
  
-  width: 50%;
-  padding: 5px;
 `;
 
 
@@ -182,16 +180,16 @@ export const ModalsContent = styled(motion.div)`
   left: 0%;
   top: 70%;
   transform: translate(-50%, -50%);
-  max-width: 20rem;
-  width: 70%;
-    padding: 0rem;
+ 
+  padding: 0rem;
   background-color: ${primary};
   border-radius: 10px;
-  display: flex;
+  display: block;
   flex-direction: column;
-    z-index: 20;
+  z-index: 20;
   centered;
   margin: auto;
+  text-align:center;
 
     ${(props) => props.large && css`max-width: 20rem;`}
 `;
