@@ -7,13 +7,22 @@ import {
   Content,
   InnerContainer,
   TitleContainer,
+  NoGroupsContainer,
+  VerticalLine,
 } from "./Groups.elements";
+import { FaRegFolderOpen } from "react-icons/fa";
 
 const Groups = () => {
   const { user } = useSelector((state) => state.userDetail);
   const { Groups } = user;
 
   const [showModal, setShowModal] = useState(false);
+
+  const alertGroups = () => {
+    if (Groups) {
+      alert("Groups length: " + Groups.length);
+    }
+  };
 
   return (
     <Fragment>
@@ -25,12 +34,23 @@ const Groups = () => {
       <GroupContainer>
         <button onClick={() => setShowModal(true)}> Create Group </button>
         <TitleContainer>
-          <h1>My Groups</h1>
+          <h1 onClick={alertGroups}>My Groups</h1>
           <InnerContainer>
             <Content>
               {Groups.map((group) => (
                 <GroupAllCard key={group.id} {...group} />
               ))}
+
+              {Groups.length < 1 && (
+                <NoGroupsContainer>
+                  <FaRegFolderOpen />
+                  <VerticalLine />
+                  <p> You do not have any groups</p>
+                  <button onClick={() => setShowModal(true)}>
+                    Create Group
+                  </button>
+                </NoGroupsContainer>
+              )}
             </Content>
           </InnerContainer>
         </TitleContainer>

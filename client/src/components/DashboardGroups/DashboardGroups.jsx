@@ -1,25 +1,15 @@
 import React, { Fragment, useState, useRef } from "react";
-import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FaPlus, FaArrowRight } from "react-icons/fa";
 
 import { Modal, CreateGroupForm, GroupCard } from "../index";
 
-import {
-  GroupsContainer,
-  Header,
-  CardContainer,
-  ButtonContainer,
-} from "./DashboardGroups.elements";
+import { GroupsContainer, CardContainer } from "./DashboardGroups.elements";
 
-const DashboardGroups = ({ dashboardPaginate }) => {
+const DashboardGroups = () => {
   const [showModal, setShowModal] = useState(false);
   const {
     user: { Groups },
   } = useSelector((state) => state.userDetail);
-
-  const history = useHistory();
-  const params = useParams();
 
   const scrollRef = useRef(null);
 
@@ -33,7 +23,6 @@ const DashboardGroups = ({ dashboardPaginate }) => {
     });
   };
 
-
   return (
     <Fragment>
       {showModal && (
@@ -42,7 +31,6 @@ const DashboardGroups = ({ dashboardPaginate }) => {
         </Modal>
       )}
       <GroupsContainer>
-
         <CardContainer ref={scrollRef} onWheel={onWheel}>
           {Groups.map((group) => (
             <GroupCard
