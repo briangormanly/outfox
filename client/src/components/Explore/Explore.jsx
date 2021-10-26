@@ -32,10 +32,10 @@ import { ExploreUserCard } from '../index';
 // render() the component
 // call the page which makes the component (another loop), returning the object
 
- function getPages(userId){
+ async function getPages(userId){
 	// number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
 	const usersNURL = "http://localhost:8080/api/explore/userspgn/" + userId;
-	const usersResponse =  axios.get(usersNURL);
+	const usersResponse =  await axios.get(usersNURL);
 	return usersResponse;
 }
 

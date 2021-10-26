@@ -1,6 +1,6 @@
 import { Router, Request, Response, response } from "express";
 import Controller from "../interfaces/ControllerInterface";
-import fetch from "node-fetch";
+import axios from 'axios';
 class ResponseObj{
     public recordList = {};
     constructor(obj:any){
@@ -49,8 +49,8 @@ class ExploreController implements Controller{
                 endPoint = "getResourcePgs";
                 break;
         }
-        const response = await fetch(`http://96.249.211.3:105/${endPoint}?userid=${userid}`);
-        const data = await response.json();
+        const response = await axios.get(`http://96.249.211.3:105/${endPoint}?userid=${userid}`);
+        const data = response.data;
         return new ResponseObj(data);
     }
     
@@ -74,8 +74,8 @@ class ExploreController implements Controller{
         }
 
         
-        const response = await fetch(`http://96.249.211.3:105/${endPoint}?userid=${userid}&page=${page}`);
-        const data = await response.json();
+        const response = await axios.get(`http://96.249.211.3:105/${endPoint}?userid=${userid}&page=${page}`);
+        const data = response.data;
         return new ResponseObj(data);
  
         
