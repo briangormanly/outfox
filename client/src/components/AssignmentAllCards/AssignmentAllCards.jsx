@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
@@ -7,7 +6,7 @@ import assignmentService from "../../services/assignments.js";
 
 import {
   deleteSharedAssignment,
-  createAssignmentAction,
+  addAssignment,
 } from "../../redux/actions/userActions";
 
 import { AssignmentCard, ButtonGroup } from "./AssignmentAllCards.elements";
@@ -21,7 +20,7 @@ const AssignmentAllCards = (
   sharedFrom,
   sharedAssignmentID
 ) => {
-  const date = datetimeadd.slice(0, 10);
+  /*const date = datetimeadd.slice(0, 10);*/
   const history = useHistory();
   // const params = useParams();
   const location = useLocation();
@@ -63,7 +62,7 @@ const AssignmentAllCards = (
     };
     console.log(newObject);
 
-    dispatch(createAssignmentAction(newObject, Resources));
+    dispatch(addAssignment(newObject));
   };
 
   return (
@@ -71,7 +70,7 @@ const AssignmentAllCards = (
       {sharedFrom && (
         <div>Shared By: {`${sharedFrom.firstname} ${sharedFrom.lastname}`}</div>
       )}
-      <div>Created: {date}</div>
+      <div>Created: {/*date*/}</div>
       <h2>{title}</h2>
       <p>{description}</p>
       <ButtonGroup>
@@ -84,9 +83,9 @@ const AssignmentAllCards = (
           <button onClick={handleRemoveSharedAssignment}>Remove</button>
         )}
         {shared ? (
-          <button onClick={viewSharedAssignment}>View Group</button>
+          <button onClick={viewSharedAssignment}>View Assignment</button>
         ) : (
-          <button onClick={handleClick}>View Group</button>
+          <button onClick={handleClick}>View Assignment</button>
         )}
       </ButtonGroup>
     </AssignmentCard>

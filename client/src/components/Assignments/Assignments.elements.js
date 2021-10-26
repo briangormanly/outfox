@@ -74,16 +74,6 @@ export const Content = styled.div`
   justify-content: center;
   box-shadow: inset 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
 
-  svg {
-    font-size: 10rem;
-    color: rgba(229, 229, 229, 0.5);
-  }
-
-  p {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
   button {
     margin-top: 0;
     margin-right: 0;
@@ -91,11 +81,27 @@ export const Content = styled.div`
   }
 `;
 
+export const NoAssignmentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    font-size: 10rem;
+    color: rgba(229, 229, 229, 0.5);
+    margin-top: 20px;
+  }
+
+  p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+`;
+
 export const VerticalLine = styled.div`
   border: 2px solid rgba(229, 229, 229, 0.5);
-  position: relative;
+  position: absolute;
   transform: rotate(48deg);
   border-left: 2px solid ${white};
-  top: 125px;
   height: 150px;
 `;

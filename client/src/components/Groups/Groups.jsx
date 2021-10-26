@@ -18,12 +18,6 @@ const Groups = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const alertGroups = () => {
-    if (Groups) {
-      alert("Groups length: " + Groups.length);
-    }
-  };
-
   return (
     <Fragment>
       {showModal && (
@@ -34,7 +28,7 @@ const Groups = () => {
       <GroupContainer>
         <button onClick={() => setShowModal(true)}> Create Group </button>
         <TitleContainer>
-          <h1 onClick={alertGroups}>My Groups</h1>
+          <h1>My Groups</h1>
           <InnerContainer>
             <Content>
               {Groups.map((group) => (
