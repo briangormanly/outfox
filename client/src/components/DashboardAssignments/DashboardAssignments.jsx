@@ -1,26 +1,19 @@
 import React, { Fragment, useState, useRef } from "react";
-import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-//import Collapsible from "react-collapsible";
-import { FaArrowRight, FaPlus } from "react-icons/fa";
-import { CreateAssignmentForm, Modal, AssignmentCard } from "../index";
 
+import { CreateAssignmentForm, Modal, AssignmentCard } from "../index";
 import {
   AssignmentsContainer,
-  Header,
   CardContainer,
-  ButtonContainer,
+  NoAssignmentsContainer,
 } from "./DashboardAssignments.elements";
 
-const DashboardAssignments = (dashboardPaginate) => {
+const DashboardAssignments = () => {
   const [showModal, setShowModal] = useState(false);
 
   const {
     user: { Assignments },
   } = useSelector((state) => state.userDetail);
-
-  const history = useHistory();
-  const params = useParams();
 
   const scrollRef = useRef(null);
 
@@ -34,10 +27,6 @@ const DashboardAssignments = (dashboardPaginate) => {
     });
   };
 
-  const handleViewAll = () => {
-    dashboardPaginate({ type: "assignments" });
-    history.push(`/user/${params.id}/assignments`);
-  };
   return (
     <Fragment>
       {showModal && (
@@ -45,40 +34,26 @@ const DashboardAssignments = (dashboardPaginate) => {
           <CreateAssignmentForm setShowModal={setShowModal} />
         </Modal>
       )}
-      {/*      <Collapsible
-        trigger={
-          <React.Fragment>
-            <h1>My Assignments</h1>
-            <FaAngleDown />
-          </React.Fragment>
-        }
-      >
-        <p> You do not have any assignments</p>
-        <button onClick={() => setShowModal(true)}> Create Assignment </button>
-      </Collapsible>*/}
       <AssignmentsContainer>
-        <Header>
-
-          <ButtonContainer>
+        {Assignments.length > 0 ? (
+          <CardContainer ref={scrollRef} onWheel={onWheel}>
+            {Assignments.map((assignment) => (
+              <AssignmentCard
+                key={assignment.id}
+                id={assignment.id}
+                title={assignment.title}
+                description={assignment.description}
+              />
+            ))}
+          </CardContainer>
+        ) : (
+          <NoAssignmentsContainer>
+            <p> You do not have any assignments</p>
             <button onClick={() => setShowModal(true)}>
-              <span>Create Assignment</span> <FaPlus />
+              Create Assignment
             </button>
-            <button onClick={handleViewAll}>
-              <span>View All</span>
-              <FaArrowRight />
-            </button>
-          </ButtonContainer>
-        </Header>
-        <CardContainer ref={scrollRef} onWheel={onWheel}>
-          {Assignments.map((assignment) => (
-            <AssignmentCard
-              key={assignment.id}
-              id={assignment.id}
-              title={assignment.title}
-              description={assignment.description}
-            />
-          ))}
-        </CardContainer>
+          </NoAssignmentsContainer>
+        )}
       </AssignmentsContainer>
     </Fragment>
   );
