@@ -11,17 +11,18 @@ export const ExploreCard = styled.div`
 	border-bottom: 1px solid ${mediumGrey};
 	margin-bottom: 1rem;
 	padding: 1rem;
-	width:60%;
+	width:100%;
 	
 `;
 
 export const Content = styled.div`
 	display: flex;
-	align-items: left;
+	align-items: center;
 	margin-left: 15px;
-	width: 65% !important;
+	width: 50% !important;
 	
 `;
+
 
 export const IconContainer = styled.div`
 	color: ${primary};
@@ -42,7 +43,7 @@ export const IconContainer = styled.div`
 
 export const Text = styled.div`
 	color: ${darkGrey};
-	width: 20% !important;
+	
 	h2 {
 		font-size: 1.6rem;
 	}
@@ -67,7 +68,7 @@ export const ButtonGroup = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 15% !important;
+	width:10% !important;
 	margin-right:15px;
 	margin-left: 10px;
 `;

@@ -69,7 +69,8 @@ export { default as ExploreGroups } from './ExploreGroups/ExploreGroups';
 export { default as ExploreUserCard } from './ExploreUserCard/ExploreUserCard';
 export { default as ExploreUser } from './ExploreUser/ExploreUser';
 export { default as ExploreGroup } from './ExploreGroup/ExploreGroup';
-
+export {default as ExploreGroupCard} from './ExploreGroupCard/ExploreGroupCard';
+export {default as ExploreResourceCard} from './ExploreResourceCard/ExploreResourceCard';
 // Utility Components
 export { default as Loader } from './Loader/Loader';
 export { default as Modal } from './Modal/Modal';

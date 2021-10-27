@@ -3,6 +3,7 @@ import { useParams, useHistory, useLocation} from 'react-router-dom';
 import axios from 'axios';
 
 import userService from '../../services/users';
+import groupService from '../../services/groups';
 
 
 import {
@@ -15,6 +16,8 @@ import {
 } from './Explore.elements';
 
 import { ExploreUserCard } from '../index';
+import {ExploreGroupCard} from '../index';
+import {ExploreResourceCard} from '../index';
 // import {ExploreGroupCard} from '../index';
 // import { ExploreGroup } from '../index';
 // import { ExploreGroups } from '../index';
@@ -42,10 +45,23 @@ import { ExploreUserCard } from '../index';
 
 // Part II --> Roxy
 // make the second API call and pass the userid and page 1 to get user records
-async function aiCall(userid, page){
-	const usersIds = "http://localhost:8080/api/explore/users/" + userid + "/"+ page; //pages, maybe pass in userPages;
+async function aiCall(id, page, type){
+	let url = "";
+	switch(type){
+		case "user":
+			url = "http://localhost:8080/api/explore/users/" + id + "/"+ page;
+			break;
+		case "group":
+			url = "http://localhost:8080/api/explore/groups/" + id + "/"+ page;
+			break;
+		case "resource":
+			url = "http://localhost:8080/api/explore/resources/" + id + "/"+ page;
+			break;
+	}
+
+	
 	// loop through every single record, and do getUsers() with the userids, return json array
-	const response = await axios.get(usersIds);
+	const response = await axios.get(url);
 	return response;
 }
 
@@ -54,66 +70,167 @@ async function aiCall(userid, page){
 
 
 
-const Explore =  () => {
+const Explore =  (props) => {
 
 	const Uparams = useParams();
 	const currentUserId = parseFloat(Uparams.id);
-	const [expUsers, setExpUsers] = useState([]);
+	const [expRecords, setExpRecords] = useState([]);
 	const [setUp, setSetUp] = useState(false);
-
+	const [pgn, setPg] = useState(0);
+	const [expType, setExpType] = useState("user");
 	const history = useHistory();
 	const location = useLocation();
 
-	const handleGroupRoute = () =>{
-		history.push(`${location.pathname}/${"ExploreGroups"}`);
-	}
+	// const handleGroupRoute = () =>{
+	// 	history.push(`${location.pathname}/${"ExploreGroups"}`);
+	// }
 
-	const handleResourceRoute = () => {
-		history.push(`${location.pathname}/${"ExploreResources"}`);
-	}
+	// const handleResourceRoute = () => {
+	// 	history.push(`${location.pathname}/${"ExploreResources"}`);
+	// }
+	// const handleUserRoute = () => {
+	// 	history.push(`${location.pathname}/${"ExploreUsers"}`);
+	// }
 
+	const startUserReload = () => {
+		setExpType("user");
+		setSetUp(false);
+	};
+	
+	const startGroupReload = () => {
+		setExpType("group");
+		setSetUp(false);
+	};
+
+	const startResourceReload = () =>{
+		setExpType("resource");
+		setSetUp(false);
+	};
 
 	const setExpData = async  (userId, pageNumber)=>{
-		const userData =  await aiCall(userId, pageNumber);
-			var resJsonRaw = userData.data;
-			var resJson = resJsonRaw.users;
-		for (var record of resJson) {
-			const userDat = await userService.getUser(parseInt(record.id));
-				record.firstname =  userDat.firstname;
-				record.lastname  =  userDat.lastname;
-				record.hashedpw = "REDACTED"; 
+		
+		switch(expType){
+			case "user":
+				const userData =  await aiCall(userId, pageNumber, "user");
+				var resJsonRaw = userData.data;
+				var resJson = resJsonRaw.users;
+				console.log("response was: "+ JSON.stringify(resJson));
+				// if(resJson.stringify() == ""){
+				// 	setExpRecords({"error": "noData"});
+				// 	break;
+				// }
+				for (var record of resJson) {
+					const userDat = await userService.getUser(parseInt(record.id));
+					record.firstname =  userDat.firstname;
+					record.lastname  =  userDat.lastname;
+					record.hashedpw = "REDACTED"; 
+				}
+				setExpRecords(resJson);
+				break;
+			case "group":
+				const groupData =  await aiCall(userId, pageNumber, "group");
+				var resJsonRaw = groupData.data;
+				var resJson = resJsonRaw.groups;
+				console.log("response was: "+ JSON.stringify(resJson));
+				// if(resJson.stringify() == ""){
+				// 	setExpRecords({"error": "noData"});
+				// 	break;
+				// }
+				for (var record of resJson) {
+					const groupDat = await groupService.getGroupData(record.id + 3655);
+					record.groupname =  groupDat.groupname;
+					record.datetimeadd  =  groupDat.datetimeadd;
+					const creator = await userService.getUser(groupDat.createdby);
+					record.creator = creator.firstname + " " + creator.lastname; 
+					 
+				}
+				setExpRecords(resJson);
+				break;
+			case "resource":
+				const resourceData =  await aiCall(userId, pageNumber, "resource");
+				var resJsonRaw = resourceData.data;
+				var resJson = resJsonRaw.resources;
+				console.log("response was: "+ JSON.stringify(resJson));
+				// if(resJson.stringify() == ""){
+				// 	setExpRecords({"error": "noData"});
+				// 	break;
+				// }
+				for (var record of resJson) {
+					const resourceDat = await groupService.getResourceData(parseInt(record.id));
+					record.title =  resourceDat.title;
+					record.type  =  resourceDat.type;
+					const creator = await userService.getUser(resourceDat.creatorid);
+					record.creator = creator.firstname + " " + creator.lastname; 
+				}
+				setExpRecords(resJson);
+				break;
 		}
-		setExpUsers(resJson);
+		
+		
+	
 	};
 
 	
 	useEffect(() => {
 		
 		if(!setUp){
-			setExpData(currentUserId,1);
-			setSetUp(true);
+			switch(expType){
+				case "user":
+					setExpData(currentUserId,1);
+					setSetUp(true);
+					break;
+				case "group":
+					setExpData(currentUserId,1);
+					setSetUp(true);
+					break;
+				case "resource":
+					setExpData(currentUserId,1);
+					setSetUp(true);
+					break;
+				
+			}
+			
 		}
 
-	}, [setExpData]);
+	}, [setUp]);
 
 	//const filteredUsers = expUsers.filter((expUser) => expUser.id !== currentUserId);
 	//const filteredGroups = groups.filter((group) => group.id !== currentGroupId);
 
+
+	const RecContainer = () => {
+		const type = expType;
+		// if(!setUp){
+		// 	return (<div style={{textAlign: "center"}}><h2>Loading...</h2></div>);
+		// }
+		switch(type){
+			case "user":
+				return expRecords.map((expRecord) => <ExploreUserCard key={expRecord.id} {...expRecord} />);
+			case "group":
+				return expRecords.map((expRecord) => <ExploreGroupCard key={expRecord.id} {...expRecord} />);
+			case "resource":
+				return expRecords.map((expRecord) => <ExploreResourceCard key={expRecord.id} {...expRecord} />);
+		}
+	};
+
+
+
 	return (
 		<HeadButtonGroup>{/*THESE ARE THE BUTTONS AT THE TOP OF THE EXPLORE PAGE */}
-			<UserSelectBtn edit onClick={console.log("HERE" + 1)}>
+			<UserSelectBtn edit onClick={startUserReload}>
 				Users
 			</UserSelectBtn>
-			<GroupSelectBtn edit onClick={console.log(expUsers)}>
+			<GroupSelectBtn edit onClick={startGroupReload}>
 				Groups
 			</GroupSelectBtn>
-			<ResSelectBtn edit onClick={handleResourceRoute}>
+			<ResSelectBtn edit onClick={startResourceReload}>
 				Resources
 			</ResSelectBtn>
 			<ExploreContainer>
 				<h1>Explore</h1>
-			{expUsers &&
-					expUsers.map((expUser) => <ExploreUserCard key={expUser.id} {...expUser} />)} 
+			{expRecords &&
+					<RecContainer/>
+					} 
 			</ExploreContainer>
 		</HeadButtonGroup>
 	);

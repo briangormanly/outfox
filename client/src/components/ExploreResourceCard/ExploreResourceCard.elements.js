@@ -12,15 +12,13 @@ export const ExploreCard = styled.div`
 	margin-bottom: 1rem;
 	padding: 1rem;
 	width:60%;
-	
 `;
 
 export const Content = styled.div`
 	display: flex;
-	align-items: left;
+	align-items: center;
 	margin-left: 15px;
-	width: 65% !important;
-	
+	width: 55% !important;
 `;
 
 export const IconContainer = styled.div`
@@ -42,7 +40,7 @@ export const IconContainer = styled.div`
 
 export const Text = styled.div`
 	color: ${darkGrey};
-	width: 20% !important;
+	width: 15% !important;
 	h2 {
 		font-size: 1.6rem;
 	}
@@ -67,10 +65,11 @@ export const ButtonGroup = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 15% !important;
+	width: 20% !important;
 	margin-right:15px;
 	margin-left: 10px;
 `;
+
 
 export const Button = styled(ActionButton)`
   font-size: 1.6rem;
