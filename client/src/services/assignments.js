@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const assignmentURL = 'http://localhost:8080/api/assignments';
 const resourceURL = 'http://localhost:8080/api/resources';
+
 // Assignments
 const createAssignment= async (newAssignmentObject) => {
     const response = await axios.post(assignmentURL, newAssignmentObject, {

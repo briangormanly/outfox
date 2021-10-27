@@ -9,9 +9,9 @@ import {
 
 import assignmentService from '../../services/assignments';
 
-export const getAssignment = (id) => async (dispatch) => {
+export const getAssignment = (AssignmentId) => async (dispatch) => {
 	try {
-		const data = await assignmentService.getAssignmentData(id);
+		const data = await assignmentService.getAssignmentData(AssignmentId);
 		dispatch({ type: GET_ASSIGNMENT, payload: data });
 	} catch (error) {
 		console.log('Error with Assignments Request');
@@ -27,19 +27,19 @@ export const addAssignmentResource = (newResourceObject) => async (dispatch) => 
 	}
 };
 
-export const editAssignment = (id, newAssignmentObject) => async (dispatch) => {
+export const editAssignment = (AssignmentId, newAssignmentObject) => async (dispatch) => {
 	try {
-		const { assignment } = await assignmentService.editAssignment(id, newAssignmentObject);
+		const { assignment } = await assignmentService.editAssignment(AssignmentId, newAssignmentObject);
 		dispatch({ type: EDIT_ASSIGNMENT, payload: assignment });
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const deleteAssignment = (id) => async (dispatch) => {
+export const deleteAssignment = (AssignmentId) => async (dispatch) => {
 	try {
-		await assignmentService.deleteAssignment(id);
-		dispatch({ type: DELETE_ASSIGNMENT, payload: id});
+		await assignmentService.deleteAssignment(AssignmentId);
+		dispatch({ type: DELETE_ASSIGNMENT, payload: AssignmentId});
 	} catch (error) {
 		console.log(error);
 	}

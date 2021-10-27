@@ -1,6 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
+import {persistStore, persistReducer} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import { userReducer, authReducer } from './reducers/userReducers';
 import { friendsReducer } from './reducers/friendsReducer';
@@ -16,16 +18,25 @@ const reducers = combineReducers({
 	assignment : assignmentReducer,
 });
 
+const persistConfig = {
+	key: 'root',
+	storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, reducers);
 // Redux middlewares
 const middlewares = [ thunk ];
 
 // Initialize the redux store with a default state.
 const initialState = {};
 
-const store = createStore(
-	reducers,
+export const store = createStore(
+	persistedReducer,
 	initialState,
 	composeWithDevTools(applyMiddleware(...middlewares))
 );
 
-export default store;
+export const persistor = persistStore(store);
+
+
+
