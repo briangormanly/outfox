@@ -1,45 +1,43 @@
 import {
-	GET_ASSIGNMENT,
-	EDIT_ASSIGNMENT,
-	DELETE_ASSIGNMENT,
-	ASSIGNMENT_ADD_RESOURCE,
-	ASSIGNMENT_DELETE_RESOURCE,
-	ASSIGNMENT_EDIT_RESOURCE
-} from '../constants/assignmentConstants';
+  GET_ASSIGNMENT,
+  EDIT_ASSIGNMENT,
+  DELETE_ASSIGNMENT,
+  ASSIGNMENT_ADD_RESOURCE,
+  ASSIGNMENT_DELETE_RESOURCE,
+  ASSIGNMENT_EDIT_RESOURCE,
+} from "../constants/assignmentConstants";
 
 export const assignmentReducer = (
-	state = {
-		date        : '',
-		description : '',
-		title       : '',
-		resources   : []
-	},
-	action
+  state = {
+    date: "",
+    description: "",
+    title: "",
+  },
+  action
 ) => {
-	switch (action.type) {
-		case GET_ASSIGNMENT: {
-			const { Resources, title, description, opendate } = action.payload;
+  switch (action.type) {
+    case GET_ASSIGNMENT: {
+      const { title, description, opendate } = action.payload;
 
-			return {
-				...state,
-				resources   : [ ...Resources ],
-				title       : title,
-				description : description,
-				date        : opendate
-			};
-		}
-		case EDIT_ASSIGNMENT: {
-			const {title, description, opendate} = action.payload;
-			return {
-				...state,
-				title       : title,
-				description : description,
-				date        : opendate
-			};
-		}
-		case DELETE_ASSIGNMENT:
-			return { ...state };
-		case ASSIGNMENT_ADD_RESOURCE:
+      return {
+        ...state,
+        title: title,
+        description: description,
+        date: opendate,
+      };
+    }
+    case EDIT_ASSIGNMENT: {
+      const { title, description, opendate } = action.payload;
+      return {
+        ...state,
+        title: title,
+        description: description,
+        date: opendate,
+      };
+    }
+    case DELETE_ASSIGNMENT:
+      return { ...state };
+    /*		case ASSIGNMENT_ADD_RESOURCE:
 			return { ...state, resources: [ ...state.resources, action.payload ] };
 		case ASSIGNMENT_DELETE_RESOURCE: {
 			const filteredResources = state.resources.filter(
@@ -63,9 +61,9 @@ export const assignmentReducer = (
 				...state,
 				resources : [ ...newResourceList ]
 			};
-		}
+		}*/
 
-		default:
-			return state;
-	}
+    default:
+      return state;
+  }
 };
