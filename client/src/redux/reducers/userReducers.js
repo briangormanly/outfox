@@ -201,8 +201,6 @@ export const userReducer = (
           lastname: "",
           Groups: [],
           Resources: [],
-          Assignments: [],
-          Lessons: []
         },
         loading: false,
         error: null,

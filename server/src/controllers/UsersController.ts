@@ -4,8 +4,6 @@ import User from "../models/User";
 import Controller from "../interfaces/ControllerInterface";
 import Resource from "../models/Resource";
 import Friend from "../models/Friend";
-import Assignments from "../models/Assignments";
-import Lessons from "../models/Lessons";
 
 /**
  * The user controller is responsible for handling the HTTP requests.
@@ -80,7 +78,7 @@ class UsersController implements Controller {
       const { id } = request.params; // Destructure the request.params object and grab only id
       const user = await User.findOne({
         where: { id: id },
-        include: [Group, Resource, Assignments, Lessons],
+        include: [Group, Resource],
       }); // Grabs the user where the id is 0
 
       if (user) {
