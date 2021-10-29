@@ -3,7 +3,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
 import { userReducer, authReducer } from "./reducers/userReducers";
 import { friendsReducer } from "./reducers/friendsReducer";
 import { groupPageReducer } from "./reducers/groupPageReducers";
