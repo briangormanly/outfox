@@ -194,6 +194,7 @@ export const userReducer = (
       };
     }
     case USER_LOGOUT:
+      console.log(state.user)
       return {
         ...state,
         user: {
@@ -201,6 +202,8 @@ export const userReducer = (
           lastname: "",
           Groups: [],
           Resources: [],
+          Lessons: [],
+          Assignments: []
         },
         loading: false,
         error: null,

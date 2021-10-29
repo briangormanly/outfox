@@ -1,10 +1,11 @@
 // Assignment Page vs Assignments
 // assignment page: the page for the individual assignment
 // assignments: all assignments including shared
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ProgressBar, Step } from "react-step-progress-bar";
 import "react-step-progress-bar/styles.css";
 import { colors } from "../../styles";
+import { getAssignment } from "../../redux/actions/assignmentActions";
 
 import {
   AssignmentCardContainer,
@@ -30,13 +31,19 @@ import {
   FaShare,
   FaTrashAlt,
 } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "../../components";
 
-const AssignmentPage = (props) => {
+const AssignmentPage = ({ match }) => {
   const mutable = true;
-  const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
+  //const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
 
   const { secondary } = colors;
   const statusBarSteps = document.getElementsByClassName("RSPBstep");
+  const [loading, setLoading] = useState(false);
+  const {
+    params: { assignmentID },
+  } = match;
 
   //fixes styling issue for status bar
   for (let i = 0; i < statusBarSteps.length; i++) {
@@ -47,85 +54,98 @@ const AssignmentPage = (props) => {
       statusBarSteps[i].style.left = "90%";
     }
   }
+  // redux
+  const dispatch = useDispatch();
+  const { title } = useSelector((state) => state.assignmentPageDetail);
+
+  useEffect(() => {
+    try {
+      dispatch(getAssignment(match.params.assignmentID));
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [match.params.assignmentID, dispatch]);
 
   return (
     <AssignmentCardContainer>
-      <AssignmentCardContent>
-        <TitleContainer>
-          <FaAngleLeft />
-          <h1> Assignment Name</h1>
-        </TitleContainer>
-        <StatusBarContainer>
-          <ProgressBar
-            percent={25}
-            filledBackground={secondary}
-            unfilledBackground={"#757575"}
-          >
-            <Step transition="scale" id={"start"}>
-              {({ accomplished }) => <span> Open</span>}
-            </Step>
-            <Step transition="scale">
-              {({ accomplished }) => <span> Closed</span>}
-            </Step>
-            <Step transition="scale" className={"end"}>
-              {({ accomplished }) => <span> Returned</span>}
-            </Step>
-          </ProgressBar>
-        </StatusBarContainer>
-        <DatesDescriptionActionContainer>
-          <DatesContainer>
-            <DatesContainerQuestions>
-              <p>
-                <strong>Open Date:</strong>
-              </p>
-              <p>
-                <strong>Due Date:</strong>
-              </p>
-              <p>
-                <strong>Close Date:</strong>
-              </p>
-              <p>
-                <strong> Grade:</strong>
-              </p>
-            </DatesContainerQuestions>
-            <DatesContainerAnswers>
-              <p>9/22/21</p>
-              <p>9/22/21</p>
-              <p>9/22/21</p>
-              <p>Not Graded</p>
-            </DatesContainerAnswers>
-          </DatesContainer>
+      {loading ? (
+        <Loader />
+      ) : (
+        <AssignmentCardContent>
+          <TitleContainer>
+            <FaAngleLeft />
+            <h1> {title}</h1>
+          </TitleContainer>
+          <StatusBarContainer>
+            <ProgressBar
+              percent={25}
+              filledBackground={secondary}
+              unfilledBackground={"#757575"}
+            >
+              <Step transition="scale" id={"start"}>
+                {({ accomplished }) => <span> Open</span>}
+              </Step>
+              <Step transition="scale">
+                {({ accomplished }) => <span> Closed</span>}
+              </Step>
+              <Step transition="scale" className={"end"}>
+                {({ accomplished }) => <span> Returned</span>}
+              </Step>
+            </ProgressBar>
+          </StatusBarContainer>
+          <DatesDescriptionActionContainer>
+            <DatesContainer>
+              <DatesContainerQuestions>
+                <p>
+                  <strong>Open Date:</strong>
+                </p>
+                <p>
+                  <strong>Due Date:</strong>
+                </p>
+                <p>
+                  <strong>Close Date:</strong>
+                </p>
+                <p>
+                  <strong> Grade:</strong>
+                </p>
+              </DatesContainerQuestions>
+              <DatesContainerAnswers>
+                <p>9/22/21</p>
+                <p>9/22/21</p>
+                <p>9/22/21</p>
+                <p>Not Graded</p>
+              </DatesContainerAnswers>
+            </DatesContainer>
 
-          <DescriptionContainer>
-            <p>Assignment Description</p>
-          </DescriptionContainer>
+            <DescriptionContainer>
+              <p>Assignment Description</p>
+            </DescriptionContainer>
 
-          <ActionContainer>
-            <FaComments />
-            {mutable && (
-              <Fragment>
-                <FaPencilAlt />
+            <ActionContainer>
+              <FaComments />
+              {mutable && (
+                <Fragment>
+                  <FaPencilAlt />
 
-                <FaShare />
-                <FaTrashAlt />
-              </Fragment>
-            )}
-          </ActionContainer>
-        </DatesDescriptionActionContainer>
-        {mutable ? (
-          <OwnerResourceContainer>
-            <ViewResourceButton> View Resource </ViewResourceButton>
-          </OwnerResourceContainer>
-        ) : (
-          <ReceiverResourceContainer>
-            <ViewResourceButton> View Resource </ViewResourceButton>
-            <SubmitButton onClick={() => setShowSubmitAssignmentModal(true)}>
-              {" "}
-              Submit Assignment{" "}
-            </SubmitButton>
-          </ReceiverResourceContainer>
-        )}
-      </AssignmentCardContent>
+                  <FaShare />
+                  <FaTrashAlt />
+                </Fragment>
+              )}
+            </ActionContainer>
+          </DatesDescriptionActionContainer>
+          {mutable ? (
+            <OwnerResourceContainer>
+              <ViewResourceButton> View Resource </ViewResourceButton>
+            </OwnerResourceContainer>
+          ) : (
+            <ReceiverResourceContainer>
+              <ViewResourceButton> View Resource </ViewResourceButton>
+              <SubmitButton> Submit Assignment </SubmitButton>
+            </ReceiverResourceContainer>
+          )}
+        </AssignmentCardContent>
+      )}
     </AssignmentCardContainer>
   );
 };
