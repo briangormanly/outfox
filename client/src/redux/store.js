@@ -1,8 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import { userReducer, authReducer } from "./reducers/userReducers";
 import { friendsReducer } from "./reducers/friendsReducer";
 import { groupPageReducer } from "./reducers/groupPageReducers";
@@ -17,12 +15,6 @@ const reducers = combineReducers({
   assignmentPageDetail: assignmentReducer,
 });
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, reducers);
 // Redux middlewares
 const middlewares = [thunk];
 
@@ -30,9 +22,7 @@ const middlewares = [thunk];
 const initialState = {};
 
 export const store = createStore(
-  persistedReducer,
+  reducers,
   initialState,
   composeWithDevTools(applyMiddleware(...middlewares))
 );
-
-export const persistor = persistStore(store);
