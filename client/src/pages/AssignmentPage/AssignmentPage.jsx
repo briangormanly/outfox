@@ -32,7 +32,7 @@ import {
   FaTrashAlt,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Loader } from "../../components";
+import { Modal, DeleteAssignmentForm, Loader } from "../../components/index";
 
 const AssignmentPage = ({ match }) => {
   const mutable = true;
@@ -41,6 +41,7 @@ const AssignmentPage = ({ match }) => {
   const { secondary } = colors;
   const statusBarSteps = document.getElementsByClassName("RSPBstep");
   const [loading, setLoading] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const {
     params: { assignmentID },
   } = match;
@@ -70,86 +71,98 @@ const AssignmentPage = ({ match }) => {
   }, [match.params.assignmentID, dispatch]);
 
   return (
-    <AssignmentCardContainer>
-      {loading ? (
-        <Loader />
-      ) : (
-        <AssignmentCardContent>
-          <TitleContainer>
-            <FaAngleLeft />
-            <h1> {title}</h1>
-          </TitleContainer>
-          <StatusBarContainer>
-            <ProgressBar
-              percent={25}
-              filledBackground={secondary}
-              unfilledBackground={"#757575"}
-            >
-              <Step transition="scale" id={"start"}>
-                {({ accomplished }) => <span> Open</span>}
-              </Step>
-              <Step transition="scale">
-                {({ accomplished }) => <span> Closed</span>}
-              </Step>
-              <Step transition="scale" className={"end"}>
-                {({ accomplished }) => <span> Returned</span>}
-              </Step>
-            </ProgressBar>
-          </StatusBarContainer>
-          <DatesDescriptionActionContainer>
-            <DatesContainer>
-              <DatesContainerQuestions>
-                <p>
-                  <strong>Open Date:</strong>
-                </p>
-                <p>
-                  <strong>Due Date:</strong>
-                </p>
-                <p>
-                  <strong>Close Date:</strong>
-                </p>
-                <p>
-                  <strong> Grade:</strong>
-                </p>
-              </DatesContainerQuestions>
-              <DatesContainerAnswers>
-                <p>{opendate}</p>
-                <p>{duedate}</p>
-                <p>{closedate}</p>
-                <p>Not Graded</p>
-              </DatesContainerAnswers>
-            </DatesContainer>
-
-            <DescriptionContainer>
-              <p>{description}</p>
-            </DescriptionContainer>
-
-            <ActionContainer>
-              <FaComments />
-              {mutable && (
-                <Fragment>
-                  <FaPencilAlt />
-
-                  <FaShare />
-                  <FaTrashAlt />
-                </Fragment>
-              )}
-            </ActionContainer>
-          </DatesDescriptionActionContainer>
-          {mutable ? (
-            <OwnerResourceContainer>
-              <ViewResourceButton> View Resource </ViewResourceButton>
-            </OwnerResourceContainer>
-          ) : (
-            <ReceiverResourceContainer>
-              <ViewResourceButton> View Resource </ViewResourceButton>
-              <SubmitButton> Submit Assignment </SubmitButton>
-            </ReceiverResourceContainer>
-          )}
-        </AssignmentCardContent>
+    <Fragment>
+      {showDeleteModal && (
+        <Modal setShowModal={setShowDeleteModal}>
+          <DeleteAssignmentForm
+            setShowModal={setShowDeleteModal}
+            assignmentID={assignmentID}
+          />
+        </Modal>
       )}
-    </AssignmentCardContainer>
+
+      <AssignmentCardContainer>
+        {loading ? (
+          <Loader />
+        ) : (
+          <AssignmentCardContent>
+            <TitleContainer>
+              <FaAngleLeft />
+              <h1> {title}</h1>
+            </TitleContainer>
+            <StatusBarContainer>
+              <ProgressBar
+                percent={25}
+                filledBackground={secondary}
+                unfilledBackground={"#757575"}
+              >
+                <Step transition="scale" id={"start"}>
+                  {({ accomplished }) => <span> Open</span>}
+                </Step>
+                <Step transition="scale">
+                  {({ accomplished }) => <span> Closed</span>}
+                </Step>
+                <Step transition="scale" className={"end"}>
+                  {({ accomplished }) => <span> Returned</span>}
+                </Step>
+              </ProgressBar>
+            </StatusBarContainer>
+            <DatesDescriptionActionContainer>
+              <DatesContainer>
+                <DatesContainerQuestions>
+                  <p>
+                    <strong>Open Date:</strong>
+                  </p>
+                  <p>
+                    <strong>Due Date:</strong>
+                  </p>
+                  <p>
+                    <strong>Close Date:</strong>
+                  </p>
+                  <p>
+                    <strong> Grade:</strong>
+                  </p>
+                </DatesContainerQuestions>
+                <DatesContainerAnswers>
+                  <p>{opendate}</p>
+                  <p>{duedate}</p>
+                  <p>{closedate}</p>
+                  <p>Not Graded</p>
+                </DatesContainerAnswers>
+              </DatesContainer>
+
+              <DescriptionContainer>
+                <p>{description}</p>
+              </DescriptionContainer>
+
+              <ActionContainer>
+                <FaComments />
+                {mutable && (
+                  <Fragment>
+                    <FaPencilAlt />
+
+                    <FaShare />
+                    <FaTrashAlt onClick={() => setShowDeleteModal(true)} />
+                  </Fragment>
+                )}
+              </ActionContainer>
+            </DatesDescriptionActionContainer>
+            {mutable ? (
+              <OwnerResourceContainer>
+                <ViewResourceButton> View Resource </ViewResourceButton>
+              </OwnerResourceContainer>
+            ) : (
+              <ReceiverResourceContainer>
+                <ViewResourceButton> View Resource </ViewResourceButton>
+                <SubmitButton> Submit Assignment </SubmitButton>
+              </ReceiverResourceContainer>
+            )}
+          </AssignmentCardContent>
+        )}
+      </AssignmentCardContainer>
+    </Fragment>
   );
 };
 
 export default AssignmentPage;
+// delete works, but doesnt send user to dashboard after delete

@@ -47,10 +47,10 @@ export { default as ViewLesson } from "./ViewLesson/ViewLesson";
 export { default as EditLessonForm } from "./EditLessonForm/EditLessonForm";
 export { default as DeleteLessonForm } from "./DeleteLessonForm/DeleteLessonForm";
 
-
 // Forms
 export { default as CreateAssignmentForm } from "./CreateAssignmentForm/CreateAssignmentForm";
 export { default as SubmitAssignmentForm } from "./SubmitAssignmentForm/SubmitAssignmentForm";
+export { default as DeleteAssignmentForm } from "./DeleteAssignmentForm/DeleteAssignmentForm";
 export { default as CreateGroupForm } from "./CreateGroupForm/CreateGroupForm";
 export { default as AddResourceForm } from "./AddResourceForm/AddResourceForm";
 export { default as DeleteGroupForm } from "./DeleteGroupForm/DeleteGroupForm";
