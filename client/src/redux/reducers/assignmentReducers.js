@@ -9,7 +9,9 @@ import {
 
 export const assignmentReducer = (
   state = {
-    date: "",
+    opendate: "",
+    duedate: "",
+    closedate: "",
     description: "",
     title: "",
   },
@@ -17,22 +19,38 @@ export const assignmentReducer = (
 ) => {
   switch (action.type) {
     case GET_ASSIGNMENT: {
-      const { title, description, opendate } = action.payload;
+      const {
+        title,
+        description,
+        opendate,
+        duedate,
+        closedate,
+      } = action.payload;
 
       return {
         ...state,
         title: title,
         description: description,
-        date: opendate,
+        opendate: opendate,
+        duedate: duedate,
+        closedate: closedate,
       };
     }
     case EDIT_ASSIGNMENT: {
-      const { title, description, opendate } = action.payload;
+      const {
+        title,
+        description,
+        opendate,
+        duedate,
+        closedate,
+      } = action.payload;
       return {
         ...state,
         title: title,
         description: description,
-        date: opendate,
+        opendate: opendate,
+        duedate: duedate,
+        closedate: closedate,
       };
     }
     case DELETE_ASSIGNMENT:

@@ -56,7 +56,9 @@ const AssignmentPage = ({ match }) => {
   }
   // redux
   const dispatch = useDispatch();
-  const { title } = useSelector((state) => state.assignmentPageDetail);
+  const { title, description, opendate, duedate, closedate } = useSelector(
+    (state) => state.assignmentPageDetail
+  );
 
   useEffect(() => {
     try {
@@ -111,15 +113,15 @@ const AssignmentPage = ({ match }) => {
                 </p>
               </DatesContainerQuestions>
               <DatesContainerAnswers>
-                <p>9/22/21</p>
-                <p>9/22/21</p>
-                <p>9/22/21</p>
+                <p>{opendate}</p>
+                <p>{duedate}</p>
+                <p>{closedate}</p>
                 <p>Not Graded</p>
               </DatesContainerAnswers>
             </DatesContainer>
 
             <DescriptionContainer>
-              <p>Assignment Description</p>
+              <p>{description}</p>
             </DescriptionContainer>
 
             <ActionContainer>
