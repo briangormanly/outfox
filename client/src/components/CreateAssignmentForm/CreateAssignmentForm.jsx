@@ -8,16 +8,19 @@ import {
   GradeContainer,
   StatusContainer,
   AddResourceContainer,
+  CreateAssignmentButton,
   Page2Container,
   TitleContainer,
+  SelectResourceContainer,
+  NoResourcesContainer,
+  VerticalLine,
+  Page3Container,
 } from "./CreateAssignmentForm.elements";
 
 import FormInput from "../Form-Input/Form-Input";
-import {
-  addAssignment,
-  createAssignmentAction,
-} from "../../redux/actions/userActions";
-import { FaAngleLeft } from "react-icons/fa";
+import { addAssignment } from "../../redux/actions/userActions";
+import { FaAngleLeft, FaLayerGroup, FaPlusCircle } from "react-icons/fa";
+import { ResourceCard, AddResourceForm } from "../index";
 
 const CreateAssignmentForm = ({ setShowModal }) => {
   const [name, setName] = useState("");
@@ -38,9 +41,8 @@ const CreateAssignmentForm = ({ setShowModal }) => {
   const [grade, setGrade] = useState("");
 
   const storeDispatch = useDispatch();
-  const {
-    user: { id },
-  } = useSelector((state) => state.userDetail);
+  const { user } = useSelector((state) => state.userDetail);
+  const { id, Resources } = user;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -146,19 +148,27 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     setGrade(e.target.value);
   };
 
-  const handleAddResource = (e) => {
-    let page1 = document.getElementById("page1");
+  const togglePagesOneTwo = (e) => {
+    let page1 = document.getElementById("create-assignment-page1");
     page1.classList.toggle("is-active");
 
-    let page2 = document.getElementById("page2");
+    let page2 = document.getElementById("create-assignment-page2");
     page2.classList.toggle("is-active");
+  };
+
+  const togglePagesTwoThree = (e) => {
+    let page2 = document.getElementById("create-assignment-page2");
+    page2.classList.toggle("is-active");
+
+    let page3 = document.getElementById("create-assignment-page3");
+    page3.classList.toggle("is-active");
   };
 
   const currentYear = parseInt(new Date().getFullYear().toString());
 
   return (
     <CreateAssignmentContainer>
-      <Page1Container id={"page1"} className={"is-active"}>
+      <Page1Container id={"create-assignment-page1"} className={"is-active"}>
         <h1>Create Assignment </h1>
         <form onSubmit={handleSubmit}>
           <FormInput
@@ -290,19 +300,43 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             />
           </GradeContainer>
           <AddResourceContainer>
-            <button onClick={handleAddResource}>Add Resource </button>
+            <button onClick={togglePagesOneTwo}>Add Resource </button>
             <p>No Resource Chosen</p>
           </AddResourceContainer>
 
-          <button type="submit">Create Assignment</button>
+          <CreateAssignmentButton type="submit">
+            Create Assignment
+          </CreateAssignmentButton>
         </form>
       </Page1Container>
-      <Page2Container id={"page2"}>
+      <Page2Container id={"create-assignment-page2"}>
         <TitleContainer>
-          <FaAngleLeft onClick={handleAddResource} />
+          <FaAngleLeft onClick={togglePagesOneTwo} />
           <h1>My Resources</h1>
         </TitleContainer>
+        {Resources.length > 0 ? (
+          <SelectResourceContainer>
+            {Resources.filter((resource, indx) => indx < 5).map((resource) => (
+              <ResourceCard showDropdown key={resource.id} {...resource} />
+            ))}
+            <FaPlusCircle onClick={togglePagesTwoThree} />
+            <button onClick={togglePagesOneTwo}>Add Resource</button>
+          </SelectResourceContainer>
+        ) : (
+          <NoResourcesContainer>
+            <FaLayerGroup />
+            <VerticalLine />
+            <p> You do not have any resources</p>
+            <button onClick={togglePagesTwoThree}>Create Resource</button>
+          </NoResourcesContainer>
+        )}
       </Page2Container>
+      <Page3Container id={"create-assignment-page3"}>
+        <TitleContainer>
+          <FaAngleLeft onClick={togglePagesTwoThree} />
+        </TitleContainer>
+        <AddResourceForm isWithAssignments />
+      </Page3Container>
     </CreateAssignmentContainer>
   );
 };

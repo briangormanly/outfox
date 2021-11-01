@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { colors } from "../../styles";
 
-const { secondary, white } = colors;
+const { primary, secondary, white, black } = colors;
 
 export const CreateAssignmentContainer = styled.div`
   width: 100%;
@@ -16,14 +16,13 @@ export const CreateAssignmentContainer = styled.div`
   button {
     display: inline-block;
     margin-top: 3rem;
-    height: 4rem;
-    width: 100%;
     font-size: 1.6rem;
     border: none;
     background-color: ${secondary};
     color: ${white};
     border-radius: 5px;
     cursor: pointer;
+    padding: 0.7rem 1rem;
 
     &:hover {
       color: ${secondary};
@@ -99,6 +98,10 @@ export const AddResourceContainer = styled.div`
   }
 `;
 
+export const CreateAssignmentButton = styled.button`
+  width: 100%;
+`;
+
 export const Page2Container = styled.div.attrs((props) => ({
   className: props.className,
 }))`
@@ -116,4 +119,75 @@ export const Page2Container = styled.div.attrs((props) => ({
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+export const SelectResourceContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  h2 {
+    color: ${black};
+    background: ${white};
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 1rem 1rem;
+
+    &:hover {
+      background: ${secondary};
+      color: ${white};
+    }
+  }
+
+  svg {
+    align-self: flex-end;
+  }
+
+  button {
+    width: 100%;
+  }
+`;
+
+export const NoResourcesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    font-size: 10rem;
+    color: ${white};
+    margin-top: 20px;
+  }
+
+  p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+  }
+`;
+
+export const VerticalLine = styled.div`
+  border: 2px solid ${primary};
+  position: absolute;
+  transform: rotate(48deg);
+  border-left: 2px solid ${white};
+  height: 150px;
+`;
+
+export const Page3Container = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  display: none;
+  svg {
+    font-size: 25px;
+    color: ${white};
+  }
+
+  &.is-active {
+    display: block;
+  }
 `;
