@@ -32,7 +32,12 @@ import {
   FaTrashAlt,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal, DeleteAssignmentForm, Loader } from "../../components/index";
+import {
+  Modal,
+  DeleteAssignmentForm,
+  EditAssignmentForm,
+  Loader,
+} from "../../components/index";
 
 const AssignmentPage = ({ match }) => {
   const mutable = true;
@@ -42,6 +47,7 @@ const AssignmentPage = ({ match }) => {
   const statusBarSteps = document.getElementsByClassName("RSPBstep");
   const [loading, setLoading] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const {
     params: { assignmentID },
   } = match;
@@ -76,6 +82,14 @@ const AssignmentPage = ({ match }) => {
         <Modal setShowModal={setShowDeleteModal}>
           <DeleteAssignmentForm
             setShowModal={setShowDeleteModal}
+            assignmentID={assignmentID}
+          />
+        </Modal>
+      )}
+      {showEditModal && (
+        <Modal setShowModal={setShowEditModal}>
+          <EditAssignmentForm
+            setShowModal={setShowEditModal}
             assignmentID={assignmentID}
           />
         </Modal>
@@ -139,7 +153,7 @@ const AssignmentPage = ({ match }) => {
                 <FaComments />
                 {mutable && (
                   <Fragment>
-                    <FaPencilAlt />
+                    <FaPencilAlt onClick={() => setShowEditModal(true)} />
 
                     <FaShare />
                     <FaTrashAlt onClick={() => setShowDeleteModal(true)} />

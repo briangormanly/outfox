@@ -1,28 +1,31 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { editUserAssignment } from "../../redux/actions/userActions";
+import FormInput from "../Form-Input/Form-Input";
+
+import { ActionButton } from "../../styles";
+
+import assignmentService from "../../services/assignments";
+import { FaAngleLeft, FaLayerGroup, FaPlusCircle } from "react-icons/fa";
+import { ResourceCard, AddResourceForm } from "../index";
 
 import {
-  CreateAssignmentContainer,
+  EditAssignmentContainer,
   Page1Container,
   DatesContainer,
   GradeContainer,
   StatusContainer,
   AddResourceContainer,
-  CreateAssignmentButton,
   Page2Container,
   TitleContainer,
   SelectResourceContainer,
   NoResourcesContainer,
   VerticalLine,
   Page3Container,
-} from "./CreateAssignmentForm.elements";
+} from "./EditAssignmentForm.elements";
 
-import FormInput from "../Form-Input/Form-Input";
-import { addAssignment } from "../../redux/actions/userActions";
-import { FaAngleLeft, FaLayerGroup, FaPlusCircle } from "react-icons/fa";
-import { ResourceCard, AddResourceForm } from "../index";
-
-const CreateAssignmentForm = ({ setShowModal }) => {
+// delete and edit works, but not able to pull correct day/month/year data
+const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -40,65 +43,35 @@ const CreateAssignmentForm = ({ setShowModal }) => {
 
   const [grade, setGrade] = useState("");
 
+  // redux
   const storeDispatch = useDispatch();
+
   const { user } = useSelector((state) => state.userDetail);
   const { id, Resources } = user;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await assignmentService.getAssignmentData(assignmentID);
+      const { title, description, opendate, duedate, closedate } = response;
 
-    if (
-      !title ||
-      !description ||
-      !openDateMonth ||
-      !openDateDay ||
-      !openDateYear ||
-      !dueDateMonth ||
-      !dueDateDay ||
-      !dueDateYear ||
-      !closeDateMonth ||
-      !closeDateDay ||
-      !closeDateYear
-    ) {
-      console.log("Please fill out all required fields");
-      return;
-    }
+      setTitle(title);
+      setDescription(description);
 
-    const newAssignmentObject = {
-      title: title,
-      description: description,
-      creatorid: id,
-      opendate: new Date(
-        parseInt(openDateYear),
-        parseInt(openDateMonth),
-        parseInt(openDateDay)
-      ),
-      duedate: new Date(
-        parseInt(dueDateYear),
-        parseInt(dueDateMonth),
-        parseInt(dueDateDay)
-      ),
-      closedate: new Date(
-        parseInt(closeDateYear),
-        parseInt(closeDateMonth),
-        parseInt(closeDateDay)
-      ),
-      status: "open",
-      grade: null,
-      mutable: true,
+      setOpenDateDay(opendate);
+      setOpenDateMonth(opendate);
+      setOpenDateDay(opendate);
+
+      setDueDateDay(duedate);
+      setDueDateMonth(duedate);
+      setDueDateYear(duedate);
+
+      setCloseDateDay(closedate);
+      setCloseDateMonth(closedate);
+      setCloseDateYear(closedate);
     };
 
-    try {
-      storeDispatch(addAssignment(newAssignmentObject));
-    } catch (error) {
-      console.log(error);
-    }
-
-    setTitle("");
-    setDescription("");
-
-    setShowModal(false);
-  };
+    fetchData();
+  }, [assignmentID]);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -148,28 +121,82 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     setGrade(e.target.value);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !title ||
+      !description ||
+      !openDateMonth ||
+      !openDateDay ||
+      !openDateYear ||
+      !dueDateMonth ||
+      !dueDateDay ||
+      !dueDateYear ||
+      !closeDateMonth ||
+      !closeDateDay ||
+      !closeDateYear
+    ) {
+      console.log("Please fill out all required fields");
+      return;
+    }
+
+    const newAssignmentObject = {
+      title: title,
+      description: description,
+      creatorid: id,
+      opendate: new Date(
+        parseInt(openDateYear),
+        parseInt(openDateMonth),
+        parseInt(openDateDay)
+      ),
+      duedate: new Date(
+        parseInt(dueDateYear),
+        parseInt(dueDateMonth),
+        parseInt(dueDateDay)
+      ),
+      closedate: new Date(
+        parseInt(closeDateYear),
+        parseInt(closeDateMonth),
+        parseInt(closeDateDay)
+      ),
+      status: "open",
+      grade: null,
+      mutable: true,
+    };
+
+    try {
+      storeDispatch(editUserAssignment(assignmentID, newAssignmentObject));
+    } catch (error) {
+      console.log("An Error Occurred during edit assignment");
+    }
+
+    setTitle("");
+    setDescription("");
+
+    setShowModal(false);
+  };
+
   const togglePagesOneTwo = (e) => {
-    let page1 = document.getElementById("create-assignment-page1");
+    let page1 = document.getElementById("edit-assignment-page1");
     page1.classList.toggle("is-active");
 
-    let page2 = document.getElementById("create-assignment-page2");
+    let page2 = document.getElementById("edit-assignment-page2");
     page2.classList.toggle("is-active");
   };
 
   const togglePagesTwoThree = (e) => {
-    let page2 = document.getElementById("create-assignment-page2");
+    let page2 = document.getElementById("edit-assignment-page2");
     page2.classList.toggle("is-active");
 
-    let page3 = document.getElementById("create-assignment-page3");
+    let page3 = document.getElementById("edit-assignment-page3");
     page3.classList.toggle("is-active");
   };
-
   const currentYear = parseInt(new Date().getFullYear().toString());
-
   return (
-    <CreateAssignmentContainer>
-      <Page1Container id={"create-assignment-page1"} className={"is-active"}>
-        <h1>Create Assignment </h1>
+    <EditAssignmentContainer>
+      <Page1Container id={"edit-assignment-page1"} className={"is-active"}>
+        <h1>Edit Assignment </h1>
         <form onSubmit={handleSubmit}>
           <FormInput
             type="text"
@@ -304,12 +331,12 @@ const CreateAssignmentForm = ({ setShowModal }) => {
             <p>No Resource Chosen</p>
           </AddResourceContainer>
 
-          <CreateAssignmentButton type="submit">
-            Create Assignment
-          </CreateAssignmentButton>
+          <ActionButton edit fullWidth type="submit">
+            Edit Assignment
+          </ActionButton>
         </form>
       </Page1Container>
-      <Page2Container id={"create-assignment-page2"}>
+      <Page2Container id={"edit-assignment-page2"}>
         <TitleContainer>
           <FaAngleLeft onClick={togglePagesOneTwo} />
           <h1>My Resources</h1>
@@ -331,14 +358,13 @@ const CreateAssignmentForm = ({ setShowModal }) => {
           </NoResourcesContainer>
         )}
       </Page2Container>
-      <Page3Container id={"create-assignment-page3"}>
+      <Page3Container id={"edit-assignment-page3"}>
         <TitleContainer>
           <FaAngleLeft onClick={togglePagesTwoThree} />
         </TitleContainer>
         <AddResourceForm isWithAssignments />
       </Page3Container>
-    </CreateAssignmentContainer>
+    </EditAssignmentContainer>
   );
 };
-
-export default CreateAssignmentForm;
+export default EditAssignmentForm;
