@@ -66,6 +66,11 @@ const AssignmentPage = ({ match }) => {
   const { title, description, opendate, duedate, closedate } = useSelector(
     (state) => state.assignmentPageDetail
   );
+  // need to change opendate, duedate, and closedate into date objects because state returns the dates as strings
+  // even though opendate, duedate, and closedate are stored as Date objects in the database
+  const openDateObj = new Date(opendate);
+  const dueDateObj = new Date(duedate);
+  const closeDateObj = new Date(closedate);
 
   useEffect(() => {
     try {
@@ -138,9 +143,27 @@ const AssignmentPage = ({ match }) => {
                   </p>
                 </DatesContainerQuestions>
                 <DatesContainerAnswers>
-                  <p>{opendate}</p>
-                  <p>{duedate}</p>
-                  <p>{closedate}</p>
+                  <p>
+                    {openDateObj.getMonth() +
+                      "/" +
+                      openDateObj.getDate() +
+                      "/" +
+                      openDateObj.getFullYear()}
+                  </p>
+                  <p>
+                    {dueDateObj.getMonth() +
+                      "/" +
+                      dueDateObj.getDate() +
+                      "/" +
+                      dueDateObj.getFullYear()}
+                  </p>
+                  <p>
+                    {closeDateObj.getMonth() +
+                      "/" +
+                      closeDateObj.getDate() +
+                      "/" +
+                      closeDateObj.getFullYear()}
+                  </p>
                   <p>Not Graded</p>
                 </DatesContainerAnswers>
               </DatesContainer>
