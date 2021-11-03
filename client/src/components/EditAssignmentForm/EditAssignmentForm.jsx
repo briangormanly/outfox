@@ -54,20 +54,26 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
       const response = await assignmentService.getAssignmentData(assignmentID);
       const { title, description, opendate, duedate, closedate } = response;
 
+      // need to change opendate, duedate, and closedate into date objects because state returns the dates as strings
+      // even though opendate, duedate, and closedate are stored as Date objects in the database
+      const openDateObj = new Date(opendate);
+      const dueDateObj = new Date(duedate);
+      const closeDateObj = new Date(closedate);
+
       setTitle(title);
       setDescription(description);
 
-      setOpenDateDay(opendate);
-      setOpenDateMonth(opendate);
-      setOpenDateDay(opendate);
+      setOpenDateDay(openDateObj.getDate());
+      setOpenDateMonth(openDateObj.getMonth());
+      setOpenDateYear(openDateObj.getFullYear());
 
-      setDueDateDay(duedate);
-      setDueDateMonth(duedate);
-      setDueDateYear(duedate);
+      setDueDateDay(dueDateObj.getDate());
+      setDueDateMonth(dueDateObj.getMonth());
+      setDueDateYear(dueDateObj.getFullYear());
 
-      setCloseDateDay(closedate);
-      setCloseDateMonth(closedate);
-      setCloseDateYear(closedate);
+      setCloseDateDay(closeDateObj.getDate());
+      setCloseDateMonth(closeDateObj.getMonth());
+      setCloseDateYear(closeDateObj.getFullYear());
     };
 
     fetchData();
@@ -177,7 +183,7 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
     setShowModal(false);
   };
 
-  const togglePagesOneTwo = (e) => {
+  const togglePagesOneTwo = () => {
     let page1 = document.getElementById("edit-assignment-page1");
     page1.classList.toggle("is-active");
 
@@ -185,7 +191,7 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
     page2.classList.toggle("is-active");
   };
 
-  const togglePagesTwoThree = (e) => {
+  const togglePagesTwoThree = () => {
     let page2 = document.getElementById("edit-assignment-page2");
     page2.classList.toggle("is-active");
 
