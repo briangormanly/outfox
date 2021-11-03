@@ -73,3 +73,9 @@ export const CardContainer = styled.div`
     background: ${primaryLight};
   }
 `;
+
+export const NoLessonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

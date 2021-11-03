@@ -1,9 +1,13 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 
-import { Modal, CreateGroupForm, GroupCard } from "../index";
+import { GroupCard } from "../index";
 
-import { GroupsContainer, CardContainer } from "./DashboardGroups.elements";
+import {
+  GroupsContainer,
+  CardContainer,
+  NoGroupsContainer,
+} from "./DashboardGroups.elements";
 import { Link } from "../../styles";
 import { useParams } from "react-router-dom";
 
@@ -27,19 +31,25 @@ const DashboardGroups = () => {
   const userURL = `/user/${locationParams.id}`;
   return (
     <GroupsContainer>
-      <CardContainer ref={scrollRef} onWheel={onWheel}>
-        {Groups.map((group) => (
-          <GroupCard
-            key={group.id}
-            id={group.id}
-            name={group.groupname}
-            description={group.groupdescription}
-          />
-        ))}
-      </CardContainer>
-      <button>
-        <Link to={`${userURL}/groups`}> Create Group</Link>{" "}
-      </button>
+      {Groups.length > 0 ? (
+        <CardContainer ref={scrollRef} onWheel={onWheel}>
+          {Groups.map((group) => (
+            <GroupCard
+              key={group.id}
+              id={group.id}
+              name={group.groupname}
+              description={group.groupdescription}
+            />
+          ))}
+        </CardContainer>
+      ) : (
+        <NoGroupsContainer>
+          <p> You do not have any groups</p>
+          <button>
+            <Link to={`${userURL}/groups`}> Create Group</Link>{" "}
+          </button>
+        </NoGroupsContainer>
+      )}
     </GroupsContainer>
   );
 };

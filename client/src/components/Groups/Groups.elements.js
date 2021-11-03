@@ -97,6 +97,5 @@ export const VerticalLine = styled.div`
   position: absolute;
   transform: rotate(48deg);
   border-left: 2px solid ${white};
-  bottom: 93px;
   height: 150px;
 `;

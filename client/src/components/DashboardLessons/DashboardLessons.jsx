@@ -1,29 +1,19 @@
-import React, { Fragment, useState, useRef } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import React, { useRef } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FaArrowRight, FaPlus } from "react-icons/fa";
-import { CreateLessonForm, Modal, LessonCard } from "../index";
+import { LessonCard } from "../index";
 import { Link } from "../../styles";
 
 import {
   LessonContainer,
-  Header,
   CardContainer,
-  ButtonContainer,
+  NoLessonsContainer,
 } from "./DashboardLessons.elements";
 
 const DashboardLessons = (dashboardPaginate) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const { user } = useSelector((state) => state.userDetail);
   const {
     user: { Lessons },
   } = useSelector((state) => state.userDetail);
-
-  const { id, Resources } = user;
-
-  const history = useHistory();
-  const params = useParams();
 
   const scrollRef = useRef(null);
 
@@ -40,31 +30,22 @@ const DashboardLessons = (dashboardPaginate) => {
   const locationParams = useParams();
   const userURL = `/user/${locationParams.id}`;
   return (
-    <React.Fragment>
-      {showModal && (
-        <Modal large setShowModal={setShowModal}>
-          <CreateLessonForm creatorid={id} setShowModal={setShowModal} />
-        </Modal>
-      )}
-
-      <LessonContainer>
-        <Header>
-          <h1>My Lessons</h1>
-
-          <ButtonContainer>
-            <button>
-              <Link to={`${userURL}/lessons`}> Create Lesson</Link>{" "}
-            </button>
-          </ButtonContainer>
-        </Header>
-
+    <LessonContainer>
+      {Lessons.length > 0 ? (
         <CardContainer ref={scrollRef} onWheel={onWheel}>
           {Lessons.map((lesson) => (
             <LessonCard key={lesson.id} {...lesson} showDescription />
           ))}
         </CardContainer>
-      </LessonContainer>
-    </React.Fragment>
+      ) : (
+        <NoLessonsContainer>
+          <p> You do not have any lessons</p>
+          <button>
+            <Link to={`${userURL}/lessons`}> Create Lesson</Link>
+          </button>
+        </NoLessonsContainer>
+      )}
+    </LessonContainer>
   );
 };
 

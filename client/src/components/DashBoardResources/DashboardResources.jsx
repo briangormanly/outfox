@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
-import { ResourceList } from "./DashboardResources.elements";
+import {
+  ResourcesContainer,
+  ResourceList,
+  NoResourcesContainer,
+} from "./DashboardResources.elements";
 
 import { ResourceCard } from "../index";
 import { Link } from "../../styles";
@@ -14,14 +18,22 @@ function DashboardResources({ dashboardPaginate }) {
   const userURL = `/user/${locationParams.id}`;
 
   return (
-    <ResourceList>
-      {Resources.filter((resource, indx) => indx < 5).map((resource) => (
-        <ResourceCard small showSVG key={resource.id} {...resource} />
-      ))}
-      <button>
-        <Link to={`${userURL}/resources`}> Create Resource</Link>
-      </button>
-    </ResourceList>
+    <ResourcesContainer>
+      {Resources.length > 0 ? (
+        <ResourceList>
+          {Resources.filter((resource, indx) => indx < 5).map((resource) => (
+            <ResourceCard small showSVG key={resource.id} {...resource} />
+          ))}
+        </ResourceList>
+      ) : (
+        <NoResourcesContainer>
+          <p> You do not have any resources</p>
+          <button>
+            <Link to={`${userURL}/resources`}> Create Resource</Link>
+          </button>
+        </NoResourcesContainer>
+      )}
+    </ResourcesContainer>
   );
 }
 
