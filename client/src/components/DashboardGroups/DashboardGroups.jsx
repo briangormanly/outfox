@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { Modal, CreateGroupForm, GroupCard } from "../index";
 
 import { GroupsContainer, CardContainer } from "./DashboardGroups.elements";
+import { Link } from "../../styles";
+import { useParams } from "react-router-dom";
 
 const DashboardGroups = () => {
-  const [showModal, setShowModal] = useState(false);
   const {
     user: { Groups },
   } = useSelector((state) => state.userDetail);
@@ -22,27 +23,24 @@ const DashboardGroups = () => {
       left: containerScrollPosition + e.deltaY,
     });
   };
-
+  const locationParams = useParams();
+  const userURL = `/user/${locationParams.id}`;
   return (
-    <Fragment>
-      {showModal && (
-        <Modal setShowModal={setShowModal}>
-          <CreateGroupForm setShowModal={setShowModal} />
-        </Modal>
-      )}
-      <GroupsContainer>
-        <CardContainer ref={scrollRef} onWheel={onWheel}>
-          {Groups.map((group) => (
-            <GroupCard
-              key={group.id}
-              id={group.id}
-              name={group.groupname}
-              description={group.groupdescription}
-            />
-          ))}
-        </CardContainer>
-      </GroupsContainer>
-    </Fragment>
+    <GroupsContainer>
+      <CardContainer ref={scrollRef} onWheel={onWheel}>
+        {Groups.map((group) => (
+          <GroupCard
+            key={group.id}
+            id={group.id}
+            name={group.groupname}
+            description={group.groupdescription}
+          />
+        ))}
+      </CardContainer>
+      <button>
+        <Link to={`${userURL}/groups`}> Create Group</Link>{" "}
+      </button>
+    </GroupsContainer>
   );
 };
 

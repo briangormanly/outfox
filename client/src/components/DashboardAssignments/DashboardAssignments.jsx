@@ -7,9 +7,12 @@ import {
   CardContainer,
   NoAssignmentsContainer,
 } from "./DashboardAssignments.elements";
+import { Link } from "../../styles";
+import { useParams } from "react-router-dom";
 
 const DashboardAssignments = () => {
-  const [showModal, setShowModal] = useState(false);
+  const locationParams = useParams();
+  const userURL = `/user/${locationParams.id}`;
 
   const {
     user: { Assignments },
@@ -28,34 +31,27 @@ const DashboardAssignments = () => {
   };
 
   return (
-    <Fragment>
-      {showModal && (
-        <Modal setShowModal={setShowModal}>
-          <CreateAssignmentForm setShowModal={setShowModal} />
-        </Modal>
+    <AssignmentsContainer>
+      {Assignments.length > 0 ? (
+        <CardContainer ref={scrollRef} onWheel={onWheel}>
+          {Assignments.map((assignment) => (
+            <AssignmentCard
+              key={assignment.id}
+              id={assignment.id}
+              title={assignment.title}
+              description={assignment.description}
+            />
+          ))}
+        </CardContainer>
+      ) : (
+        <NoAssignmentsContainer>
+          <p> You do not have any assignments</p>
+          <button>
+            <Link to={`${userURL}/assignments`}> Create Assignment</Link>{" "}
+          </button>
+        </NoAssignmentsContainer>
       )}
-      <AssignmentsContainer>
-        {Assignments.length > 0 ? (
-          <CardContainer ref={scrollRef} onWheel={onWheel}>
-            {Assignments.map((assignment) => (
-              <AssignmentCard
-                key={assignment.id}
-                id={assignment.id}
-                title={assignment.title}
-                description={assignment.description}
-              />
-            ))}
-          </CardContainer>
-        ) : (
-          <NoAssignmentsContainer>
-            <p> You do not have any assignments</p>
-            <button onClick={() => setShowModal(true)}>
-              Create Assignment
-            </button>
-          </NoAssignmentsContainer>
-        )}
-      </AssignmentsContainer>
-    </Fragment>
+    </AssignmentsContainer>
   );
 };
 

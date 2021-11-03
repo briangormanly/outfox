@@ -5,6 +5,7 @@ import {
   DashboardFriends,
   DashboardResources,
   DashboardAssignments,
+  DashboardLessons,
   //DashboardSharedResources,
   //DashboardSharedGroups,
 } from "../index";
@@ -28,32 +29,32 @@ const Dashboard = ({ dashboardPaginate }) => {
   return (
     <DashboardContainer>
       <GroupContainer>
-          <Collapsible
-              trigger={
-                  <React.Fragment>
-                      <h1>My Groups</h1>
-                      <FaAngleDown />
-                  </React.Fragment>
-              }
-          >
-        <DashboardGroups dashboardPaginate={dashboardPaginate} />
-      </Collapsible>
+        <Collapsible
+          trigger={
+            <React.Fragment>
+              <h1>My Groups</h1>
+              <FaAngleDown />
+            </React.Fragment>
+          }
+        >
+          <DashboardGroups dashboardPaginate={dashboardPaginate} />
+        </Collapsible>
       </GroupContainer>
 
       <FriendContainer>
         <DashboardFriends />
       </FriendContainer>
       <ResourceContainer>
-          <Collapsible
-              trigger={
-                  <React.Fragment>
-                      <h1>My Resources</h1>
-                      <FaAngleDown />
-                  </React.Fragment>
-              }
-          >
-        <DashboardResources dashboardPaginate={dashboardPaginate} />
-          </Collapsible>
+        <Collapsible
+          trigger={
+            <React.Fragment>
+              <h1>My Resources</h1>
+              <FaAngleDown />
+            </React.Fragment>
+          }
+        >
+          <DashboardResources dashboardPaginate={dashboardPaginate} />
+        </Collapsible>
       </ResourceContainer>
 
       {/*            <SharedResourceContainer>
@@ -65,16 +66,16 @@ const Dashboard = ({ dashboardPaginate }) => {
             </SharedGroupContainer>*/}
 
       <AssignmentsContainer>
-          <Collapsible
-              trigger={
-                  <React.Fragment>
-                      <h1>My Assignments</h1>
-                      <FaAngleDown />
-                  </React.Fragment>
-              }
-          >
-        <DashboardAssignments dashboardPaginate={dashboardPaginate} />
-      </Collapsible>
+        <Collapsible
+          trigger={
+            <React.Fragment>
+              <h1>My Assignments</h1>
+              <FaAngleDown />
+            </React.Fragment>
+          }
+        >
+          <DashboardAssignments dashboardPaginate={dashboardPaginate} />
+        </Collapsible>
       </AssignmentsContainer>
 
       <LessonsContainer>
@@ -86,8 +87,7 @@ const Dashboard = ({ dashboardPaginate }) => {
             </React.Fragment>
           }
         >
-          <p> You do not have any lessons</p>
-          <button> Create Lesson </button>
+          <DashboardLessons dashboardPaginate={dashboardPaginate} />
         </Collapsible>
       </LessonsContainer>
 
