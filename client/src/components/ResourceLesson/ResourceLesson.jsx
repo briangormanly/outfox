@@ -1,4 +1,5 @@
 import React, { Fragment, useRef, useState } from "react";
+import ReactDOM, { render } from "react-dom"
 import {
   ResourceContainer,
   InnerContainer,
@@ -15,6 +16,9 @@ import { FaAngleDown } from "react-icons/fa";
 
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+//import "react-quill/dist/react-quill.js";
+//import reactQuill from "react-quill/dist/react-quill.js";
+
 
 import { useSelector } from 'react-redux';
 import {ResourceCard } from '../index';
@@ -23,34 +27,57 @@ import { FaClipboard } from "react-icons/fa";
 import {Modal, AddResourceForm} from "../index";
 import { ActionButton } from '../../styles';
 
-const ResourceLesson = () => {
+import Child from './ResourceLesson';
 
-  const [showModal, setShowModal] = useState(false);
+function Parent(resourceID) {
+  const [data, setData] = useState(0);
+  
+  const parentToChild = () => {
+    setData(resourceID);
+  };
+
+  console.log(data);
+  
+  return(
+    
+  <Child parentToChild = {data} />
+  
+  )
+}
+
+const ResourceLesson = ({setShowModal}) => {
+
+  const [ showAddModal, setShowAddModal ] = useState(false);
   const { user } = useSelector((state) => state.userDetail);
   const { Resources } = user;
   const style = { color: "black"};
 
+  const [ selection, setSelection ] = useState('');
+
+  var i = 0;
+ 
 
   return (
     <Fragment>
-      {showModal && (
-        <Modal large setShowModal={setShowModal}>
-          <AddResourceForm setShowModal={setShowModal} />
+      {showAddModal && (
+        <Modal large setShowModal={setShowAddModal}>
+          <AddResourceForm setShowModal={setShowAddModal} />
         </Modal>
       )}
       
           <h1>My Resources</h1>
+          {/*
           <InnerContainer>
             <Content>
               <VerticalLine />
               <FaClipboard />
               <p> You do not have any Resources</p>
-              <button onClick={() => setShowModal(true)}>
+              <button onClick={() => setShowAddModal(true)}>
                 Create 
               </button>
             </Content>
             </InnerContainer>
-
+          */}
             <br />
             <br />
 
@@ -63,13 +90,14 @@ const ResourceLesson = () => {
                     <h1 style = {style} >{resource.title}</h1>
                    
                     <ButtonContainer>
-                    <button >  
-                    <span>Select</span>    
+                    <button primary = "true" onClick={() => Parent(resource.id)}>
+                    Select
                     </button>
                     </ButtonContainer>
                   </ResourceContainer1>
                     
                     <br></br>
+                    
                     
             </React.Fragment>
                 
