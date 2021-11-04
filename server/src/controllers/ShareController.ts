@@ -231,7 +231,7 @@ class ShareController implements Controller {
     response: Response
   ): Promise<void> => {
     try {
-      const sharedlesson = await ShareResource.create(request.body);
+      const sharedlesson = await ShareLessons.create(request.body);
       response.status(201).json({ sharedlesson });
     } catch (error) {
       response.status(500).send(error.message);

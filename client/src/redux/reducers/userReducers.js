@@ -192,7 +192,7 @@ export const userReducer = (
         ...state,
         user: { ...state.user, SharedGroups: [...filteredSharedGroups] },
       };
-    }
+    } // Put NEW SHARED REDUCERS HERE
     case USER_LOGOUT:
       console.log(state.user)
       return {

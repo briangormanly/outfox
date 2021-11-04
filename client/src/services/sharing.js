@@ -34,6 +34,18 @@ const shareResource = (newObject) => {
 	return response.then((response) => response.data);
 };
 
+// shareLesson
+
+// shareAssignment
+
+// getSharedAssignments
+
+// getSharedLessons
+
+// deleteSharedAssignment
+
+// deleteSharedLesson
+
 export default {
 	getSharedGroups,
 	shareGroup,
