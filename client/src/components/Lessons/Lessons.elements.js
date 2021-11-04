@@ -132,16 +132,18 @@ const ChildContainerDropdown = styled.div`
   .Collapsible {
     border-radius: 5px;
     background-color: ${primary};
-    cursor: pointer;
+    
     padding: 3rem;
     width: 100%;
     border: none;
-    text-align: left;
-    outline: none;
+    
+   
 
     span {
-      display: flex;
+      
+      flex-wrap: wrap;
       justify-content: space-between;
+
       align-items: center;
 
       h1 {
@@ -150,6 +152,7 @@ const ChildContainerDropdown = styled.div`
       }
 
       svg {
+        float: right;
         font-size: 25px;
         color: ${white};
       }
@@ -181,34 +184,8 @@ const ChildContainerDropdown = styled.div`
     flex-direction: column;
     
     
-    box-shadow: inset 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
-    cursor: default;
 
-    p {
-      margin-top: 5rem;
-    }
-
-    button {
-      margin-top: 5rem;
-      margin-bottom: 5rem;
-      font-family: inherit;
-      font-size: 1.6rem;
-      padding: 0.7rem 1rem;
-      display: flex;
-      justify-content: space-around;
-      
-      cursor: pointer;
-      background-color: ${secondary};
-      border: 1px solid ${secondary};
-      border-radius: 5px;
-      color: ${white};
-
-      &:hover {
-        color: ${secondary};
-        background-color: ${white};
-        border: 1px solid ${secondary};
-      }
-    }
+    
   }
 `;
 
@@ -216,42 +193,14 @@ const ChildContainer = styled.div`
   padding: 2rem;
   border-radius: 25px;
   background-color: ${white};
-  -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.75);
+
 `;
+
+export const Description = styled.div`font-size: 1.4rem;`;
 
 
 export const LessonsContainer1 = styled(ChildContainerDropdown)`
   grid-area: lessons;
 
-  button {
-    
-    margin-right: 6rem;
-    align-self: flex-end;
-    font-family: inherit;
-    font-size: 1.6rem;
-    padding: 0.7rem 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    cursor: pointer;
-    background-color: ${secondary};
-    border: 1px solid ${secondary};
-    border-radius: 5px;
-    color: ${white};
 
-    &:hover {
-      color: ${secondary};
-      background-color: ${white};
-      border: 1px solid ${secondary};
-    }
-
-    span {
-      display: inline-block;
-      margin-right: 1rem;
-      min-width: 5rem;
-    }
-  }
-  
 `;
