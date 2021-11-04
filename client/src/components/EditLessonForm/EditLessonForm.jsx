@@ -1,6 +1,6 @@
-import React, { useReducer, Fragment, useEffect, useState } from 'react';
+import React, { useRef, useReducer, Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FormInput from '../Form-Input/Form-Input';
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -10,7 +10,7 @@ import { ActionButton } from '../../styles';
 import lessonService from '../../services/lesson';
 import { editUserLesson } from '../../redux/actions/userActions';
 import { QuillContainer, BodyContainer, HeaderText, FormContainer, CreateContainer } from './EditLessonForm.elements';
-import lesson from '../../services/lesson';
+import { Description } from '../LessonCard/LessonCard.elements';
 
 
 const initialState = {
@@ -25,17 +25,18 @@ function reducer(state, { field, value }) {
     };
 }
 
-const EditLessonForm = ({ lessonID, setShowModal }) => {
-    const [ state, dispatch ] = useReducer(reducer, initialState);
-    const { title, description} = state;
+const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
 
     const [ value, setValue ] = useState('');
+    const [ state, dispatch ] = useReducer(reducer, initialState);
+    const { title, description} = state;
+    
+    //const { user: { id } } = useSelector((state) => state.userDetail);
+
     const stylequill = { background: "white", height: "35em", width: "54em", overflowy:"auto"};
 
-    const params = useParams();
-    console.log(params);
-    console.log(params.lessonID);
-
+   
+ 
     // redux
     const storeDispatch = useDispatch();
 
@@ -45,7 +46,8 @@ const EditLessonForm = ({ lessonID, setShowModal }) => {
                 const response = await lessonService.getLessonData(lessonID);
                 const {title, description} = response;
                 dispatch({ field: 'title', value: title });
-                dispatch({ field: 'description', value: value });
+                dispatch({ field: 'description', value: description });
+                
             };
 
             fetchData();
@@ -53,19 +55,19 @@ const EditLessonForm = ({ lessonID, setShowModal }) => {
         [ lessonID ]
     );
 
-    const handleInput = (e) => {
-        dispatch({ field: e.target.name, value: e.target.value });
-    };
+    const params = useParams();
+    console.log(params);
+    console.log(lessonID);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!title || !description) {
+        if (!title) {
             console.log('Please Enter All Fields');
             return;
         }
 
-        let newObject = { ...state };
+        let newObject = {...state };
 
         try {
             
@@ -75,6 +77,12 @@ const EditLessonForm = ({ lessonID, setShowModal }) => {
         } catch (error) {
             console.log('An Error Occurred');
         }
+
+        setShowModal(false);
+    };
+
+    const handleInput = (e) => {
+        dispatch({ field: e.target.name, value: e.target.value });
     };
 
     return (
@@ -92,6 +100,7 @@ const EditLessonForm = ({ lessonID, setShowModal }) => {
                     onChange={handleInput}
                 />
                 <FormInput
+
                     type="text"
                     name="description"
                     value={description}
@@ -102,15 +111,20 @@ const EditLessonForm = ({ lessonID, setShowModal }) => {
                 
                 
                 <QuillContainer>
-                <ReactQuill theme="snow" setConents = {lesson} onChange={setValue} style={stylequill} />  
+                <ReactQuill 
+                theme="snow" 
+                 
+                value = {description}   
+                onChange={setValue} 
+                style={stylequill}  />  
                 </QuillContainer>
-
+                
                 <br />
                 <br />
                 <br />
 
                 <CreateContainer>
-                <ActionButton edit fullWidth type="submit">
+                <ActionButton edit = "true" fullWidth type="submit" value= "Upload">
                     Update Lesson
                 </ActionButton>
                 </CreateContainer>
