@@ -1,7 +1,5 @@
 import React from "react";
-
 import { useState } from "react";
-
 import { LessonCard } from '../index';
 
 import {
@@ -11,38 +9,46 @@ import {
   Content,
   VerticalLine,
   LessonsContainer1,
-  ChildContainer,
-  ChildContainerDropdown,
-  
 } from "./Lessons.elements";
+
+import { Resourcelesson } from '../index';
 
 import Collapsible from "react-collapsible";
 import { FaAngleDown } from "react-icons/fa";
-
-import { CreateLessonForm, ResourceCard, EditLessonForm, DeleteLessonForm } from "../index";
-import { FaPlus, FaArrowRight, FaClipboard } from "react-icons/fa";
-import {Modal, AddResourceForm , CreateAssignmentForm} from "../index";
-
-import {MContent} from './Lessons.elements';
-
+import { CreateLessonForm} from "../index";
+import { FaPlus,FaClipboard } from "react-icons/fa";
+import {Modal} from "../index";
 import { useSelector } from "react-redux";
+import lessonService from '../../services/lesson';
+import userService from '../../services/users';
+import { ResourceCard } from '../index';
 
+import { AssignmentCard } from '../index';
+
+
+
+//export function Child({parentToChildid}) {
+//   return (
+       
+//       parentToChildid
+        
+ //  )
+//}
 
 function Lessons({ dashboardPaginate }) {
 
     const { user } = useSelector((state) => state.userDetail);
-    const {
-        user: { Lessons },
-      } = useSelector((state) => state.userDetail);
+    
     const [showModal, setShowModal] = useState(false);
     const { id, Resources } = user;
+    
+    const {Lessons } = user;
+    const { Assignments } = user;
+   
+    const plus = { color: "white", fontSize: "2.5em"};
 
-    const plus = { color: "white", fontSize: "2.5em"}
+    
 
-    const [ showEditModal, setShowEditModal ] = useState(false);
-    const [ showDeleteModal, setShowDeleteModal ] = useState(false);
-
-      
     return (
         <React.Fragment>
         {showModal && (
@@ -50,17 +56,7 @@ function Lessons({ dashboardPaginate }) {
             <CreateLessonForm creatorid={id} setShowModal={setShowModal}/>
             </Modal>
         )}
-        {showEditModal && (
-            <Modal large setShowModal={setShowEditModal}>
-            <EditLessonForm setShowModal={setShowEditModal} lessonID={id} />
-            </Modal>
-        )}
-        {showDeleteModal && (
-            <Modal setShowModal={setShowDeleteModal}>
-            <DeleteLessonForm setShowModal={setShowDeleteModal} lessonID={id} />
-            </Modal>
-        )}
-
+        
         <LessonsContainer>
         
             <button onClick={() => setShowModal(true)}>
@@ -92,12 +88,6 @@ function Lessons({ dashboardPaginate }) {
                 trigger={
                   <React.Fragment>
                     <h1>{lesson.title}</h1>
-                    <button edit onClick={() => setShowEditModal(true)}>
-                    Edit
-                </button>
-                <button delete onClick={() => setShowDeleteModal(true)}>
-                    Delete
-                </button>
                     <FaAngleDown />
                   </React.Fragment>
                 }
@@ -108,6 +98,32 @@ function Lessons({ dashboardPaginate }) {
                     {...lesson}
                     showDescription
                 />
+
+                <br />
+                <br />
+
+                <h1>Resources:</h1>
+                {Resources.map((resource) => (
+                <ResourceCard
+                    key={resource.id}
+                    {...resource}
+                    
+                    showDescription
+                />
+                    ))}
+
+                <br />
+
+                <h1>Assignments:</h1>
+                {Assignments.map((assignment) => (
+                
+                <AssignmentCard
+                  key={assignment.id}
+                  id={assignment.id}
+                  title={assignment.title}
+                  description={assignment.description}
+                />
+              ))}
 
                 </Collapsible>
                 <br></br>
