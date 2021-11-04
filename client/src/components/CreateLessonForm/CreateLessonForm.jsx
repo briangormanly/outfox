@@ -43,6 +43,8 @@ function reducer(state, { field, value }) {
     };
 }
 
+
+
 const CreateLessonForm = ({ creatorid, LessonId, setShowModal }) => {
 
     const [ value, setValue ] = useState('');
@@ -149,12 +151,12 @@ const CreateLessonForm = ({ creatorid, LessonId, setShowModal }) => {
                 <br />
 
                 <QuillContainer> 
-                <ReactQuill theme="snow" value={value} onChange={setValue} style={stylequill}/>  
+                <ReactQuill theme="snow" value={value} onChange={setValue} style={stylequill} />  
                 </QuillContainer>
                 <br />
                 
                 <PlusContainer>
-                <button onClick={() => setShowPlusModal(true)}>
+                <button edit onClick={() => setShowPlusModal(true)}>
                     
                 <ModalsContent>
                 <span><FaPlus style={plus} /></span> 
@@ -168,7 +170,7 @@ const CreateLessonForm = ({ creatorid, LessonId, setShowModal }) => {
                 <br />
                 
                 <CreateContainer>
-                <ActionButton edit fullWidth type="submit" value= "Upload" >
+                <ActionButton edit  fullWidth type="submit" value= "Upload" >
                     Create Lesson
                 </ActionButton>
                 </CreateContainer>
