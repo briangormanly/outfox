@@ -4,12 +4,15 @@ import { colors } from '../../styles';
 
 const { secondary, white, primary, primaryLight } = colors;
 
+
+//45
+
 export const QuillContainer = styled.div`
 
 position: absolute;
   right: 5%;
   left: 5%;
-  top: 25%;
+  top: 35%;
 
 overflow-y: auto
 
@@ -57,3 +60,4 @@ position: absolute;
   top: 87%;
 
 `;
+
