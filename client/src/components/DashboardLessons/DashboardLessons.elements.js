@@ -74,8 +74,83 @@ export const CardContainer = styled.div`
   }
 `;
 
-export const NoLessonsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const ChildContainerDropdown = styled.div`
+  padding: 2rem;
+  border-radius: 5px;
+  background: none;
+
+  .Collapsible {
+    border-radius: 5px;
+    background-color: ${primary};
+    
+    padding: 3rem;
+    width: 100%;
+    border: none;
+    
+   
+
+    span {
+      
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      align-items: center;
+
+      h1 {
+        font-size: 20px;
+        color: ${white};
+      }
+
+      svg {
+        float: right;
+        font-size: 25px;
+        color: ${white};
+      }
+    }
+
+    .is-open {
+      h1 {
+        padding-bottom: 2rem;
+      }
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .Collapsible__contentOuter {
+    height: auto;
+    transition: all 400ms linear 0s;
+    overflow: hidden;
+  }
+
+  .Collapsible__contentInner {
+    min-height: 40vh;
+    width: 100%;
+    border-radius: 5px;
+    padding: 2rem;
+    background-color: ${white};
+    display: flex;
+    flex-direction: column;
+    
+    
+
+    
+  }
+`;
+
+const ChildContainer = styled.div`
+  padding: 2rem;
+  border-radius: 25px;
+  background-color: ${white};
+
+`;
+
+export const Description = styled.div`font-size: 1.4rem;`;
+
+
+export const LessonsContainer1 = styled(ChildContainerDropdown)`
+  grid-area: lessons;
+
+
 `;
