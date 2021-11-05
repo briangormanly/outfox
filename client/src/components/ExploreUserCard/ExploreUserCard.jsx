@@ -29,16 +29,17 @@ const ExploreUserCard = (props) => {
 	
 
 	const addFriend = () => {
+		// need to pass the sendFriendRequest function the user object
 		friendService.sendFriendRequest();
 		const fAdd = added;
 		setFriendAdded(!fAdd); 
 	}
 
 
-	const AddedUserPopup = () => {
+	const AddedFriendPopUp = () => {
 		return (
 			<SubRow>
-				<h5>You Added a Friend:</h5>
+				<h5>You Sent a Friend Request To:</h5>
 				<span><h2>{`${firstname} ${lastname}`}</h2><h4><i>{`${username}`}</i></h4></span>
 					<button onClick={addFriend}>close</button>
 			</SubRow>
@@ -111,7 +112,7 @@ const ExploreUserCard = (props) => {
 			{expanded && <ExpUserExpanded/>
 
 			}
-			{added && <AddedUserPopup/>
+			{added && <AddedFriendPopUp/>
 
 			}
 			
