@@ -3,6 +3,11 @@ import {render} from 'react-dom';
 import { FaUser } from 'react-icons/fa';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import {ExploreUser} from "../index";
+//import {Friends} from "../index";
+//import {sendFriendRequest} from 'services/friends.js';
+
+import friendService from '../../services/friends';
+
 import {
 	ExploreCard,
 	Content,
@@ -19,9 +24,26 @@ const ExploreUserCard = (props) => {
 	const history = useHistory();
 	const location = useLocation();
 	const [expanded, setExpanded] = useState(false);
+	const [added, setFriendAdded] = useState(false);
 	const Uparams = useParams();
 	
 
+	const addFriend = () => {
+		friendService.sendFriendRequest();
+		const fAdd = added;
+		setFriendAdded(!fAdd); 
+	}
+
+
+	const AddedUserPopup = () => {
+		return (
+			<SubRow>
+				<h5>You Added a Friend:</h5>
+				<span><h2>{`${firstname} ${lastname}`}</h2><h4><i>{`${username}`}</i></h4></span>
+					<button onClick={addFriend}>close</button>
+			</SubRow>
+		);
+	}
 
 
 	const ExpUserExpanded = () =>{
@@ -72,6 +94,13 @@ const ExploreUserCard = (props) => {
 			</Text>
 			<ButtonGroup>
 				
+				<Button edit onClick={addFriend}>
+					Add Friend
+				</Button>
+				
+			</ButtonGroup>
+			<ButtonGroup>
+				
 				<Button edit onClick={toggleExpand}>
 					More Info
 				</Button>
@@ -80,6 +109,9 @@ const ExploreUserCard = (props) => {
 			</Headline>
 			<br/>
 			{expanded && <ExpUserExpanded/>
+
+			}
+			{added && <AddedUserPopup/>
 
 			}
 			
