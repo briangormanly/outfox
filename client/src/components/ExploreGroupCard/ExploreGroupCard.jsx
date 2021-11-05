@@ -1,5 +1,5 @@
 import { date } from 'faker';
-import React from 'react';
+import React, { useState} from 'react';
 import { FaLayerGroup } from 'react-icons/fa';
 import { useHistory, useLocation } from 'react-router-dom';
 import 'animate.css';
@@ -10,13 +10,16 @@ import {
 	ButtonGroup,
 	Text,
 	IconContainer,
-	Button
+	Button,
+	Headline,
+	SubRow
 } from './ExploreGroupCard.elements';
 
 const ExploreGroupCard = (props) => {
-	const { groupname,datetimeadd,creator, id, tags } = props;
+	const { groupname,datetimeadd,creator,creatorid, id,email, tags, groupdescription, city, country } = props;
 	const history = useHistory();
 	const location = useLocation();
+	const [expanded, setExpanded] = useState(false);
 	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     console.log("datetimeadd:  ["+datetimeadd+"], datatype: "+ typeof(datetimeadd));
 	const tdt = datetimeadd;
@@ -47,15 +50,50 @@ const ExploreGroupCard = (props) => {
 	}
 
 
-
+	//http://localhost:3000/user/669/groups/4566
 
 	const handleClick = () => {
-		history.push(`${location.pathname}/${id}`);
+		history.push(`http://localhost:3000/user/${creatorid}/groups/${id}`);
 	};
-	
+	const toggleExpand = () =>{
+		const tExp = expanded;
+		setExpanded(!tExp);
+	}
+
+
+	const ExpGroupExpanded = () => {
+		console.log("made it here");
+		return(
+			<SubRow>
+				<h2>{`${groupname}`}</h2>
+				<p>{`${groupdescription}`}</p>
+				<p>{`Created by: ${creator}`}</p>
+              
+				<p>{"Location: "+city + ", "+ country}</p>
+				<p><a href={`mailto:${email}`}>{email}</a></p>
+
+				<h5>Related Tags</h5>
+			<ul>
+				<li>{`${tags[0].toLowerCase()}`}</li>
+				<li>{`${tags[1].toLowerCase()}`}</li>
+				<li>{`${tags[2].toLowerCase()}`}</li>
+			</ul>
+				<button onClick={toggleExpand}>close</button>
+			</SubRow>
+		);
+	};
+
+
+
+
+
+
+
+
+
 	return (
-		<ExploreCard className={"animate__animated","animate__bounce"}>
-			
+		<ExploreCard>
+			<Headline>
 			<Content>
 				<IconContainer>
 					<FaLayerGroup />
@@ -67,11 +105,6 @@ const ExploreGroupCard = (props) => {
 					
 				</Text>
 			</Content>
-			<ButtonGroup>
-				<Button edit onClick={handleClick}>
-					View Page
-				</Button>
-			</ButtonGroup>
 			<Text>
 				<h3>Related Tags</h3>
 			<ul>
@@ -80,6 +113,18 @@ const ExploreGroupCard = (props) => {
 				<li>{`${tags[2].toLowerCase()}`}</li>
 			</ul>
 			</Text>
+			<ButtonGroup>
+				
+				<Button edit onClick={toggleExpand}>
+				More Info
+				</Button>
+				
+			</ButtonGroup>
+			</Headline>
+			<br/>
+			{
+				expanded && <ExpGroupExpanded/>
+			}
 		</ExploreCard>
 	);
 };

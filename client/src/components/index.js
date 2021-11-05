@@ -71,6 +71,7 @@ export { default as ExploreUser } from './ExploreUser/ExploreUser';
 export { default as ExploreGroup } from './ExploreGroup/ExploreGroup';
 export {default as ExploreGroupCard} from './ExploreGroupCard/ExploreGroupCard';
 export {default as ExploreResourceCard} from './ExploreResourceCard/ExploreResourceCard';
+export {default as DataErrorCard} from "./Explore/DataErrorCard";
 // Utility Components
 export { default as Loader } from './Loader/Loader';
 export { default as Modal } from './Modal/Modal';

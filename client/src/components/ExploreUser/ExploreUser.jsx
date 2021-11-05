@@ -3,66 +3,49 @@ import { useParams } from 'react-router-dom';
 
 
 import {
-	ExploreUserContainer
+	ExploreUserContainer,
+	Button,
+	ButtonGroup
 
 } from './ExploreUser.elements';
 
 import { GroupAllCard, ResourceCard } from '../index';
 
-const ExploreUser = (exploreUser) => {
-	// //const [ exploreUser, setExploreUser ] = useState(null);
-	// //const [ groups, setGroups ] = useState([]);
-	// const [ resources, setResources ] = useState([]);
+const ExploreUser = (props) => {
+	const [ recUser, setRecUser ] = useState(null);
+	const [ groups, setGroups ] = useState([]);
+	const [ resources, setResources ] = useState([]);
 
 	
 	
-	// useEffect(
-	// 	() => {
-	// 		// let mounted = true;
+	
+	const handleConnect = async () => {
+		// const requestObject = {
+		// 	requesterid : userId,
+		// 	addresseeid : exploreId
+		// };
 
-	// 		// const getUser = async () => {
-	// 		// 	const response = await userService.getUser(exploreId);
-
-	// 		// 	if (mounted) {
-	// 		// 		setExploreUser(response);
-	// 		// 		setGroups(response.Groups);
-	// 		// 		setResources(response.Resources);
-	// 		// 	}
-	// 		// };
-
-	// 		// getUser();
-
-	// 		// return () => (mounted = false);
-	// 	},
-	// 	[  ]
-	// );
-
-	// const handleConnect = async () => {
-	// 	const requestObject = {
-	// 		requesterid : userId,
-	// 		addresseeid : exploreId
-	// 	};
-
-	// 	const response = await friendService.sendFriendRequest(requestObject);
-	// 	console.log(response);
-	// };
+		// const response = await friendService.sendFriendRequest(requestObject);
+		// console.log(response);
+		console.log("wouldve done a thing");
+	};
 
 	const handleRemove = async () => {};
 
 	return (
 		<ExploreUserContainer>
-			{exploreUser && (
+			{recUser && (
 				<div>
-					{/* <h1>{`${exploreUser.firstname} ${exploreUser.lastname} ${exploreUser.id}`}</h1> */}
+					<h1>{`${props.firstname} ${props.lastname} ${props.id}`}</h1>
 					<p>test</p>
-					{/* <ButtonGroup>
+					<ButtonGroup>
 						<Button edit onClick={handleConnect}>
 							Connect
 						</Button>
 						<Button delete onClick={handleRemove}>
 							Remove
 						</Button>
-					</ButtonGroup> */}
+					</ButtonGroup>
 					
 				</div>
 			)}

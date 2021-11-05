@@ -12,7 +12,8 @@ import {
 	HeadButtonGroup,
 	UserSelectBtn,
 	GroupSelectBtn,
-	ResSelectBtn
+	ResSelectBtn,
+	PageSelector
 } from './Explore.elements';
 
 import { ExploreUserCard } from '../index';
@@ -81,17 +82,7 @@ const Explore =  (props) => {
 	const history = useHistory();
 	const location = useLocation();
 
-	// const handleGroupRoute = () =>{
-	// 	history.push(`${location.pathname}/${"ExploreGroups"}`);
-	// }
-
-	// const handleResourceRoute = () => {
-	// 	history.push(`${location.pathname}/${"ExploreResources"}`);
-	// }
-	// const handleUserRoute = () => {
-	// 	history.push(`${location.pathname}/${"ExploreUsers"}`);
-	// }
-
+	const pageMax = 1000; // this will be a state variable in the future
 	const startUserReload = () => {
 		setExpType("user");
 		setSetUp(false);
@@ -123,6 +114,9 @@ const Explore =  (props) => {
 					const userDat = await userService.getUser(parseInt(record.id));
 					record.firstname =  userDat.firstname;
 					record.lastname  =  userDat.lastname;
+					record.email = userDat.email;
+					record.city = userDat.city;
+					record.country = userDat.country;
 					record.hashedpw = "REDACTED"; 
 				}
 				setExpRecords(resJson);
@@ -140,8 +134,12 @@ const Explore =  (props) => {
 					const groupDat = await groupService.getGroupData(record.id + 3655);
 					record.groupname =  groupDat.groupname;
 					record.datetimeadd  =  groupDat.datetimeadd;
+					record.groupdescription = groupDat.groupdescription;
 					const creator = await userService.getUser(groupDat.createdby);
 					record.creator = creator.firstname + " " + creator.lastname; 
+					record.city = creator.city;
+					record.country = creator.country;
+					record.email = creator.email;
 					 
 				}
 				setExpRecords(resJson);
@@ -174,17 +172,18 @@ const Explore =  (props) => {
 	useEffect(() => {
 		
 		if(!setUp){
+			//here is where the call to get the number of pages would be
 			switch(expType){
 				case "user":
-					setExpData(currentUserId,1);
+					setExpData(currentUserId,0);
 					setSetUp(true);
 					break;
 				case "group":
-					setExpData(currentUserId,1);
+					setExpData(currentUserId,0);
 					setSetUp(true);
 					break;
 				case "resource":
-					setExpData(currentUserId,1);
+					setExpData(currentUserId,0);
 					setSetUp(true);
 					break;
 				
@@ -213,7 +212,19 @@ const Explore =  (props) => {
 		}
 	};
 
+	const backPage = () =>{
+		if((pgn -1) >= 0){
+			setPg((pgn-1));
+			setExpData(currentUserId,pgn);
+		}
 
+	}
+	const nextPage = () =>{
+		if((pgn+1) <= pageMax){
+			setPg((pgn+1));
+			setExpData(currentUserId,pgn);
+		} 
+	}
 
 	return (
 		<HeadButtonGroup>{/*THESE ARE THE BUTTONS AT THE TOP OF THE EXPLORE PAGE */}
@@ -227,10 +238,14 @@ const Explore =  (props) => {
 				Resources
 			</ResSelectBtn>
 			<ExploreContainer>
-				<h1>Explore</h1>
+				<h1>Explore {expType.substring(0,1).toUpperCase() + expType.substring(1)}s</h1>
 			{expRecords &&
 					<RecContainer/>
 					} 
+					<PageSelector>
+						<button onClick={backPage}>{`< Back`}</button>
+						<button onClick={nextPage}>{`Next >`}</button>
+					</PageSelector>
 			</ExploreContainer>
 		</HeadButtonGroup>
 	);

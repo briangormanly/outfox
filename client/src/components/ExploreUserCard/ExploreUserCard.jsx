@@ -1,27 +1,56 @@
-import React from 'react';
+import React, { useState} from 'react';
+import {render} from 'react-dom';
 import { FaUser } from 'react-icons/fa';
-import { useHistory, useLocation } from 'react-router-dom';
-
+import { useHistory, useLocation, useParams } from 'react-router-dom';
+import {ExploreUser} from "../index";
 import {
 	ExploreCard,
 	Content,
 	ButtonGroup,
 	Text,
 	IconContainer,
-	Button
+	Button,
+	SubRow,
+	Headline
 } from './ExploreUserCard.elements';
 
 const ExploreUserCard = (props) => {
-	const { firstname, lastname, username, email, id, tags } = props;
+	const { firstname, lastname, username, id, tags, country, city, email } = props;
 	const history = useHistory();
 	const location = useLocation();
-
-	const handleClick = () => {
-		history.push(`${location.pathname}/${id}`);
-	};
+	const [expanded, setExpanded] = useState(false);
+	const Uparams = useParams();
 	
+
+
+
+	const ExpUserExpanded = () =>{
+			return(
+				<SubRow>
+					<span><h2>{`${firstname} ${lastname}`}</h2><h4><i>{`${username}`}</i></h4></span>
+					<h5>Related Tags</h5>
+					<ul>
+						<li>{`${tags[0]}`}</li>
+						<li>{`${tags[1]}`}</li>
+						<li>{`${tags[2]}`}</li>
+					</ul>
+					<p>{"Location: "+city + ", "+ country}</p>
+					<p><a href={`mailto:${email}`}>{email}</a></p>
+					<button onClick={toggleExpand}>close</button>
+					
+				</SubRow>
+			);
+			}
+
+		const toggleExpand = () =>{
+			const tExp = expanded;
+			setExpanded(!tExp);
+		}
 	return (
-		<ExploreCard>
+	
+					
+						<ExploreCard>
+							<Headline>
 			<Content>
 				<IconContainer>
 					<FaUser />
@@ -32,11 +61,7 @@ const ExploreUserCard = (props) => {
 					
 				</Text>
 			</Content>
-			<ButtonGroup>
-				<Button edit onClick={handleClick}>
-					View Page
-				</Button>
-			</ButtonGroup>
+			
 			<Text>
 				<h3>Related Tags</h3>
 			<ul>
@@ -45,7 +70,22 @@ const ExploreUserCard = (props) => {
 				<li>{`${tags[2]}`}</li>
 			</ul>
 			</Text>
+			<ButtonGroup>
+				
+				<Button edit onClick={toggleExpand}>
+					More Info
+				</Button>
+				
+			</ButtonGroup>
+			</Headline>
+			<br/>
+			{expanded && <ExpUserExpanded/>
+
+			}
+			
 		</ExploreCard>
+		
+
 	);
 };
 

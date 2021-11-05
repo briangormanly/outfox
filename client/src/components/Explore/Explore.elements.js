@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 import { colors, ActionButton } from '../../styles';
 
-const { white } = colors;
 
+const { primary, mediumGrey, darkGrey, white } = colors;
 export const ExploreContainer = styled.div`
 	margin: 3rem 5rem;
 	margin-left:-5rem;
@@ -23,7 +23,20 @@ export const ExploreContainer = styled.div`
 		font-size: 3rem;
 	}
 `;
+export const PageSelector = styled.div`
+	
+button{
 
+	padding:.1rem;
+	font-size:1.4rem;
+	background-color: ${mediumGrey};
+	border-radius: 6px;
+	color: ${primary};
+	margin-left:2px;
+	margin-right:2px;
+	padding: 0px 4px 0px 4px;
+}
+`
 export const UserContainer = styled.div`
 	max-width: 80rem;
 	margin-top: 3rem;
