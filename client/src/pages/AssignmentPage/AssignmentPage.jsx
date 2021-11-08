@@ -22,6 +22,7 @@ import {
   ActionContainer,
   ViewResourceButton,
   SubmitButton,
+  ReturnLink,
 } from "./AssignmentPage.elements";
 
 import {
@@ -30,6 +31,7 @@ import {
   FaComments,
   FaShare,
   FaTrashAlt,
+  FaArrowLeft,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -40,6 +42,9 @@ import {
 } from "../../components/index";
 
 const AssignmentPage = ({ match }) => {
+  const {
+    params: { userID },
+  } = match;
   const mutable = true;
   //const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
 
@@ -106,7 +111,10 @@ const AssignmentPage = ({ match }) => {
         ) : (
           <AssignmentCardContent>
             <TitleContainer>
-              <FaAngleLeft />
+              <ReturnLink to={`/user/${userID}/assignments`}>
+                <FaAngleLeft />
+              </ReturnLink>
+
               <h1> {title}</h1>
             </TitleContainer>
             <StatusBarContainer>

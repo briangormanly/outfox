@@ -69,7 +69,7 @@ export const Content = styled.div`
   padding: 2rem;
   background-color: ${white};
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   box-shadow: inset 4px 4px 4px 2px rgba(0, 0, 0, 0.25);

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors } from "../../styles";
+import { colors, Link } from "../../styles";
 
 const { white, primary, secondary, black } = colors;
 
@@ -171,4 +171,18 @@ export const ReceiverResourceContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+export const ReturnLink = styled(Link)`
+  /*color: ${secondary};
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+
+  span {
+    display: block;
+    margin-left: 1rem;
+  }
+  */
 `;
