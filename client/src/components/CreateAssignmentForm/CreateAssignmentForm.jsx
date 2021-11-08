@@ -21,6 +21,7 @@ import FormInput from "../Form-Input/Form-Input";
 import { addAssignment } from "../../redux/actions/userActions";
 import { FaAngleLeft, FaLayerGroup, FaPlusCircle } from "react-icons/fa";
 import { ResourceCard, AddResourceForm } from "../index";
+import { addAssignmentResource } from "../../redux/actions/assignmentActions";
 
 const CreateAssignmentForm = ({ setShowModal }) => {
   const [title, setTitle] = useState("");
@@ -317,7 +318,11 @@ const CreateAssignmentForm = ({ setShowModal }) => {
         {Resources.length > 0 ? (
           <SelectResourceContainer>
             {Resources.filter((resource, indx) => indx < 5).map((resource) => (
-              <ResourceCard showDropdown key={resource.id} {...resource} />
+              <ResourceCard
+                isWithAssignmentForm
+                key={resource.id}
+                {...resource}
+              />
             ))}
             <FaPlusCircle onClick={togglePagesTwoThree} />
             <button onClick={togglePagesOneTwo}>Add Resource</button>
@@ -342,3 +347,10 @@ const CreateAssignmentForm = ({ setShowModal }) => {
 };
 
 export default CreateAssignmentForm;
+// resource is in a group
+// if a resource is in a group, the resource has the group id of the group it is in
+
+// resource is in a assignment
+// if a resource is in an assignment, the resource has the assignment id of the assignment it is in
+
+// adding an existing resource to an assignment: editing a resource, changing assignment id from null to #

@@ -29,17 +29,17 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const [openDateMonth, setOpenDateMonth] = useState("");
-  const [openDateDay, setOpenDateDay] = useState("");
-  const [openDateYear, setOpenDateYear] = useState("");
+  const [openDateMonth, setOpenDateMonth] = useState();
+  const [openDateDay, setOpenDateDay] = useState();
+  const [openDateYear, setOpenDateYear] = useState();
 
-  const [dueDateMonth, setDueDateMonth] = useState("");
-  const [dueDateDay, setDueDateDay] = useState("");
-  const [dueDateYear, setDueDateYear] = useState("");
+  const [dueDateMonth, setDueDateMonth] = useState();
+  const [dueDateDay, setDueDateDay] = useState();
+  const [dueDateYear, setDueDateYear] = useState();
 
-  const [closeDateMonth, setCloseDateMonth] = useState("");
-  const [closeDateDay, setCloseDateDay] = useState("");
-  const [closeDateYear, setCloseDateYear] = useState("");
+  const [closeDateMonth, setCloseDateMonth] = useState();
+  const [closeDateDay, setCloseDateDay] = useState();
+  const [closeDateYear, setCloseDateYear] = useState();
 
   const [grade, setGrade] = useState("");
 

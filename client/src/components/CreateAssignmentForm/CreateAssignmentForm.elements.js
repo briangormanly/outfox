@@ -125,19 +125,6 @@ export const SelectResourceContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  h2 {
-    color: ${black};
-    background: ${white};
-    width: 100%;
-    border-radius: 10px;
-    margin-top: 10px;
-    padding: 1rem 1rem;
-
-    &:hover {
-      background: ${secondary};
-      color: ${white};
-    }
-  }
 
   svg {
     align-self: flex-end;
