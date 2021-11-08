@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import Group from "../models/Group";
 import Controller from "../interfaces/ControllerInterface";
 import Resource from "../models/Resource";
+import GroupResource from "../models/GroupResource";
 
 /**
  * The group controller is responsible for handling the HTTP requests.
@@ -61,6 +62,16 @@ class GroupsController implements Controller {
     try {
       // If missing non-nullable fields it will create an error
       const group = await Group.create(request.body);
+      response.status(201).json({ group });
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  addResource = async (request: Request, response: Response): Promise<void> => {
+    try {
+      // If missing non-nullable fields it will create an error
+      const group = await GroupResource.create(request.body);
       response.status(201).json({ group });
     } catch (error) {
       response.status(500).send(error.message);
