@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { colors } from "../../styles";
 
-const { primary, secondary, white, black } = colors;
+const { primary, secondary, white } = colors;
 
 export const CreateAssignmentContainer = styled.div`
   width: 100%;
@@ -41,6 +41,9 @@ export const Page1Container = styled.div.attrs((props) => ({
   }
 `;
 
+export const ErrorMessage = styled.p`
+  color: #ff0000 !important;
+`;
 export const DatesContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -68,6 +71,9 @@ export const GradeContainer = styled.div`
   align-items: center;
   p {
     color: #965d5c;
+  }
+  input {
+    cursor: not-allowed;
   }
 `;
 

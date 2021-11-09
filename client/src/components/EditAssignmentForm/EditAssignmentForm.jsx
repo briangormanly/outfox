@@ -6,8 +6,8 @@ import FormInput from "../Form-Input/Form-Input";
 import { ActionButton } from "../../styles";
 
 import assignmentService from "../../services/assignments";
-import { FaAngleLeft, FaLayerGroup, FaPlusCircle } from "react-icons/fa";
-import { ResourceCard, AddResourceForm } from "../index";
+import { FaAngleLeft } from "react-icons/fa";
+import { AddResourceForm } from "../index";
 
 import {
   EditAssignmentContainer,
@@ -18,13 +18,9 @@ import {
   AddResourceContainer,
   Page2Container,
   TitleContainer,
-  SelectResourceContainer,
-  NoResourcesContainer,
-  VerticalLine,
   Page3Container,
 } from "./EditAssignmentForm.elements";
 
-// delete and edit works, but not able to pull correct day/month/year data
 const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -47,7 +43,7 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
   const storeDispatch = useDispatch();
 
   const { user } = useSelector((state) => state.userDetail);
-  const { id, Resources } = user;
+  const { id } = user;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -191,13 +187,21 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
     page2.classList.toggle("is-active");
   };
 
-  const togglePagesTwoThree = () => {
+  const togglePagesOneThree = () => {
+    let page1 = document.getElementById("edit-assignment-page1");
+    page1.classList.toggle("is-active");
+
+    let page3 = document.getElementById("edit-assignment-page3");
+    page3.classList.toggle("is-active");
+  };
+
+  /*  const togglePagesTwoThree = () => {
     let page2 = document.getElementById("edit-assignment-page2");
     page2.classList.toggle("is-active");
 
     let page3 = document.getElementById("edit-assignment-page3");
     page3.classList.toggle("is-active");
-  };
+  };*/
   const currentYear = parseInt(new Date().getFullYear().toString());
   return (
     <EditAssignmentContainer>
@@ -333,8 +337,10 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
             />
           </GradeContainer>
           <AddResourceContainer>
-            <button onClick={togglePagesOneTwo}>Add Resource </button>
-            <p>No Resource Chosen</p>
+            <button type="button" onClick={togglePagesOneThree}>
+              Add Resource
+            </button>
+            <p>No resource chosen</p>
           </AddResourceContainer>
 
           <ActionButton edit fullWidth type="submit">
@@ -347,12 +353,13 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
           <FaAngleLeft onClick={togglePagesOneTwo} />
           <h1>My Resources</h1>
         </TitleContainer>
-        {Resources.length > 0 ? (
+
+        {/*        {Resources.length > 0 ? (
           <SelectResourceContainer>
             {Resources.filter((resource, indx) => indx < 5).map((resource) => (
               <ResourceCard showDropdown key={resource.id} {...resource} />
             ))}
-            <FaPlusCircle onClick={togglePagesTwoThree} />
+            <FaPlusCircle onClick={} />
             <button onClick={togglePagesOneTwo}>Add Resource</button>
           </SelectResourceContainer>
         ) : (
@@ -362,13 +369,16 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
             <p> You do not have any resources</p>
             <button onClick={togglePagesTwoThree}>Create Resource</button>
           </NoResourcesContainer>
-        )}
+        )}*/}
       </Page2Container>
       <Page3Container id={"edit-assignment-page3"}>
         <TitleContainer>
-          <FaAngleLeft onClick={togglePagesTwoThree} />
+          <FaAngleLeft onClick={togglePagesOneThree} />
         </TitleContainer>
-        <AddResourceForm isWithAssignments />
+        <AddResourceForm
+          AssignmentId={parseInt(assignmentID)}
+          isWithAssignments
+        />
       </Page3Container>
     </EditAssignmentContainer>
   );

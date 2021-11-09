@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   CreateAssignmentContainer,
   Page1Container,
+  ErrorMessage,
   DatesContainer,
   GradeContainer,
   StatusContainer,
-  AddResourceContainer,
   CreateAssignmentButton,
   Page2Container,
   TitleContainer,
@@ -21,7 +21,6 @@ import FormInput from "../Form-Input/Form-Input";
 import { addAssignment } from "../../redux/actions/userActions";
 import { FaAngleLeft, FaLayerGroup, FaPlusCircle } from "react-icons/fa";
 import { ResourceCard, AddResourceForm } from "../index";
-import { addAssignmentResource } from "../../redux/actions/assignmentActions";
 
 const CreateAssignmentForm = ({ setShowModal }) => {
   const [title, setTitle] = useState("");
@@ -40,6 +39,8 @@ const CreateAssignmentForm = ({ setShowModal }) => {
   const [closeDateYear, setCloseDateYear] = useState("");
 
   const [grade, setGrade] = useState("");
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   const storeDispatch = useDispatch();
   const { user } = useSelector((state) => state.userDetail);
@@ -62,6 +63,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
       !closeDateYear
     ) {
       console.log("Please fill out all required fields");
+      setErrorMessage("Please fill out all required fields");
       return;
     }
 
@@ -171,6 +173,8 @@ const CreateAssignmentForm = ({ setShowModal }) => {
     <CreateAssignmentContainer>
       <Page1Container id={"create-assignment-page1"} className={"is-active"}>
         <h1>Create Assignment </h1>
+        {errorMessage && <ErrorMessage> {errorMessage} </ErrorMessage>}
+
         <form onSubmit={handleSubmit}>
           <FormInput
             type="text"
@@ -300,10 +304,6 @@ const CreateAssignmentForm = ({ setShowModal }) => {
               disabled={true}
             />
           </GradeContainer>
-          <AddResourceContainer>
-            <button onClick={togglePagesOneTwo}>Add Resource </button>
-            <p>No Resource Chosen</p>
-          </AddResourceContainer>
 
           <CreateAssignmentButton type="submit">
             Create Assignment
@@ -347,10 +347,3 @@ const CreateAssignmentForm = ({ setShowModal }) => {
 };
 
 export default CreateAssignmentForm;
-// resource is in a group
-// if a resource is in a group, the resource has the group id of the group it is in
-
-// resource is in a assignment
-// if a resource is in an assignment, the resource has the assignment id of the assignment it is in
-
-// adding an existing resource to an assignment: editing a resource, changing assignment id from null to #
