@@ -280,7 +280,7 @@ class ShareController implements Controller {
    * @param request HTTP browser request
    * @param response HTTP browser response
    */
-  deleteShareAssignments = async (
+  deleteSharedAssignments = async (
     request: Request,
     response: Response
   ): Promise<void> => {
@@ -301,7 +301,7 @@ class ShareController implements Controller {
       response.status(500).send(error.message);
     }
   };
-  
+
   // SHARED LESSONS SECTION
   // route: /api/share/lessons
   createShareLessons = async (
