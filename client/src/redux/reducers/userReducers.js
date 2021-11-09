@@ -21,6 +21,10 @@ import {
   USER_ADD_ASSIGNMENT,
   USER_DELETE_ASSIGNMENT,
   USER_EDIT_ASSIGNMENT,
+  USER_DELETE_SHARED_ASSIGNMENT,
+  USER_GET_SHARED_ASSIGNMENTS,
+  USER_GET_SHARED_LESSONS,
+  USER_DELETE_SHARED_LESSON
 } from "../constants/userConstants";
 
 import { DELETE_GROUP } from "../constants/groupPageConstants";
@@ -192,7 +196,35 @@ export const userReducer = (
         ...state,
         user: { ...state.user, SharedGroups: [...filteredSharedGroups] },
       };
-    } // Put NEW SHARED REDUCERS HERE
+    }
+    case USER_GET_SHARED_ASSIGNMENTS:
+      return {
+        ...state,
+        user: { ...state.user, SharedAssignments: [...action.payload] },
+      };
+    case USER_DELETE_SHARED_ASSIGNMENT: {
+      const filteredSharedAssignments = state.user.SharedAssignments.filter(
+        (resource) => resource.ShareAssignmentId !== action.payload
+      );
+      return {
+        ...state,
+        user: { ...state.user, SharedAssignments: [...filteredSharedAssignments] },
+      };
+    }
+    case USER_GET_SHARED_LESSONS:
+      return {
+        ...state,
+        user: { ...state.user, SharedLessons: [...action.payload] },
+      };
+    case USER_DELETE_SHARED_LESSON: {
+      const filteredSharedLessons = state.user.SharedLessons.filter(
+        (resource) => resource.ShareLessonId !== action.payload
+      );
+      return {
+        ...state,
+        user: { ...state.user, SharedLessons: [...filteredSharedLessons] },
+      };
+    }
     case USER_LOGOUT:
       console.log(state.user)
       return {
