@@ -1,10 +1,10 @@
-import React, { useState} from 'react';
-import {render} from 'react-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { render } from 'react-dom';
 import { FaUser } from 'react-icons/fa';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import {ExploreUser} from "../index";
-//import {Friends} from "../index";
-import {sendFriendRequest} from '../../services';
+import { ExploreUser } from '../index';
+import { Friend } from '../index';
 
 import friendService from '../../services/friends';
 
@@ -26,17 +26,30 @@ const ExploreUserCard = (props) => {
 	const location = useLocation();
 	const [expanded, setExpanded] = useState(false);
 	const [added, setFriendAdded] = useState(false);
+	const [requested, setReq] = useState(false);
 	const Uparams = useParams();
-	
+	const currentUserId = parseFloat(Uparams.id);
 
 	const addFriend = () => {
-		// need to pass the sendFriendRequest function the user object
-
-		friendService.sendFriendRequest();
+		setReq(true);
 		const fAdd = added;
 		setFriendAdded(!fAdd); 
 	}
 
+	async function friendAdder() {
+		const url = "http://localhost:8080/api/friends" + `/makeFriend/${currentUserId}/${id}`;
+		// need to pass the sendFriendRequest function the user object
+		const response = await axios.get(url);
+		friendService.sendFriendRequest(response.data);
+	}
+  
+	useEffect(() => {
+		if (requested) {
+			friendAdder();
+			setReq(false);
+		}
+	}, [requested]);
+ 
 
 	const AddedFriendPopUp = () => {
 		console.log("do some stuff");
