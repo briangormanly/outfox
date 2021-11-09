@@ -22,6 +22,9 @@ import {
   USER_ADD_ASSIGNMENT,
   USER_EDIT_ASSIGNMENT,
   USER_DELETE_ASSIGNMENT,
+  USER_GET_SHARED_ASSIGNMENTS,
+  USER_GET_SHARED_LESSONS,
+  USER_DELETE_SHARED_LESSON,
 } from "../constants/userConstants";
 
 import userService from "../../services/users";
@@ -224,12 +227,37 @@ export const deleteSharedGroup = (id) => async (dispatch) => {
   }
 };
 
-// ADD NEW SHARED ACTIONS HERE (getSharedLesson, getSharedAssignments, deleteSharedAssignment)
+export const getSharedAssignments = (id) => async (dispatch) => {
+  try {
+    const data = await shareService.getSharedAssignments(id);
+    dispatch({ type: USER_GET_SHARED_ASSIGNMENTS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const deleteSharedAssignment = (id) => async (dispatch) => {
   try {
-    await shareService.deleteSharedAssignment(id);
+    await shareService.deleteSharedAssignments(id);
     dispatch({ type: USER_DELETE_SHARED_ASSIGNMENT, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getSharedLessons = (id) => async (dispatch) => {
+  try {
+    const data = await shareService.getSharedLessons(id);
+    dispatch({ type: USER_GET_SHARED_LESSONS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteSharedLesson = (id) => async (dispatch) => {
+  try {
+    await shareService.deleteSharedLessons(id);
+    dispatch({ type: USER_DELETE_SHARED_LESSON, payload: id });
   } catch (error) {
     console.log(error);
   }
