@@ -19,6 +19,18 @@ const createResource = async (newResourceObject) => {
 			'Content-Type' : 'multipart/form-data'
 		}
 	});
+	const newResID = response.data.resource.id;
+	console.log("Created a resource with the id of: "+newResID);
+
+	axios.post('http://localhost:8080/api/newResource/', {
+		resource: newResID
+	  })
+	  .then(function (response) {
+		console.log(response);
+	  })
+	  .catch(function (error) {
+		console.log(error);
+	  });
 	return response.data;
 };
 
