@@ -82,7 +82,7 @@ const Explore =  (props) => {
 	const history = useHistory();
 	const location = useLocation();
 
-	const pageMax = 1000; // this will be a state variable in the future
+	const pageMax = 3; // this will be a state variable in the future
 	const startUserReload = () => {
 		setExpType("user");
 		setSetUp(false);
@@ -188,6 +188,7 @@ const Explore =  (props) => {
 					break;
 				
 			}
+			setPg(0);
 			
 		}
 
@@ -244,6 +245,7 @@ const Explore =  (props) => {
 					} 
 					<PageSelector>
 						<button onClick={backPage}>{`< Back`}</button>
+						<p>{pgn}</p>
 						<button onClick={nextPage}>{`Next >`}</button>
 					</PageSelector>
 			</ExploreContainer>

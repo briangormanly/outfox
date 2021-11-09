@@ -28,8 +28,8 @@ export const Headline = styled.div`
 export const SubRow = styled.div`
 	margin-top:2rem;
 	display: block;
-	margin-left:20%;
-	top:35%;
+	margin-left:24%;
+	top:25%;
 	justify-content: space-between;
 	height: 37rem;
 	border:5px solid ${darkGrey};
@@ -51,20 +51,21 @@ box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62);
 		text-decoration:underline;
 	}
 	a:hover{
-		color:lightblue;
+		color:#726dbf;
 		text-decoration:underline;
 	}
 	h2{
 		text-align:center;
 		color:red !important;
+		font-size:2.5rem;
 	}
 	h5{
 		text-align:left;
 	}
 	ul{
-		border: 1px solid black;
-		border-radius: 5px;
-		text-align:center;	
+		
+		text-align:center;
+		margin-bottom:10px;	
 	}
 	li{
 		font-size:1.8rem;
@@ -96,6 +97,91 @@ box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62);
 		  transform: translateY(0);
 		}
 	  }
+`;
+
+
+export const FRecBlk = styled.div`
+margin-top:2rem;
+display: block;
+right:2%;
+bottom:5%;
+justify-content: space-between;
+height: 15rem;
+border:5px solid ${darkGrey};
+border-radius:10px;
+border-bottom: 1px solid ${mediumGrey};
+margin-bottom: 1rem;
+font-size:3vh;
+animation: .2s ease-in 0s 1 slideIn;
+padding: 1rem 4rem 1rem 4rem;
+width:30%;
+z-index:+3;
+background-color:${mediumGrey};
+position:absolute;
+text-align:center;
+-webkit-box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62); 
+box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62);
+a{
+	color:blue;
+	text-decoration:underline;
+}
+a:hover{
+	color:#726dbf;
+	text-decoration:underline;
+}
+h2{
+	text-align:center;
+	color:red !important;
+	font-size:2.5rem;
+}
+h5{
+	text-align:left;
+}
+ul{
+	
+	text-align:center;
+	margin-bottom:10px;	
+}
+li{
+	font-size:1.8rem;
+	padding-top: .2rem;
+	background-color:rgba(245, 153, 39, 0.54) !important;
+	border-radius: 10px;
+	margin-top:3px;
+	text-align:center;
+	width:80%;
+	margin-left:10%
+}
+button{
+	margin-top:3%;
+	padding:.1rem;
+	font-size:2rem;
+	background-color: ${primary};
+	border-radius: 20px;
+	color: ${mediumGrey};
+}
+button:hover{
+	margin-top:3%;
+	padding:.1rem;
+	font-size:2rem;
+	background-color: salmon;
+	border-radius: 20px;
+	color: ${mediumGrey};
+}
+p{
+	text-align:left;
+}
+
+@keyframes slideIn {
+	0% {
+	  transform: translateX(200%);
+	  transform: translateY(200%);
+	}
+	100%{
+		transform:translateX(0);
+		transform: translateY(0);
+	}
+  }
 `;
 
 export const SecondRow = styled.div`

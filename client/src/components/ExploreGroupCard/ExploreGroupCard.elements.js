@@ -28,10 +28,10 @@ export const Headline = styled.div`
 export const SubRow = styled.div`
 	margin-top:2rem;
 	display: block;
-	margin-left:20%;
+	margin-left:24%;
 	top:25%;
 	justify-content: space-between;
-	height: 46rem;
+	height: 37rem;
 	border:5px solid ${darkGrey};
 	border-radius:30px;
 	border-bottom: 1px solid ${mediumGrey};
@@ -51,20 +51,21 @@ box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62);
 		text-decoration:underline;
 	}
 	a:hover{
-		color:lightblue;
+		color:#726dbf;
 		text-decoration:underline;
 	}
 	h2{
 		text-align:center;
 		color:red !important;
+		font-size:2.5rem;
 	}
 	h5{
 		text-align:left;
 	}
 	ul{
-		border: 1px solid black;
-		border-radius: 5px;
-		text-align:center;	
+		
+		text-align:center;
+		margin-bottom:10px;	
 	}
 	li{
 		font-size:1.8rem;

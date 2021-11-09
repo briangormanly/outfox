@@ -4,7 +4,7 @@ import { FaUser } from 'react-icons/fa';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import {ExploreUser} from "../index";
 //import {Friends} from "../index";
-//import {sendFriendRequest} from 'services/friends.js';
+import {sendFriendRequest} from '../../services';
 
 import friendService from '../../services/friends';
 
@@ -16,7 +16,8 @@ import {
 	IconContainer,
 	Button,
 	SubRow,
-	Headline
+	Headline,
+	FRecBlk
 } from './ExploreUserCard.elements';
 
 const ExploreUserCard = (props) => {
@@ -30,6 +31,7 @@ const ExploreUserCard = (props) => {
 
 	const addFriend = () => {
 		// need to pass the sendFriendRequest function the user object
+
 		friendService.sendFriendRequest();
 		const fAdd = added;
 		setFriendAdded(!fAdd); 
@@ -37,12 +39,13 @@ const ExploreUserCard = (props) => {
 
 
 	const AddedFriendPopUp = () => {
+		console.log("do some stuff");
 		return (
-			<SubRow>
+			<FRecBlk>
 				<h5>You Sent a Friend Request To:</h5>
 				<span><h2>{`${firstname} ${lastname}`}</h2><h4><i>{`${username}`}</i></h4></span>
 					<button onClick={addFriend}>close</button>
-			</SubRow>
+			</FRecBlk>
 		);
 	}
 

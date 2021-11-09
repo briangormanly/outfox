@@ -28,14 +28,22 @@ export const PageSelector = styled.div`
 button{
 
 	padding:.1rem;
-	font-size:1.4rem;
-	background-color: ${mediumGrey};
+	font-size:1.7rem;
+	background-color: transparent;
 	border-radius: 6px;
 	color: ${primary};
 	margin-left:2px;
 	margin-right:2px;
+	margin-top: 10px;
 	padding: 0px 4px 0px 4px;
+	border: none;
+	
 }
+display:flex;
+p{
+	padding-top:10px;
+}
+
 `
 export const UserContainer = styled.div`
 	max-width: 80rem;

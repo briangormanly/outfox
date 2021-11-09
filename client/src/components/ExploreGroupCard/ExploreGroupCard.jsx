@@ -68,16 +68,16 @@ const ExploreGroupCard = (props) => {
 				<h2>{`${groupname}`}</h2>
 				<p>{`${groupdescription}`}</p>
 				<p>{`Created by: ${creator}`}</p>
-              
-				<p>{"Location: "+city + ", "+ country}</p>
-				<p><a href={`mailto:${email}`}>{email}</a></p>
-
 				<h5>Related Tags</h5>
 			<ul>
 				<li>{`${tags[0].toLowerCase()}`}</li>
 				<li>{`${tags[1].toLowerCase()}`}</li>
 				<li>{`${tags[2].toLowerCase()}`}</li>
 			</ul>
+				<p>{"Location: "+city + ", "+ country}</p>
+				<p><a href={`mailto:${email}`}>{email}</a></p>
+
+			
 				<button onClick={toggleExpand}>close</button>
 			</SubRow>
 		);

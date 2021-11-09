@@ -1,7 +1,7 @@
 import { Router, Request, Response, response } from "express";
 import Controller from "../interfaces/ControllerInterface";
 import axios from 'axios';
-class ResponseObj{
+class ResponseObj{  
     public recordList = {};
     constructor(obj:any){
         this.recordList = obj;
