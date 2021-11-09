@@ -3,6 +3,8 @@ import axios from 'axios';
 const baseURL = 'http://localhost:8080/api/share';
 const groupShareURL = `${baseURL}/group`;
 const resourceShareURL = `${baseURL}/resource`;
+const lessonShareURL = `${baseURL}/lesson`;
+const assignmentShareURL = `${baseURL}/assignment`;
 
 const getSharedGroups = (id) => {
 	const response = axios.get(`${groupShareURL}/${id}`);
@@ -34,17 +36,37 @@ const shareResource = (newObject) => {
 	return response.then((response) => response.data);
 };
 
-// shareLesson
+const deleteSharedAssignments = (id) => {
+	const response = axios.delete(`${assignmentShareURL}/${id}`);
+	return response.then((response) => response.data);
+};
 
-// shareAssignment
+const getSharedAssignments = (id) => {
+	const response = axios.get(`${assignmentShareURL}/${id}`);
+	return response.then((response) => response.data);
+};
 
-// getSharedAssignments
+const shareAssignments = (newObject) => {
+	const response = axios.post(assignmentShareURL, newObject);
+	return response.then((response) => response.data);
+};
 
-// getSharedLessons
 
-// deleteSharedAssignment
+const deleteSharedLessons = (id) => {
+	const response = axios.delete(`${lessonShareURL}/${id}`);
+	return response.then((response) => response.data);
+};
 
-// deleteSharedLesson
+const getSharedLessons = (id) => {
+	const response = axios.get(`${lessonShareURL}/${id}`);
+	return response.then((response) => response.data);
+};
+
+const shareLessons = (newObject) => {
+	const response = axios.post(lessonShareURL, newObject);
+	return response.then((response) => response.data);
+};
+
 
 export default {
 	getSharedGroups,
@@ -52,5 +74,11 @@ export default {
 	getSharedResources,
 	shareResource,
 	deleteSharedResource,
-	deleteSharedGroup
+	deleteSharedGroup,
+	getSharedAssignments,
+	shareAssignments,
+	deleteSharedAssignments,
+	getSharedLessons,
+	shareLessons,
+	deleteSharedLessons
 };
