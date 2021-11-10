@@ -71,6 +71,28 @@ position: absolute;
 
 `;
 
+export const SaveContainer = styled.div`
+
+position: absolute;
+  right: 90%;
+  left: 10%;
+  top: 85%;
+
+
+`;
+
+export const RemindContainer = styled.div`
+
+position: absolute;
+  right: 0%;
+  left: 17%;
+  top: 10%;
+  font-size: 1.6rem;
+  color: ${white};
+  align-items: center;
+
+`;
+
 export const CreateContainer = styled.div`
 
 position: absolute;
@@ -92,6 +114,33 @@ export const BodyContainer = styled.div`
   border-top: solid ${primary} 10px;
   border-radius: 5px;
   overflow-y: scroll;
+
+  button {
+    font-family: inherit;
+    font-size: 1.6rem;
+    padding: 0.7rem 1rem;
+    display: flex;
+    margin-left: 1rem;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    background-color: ${secondary};
+    border: none;
+    border-radius: 5px;
+    color: ${white};
+
+    &:hover {
+        color: ${secondary};
+        background-color: ${white};
+        border: 1px solid ${secondary};
+    }
+
+    span {
+        display: inline-block;
+        margin-right: 1rem;
+        min-width: 5rem;
+    }
+}
 
   h1 {
     color: ${white};
