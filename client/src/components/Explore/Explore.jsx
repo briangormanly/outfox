@@ -123,6 +123,7 @@ const Explore =  (props) => {
 					record.email = userDat.email;
 					record.city = userDat.city;
 					record.country = userDat.country;
+					record.username = userDat.username;
 					record.hashedpw = "REDACTED"; 
 				}
 				setExpRecords(resJson);
