@@ -1,11 +1,5 @@
 import React from "react";
-
 import { useState } from "react";
-
-
-import { LessonCard, Lessons } from '../index';
-import { LessonContainer } from './ViewLesson.elements';
-import ReactDOM, { render } from "react-dom"
 
 import {
   LessonsContainer,
@@ -13,31 +7,22 @@ import {
   InnerContainer,
   Content,
   VerticalLine,
-  LessonsContainer1,
-  ChildContainer,
-  ChildContainerDropdown,
   
 } from "./ViewLesson.elements";
 
-import Collapsible from "react-collapsible";
-import { FaAngleDown } from "react-icons/fa";
+import { CreateLessonForm} from "../index";
+import { FaPlus, FaClipboard } from "react-icons/fa";
+import {Modal} from "../index";
 
-import { CreateLessonForm, ResourceCard } from "../index";
-import { FaPlus, FaArrowRight, FaClipboard } from "react-icons/fa";
-import {Modal, AddResourceForm , CreateAssignmentForm} from "../index";
-
-import {MContent} from './ViewLesson.elements';
 
 import { useSelector } from "react-redux";
 
 
 const ViewLesson = () => {
     const { user } = useSelector((state) => state.userDetail);
-    const {
-        user: { Lessons },
-      } = useSelector((state) => state.userDetail);
+    
     const [showModal, setShowModal] = useState(false);
-    const { id, Resources } = user;
+    const { id} = user;
 
     const plus = { color: "white", fontSize: "2.5em"}
 
