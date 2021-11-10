@@ -1,12 +1,27 @@
-import styled, { css } from 'styled-components';
-import { ReactComponent as FolderSVG } from '../../assets/empty-folder.svg';
+import styled from 'styled-components';
 import { colors } from '../../styles';
 
-const { primary, secondary, mediumGrey, white } = colors;
+const { secondary, white } = colors;
 
 
 
 export const Description = styled.div`font-size: 1.4rem;`;
+
+
+export const ResourceContainer1 = styled.div`
+
+
+background-color: ${white};
+border: 1px solid ${white};
+
+svg {
+    font-size: 2rem;
+    color: rgba(229, 229, 229, 0.5);
+    align-items: center;
+  }
+
+  
+`;
 
 export const LessonsContainer = styled.div`
   
@@ -34,4 +49,3 @@ button {
   
     
 `;
-
