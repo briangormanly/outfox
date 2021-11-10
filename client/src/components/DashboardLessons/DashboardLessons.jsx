@@ -1,19 +1,24 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaArrowRight, FaPlus } from "react-icons/fa";
-import { CreateLessonForm, Modal, LessonCard } from "../index";
+import { CreateLessonForm, Modal, DashboardLessonCard } from "../index";
 import Collapsible from "react-collapsible";
 import { FaAngleDown } from "react-icons/fa";
 
 import {
-  LessonContainer,
-  Header,
+  LessonsContainer,
+  NoLessonsContainer,
   CardContainer,
   ButtonContainer,
+  Header,
+  
 } from "./DashboardLessons.elements";
 
 const DashboardLessons = (dashboardPaginate) => {
+  const locationParams = useParams();
+  const userURL = `/user/${locationParams.id}`;
+
   const [showModal, setShowModal] = useState(false);
 
   const { user } = useSelector((state) => state.userDetail);
@@ -49,8 +54,6 @@ const DashboardLessons = (dashboardPaginate) => {
             <CreateLessonForm creatorid={id} setShowModal={setShowModal}/>
             </Modal>
         )}
-      
-      <LessonContainer>
 
         <Header>
           <h1>My Lessons</h1>
@@ -68,34 +71,25 @@ const DashboardLessons = (dashboardPaginate) => {
 
         </Header>
 
-        {Lessons.map((lesson) => (
-                
-                <React.Fragment>
-                <Collapsible
-                trigger={
-                  <React.Fragment>
-                    <h1>{lesson.title}</h1>
-                    <FaAngleDown />
-                  </React.Fragment>
-                }
-                >
-                
-                <LessonCard
-                    key={lesson.id}
-                    {...lesson}
-                    showDescription
-                />
-
-
-                </Collapsible>
-                <br></br>
-                </React.Fragment>
-                
-                ))}
-
-      </LessonContainer>
-      </React.Fragment>
-  );
-};
+        <LessonsContainer>
+              {Lessons.length > 0 ? (
+                <CardContainer ref={scrollRef} onWheel={onWheel}>
+                  {Lessons.map((lesson) => (
+                    <DashboardLessonCard
+                      key={lesson.id}
+                      id={lesson.id}
+                      title={lesson.title}
+                    />
+                  ))}
+                </CardContainer>
+              ) : (
+                <NoLessonsContainer>
+                  <p> You do not have any Lessons</p>
+                </NoLessonsContainer>
+              )}
+            </LessonsContainer>
+            </React.Fragment>
+          );
+        };
 
 export default DashboardLessons;
