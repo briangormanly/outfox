@@ -137,7 +137,7 @@ const Explore =  (props) => {
 				// 	break;
 				// }
 				for (var record of resJson) {
-					const groupDat = await groupService.getGroupData(record.id + 3655);
+					const groupDat = await groupService.getGroupData(parseInt(record.id));
 					record.groupname =  groupDat.groupname;
 					record.datetimeadd  =  groupDat.datetimeadd;
 					record.groupdescription = groupDat.groupdescription;

@@ -38,7 +38,13 @@ class App {
       host: "localhost",
       dialect: "postgres",
     });
-
+    // this.sequelize = new Sequelize("outfoxdb", "salcosser", "salcosser123!", {
+    //   host: "pg.terramisha.com",
+    //   username: "salcosser",
+    //   password: "salcosser123!",
+    //   dialect: "postgres",
+    //   logging: false,
+    // });
     try {
       await this.sequelize.authenticate();
       console.log("Connection has been established successfully");
