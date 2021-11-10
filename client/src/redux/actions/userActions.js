@@ -245,6 +245,80 @@ export const deleteSharedAssignment = (id) => async (dispatch) => {
   }
 };
 
+//lessons
+
+//  TODO: Add loading and better error catching
+export const createLessonAction = (newLessonObject, resources, assignments) => async (
+  dispatch
+) => {
+  try {
+    const data = await lessonService.createLesson(newLessonObject);
+    const { lesson } = data;
+    console.log(resources);
+    console.log(assignments);
+    console.log(lesson);
+
+    if (resources) {
+      console.log("IN HERE");
+      resources.map((resource) => {
+        console.log(resource);
+        const { description, fileName, link, title, type, uri } = resource;
+
+        const formData = new FormData();
+
+        if (uri) {
+          formData.append("uri", uri);
+        }
+
+        formData.append("link", link);
+        formData.append("type", type);
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("mutable", false);
+        formData.append("fileName", fileName);
+        formData.append("LessonId", lesson.id);
+
+        try {
+          dispatch(addUserResource(formData));
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    if (assignments) {
+      console.log("IN HERE");
+      assignments.map((assignment) => {
+        console.log(assignment);
+        const { description, title, opendate, duedate, closedate, status, grade } = assignment;
+
+        const formData = new FormData();
+
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("mutable", false);
+        formData.append("opendate", opendate);
+        formData.append("duedate", duedate);
+        formData.append("closedate", closedate);
+        formData.append("status", status);
+        formData.append("grade", grade);
+        formData.append("LessonId", lesson.id);
+
+        try {
+          dispatch(addAssignment(formData));
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    dispatch({ type: USER_ADD_LESSON, payload: data.group });
+  } catch (error) {
+    console.log("An Error has occurred");
+  }
+};
+
+
 export const getSharedLessons = (id) => async (dispatch) => {
   try {
     const data = await shareService.getSharedLessons(id);
