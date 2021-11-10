@@ -215,15 +215,17 @@ const Explore =  (props) => {
 
 	const backPage = () =>{
 		if((pgn -1) >= 0){
-			setPg((pgn-1));
-			setExpData(currentUserId,pgn);
+			let nVal  = pgn - 1;
+			setPg(nVal);
+			setExpData(currentUserId,nVal);
 		}
 
 	}
 	const nextPage = () =>{
 		if((pgn+1) <= pageMax){
-			setPg((pgn+1));
-			setExpData(currentUserId,pgn);
+			let nVal  = pgn + 1;
+			setPg(nVal);
+			setExpData(currentUserId,nVal);
 		} 
 	}
 
@@ -244,9 +246,9 @@ const Explore =  (props) => {
 					<RecContainer/>
 					} 
 					<PageSelector>
-						<button onClick={backPage}>{`< Back`}</button>
+						{(pgn > 0) && <button onClick={backPage}>{`< Back`}</button>}
 						<p>{pgn}</p>
-						<button onClick={nextPage}>{`Next >`}</button>
+						{(pgn < pageMax) && <button onClick={nextPage}>{`Next >`}</button>}
 					</PageSelector>
 			</ExploreContainer>
 		</HeadButtonGroup>
