@@ -5,7 +5,7 @@ import axios from 'axios';
 import userService from '../../services/users';
 import groupService from '../../services/groups';
 
-
+import Loader from '../Loader/Loader';
 import {
 	ExploreContainer,
 	UserContainer,
@@ -81,26 +81,32 @@ const Explore =  (props) => {
 	const [expType, setExpType] = useState("user");
 	const history = useHistory();
 	const location = useLocation();
-
+	const [ loading, setLoading ] = useState(false);
 	const pageMax = 3; // this will be a state variable in the future
+
 	const startUserReload = () => {
+		setLoading(true);
 		setExpType("user");
 		setSetUp(false);
 	};
 	
 	const startGroupReload = () => {
+		setLoading(true);
 		setExpType("group");
 		setSetUp(false);
 	};
 
 	const startResourceReload = () =>{
+		setLoading(true);
 		setExpType("resource");
 		setSetUp(false);
 	};
 
 	const setExpData = async  (userId, pageNumber)=>{
-		
+		setLoading(true);
+		setExpRecords([]);
 		switch(expType){
+			
 			case "user":
 				const userData =  await aiCall(userId, pageNumber, "user");
 				var resJsonRaw = userData.data;
@@ -163,7 +169,7 @@ const Explore =  (props) => {
 				setExpRecords(resJson);
 				break;
 		}
-		
+		setLoading(false);
 		
 	
 	};
@@ -173,6 +179,8 @@ const Explore =  (props) => {
 		
 		if(!setUp){
 			//here is where the call to get the number of pages would be
+			setExpRecords([]);
+			setLoading(true);
 			switch(expType){
 				case "user":
 					setExpData(currentUserId,0);
@@ -189,7 +197,7 @@ const Explore =  (props) => {
 				
 			}
 			setPg(0);
-			
+			setLoading(false);
 		}
 
 	}, [setUp]);
@@ -217,6 +225,7 @@ const Explore =  (props) => {
 		if((pgn -1) >= 0){
 			let nVal  = pgn - 1;
 			setPg(nVal);
+
 			setExpData(currentUserId,nVal);
 		}
 
@@ -229,6 +238,10 @@ const Explore =  (props) => {
 		} 
 	}
 
+	const LoaderA = () =>{
+		console.log("FROM HERE" +JSON.stringify(expRecords));
+		return(<Loader/>);
+	};
 	return (
 		<HeadButtonGroup>{/*THESE ARE THE BUTTONS AT THE TOP OF THE EXPLORE PAGE */}
 			<UserSelectBtn edit onClick={startUserReload}>
@@ -242,14 +255,22 @@ const Explore =  (props) => {
 			</ResSelectBtn>
 			<ExploreContainer>
 				<h1>Explore {expType.substring(0,1).toUpperCase() + expType.substring(1)}s</h1>
-			{expRecords &&
-					<RecContainer/>
-					} 
-					<PageSelector>
+			
+			
+			 
+			{loading ? <LoaderA/> :  <RecContainer/>}
+			
+			<PageSelector>
 						{(pgn > 0) && <button onClick={backPage}>{`< Back`}</button>}
 						<p>Page {(pgn + 1)}</p>
 						{(pgn < pageMax) && <button onClick={nextPage}>{`Next >`}</button>}
+			
 					</PageSelector>
+			
+			
+			
+			
+					
 			</ExploreContainer>
 		</HeadButtonGroup>
 	);

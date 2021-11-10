@@ -15,6 +15,6 @@ export const FriendButtonGroup = styled(ButtonGroup)`
 `;
 
 export const FriendButton = styled(Button)`
-  width: 30%;
+  width: 100%;
   margin-right: 1rem;
 `;
