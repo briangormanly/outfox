@@ -29,6 +29,7 @@ button{
 
 	padding:.1rem;
 	font-size:1.7rem;
+	font-weight:600;
 	background-color: transparent;
 	border-radius: 6px;
 	color: ${primary};
@@ -42,6 +43,7 @@ button{
 display:flex;
 p{
 	padding-top:10px;
+	color:black;
 }
 
 `

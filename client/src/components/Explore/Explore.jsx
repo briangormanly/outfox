@@ -247,7 +247,7 @@ const Explore =  (props) => {
 					} 
 					<PageSelector>
 						{(pgn > 0) && <button onClick={backPage}>{`< Back`}</button>}
-						<p>{pgn}</p>
+						<p>Page {(pgn + 1)}</p>
 						{(pgn < pageMax) && <button onClick={nextPage}>{`Next >`}</button>}
 					</PageSelector>
 			</ExploreContainer>
