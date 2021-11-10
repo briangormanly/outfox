@@ -21,16 +21,8 @@ const createResource = async (newResourceObject) => {
 	});
 	const newResID = response.data.resource.id;
 	console.log("Created a resource with the id of: "+newResID);
-
-	axios.post('http://localhost:8080/api/newResource/', {
-		resource: newResID
-	  })
-	  .then(function (response) {
-		console.log(response);
-	  })
-	  .catch(function (error) {
-		console.log(error);
-	  });
+	let link = "http://96.249.211.3:105/newResource?resource=" +parseInt(newResID) + "";
+	const resp = await axios.get(link);
 	return response.data;
 };
 
