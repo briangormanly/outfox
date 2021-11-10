@@ -39,10 +39,12 @@ export { default as AssignmentAllCards } from "./AssignmentAllCards/AssignmentAl
 
 //lesson components
 export { default as CreateLessonForm } from "./CreateLessonForm/CreateLessonForm";
+export { default as Lessons } from "./Lessons/Lessons";
 export { default as PlusForm } from "./PlusForm/PlusForm";
 export { default as AssignmentLesson } from "./AssignmentLesson/AssignmentLesson";
 export { default as ResourceLesson } from "./ResourceLesson/ResourceLesson";
 export { default as LessonCard } from "./LessonCard/LessonCard";
+export { default as DashboardLessonCard } from "./DashboardLessonCard/DashboardLessonCard";
 export { default as ViewLesson } from "./ViewLesson/ViewLesson";
 export { default as EditLessonForm } from "./EditLessonForm/EditLessonForm";
 export { default as DeleteLessonForm } from "./DeleteLessonForm/DeleteLessonForm";
