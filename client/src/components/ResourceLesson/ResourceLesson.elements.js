@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { colors } from "../../styles";
 
-const { primary, secondary, white } = colors;
+const { primary, secondary, white, black } = colors;
 
 export const ResourceContainer = styled.div`
   
@@ -23,6 +23,7 @@ min-height: 3vh;
 width: 100%;
 padding: 2rem;
 background-color: ${white};
+border: 1px solid ${black};
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -58,6 +59,32 @@ export const Content = styled.div`
     margin-bottom: 20px;
   }
 
+  button {
+    font-family: inherit;
+    font-size: 1.6rem;
+    padding: 0.7rem 1rem;
+    display: flex;
+    margin-left: 1rem;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    background-color: ${primary};
+    border: none;
+    border-radius: 5px;
+    color: ${white};
+
+    &:hover {
+        color: ${secondary};
+        background-color: ${white};
+        border: 1px solid ${secondary};
+    }
+
+    span {
+        display: inline-block;
+        margin-right: 1rem;
+        min-width: 5rem;
+    }
+}
   
 `;
 
