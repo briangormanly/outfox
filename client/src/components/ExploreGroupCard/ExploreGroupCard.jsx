@@ -75,7 +75,7 @@ const ExploreGroupCard = (props) => {
 				<li>{`${tags[2].toLowerCase()}`}</li>
 			</ul>
 				<p>{"Location: "+city + ", "+ country}</p>
-				<p><a href={`mailto:${email}`}>{email}</a></p>
+				<p>Creator's email:<a href={`mailto:${email}`}> {email}</a></p>
 
 			
 				<button onClick={toggleExpand}>close</button>

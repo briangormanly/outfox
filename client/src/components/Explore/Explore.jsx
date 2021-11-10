@@ -163,8 +163,15 @@ const Explore =  (props) => {
 					const resourceDat = await groupService.getResourceData(parseInt(record.id));
 					record.title =  resourceDat.title;
 					record.type  =  resourceDat.type;
+					record.createdAt = resourceDat.createdAt;
+					record.updatedAt = resourceDat.updatedAt;
+					record.description = resourceDat.description;
 					const creator = await userService.getUser(resourceDat.creatorid);
 					record.creator = creator.firstname + " " + creator.lastname; 
+					record.city = creator.city;
+					record.country = creator.country;
+					record.email = creator.email;
+					
 				}
 				setExpRecords(resJson);
 				break;

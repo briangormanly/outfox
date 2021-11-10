@@ -8,7 +8,7 @@ export const ExploreCard = styled.div`
 	display: inline;
 	justify-content: space-between;
 	height: 8rem;
-	border-bottom: 1px solid ${mediumGrey};
+	
 	margin-bottom: 1rem;
 	margin-left: -5rem;
 	padding: 1rem;
@@ -19,7 +19,7 @@ export const Headline = styled.div`
 	display: flex;
 	justify-content: space-between;
 	height: 8rem;
-	border-bottom: 1px solid ${mediumGrey};
+	
 	margin-bottom: 1rem;
 	// margin-left: -5rem;
 	padding: 1rem;
@@ -66,6 +66,7 @@ box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62);
 		
 		text-align:center;
 		margin-bottom:10px;	
+		
 	}
 	li{
 		font-size:1.8rem;
@@ -79,7 +80,7 @@ box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62);
 	}
 	button{
 		margin-top:3%;
-		padding:2rem;
+		padding:.5rem;
 		font-size:2rem;
 		background-color: ${primary};
 		border-radius: 20px;
