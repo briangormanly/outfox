@@ -1,9 +1,8 @@
-import styled, { css } from 'styled-components';
-import { motion } from 'framer-motion'
+import styled from 'styled-components';
 
 import { colors } from '../../styles';
 
-const { secondary, white, primary, primaryLight } = colors;
+const { secondary, white, primary} = colors;
 
 export const PopContainer = styled.div`
 
@@ -50,6 +49,26 @@ position: absolute;
   left: 5%;
   top: 70%;
 
+  button {
+    font-family: inherit;
+    font-size: 1.6rem;
+    padding: 0.7rem 8rem;
+    
+    margin-left: 1rem;
+    
+    align-items: center;
+    cursor: pointer;
+    background-color: ${secondary};
+    border: none;
+    border-radius: 5px;
+    color: ${white};
+
+    &:hover {
+        color: ${secondary};
+        background-color: ${white};
+    }
+
+
 `;
 
 export const TypeButton = styled.button`
@@ -60,26 +79,19 @@ export const TypeButton = styled.button`
     background-color: ${secondary};
     color: ${white};
     letter-spacing: 0.15rem;
+
 `;
 
 export const ButtonsContainer = styled.div`
 
 
-
-    width: 25rem;
-
-    display: flex;
-    height: 100%;
-    justify-content: flex-end;
-    align-items: center;
-
     button {
         font-family: inherit;
         font-size: 1.6rem;
         padding: 0.7rem 8rem;
-        display: flex;
+        
         margin-left: 1rem;
-        justify-content: space-around;
+        
         align-items: center;
         cursor: pointer;
         background-color: ${secondary};
@@ -92,10 +104,5 @@ export const ButtonsContainer = styled.div`
             background-color: ${white};
         }
 
-        span {
-            display: inline-block;
-            margin-right: 1rem;
-            min-width: 5rem;
-        }
     }
 `;

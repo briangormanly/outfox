@@ -1,11 +1,11 @@
-import React, { useReducer, Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import {useSelector } from 'react-redux';
-
-
 import {BodyContainer} from './PlusForm.elements';
 import {AddContainer} from './PlusForm.elements';
 import {ButtonsContainer} from './PlusForm.elements';
-import {PopContainer} from './PlusForm.elements';
+
+
+import lessonService from '../../services/lesson';
 
 import { Modal, ResourceLesson, AssignmentLesson} from "../index";
 
@@ -17,29 +17,27 @@ import { ActionButton } from '../../styles';
 
 
 
-const PlusForm = ({ creatorid, GroupId }) => {
-    const [ type, setType ] = useState('Text');
-    const [ value, setValue ] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const { user: { id } } = useSelector((state) => state.userDetail);
+const PlusForm = ({lessonId, setShowModal}) => {
 
+    
+    
     const [ showAssignmentModal, setShowAssignmentModal ] = useState(false);
     const [ showResourceModal, setShowResourceModal ] = useState(false);
-
-    const stylemodal = { height: "100px", width: "100px"};
-
+   
+    //console.log("plus   " + lessonId);
+    
     return (
         <React.Fragment>
 
         {showResourceModal && (
             <Modal large setShowModal={setShowResourceModal} >
-            <ResourceLesson creatorid={id} setShowModal={setShowResourceModal} />
+            <ResourceLesson lessonId={lessonId} setShowModal={setShowResourceModal} />
             </Modal>
         )}
 
         {showAssignmentModal && (
             <Modal small setShowModal={setShowAssignmentModal} >
-            <AssignmentLesson creatorid={id} setShowModal={setShowAssignmentModal} />
+            <AssignmentLesson lessonId={lessonId} setShowModal={setShowAssignmentModal} />
             </Modal>
         )}
        
@@ -47,7 +45,7 @@ const PlusForm = ({ creatorid, GroupId }) => {
             <HeaderText>Add</HeaderText>
 
             <ButtonsContainer>
-            <button onClick={() => setShowAssignmentModal(true)}>
+            <button fullWidth onClick={() => setShowAssignmentModal(true)} disabled={!lessonId}>
                 <span>Assignment</span> 
             </button>
             </ButtonsContainer>
@@ -55,13 +53,18 @@ const PlusForm = ({ creatorid, GroupId }) => {
             <br />
             
             <ButtonsContainer>
-            <button onClick={() => setShowResourceModal(true)}>  
+            <button fullWidth onClick={() => setShowResourceModal(true)} disabled={!lessonId} >  
                 <span>Resource</span>    
             </button>
             </ButtonsContainer>
             
+            <br />
+            <br />
+
+            <h1>Remember to hit save before you add an Assignment or Resource</h1>
+
             <AddContainer>
-            <ActionButton edit fullWidth type="submit" value="Upload">
+            <ActionButton fullWidth onClick={() => setShowModal(false)}>
                 Add
             </ActionButton>
             </AddContainer>
