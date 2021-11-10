@@ -1,4 +1,4 @@
-import React, { useRef, useReducer, Fragment, useEffect, useState } from 'react';
+import React, { useReducer, Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import FormInput from '../Form-Input/Form-Input';
@@ -9,8 +9,16 @@ import { ActionButton } from '../../styles';
 
 import lessonService from '../../services/lesson';
 import { editUserLesson } from '../../redux/actions/userActions';
-import { QuillContainer, BodyContainer, HeaderText, FormContainer, CreateContainer } from './EditLessonForm.elements';
-import { Description } from '../LessonCard/LessonCard.elements';
+import { QuillContainer, 
+        BodyContainer, 
+        HeaderText, 
+        FormContainer, 
+        CreateContainer,
+        PlusContainer,
+        ModalsContent } from './EditLessonForm.elements';
+import { Modal, PlusForm} from "../index";
+
+import { FaPlus} from "react-icons/fa";
 
 
 const initialState = {
@@ -27,11 +35,17 @@ function reducer(state, { field, value }) {
 
 const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
 
-    const [ value, setValue ] = useState('');
+    const [newNote, setNewNote] = useState('')
+    const setValue = value =>
+        setTimeout(() =>
+            setNewNote(value))
+
     const [ state, dispatch ] = useReducer(reducer, initialState);
     const { title, description} = state;
+    const plus = { color: "white", fontSize: "2.5em"};
+    const [ showPlusModal, setShowPlusModal ] = useState(false);
     
-    //const { user: { id } } = useSelector((state) => state.userDetail);
+    const { user: { id } } = useSelector((state) => state.userDetail);
 
     const stylequill = { background: "white", height: "35em", width: "54em", overflowy:"auto"};
 
@@ -56,8 +70,8 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
     );
 
     const params = useParams();
-    console.log(params);
-    console.log(lessonID);
+    //console.log(params);
+    //console.log(lessonID);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -87,6 +101,13 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
 
     return (
 
+        <React.Fragment>
+        {showPlusModal && (
+            <Modal small setShowModal={setShowPlusModal}>
+            <PlusForm creatorid={id} setShowModal={setShowPlusModal} />
+            </Modal>
+        )}
+
         <BodyContainer>
         <Fragment>
         <HeaderText>Edit Lesson</HeaderText>
@@ -103,7 +124,7 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
 
                     type="text"
                     name="description"
-                    value={description}
+                    value={newNote}
                     onChange={handleInput}
                 />
                 </FormContainer>
@@ -121,6 +142,17 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
                 
                 <br />
                 <br />
+
+                <PlusContainer>
+                <button onClick={() => setShowPlusModal(true)}>
+                    
+                <ModalsContent>
+                <span><FaPlus style={plus} /></span> 
+                </ModalsContent>
+
+                </button>
+                </PlusContainer>
+
                 <br />
 
                 <CreateContainer>
@@ -131,6 +163,7 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
             
         </Fragment>
         </BodyContainer>
+        </React.Fragment>
     );
 };
 

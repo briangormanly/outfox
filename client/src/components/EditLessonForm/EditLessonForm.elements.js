@@ -2,11 +2,10 @@ import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 import { colors } from '../../styles';
 
-const { secondary, white, primary, primaryLight } = colors;
+const {white, primary} = colors;
 
 
 //45
-
 export const QuillContainer = styled.div`
 
 position: absolute;
@@ -16,6 +15,41 @@ position: absolute;
 
 overflow-y: auto
 
+`;
+
+export const PlusContainer = styled.div`
+
+position: absolute;
+  right: 90%;
+  left: 90%;
+  top: 85%;
+
+  background-color: ${primary};
+
+  color: ${primary};
+
+`;
+
+export const ModalsContent = styled(motion.div)`
+
+  
+  position: absolute;
+  right: 90%;
+  left: 0%;
+  top: 70%;
+  transform: translate(-50%, -50%);
+ 
+  padding: 0rem;
+  background-color: ${primary};
+  border-radius: 10px;
+  display: block;
+  flex-direction: column;
+  z-index: 20;
+  centered;
+  margin: auto;
+  text-align:center;
+
+    ${(props) => props.large && css`max-width: 20rem;`}
 `;
 
 export const BodyContainer = styled.div`
@@ -60,4 +94,3 @@ position: absolute;
   top: 87%;
 
 `;
-
