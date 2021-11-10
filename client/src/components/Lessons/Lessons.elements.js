@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 import { colors } from "../../styles";
 
-const { white, primary, secondary } = colors;
+const { white, primary, secondary, black } = colors;
+
 
 export const Position = styled.div`
 
@@ -12,6 +13,18 @@ export const Position = styled.div`
   top: 40%;
  
 
+  `;
+
+  export const ResourceContainer1 = styled.div`
+
+
+  padding: 2rem;
+  background-color: ${white};
+  border: 1px solid ${white};
+  
+  
+  
+    
   `;
 
 export const LessonsContainer = styled.div`
@@ -68,7 +81,7 @@ export const TitleContainer = styled.div`
 
 export const InnerContainer = styled.div`
   width: 100%;
-  padding: 3rem;
+  padding: 1rem;
   margin: 0 auto;
 `;
 
@@ -78,7 +91,7 @@ export const Content = styled.div`
   border-radius: 5px;
   padding: 2rem;
   background-color: ${white};
-  display: flex;
+  
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -87,6 +100,7 @@ export const Content = styled.div`
   svg {
     font-size: 10rem;
     color: rgba(229, 229, 229, 0.5);
+    align-items: center;
   }
 
   p {
@@ -97,7 +111,10 @@ export const Content = styled.div`
   button {
     margin-top: 0;
     margin-right: 0;
+    color: ${white};
     align-self: center;
+    border: 1px solid ${black};
+  
   }
 `;
 
@@ -125,7 +142,7 @@ export const MContent = styled.div`
 
 
 const ChildContainerDropdown = styled.div`
-  padding: 2rem;
+  
   border-radius: 5px;
   background: none;
 
@@ -202,5 +219,13 @@ export const Description = styled.div`font-size: 1.4rem;`;
 export const LessonsContainer1 = styled(ChildContainerDropdown)`
   grid-area: lessons;
 
+  background-color: ${white};
 
+
+  button {
+    margin-top: 0;
+    margin-right: 0;
+    color: ${white};
+  }
+  
 `;
