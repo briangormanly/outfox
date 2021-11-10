@@ -1,27 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { LessonCard } from '../index';
-
 import { deleteUserLesson} from '../../redux/actions/userActions';
-
-import lessonService from '../../services/lesson';
-
-import { useSelector } from "react-redux";
-
 import { ActionButton } from '../../styles';
 
 const DeleteLessonForm = ({ setShowModal, lessonID }) => {
     const dispatch = useDispatch();
    
-    const params = useParams();
-    
-    const { user } = useSelector((state) => state.userDetail);
-    const {
-        user: { Lessons },
-      } = useSelector((state) => state.userDetail);
-   
-    
 
 
     const handleSubmit = async (e) => {
@@ -47,5 +31,3 @@ const DeleteLessonForm = ({ setShowModal, lessonID }) => {
 };
 
 export default DeleteLessonForm;
-
-
