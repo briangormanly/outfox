@@ -10,7 +10,7 @@ import ShareGroup from "../models/ShareGroup";
 import ShareAssignments from "../models/ShareAssignments";
 import ShareLessons from "../models/ShareLessons";
 import Friend from "../models/Friend";
-import File from "../models/File";
+//import File from "../models/File";
 import sequelize from "./databaseConnection";
 
 // Array of all models [Tables]
@@ -25,7 +25,6 @@ const models = [
   ShareAssignments,
   ShareLessons,
   Friend,
-  File,
   Note,
   //  NoteTag,
   //  ResourceTag,

@@ -9,7 +9,7 @@ import Assignments from "../models/Assignments";
 import Lessons from "../models/Lessons";
 import ShareAssignments from "../models/ShareAssignments";
 import ShareLessons from "../models/ShareLessons";
-import File from "../models/File";
+//import File from "../models/File";
 
 // Going to be Reconnected once we begin querying
 // import Category from "./Category";
@@ -37,8 +37,8 @@ async function Associations(): Promise<void> {
     User.hasMany(Lessons, { foreignKey: "creatorid", sourceKey: "id"});
     Lessons.belongsTo(User, { foreignKey: "creatorid", targetKey: "id"});
 
-    User.hasMany(File, {foreignKey: "userid", sourceKey: "id"});
-    File.belongsTo(User, {foreignKey: "userid", targetKey: "id"});
+    //User.hasMany(File, {foreignKey: "userid", sourceKey: "id"});
+    //File.belongsTo(User, {foreignKey: "userid", targetKey: "id"});
 
     Resource.hasMany(Comment, {
       foreignKey: "commentedOnResource",
@@ -81,19 +81,19 @@ async function Associations(): Promise<void> {
       timestamps: false,
     });
 
-    Assignments.hasMany(Resource);
+    //Assignments.hasMany(Resource);
     Resource.belongsToMany(Assignments, {
       through: "assignmentresources",
       timestamps: false
     });
 
-    Lessons.hasMany(Resource);
+    //Lessons.hasMany(Resource);
     Resource.belongsToMany(Lessons, {
       through: "lessonresources",
       timestamps: false,
     });
 
-    Lessons.hasMany(Assignments);
+    //Lessons.hasMany(Assignments);
     Assignments.belongsToMany(Lessons, {
       through: "lessonassignments",
       timestamps: false,

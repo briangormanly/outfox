@@ -28,13 +28,13 @@ class FileController {
             const upfile = request.files.file;
             const moveTo = `${__dirname}/../storage/`+uuid;
             const uri = `/storage/`+uuid;
-            upfile.mv(moveTo, (error: Error) => {
+/*             upfile.mv(moveTo, (error: Error) => {
               if (error) {
                 return response.status(500).send(error);
               }
   
               return;
-            });
+            }); */
             const file = await File.create({
                 ...request.body,
                 id: request.body.id,
