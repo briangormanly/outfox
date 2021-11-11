@@ -2,7 +2,9 @@ import axios from 'axios';
 
 const groupsURL = 'http://localhost:8080/api/groups';
 const resourceURL = 'http://localhost:8080/api/resources';
+const fileURL = 'http://localhost:8080/api/file';
 
+// GROUPS  ------------------------------------------------------------------------------------------
 const createGroup = async (newGroupObject) => {
 	const response = await axios.post(groupsURL, newGroupObject);
 	return response.data;
@@ -13,6 +15,18 @@ const getGroupData = async (id) => {
 	return response.data;
 };
 
+const deleteGroup = async (id) => {
+	const response = await axios.delete(`${groupsURL}/${id}`);
+	return response.data;
+};
+
+const editGroup = async (id, newObject) => {
+	const response = await axios.put(`${groupsURL}/${id}`, newObject);
+	return response.data;
+};
+//__________________________________________________________________________________
+
+// RESOURCES
 const createResource = async (newResourceObject) => {
 	const response = await axios.post(resourceURL, newResourceObject, {
 		headers : {
@@ -23,11 +37,6 @@ const createResource = async (newResourceObject) => {
 	console.log("Created a resource with the id of: "+newResID);
 	let link = "http://96.249.211.3:105/newResource?resource=" +parseInt(newResID) + "";
 	const resp = await axios.get(link);
-	return response.data;
-};
-
-const deleteGroup = async (id) => {
-	const response = await axios.delete(`${groupsURL}/${id}`);
 	return response.data;
 };
 
@@ -56,11 +65,6 @@ const downloadResource = async (id, type, name, fileName) => {
 		document.body.appendChild(link);
 		link.click();
 	});
-};
-
-const editGroup = async (id, newObject) => {
-	const response = await axios.put(`${groupsURL}/${id}`, newObject);
-	return response.data;
 };
 
 const getResourceData = async (id) => {

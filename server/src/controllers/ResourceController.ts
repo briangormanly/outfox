@@ -71,13 +71,13 @@ class ResourceController {
     try {
       const formData = request.body;
 
-      if (formData.type.includes("Link")) {
+      if (formData.type.includes("Link")) { // Link Type
         const resource = await Resource.create(request.body);
         return response.status(201).json({ resource });
-      } else if (request.files === null && formData.type != "Link") {
+      } else if (request.files === null && formData.type != "Link") { // Text Type?
         const resource = await Resource.create(request.body);
         return response.status(201).json({ resource });
-      } else {
+      } else { // File type
         if (request.files === null) {
           return response.status(500).json({ error: "No file uploaded" });
         }

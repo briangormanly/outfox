@@ -1,11 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
+import Assignments from "./Assignments";
 import Resource from "./Resource";
 import User from "./User";
 
 class Comment extends Model {
   public id: number;
   public commentedOnResource: number; // Associated Resource
+  public commentedOnAssignment: number; // Associated Assignment
   public threadID: number; // Comment that this comment belongs to
   public title: string;
   public body: string;
@@ -25,6 +27,13 @@ Comment.init(
         model: Resource,
         key: "id",
       },
+    },
+    commentedOnAssignment: {
+      type: DataTypes.INTEGER,
+      references:{
+        model: Assignments,
+        key: "id"
+      }
     },
     threadID: {
       type: DataTypes.INTEGER,

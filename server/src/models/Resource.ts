@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
-
+import File from "./File";
 import User from "./User";
 
 class Resource extends Model {
@@ -13,6 +13,7 @@ class Resource extends Model {
   public fileName: string;
   public mutable: boolean;
   public creatorid: number;
+  public fileid: string;
 }
 
 Resource.init(
@@ -57,6 +58,14 @@ Resource.init(
         key: "id",
       },
     },
+    fileid:{
+      type: DataTypes.STRING,
+      allowNull: true,
+      references:{
+        model: File,
+        key: "uuid"
+      }
+    }
   },
   {
     sequelize, // We need to pass the connection instance

@@ -123,3 +123,5 @@ dist
 # Node_modules
 node_modules/
 
+#intellij config
+.idea

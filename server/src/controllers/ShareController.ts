@@ -1,6 +1,8 @@
 import { Router, Request, Response } from "express";
 import ShareGroup from "../models/ShareGroup";
 import ShareResource from "../models/ShareResource";
+import ShareLessons from "../models/ShareLessons";
+import ShareAssignments from "../models/ShareAssignments";
 import Controller from "../interfaces/ControllerInterface";
 
 /**
@@ -34,6 +36,16 @@ class ShareController implements Controller {
       .route(this.path + "/resource" + "/:id")
       .get(this.getSharedResources)
       .delete(this.deleteShareResource);
+
+    // Share Assignments Routes
+
+    // Share Lessons Routes
+    this.router.route(this.path + "/lessons").post(this.createShareLessons);
+    this.router
+      .route(this.path + "/lessons" + "/:id")
+      .get(this.getSharedLessons)
+      .delete(this.deleteShareLessons);
+
   }
 
   // SHARED GROUP SECTION
@@ -203,6 +215,168 @@ class ShareController implements Controller {
         response
           .status(404)
           .send("Shared Resource with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  // SHARED ASSIGNMENTS SECTION
+  // route: /api/share/assignments
+  createShareAssignments = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const sharedAssignment = await ShareAssignments.create(request.body);
+      response.status(201).json({ sharedAssignment });
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  // Goes to route /api/share/assignmentss/:id
+
+  /**
+   * Grabs a specific sharedresource based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getSharedAssignments = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params;
+      const sharedAssignment = await ShareAssignments.findAll({
+        attributes: { exclude: ["SharedId", "Sharedby", "UserId"] },
+        where: { UserId: id },
+        include: [
+          {
+            association: "SharedFrom",
+            attributes: { exclude: ["hashpw", "country", "city", "phonenum"] },
+          },
+          {
+            association: "AssignmentShared",
+          },
+        ],
+        //include: ["SharedFrom", "SharedTo", "GroupShared"],
+      }); // Grabs the sharedlesson based on the specific 'id' of a user
+
+      if (sharedAssignment) {
+        response.status(200).json(sharedAssignment);
+      } else {
+        response
+          .status(404)
+          .send("Share Assignment with the specified ID does not exist");
+      }
+    } catch (err) {
+      response.status(500).send(err.message);
+    }
+  };
+
+  /**
+   * Deletes a sharedassignment based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  deleteSharedAssignments = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params;
+      const deleted = await ShareAssignments.destroy({
+        where: { ShareAssignmentId: id },
+      }); // Delete the sharedassignment with the specified id
+
+      if (deleted) {
+        response.status(204).send("Share Assignment Deleted");
+      } else {
+        response
+          .status(404)
+          .send("Shared Assignment with the specified ID does not exist");
+      }
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  // SHARED LESSONS SECTION
+  // route: /api/share/lessons
+  createShareLessons = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const sharedlesson = await ShareLessons.create(request.body);
+      response.status(201).json({ sharedlesson });
+    } catch (error) {
+      response.status(500).send(error.message);
+    }
+  };
+
+  // Goes to route /api/share/lessons/:id
+
+  /**
+   * Grabs a specific sharedresource based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getSharedLessons = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params;
+      const sharedLesson = await ShareLessons.findAll({
+        attributes: { exclude: ["SharedId", "Sharedby", "UserId"] },
+        where: { UserId: id },
+        include: [
+          {
+            association: "SharedFrom",
+            attributes: { exclude: ["hashpw", "country", "city", "phonenum"] },
+          },
+          {
+            association: "LessonShared",
+          },
+        ],
+        //include: ["SharedFrom", "SharedTo", "GroupShared"],
+      }); // Grabs the sharedlesson based on the specific 'id' of a user
+
+      if (sharedLesson) {
+        response.status(200).json(sharedLesson);
+      } else {
+        response
+          .status(404)
+          .send("Share Lesson with the specified ID does not exist");
+      }
+    } catch (err) {
+      response.status(500).send(err.message);
+    }
+  };
+
+  /**
+   * Deletes a sharedlesson based off the ID provided
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  deleteShareLessons = async (
+    request: Request,
+    response: Response
+  ): Promise<void> => {
+    try {
+      const { id } = request.params;
+      const deleted = await ShareLessons.destroy({
+        where: { ShareLessonId: id },
+      }); // Delete the sharedlesson with the specified id
+
+      if (deleted) {
+        response.status(204).send("Share Lesson Deleted");
+      } else {
+        response
+          .status(404)
+          .send("Shared Lesson with the specified ID does not exist");
       }
     } catch (error) {
       response.status(500).send(error.message);

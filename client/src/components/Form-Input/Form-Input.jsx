@@ -1,12 +1,28 @@
-import React from 'react';
+import React from "react";
 
-import { InputGroup } from './Form-Input.elements';
+import { InputGroup } from "./Form-Input.elements";
 
-const FormInput = ({ type, name, value, onChange, label }) => (
-	<InputGroup value={value}>
-		<input name={name} type={type} value={value} onChange={onChange} />
-		<label>{label}</label>
-	</InputGroup>
+const FormInput = ({
+  type,
+  name,
+  value,
+  onChange,
+  label,
+  className,
+  disabled = false,
+  min,
+}) => (
+  <InputGroup value={value} className={className}>
+    <input
+      name={name}
+      type={type}
+      value={value}
+      onChange={onChange}
+      disabled={disabled}
+      min={min}
+    />
+    <label>{label}</label>
+  </InputGroup>
 );
 
 export default FormInput;
