@@ -60,6 +60,9 @@ const ExploreGroupCard = (props) => {
 		setExpanded(!tExp);
 	}
 
+	const favGroup = () =>{
+		console.log("Favorited Group")
+	}
 
 	const ExpGroupExpanded = () => {
 		console.log("made it here");
@@ -113,6 +116,11 @@ const ExploreGroupCard = (props) => {
 				<li>{`${tags[2].toLowerCase()}`}</li>
 			</ul>
 			</Text>
+			<ButtonGroup>
+			<Button edit onClick={favGroup}>
+					Favorite
+				</Button>
+			</ButtonGroup>
 			<ButtonGroup>
 				
 				<Button edit onClick={toggleExpand}>

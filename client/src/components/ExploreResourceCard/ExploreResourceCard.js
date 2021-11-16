@@ -25,6 +25,9 @@ const ExploreResourceCard = (props) => {
 		const tExp = expanded;
 		setExpanded(!tExp);
 	}
+	const favResource = () =>{
+		console.log("Favorited Resource")
+	}
 
 
 const ExpRecExpanded = () =>{
@@ -81,6 +84,11 @@ const ExpRecExpanded = () =>{
 				<li>{`${tags[2].toLowerCase()}`}</li>
 			</ul>
 			</Text>
+			<ButtonGroup>
+			<Button edit onClick={favResource}>
+					Favorite
+				</Button>
+			</ButtonGroup>
 			<ButtonGroup>
 				
 				<Button edit onClick={toggleExpand}>
