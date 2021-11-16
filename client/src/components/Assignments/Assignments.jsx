@@ -18,12 +18,6 @@ const Assignments = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const alertAssignments = () => {
-    if (Assignments) {
-      alert("assignments length: " + Assignments.length);
-    }
-  };
-
   return (
     <Fragment>
       {showModal && (
@@ -34,7 +28,7 @@ const Assignments = () => {
       <AssignmentContainer>
         <button onClick={() => setShowModal(true)}> Create Assignment </button>
         <TitleContainer>
-          <h1 onClick={alertAssignments}>My Assignments</h1>
+          <h1>My Assignments</h1>
           <InnerContainer>
             <Content>
               {Assignments.map((assignment) => (
