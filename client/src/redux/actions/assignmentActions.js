@@ -23,7 +23,7 @@ export const addAssignmentResource = (newResourceObject) => async (
   dispatch
 ) => {
   try {
-    const { resource } = await assignmentService.createAssignment(
+    const { resource } = await assignmentService.createResource(
       newResourceObject
     );
     dispatch({ type: ASSIGNMENT_ADD_RESOURCE, payload: resource });

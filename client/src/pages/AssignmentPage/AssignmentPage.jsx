@@ -194,7 +194,7 @@ const AssignmentPage = ({ match }) => {
             </DatesDescriptionActionContainer>
             {mutable ? (
               <OwnerResourceContainer>
-                <ViewResourceButton> View Resource </ViewResourceButton>
+                {/*<ViewResourceButton> View Resource </ViewResourceButton> */}
               </OwnerResourceContainer>
             ) : (
               <ReceiverResourceContainer>

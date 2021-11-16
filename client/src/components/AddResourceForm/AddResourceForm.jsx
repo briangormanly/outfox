@@ -134,17 +134,19 @@ const AddResourceForm = ({
       if (GroupId) {
         // storeDispatch(addGroupResource(newObject));
         storeDispatch(addGroupResource(formData));
+        setShowModal(false);
       } else if (LessonId) {
         storeDispatch(addnewLessonResource(formData));
       } else if (AssignmentId) {
         storeDispatch(addAssignmentResource(formData));
+        setShowModal = false; // gets rid of setshowmodal is not a function error
       } else {
         // storeDispatch(addUserResource(newObject));
         storeDispatch(addUserResource(formData));
       }
-      setShowModal(false);
     } catch (error) {
       console.log("An Error Occurred");
+      console.log(error.toString());
     }
   };
 
