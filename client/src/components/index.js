@@ -29,9 +29,11 @@ export { default as DashboardLessons } from "./DashboardLessons/DashboardLessons
 // Group Components
 export { default as GroupAllCard } from "./GroupsAllCards/GroupsAllCards";
 export { default as GroupCard } from "./GroupCard/GroupCard";
+export { default as FavoriteGroups } from "./FavoriteGroups/FavoriteGroups";
 
 // Resource Components
 export { default as ResourceCard } from "./ResourceCard/ResourceCard";
+export { default as FavoriteResource } from "./FavoriteResources/FavoriteResource";
 
 // Assignment Components
 export { default as AssignmentCard } from "./AssignmentCard/AssignmentCard";

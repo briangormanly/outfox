@@ -110,7 +110,7 @@ export const DashboardContainer = styled.div`
 
   grid-template-areas:
     "groups groups friends" "resources resources friends"
-    "assignments assignments friends" "lessons lessons friends" "sharedW sharedW friends"
+    "assignments assignments friends" "lessons lessons friends" "sharedW sharedW friends" "favG favG friends" "favR favR friends"
     "sharedR sharedR sharedR" "sharedG sharedG sharedG";
 `;
 
@@ -151,4 +151,12 @@ export const LessonsContainer = styled(ChildContainerDropdown)`
 
 export const AssignmentsContainer = styled(ChildContainerDropdown)`
   grid-area: assignments;
+`;
+
+export const FavoriteGroupContainer = styled(ChildContainerDropdown)`
+grid-area: favG;
+`;
+
+export const FavoriteResourceContainer = styled(ChildContainerDropdown)`
+grid-area: favR;
 `;
