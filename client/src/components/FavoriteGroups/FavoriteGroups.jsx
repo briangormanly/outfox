@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+
 import { useSelector } from "react-redux";
 
 import { GroupCard } from "../index";
@@ -7,14 +8,31 @@ import {
   GroupsContainer,
   CardContainer,
   NoGroupsContainer,
-} from "./FavoriteGroups.js";
+} from "./FavoriteGroups.elements";
 import { Link } from "../../styles";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const FavoriteGroups = () => {
-  const {
-    user: { Groups },
-  } = useSelector((state) => state.userDetail);
+  const locationParams = useParams();
+  const [favGroups,setFavGroups] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const Uparams = useParams();
+  const { user } = useSelector((state) => state.userDetail);
+  const { id, Resources } = user;
+	//const currentUserId = parseFloat(Uparams.id);
+  useEffect(() => {
+    if(!loaded){
+      makeCall();
+      setLoaded(true);
+    }  
+  }, [loaded]);
+
+
+  const makeCall = async ()=>{
+    const fGrps = await axios.get("http://localhost:8080/api/groups/favgroups/"+locationParams.id);
+    setFavGroups(fGrps.data);
+  }
 
   const scrollRef = useRef(null);
 
@@ -27,13 +45,13 @@ const FavoriteGroups = () => {
       left: containerScrollPosition + e.deltaY,
     });
   };
-  const locationParams = useParams();
+
   const userURL = `/user/${locationParams.id}`;
   return (
     <GroupsContainer>
-      {Groups.length > 0 ? (
+      {favGroups != []  ? (
         <CardContainer ref={scrollRef} onWheel={onWheel}>
-          {Groups.map((group) => (
+          {favGroups.map((group) => (
             <GroupCard
               key={group.id}
               id={group.id}

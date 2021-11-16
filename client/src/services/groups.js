@@ -24,6 +24,10 @@ const editGroup = async (id, newObject) => {
 	const response = await axios.put(`${groupsURL}/${id}`, newObject);
 	return response.data;
 };
+const setfavoriteGroup = async (id,grpid)=>{
+	const response =  await axios.get(`${groupsURL}/addfavgrp/${id}/${grpid}`);
+	return response.status;
+};
 //__________________________________________________________________________________
 
 // RESOURCES
@@ -71,7 +75,10 @@ const getResourceData = async (id) => {
 	const response = await axios.get(`${resourceURL}/${id}`);
 	return response.data;
 };
-
+const setfavoriteResource = async (id,recid)=>{
+	const response =  await axios.get(`${groupsURL}/addfavrec/${id}/${recid}`);
+	return response.status;
+};
 export default {
 	createGroup,
 	getGroupData,
@@ -81,5 +88,7 @@ export default {
 	editResource,
 	editGroup,
 	getResourceData,
-	downloadResource
+	downloadResource,
+	setfavoriteGroup,
+	setfavoriteResource
 };

@@ -12,6 +12,8 @@ import ShareLessons from "../models/ShareLessons";
 import Friend from "../models/Friend";
 //import File from "../models/File";
 import sequelize from "./databaseConnection";
+import FavoriteGroup from "../models/FavoriteGroup";
+import FavoriteResource from "../models/FavoriteResource";
 
 // Array of all models [Tables]
 const models = [
@@ -26,6 +28,8 @@ const models = [
   ShareLessons,
   Friend,
   Note,
+  FavoriteGroup,
+  FavoriteResource
   //  NoteTag,
   //  ResourceTag,
 ];

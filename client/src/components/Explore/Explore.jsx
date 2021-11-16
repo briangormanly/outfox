@@ -124,7 +124,8 @@ const Explore =  (props) => {
 					record.city = userDat.city;
 					record.country = userDat.country;
 					record.username = userDat.username;
-					record.hashedpw = "REDACTED"; 
+					record.hashedpw = "REDACTED";
+					record.myid = currentUserId; 
 				}
 				setExpRecords(resJson);
 				break;
@@ -147,6 +148,7 @@ const Explore =  (props) => {
 					record.city = creator.city;
 					record.country = creator.country;
 					record.email = creator.email;
+					record.myid = currentUserId;
 					 
 				}
 				setExpRecords(resJson);
@@ -172,6 +174,7 @@ const Explore =  (props) => {
 					record.city = creator.city;
 					record.country = creator.country;
 					record.email = creator.email;
+					record.myid = currentUserId;
 					
 				}
 				setExpRecords(resJson);

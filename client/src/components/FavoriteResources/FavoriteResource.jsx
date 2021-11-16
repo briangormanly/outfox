@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaPlus, FaArrowRight } from "react-icons/fa";
-
+import axios from "axios";
 import {
   Header,
   ButtonContainer,
@@ -16,7 +16,8 @@ import { Modal, AddResourceForm, ResourceCard } from "../index";
 
 function FavoriteResource({ dashboardPaginate }) {
   const [showModal, setShowModal] = useState(false);
-
+  const [favRecs, setFavRecs] = useState([]);
+   const [loaded, setLoaded] = useState(false);
   const { user } = useSelector((state) => state.userDetail);
   const { id, Resources } = user;
 
@@ -27,6 +28,21 @@ function FavoriteResource({ dashboardPaginate }) {
     dashboardPaginate({ type: "resources" });
     history.push(`/user/${params.id}/resources`);
   };
+
+  useEffect(() => {
+    if(!loaded){
+      makeCall();
+      setLoaded(true);
+    }  
+  }, [loaded]);
+
+
+
+  const makeCall = async ()=>{
+    const frcs = await axios.get("http://localhost:8080/api/groups/favrecs/"+params.id);
+    setFavRecs(frcs.data);
+  }
+
 
   return (
     <React.Fragment>
@@ -48,7 +64,7 @@ function FavoriteResource({ dashboardPaginate }) {
         </ButtonContainer>
       </Header>
       <ResourceList>
-        {Resources.filter((resource, indx) => indx < 5).map((resource) => (
+        {favRecs && favRecs.filter((resource, indx) => indx < 5).map((resource) => (
           <ResourceCard small showSVG key={resource.id} {...resource} />
         ))}
       </ResourceList>
