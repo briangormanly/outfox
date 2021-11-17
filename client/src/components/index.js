@@ -67,7 +67,9 @@ export { default as AddSharedResourceForm } from "./AddSharedResourceForm/AddSha
 
 // User Page pagination
 export { default as GroupsP } from './Groups/Groups';
+export {default as FavGroups} from './FavGroups/FavGroups';
 export { default as ResourcesP } from './Resources/Resources';
+export {default as FavRecs} from './FavRecs/FavRecs';
 export { default as Courses } from './Courses/Courses';
 export { default as Calendar } from './Calendar/Calendar';
 export { default as Friends } from './Friends/Friends';
@@ -82,8 +84,8 @@ export { default as ExploreGroup } from './ExploreGroup/ExploreGroup';
 export {default as ExploreGroupCard} from './ExploreGroupCard/ExploreGroupCard';
 export {default as ExploreResourceCard} from './ExploreResourceCard/ExploreResourceCard';
 export {default as DataErrorCard} from "./Explore/DataErrorCard";
-
-
+export {default as FavGroupCard} from "./FavGroupCard/FavGroupCard";
+export {default as FavResourceCard} from "./FavResourceCard/FavResourceCard";
 // Utility Components
 export { default as Loader } from "./Loader/Loader";
 export { default as Modal } from "./Modal/Modal";

@@ -72,7 +72,7 @@ const FavedRecBlock = () =>{
 	return(
 		<FavedBlk>
 		<h4><span>{`${title}`}</span></h4>
-		<h5>has has been added to your favorites.</h5>
+		<h5>has been added to your favorites.</h5>
 	</FavedBlk>
 	)
 };

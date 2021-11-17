@@ -28,6 +28,10 @@ const setfavoriteGroup = async (id,grpid)=>{
 	const response =  await axios.get(`${groupsURL}/addfavgrp/${id}/${grpid}`);
 	return response.status;
 };
+const remFavoriteGroup = async(id,grpid)=>{
+	const response =  await axios.get(`${groupsURL}/remfavgrp/${id}/${grpid}`);
+	return response.status;
+}
 //__________________________________________________________________________________
 
 // RESOURCES
@@ -79,6 +83,10 @@ const setfavoriteResource = async (id,recid)=>{
 	const response =  await axios.get(`${groupsURL}/addfavrec/${id}/${recid}`);
 	return response.status;
 };
+const remFavoriteResource = async (id,recid)=>{
+	const response =  await axios.get(`${groupsURL}/remfavrec/${id}/${recid}`);
+	return response.status;
+};
 export default {
 	createGroup,
 	getGroupData,
@@ -90,5 +98,7 @@ export default {
 	getResourceData,
 	downloadResource,
 	setfavoriteGroup,
-	setfavoriteResource
+	remFavoriteGroup,
+	setfavoriteResource,
+	remFavoriteResource
 };

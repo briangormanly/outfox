@@ -112,7 +112,7 @@ const Dashboard = ({ dashboardPaginate }) => {
         <Collapsible
           trigger={
             <React.Fragment>
-              <h1>Favorited Resources</h1>
+              <h1>Favorite Resources</h1>
               <FaAngleDown />
             </React.Fragment>
           }
@@ -125,7 +125,7 @@ const Dashboard = ({ dashboardPaginate }) => {
         <Collapsible
           trigger={
             <React.Fragment>
-              <h1>Favorited Groups</h1>
+              <h1>Favorite Groups</h1>
               <FaAngleDown />
             </React.Fragment>
           }

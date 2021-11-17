@@ -72,8 +72,15 @@ export const CardContainer = styled.div`
   &::-webkit-scrollbar-track {
     background: ${primaryLight};
   }
+ 
 `;
 
+
+export const RemFavBtn = styled.div`
+button{
+  background-color: blue!important;
+}
+`
 export const NoGroupsContainer = styled.div`
   display: flex;
   flex-direction: column;

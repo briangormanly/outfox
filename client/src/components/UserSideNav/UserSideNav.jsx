@@ -34,7 +34,9 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 		exploreActive,
 		assignmentsActive,
 		lessonsActive,
-		helpActive
+		helpActive,
+		favgActive,
+		favrActive
 	} = state;
 
 	const locationParams = useParams();
@@ -70,6 +72,7 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 					</div>
 				</Link>
 			</SideNavButton>
+	
 			<SideNavButton name="resources" onClick={handleClick} active={resourcesActive}>
 				<Link to={`${userURL}/resources`}>
 					<div>
@@ -78,6 +81,23 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 					</div>
 				</Link>
 			</SideNavButton>
+			<SideNavButton name="favgroups" onClick={handleClick} active={favgActive}>
+				<Link to={`${userURL}/favgroups`}>
+					<div>
+						<FaRegFolderOpen />
+						<span>Favorite Groups</span>
+					</div>
+				</Link>
+			</SideNavButton>
+			<SideNavButton name="favresources" onClick={handleClick} active={favrActive}>
+				<Link to={`${userURL}/favresources`}>
+					<div>
+						<FaLayerGroup />
+						<span> Favorite Resources</span>
+					</div>
+				</Link>
+			</SideNavButton>
+		
 			<SideNavButton name="assignments" onClick={handleClick} active={assignmentsActive}>
 				<Link to={`${userURL}/assignments`}>
 					<div>

@@ -2,12 +2,13 @@ import React, { useRef, useState, useEffect } from "react";
 
 import { useSelector } from "react-redux";
 
-import { GroupCard } from "../index";
+import { FavGroupCard } from "../index";
 
 import {
   GroupsContainer,
   CardContainer,
   NoGroupsContainer,
+  RemFavBtn,
 } from "./FavoriteGroups.elements";
 import { Link } from "../../styles";
 import { useParams } from "react-router-dom";
@@ -46,18 +47,22 @@ const FavoriteGroups = () => {
     });
   };
 
+
+  
   const userURL = `/user/${locationParams.id}`;
   return (
     <GroupsContainer>
       {favGroups != []  ? (
         <CardContainer ref={scrollRef} onWheel={onWheel}>
           {favGroups.map((group) => (
-            <GroupCard
+           
+            <FavGroupCard
               key={group.id}
               id={group.id}
               name={group.groupname}
               description={group.groupdescription}
             />
+    
           ))}
         </CardContainer>
       ) : (

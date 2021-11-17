@@ -36,7 +36,9 @@ class GroupsController implements Controller {
     this.router.route(this.path + "/favgroups/:id").get(this.getFavGroups);
     this.router.route(this.path + "/favrecs/:id").get(this.getFavResources);
     this.router.route(this.path + "/addfavgrp/:id/:grpid").get(this.setFavGroup);
+    this.router.route(this.path + "/remfavgrp/:id/:grpid").get(this.remFavGroup);
     this.router.route(this.path+"/addfavrec/:id/:recid").get(this.setFavResource);
+    this.router.route(this.path+"/remfavrec/:id/:recid").get(this.remFavResource);
     // Need to add patch
   }
 
@@ -230,6 +232,26 @@ setFavGroup = async(request: Request, response: Response): Promise<void> =>{
     
     }
 };
+
+remFavGroup = async(request: Request, response: Response): Promise<void> =>{
+  try{
+    const{id, grpid} =  request.params;
+
+    
+   
+    const qry = `DELETE FROM favoritegroup WHERE groupid = ${grpid} AND userid = ${id}`;
+    
+    const resp = await sequelize.query(qry);
+  
+    response.status(200).json({"send":"success"});
+  }catch(error){
+    response.status(500).send(error.message);
+    
+    }
+};
+
+
+
 setFavResource = async(request: Request, response: Response): Promise<void> =>{
   try{
     const{id, recid} =  request.params;
@@ -242,6 +264,23 @@ setFavResource = async(request: Request, response: Response): Promise<void> =>{
     response.status(500).send(error.message);
   }
 };
+
+remFavResource = async(request: Request, response: Response): Promise<void> =>{
+  try{
+    const{id, recid} =  request.params;
+
+    
+   
+    const qry = `DELETE FROM favoriteresource WHERE resourceid = ${recid} AND userid = ${id}`;
+    
+    const resp = await sequelize.query(qry);
+  
+    response.status(200).json({"send":"success"});
+  }catch(error){
+    response.status(500).send(error.message);
+    
+    }
+}; 
 
 }
 

@@ -10,9 +10,9 @@ import {
 import {
   ResourcesContainer,
   ResourceList,
-} from "./FavoriteResources.js";
+} from "./FavoriteResource.elements";
 
-import { Modal, AddResourceForm, ResourceCard } from "../index";
+import { Modal, AddResourceForm, FavResourceCard } from "../index";
 
 function FavoriteResource({ dashboardPaginate }) {
   const [showModal, setShowModal] = useState(false);
@@ -26,7 +26,7 @@ function FavoriteResource({ dashboardPaginate }) {
 
   const handleViewAll = () => {
     dashboardPaginate({ type: "resources" });
-    history.push(`/user/${params.id}/resources`);
+    history.push(`/user/${params.id}/favresources`);
   };
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function FavoriteResource({ dashboardPaginate }) {
       </Header>
       <ResourceList>
         {favRecs && favRecs.filter((resource, indx) => indx < 5).map((resource) => (
-          <ResourceCard small showSVG key={resource.id} {...resource} />
+          <FavResourceCard small showSVG key={resource.id} {...resource} />
         ))}
       </ResourceList>
     </React.Fragment>
