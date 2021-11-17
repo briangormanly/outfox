@@ -76,6 +76,52 @@ export const SideNavButton = styled.button`
   }
 `;
 
+export const FavSideNavButton = styled.button`
+  width: 100%;
+  background-color: inherit;
+  height: 5rem;
+  border: none;
+  font-size: 1.6rem;
+  color: darkgreen;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  padding-right:10px;
+  a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  span{
+    font-size: 1.6rem;
+
+  }
+  div {
+    width: 12.5rem;
+    display: flex;
+    align-items: center;
+
+    svg {
+      height: 2.5rem;
+      width: 2.5rem;
+      margin: 0;
+      margin-right: 2rem;
+    }
+  }
+
+  ${({ active }) =>
+    active &&
+    css`
+      background: ${primary};
+      color: ${white};
+    `} &:hover {
+    background: ${primary};
+    color: ${white};
+  }
+`;
+
 export const DashboardSettings = styled.div`
   height: 15rem;
   width: 100%;

@@ -20,7 +20,8 @@ import {
 	UserSideNavContainer,
 	WelcomeMessage,
 	SideNavButton,
-	DashboardSettings
+	DashboardSettings,
+	FavSideNavButton,
 } from './UserSideNav.elements';
 
 import Clock from '../Clock/Clock';
@@ -81,22 +82,22 @@ const UserSideNav = ({ firstName, lastName, handleClick, state }) => {
 					</div>
 				</Link>
 			</SideNavButton>
-			<SideNavButton name="favgroups" onClick={handleClick} active={favgActive}>
+			<FavSideNavButton name="favgroups" onClick={handleClick} active={favgActive}>
 				<Link to={`${userURL}/favgroups`}>
 					<div>
 						<FaRegFolderOpen />
 						<span>Favorite Groups</span>
 					</div>
 				</Link>
-			</SideNavButton>
-			<SideNavButton name="favresources" onClick={handleClick} active={favrActive}>
+			</FavSideNavButton>
+			<FavSideNavButton name="favresources" onClick={handleClick} active={favrActive}>
 				<Link to={`${userURL}/favresources`}>
 					<div>
 						<FaLayerGroup />
 						<span> Favorite Resources</span>
 					</div>
 				</Link>
-			</SideNavButton>
+			</FavSideNavButton>
 		
 			<SideNavButton name="assignments" onClick={handleClick} active={assignmentsActive}>
 				<Link to={`${userURL}/assignments`}>
