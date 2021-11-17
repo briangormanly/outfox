@@ -50,7 +50,7 @@ const FavGroups = () => {
       <GroupContainer>
         <button onClick={() => setShowModal(true)}> Create Group </button>
         <TitleContainer>
-          <h1>My Groups</h1>
+          <h1>My Favorite Groups</h1>
           <InnerContainer>
            
                 <Content>
