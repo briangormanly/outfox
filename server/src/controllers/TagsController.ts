@@ -7,8 +7,8 @@ import Controller from "../interfaces/ControllerInterface";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class TagsController implements Controller {
-  // Path that is required in order to access the api /routes/api/tags
-  public path = "/api/tags";
+  // Path that is required in order to access the api /routeshttp://localhost:8080/api/tags
+  public path = "http://localhost:8080/api/tags";
   public router = Router();
 
   constructor() {
@@ -28,7 +28,7 @@ class TagsController implements Controller {
       .delete(this.deleteTag);
   }
 
-  // Goes to route /api/tags
+  // Goes to route http://localhost:8080/api/tags
 
   /**
    * Grabs all tags in the database and sends them as a response in json

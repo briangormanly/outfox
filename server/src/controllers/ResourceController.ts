@@ -8,8 +8,8 @@ import Comment from "../models/Comment";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class ResourceController {
-  // Path that is required in order to access the api /api/resources
-  public path = "/api/resources";
+  // Path that is required in order to access the api http://localhost:8080/api/resources
+  public path = "http://localhost:8080/api/resources";
   public router = Router();
 
   constructor() {
@@ -40,7 +40,7 @@ class ResourceController {
     this.router.route(this.path + "/download/:id").get(this.downloadResource);
   }
 
-  // Goes to route /api/resources
+  // Goes to route http://localhost:8080/api/resources
 
   /**
    * Grabs all resources in the database and sends them as a response in json
@@ -163,7 +163,7 @@ class ResourceController {
     }
   };
 
-  // Goes to route /api/resources/:id
+  // Goes to route http://localhost:8080/api/resources/:id
 
   /**
    * Grabs a specific resource based off the ID provided

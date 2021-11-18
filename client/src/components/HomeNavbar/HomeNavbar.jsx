@@ -76,7 +76,7 @@ const HomeNavbar = () => {
 						<MobileNavLink to="/">Resources</MobileNavLink>
 					</MobileItem>
 					<MobileItem>
-						<MobileButton to="/login">Log In</MobileButton>
+						<MobileButton to="http://localhost:8080http://localhost:8080/login">Log In</MobileButton>
 					</MobileItem>
 					<MobileItem>
 						<MobileButton to="/signup">Sign Up</MobileButton>

@@ -12,8 +12,8 @@ import Assignments from "../models/Assignments";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class UsersController implements Controller {
-  // Path that is required in order to access the api /routes/api/users
-  public path = "/api/users";
+  // Path that is required in order to access the api /routeshttp://localhost:8080/api/users
+  public path = "http://localhost:8080/api/users";
   public router = Router();
 
   constructor() {
@@ -39,7 +39,7 @@ class UsersController implements Controller {
       .get(this.getUserFriends);
   }
 
-  // Goes to route /api/users
+  // Goes to route http://localhost:8080/api/users
 
   /**
    * Grabs all users in the database and sends them as a response in json
@@ -70,7 +70,7 @@ class UsersController implements Controller {
     }
   };
 
-  // Goes to route /api/users/:id
+  // Goes to route http://localhost:8080/api/users/:id
 
   getUserAndGroups = async (
     request: Request,

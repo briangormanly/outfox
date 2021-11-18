@@ -10,8 +10,8 @@ import Controller from "../interfaces/ControllerInterface";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class ShareController implements Controller {
-  // Path that is required in order to access the api /routes/api/share/...
-  public path = "/api/share";
+  // Path that is required in order to access the api /routeshttp://localhost:8080/api/share/...
+  public path = "http://localhost:8080/api/share";
   public router = Router();
 
   constructor() {
@@ -68,7 +68,7 @@ class ShareController implements Controller {
     }
   };
 
-  // Goes to route /api/sharedgroup/:id
+  // Goes to route http://localhost:8080/api/sharedgroup/:id
 
   /**
    * Get groups shared to a users based off the ID provided
@@ -135,7 +135,7 @@ class ShareController implements Controller {
 
   //SHARED RESOURCE SECTION
 
-  // Goes to route /api/share/resource
+  // Goes to route http://localhost:8080/api/share/resource
 
   /**
    * Creates a new sharedresource in the database if the request has the correct json
@@ -154,7 +154,7 @@ class ShareController implements Controller {
     }
   };
 
-  // Goes to route /api/share/resource/:id
+  // Goes to route http://localhost:8080/api/share/resource/:id
 
   /**
    * Grabs a specific sharedresource based off the ID provided
@@ -222,7 +222,7 @@ class ShareController implements Controller {
   };
 
   // SHARED ASSIGNMENTS SECTION
-  // route: /api/share/assignments
+  // route: http://localhost:8080/api/share/assignments
   createShareAssignments = async (
     request: Request,
     response: Response
@@ -235,7 +235,7 @@ class ShareController implements Controller {
     }
   };
 
-  // Goes to route /api/share/assignmentss/:id
+  // Goes to route http://localhost:8080/api/share/assignmentss/:id
 
   /**
    * Grabs a specific sharedresource based off the ID provided
@@ -303,7 +303,7 @@ class ShareController implements Controller {
   };
 
   // SHARED LESSONS SECTION
-  // route: /api/share/lessons
+  // route: http://localhost:8080/api/share/lessons
   createShareLessons = async (
     request: Request,
     response: Response
@@ -316,7 +316,7 @@ class ShareController implements Controller {
     }
   };
 
-  // Goes to route /api/share/lessons/:id
+  // Goes to route http://localhost:8080/api/share/lessons/:id
 
   /**
    * Grabs a specific sharedresource based off the ID provided

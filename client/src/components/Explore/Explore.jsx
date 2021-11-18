@@ -38,7 +38,7 @@ import {ExploreResourceCard} from '../index';
 
  async function getPages(userId){
 	// number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
-	const usersNURL = "/api/explore/userspgn/" + userId;
+	const usersNURL = "http://localhost:8080/api/explore/userspgn/" + userId;
 	const usersResponse =  await axios.get(usersNURL);
 	return usersResponse;
 }
@@ -50,13 +50,13 @@ async function aiCall(id, page, type){
 	let url = "";
 	switch(type){
 		case "user":
-			url = "/api/explore/users/" + id + "/"+ page;
+			url = "http://localhost:8080/api/explore/users/" + id + "/"+ page;
 			break;
 		case "group":
-			url = "/api/explore/groups/" + id + "/"+ page;
+			url = "http://localhost:8080/api/explore/groups/" + id + "/"+ page;
 			break;
 		case "resource":
-			url = "/api/explore/resources/" + id + "/"+ page;
+			url = "http://localhost:8080/api/explore/resources/" + id + "/"+ page;
 			break;
 	}
 

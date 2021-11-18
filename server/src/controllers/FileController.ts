@@ -5,7 +5,7 @@ import * as fs from "fs";
 import { v4 as uuidv4 } from 'uuid'; 
 
 class FileController {
-    public path = "/api/file";
+    public path = "http://localhost:8080/api/file";
     public router = Router();
 
     constructor(){

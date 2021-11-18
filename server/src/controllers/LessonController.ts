@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import Lessons from "../models/Lessons";
 
 class LessonController{
-    public path = "/api/lessons";
+    public path = "http://localhost:8080/api/lessons";
     public router = Router();
 
     constructor(){

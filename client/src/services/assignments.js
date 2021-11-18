@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const assignmentURL = '/api/assignments';
-const resourceURL = '/api/resources';
+const assignmentURL = 'http://localhost:8080/api/assignments';
+const resourceURL = 'http://localhost:8080/api/resources';
 
 // Assignments
 const createAssignment= async (newAssignmentObject) => {

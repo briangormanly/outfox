@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = '/api/friends';
+const baseURL = 'http://localhost:8080/api/friends';
 
 const getAll = () => {
 	const response = axios.get(baseURL);

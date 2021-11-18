@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const LessonURL = '/api/lessons';
-const assignmentURL = '/api/assignments';
-const resourceURL = '/api/resources';
+const LessonURL = 'http://localhost:8080/api/lessons';
+const assignmentURL = 'http://localhost:8080/api/assignments';
+const resourceURL = 'http://localhost:8080/api/resources';
 
 
 // Lessons

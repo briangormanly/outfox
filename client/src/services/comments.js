@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const commentsURL = '/api/comments';
-const resourceCommentsURL = '/api/resources/resourcecomments';
+const commentsURL = 'http://localhost:8080/api/comments';
+const resourceCommentsURL = 'http://localhost:8080/api/resources/resourcecomments';
 
 const createComment = async (newCommentObject) => {
 	const response = await axios.post(commentsURL, newCommentObject);

@@ -37,7 +37,7 @@ const ExploreUserCard = (props) => {
 	}
 
 	async function friendAdder() {
-		const url = "/api/friends" + `/makeFriend/${currentUserId}/${id}`;
+		const url = "http://localhost:8080/api/friends" + `/makeFriend/${currentUserId}/${id}`;
 		// need to pass the sendFriendRequest function the user object
 		const response = await axios.get(url);
 		friendService.sendFriendRequest(response.data);

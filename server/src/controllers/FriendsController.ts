@@ -7,8 +7,8 @@ import User from "../models/User";
 * Examples would be GET, POST, PUT, DELETE.
 */
 class FriendController {
- // Path that is required in order to access the api /routes/api/friends
- public path = "/api/friends";
+ // Path that is required in order to access the api /routeshttp://localhost:8080/api/friends
+ public path = "http://localhost:8080/api/friends";
  public router = Router();
  
  constructor() {
@@ -34,7 +34,7 @@ class FriendController {
    this.router.route(this.path + "/makeFriend/:requesterid/:addresseeid").get(this.makeFriendObject);
  }
  
- // Goes to route /api/friends
+ // Goes to route http://localhost:8080/api/friends
  
  /**
   * Grabs all friends in the database and sends them as a response in json
@@ -71,7 +71,7 @@ class FriendController {
    }
  };
  
- // Goes to route /api/friends/:id
+ // Goes to route http://localhost:8080/api/friends/:id
  
  /**
   * Grabs a specific friends based off the ID provided

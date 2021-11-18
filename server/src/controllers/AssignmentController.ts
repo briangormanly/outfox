@@ -4,7 +4,7 @@ import Assignments from "../models/Assignments";
 import Comment from "../models/Comment";
 
 class AssignmentController {
-    public path = "/api/assignments";
+    public path = "http://localhost:8080/api/assignments";
     public router = Router();
 
     constructor(){

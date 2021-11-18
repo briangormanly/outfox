@@ -11,8 +11,8 @@ import sequelize from "../middleware/databaseConnection";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class GroupsController implements Controller {
-  // Path that is required in order to access the api /routes/api/groups
-  public path = "/api/groups";
+  // Path that is required in order to access the api /routeshttp://localhost:8080/api/groups
+  public path = "http://localhost:8080/api/groups";
   public router = Router();
 
   constructor() {
@@ -42,7 +42,7 @@ class GroupsController implements Controller {
     // Need to add patch
   }
 
-  // Goes to route /api/groups
+  // Goes to route http://localhost:8080/api/groups
 
   /**
    * Grabs all groups in the database and sends them as a response in json
@@ -86,7 +86,7 @@ class GroupsController implements Controller {
     }
   };
 
-  // Goes to route /api/groups/:id
+  // Goes to route http://localhost:8080/api/groups/:id
 
   /**
    * Grabs a specific group based off the ID provided
@@ -134,7 +134,7 @@ class GroupsController implements Controller {
     }
   };
 
-  // Goes to route /api/groups/:id
+  // Goes to route http://localhost:8080/api/groups/:id
 
   getGroupsandResources = async (
     request: Request,

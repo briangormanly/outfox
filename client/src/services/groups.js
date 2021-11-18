@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const groupsURL = '/api/groups';
-const resourceURL = '/api/resources';
-const fileURL = '/api/file';
+const groupsURL = 'http://localhost:8080/api/groups';
+const resourceURL = 'http://localhost:8080/api/resources';
+const fileURL = 'http://localhost:8080/api/file';
 
 // GROUPS  ------------------------------------------------------------------------------------------
 const createGroup = async (newGroupObject) => {

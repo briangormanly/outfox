@@ -80,7 +80,7 @@ class App {
       res.sendFile("test.html", { root: root1 });
     });
 
-    this.app.post("/login", validLogin);
+    this.app.post("http://localhost:8080/login", validLogin);
 
     for (const iterator of controllers) {
       this.app.use(iterator.router);

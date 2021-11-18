@@ -9,7 +9,7 @@ class ResponseObj{
 }
 class ExploreController implements Controller{
    
-    public path = "/api/explore";
+    public path = "http://localhost:8080/api/explore";
     public router = Router();
 
     constructor(){
