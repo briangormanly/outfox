@@ -10,7 +10,7 @@ import Controller from "../interfaces/ControllerInterface";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class ShareController implements Controller {
-  // Path that is required in order to access the api http://localhost:8080/routes/api/share/...
+  // Path that is required in order to access the api /routes/api/share/...
   public path = "/api/share";
   public router = Router();
 

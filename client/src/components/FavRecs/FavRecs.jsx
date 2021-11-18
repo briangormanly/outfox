@@ -18,7 +18,7 @@ const Resources = () => {
     
     
       const makeCall = async ()=>{
-        const frcs = await axios.get("http://localhost:8080/api/groups/favrecs/"+user.id);
+        const frcs = await axios.get("/api/groups/favrecs/"+user.id);
         setFavRecs(frcs.data);
       }
 	return (

@@ -11,7 +11,7 @@ import sequelize from "../middleware/databaseConnection";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class GroupsController implements Controller {
-  // Path that is required in order to access the api http://localhost:8080/routes/api/groups
+  // Path that is required in order to access the api /routes/api/groups
   public path = "/api/groups";
   public router = Router();
 

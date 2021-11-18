@@ -12,7 +12,7 @@ import Assignments from "../models/Assignments";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class UsersController implements Controller {
-  // Path that is required in order to access the api http://localhost:8080/routes/api/users
+  // Path that is required in order to access the api /routes/api/users
   public path = "/api/users";
   public router = Router();
 

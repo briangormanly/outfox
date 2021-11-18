@@ -39,7 +39,7 @@ function FavoriteResource({ dashboardPaginate }) {
 
 
   const makeCall = async ()=>{
-    const frcs = await axios.get("http://localhost:8080/api/groups/favrecs/"+params.id);
+    const frcs = await axios.get("/api/groups/favrecs/"+params.id);
     setFavRecs(frcs.data);
   }
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8080/api/share';
+const baseURL = '/api/share';
 const groupShareURL = `${baseURL}/group`;
 const resourceShareURL = `${baseURL}/resource`;
 const lessonShareURL = `${baseURL}/lesson`;

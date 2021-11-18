@@ -8,7 +8,7 @@ import Controller from "../interfaces/ControllerInterface";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class CommentController implements Controller {
-  // Path that is required in order to access the api http://localhost:8080/api/comments
+  // Path that is required in order to access the api /api/comments
   public path = "/api/comments";
   public router = Router();
 

@@ -9,7 +9,7 @@
     <form
       id="form"
       method="POST"
-      action="http://localhost:8080/api/resources"
+      action="/api/resources"
       enctype="multipart/form-data"
     >
       <div>
@@ -67,7 +67,7 @@
       //     formData.append("link", document.getElementById("link").value);
 
       //     try {
-      //       const res = await fetch("http://localhost:8080/api/resources", {
+      //       const res = await fetch("/api/resources", {
       //         method: "POST",
       //         body: formData,
       //       });
@@ -78,7 +78,7 @@
       //     const file = document.getElementById("customFile").files[0];
       //     formData.append("file", file);
       //     try {
-      //       const res = await fetch("http://localhost:8080/api/resources", {
+      //       const res = await fetch("/api/resources", {
       //         headers: { "Content-Type": "multipart/form-data" },
       //         method: "POST",
       //         body: formData,

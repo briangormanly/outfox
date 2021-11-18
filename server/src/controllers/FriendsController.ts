@@ -7,7 +7,7 @@ import User from "../models/User";
 * Examples would be GET, POST, PUT, DELETE.
 */
 class FriendController {
- // Path that is required in order to access the api http://localhost:8080/routes/api/friends
+ // Path that is required in order to access the api /routes/api/friends
  public path = "/api/friends";
  public router = Router();
  

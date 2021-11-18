@@ -24,7 +24,7 @@ import { getGroup } from '../../redux/actions/groupPageActions';
 // it calls API and gets data
 const getPages = async (userId) => {
 // number of pages for recommendations is stored, so we can say "we have 7 pages we can go through"
-    const groupsNURL = "http://localhost:8080//api/explore/groupspgn/" + userId;
+    const groupsNURL = "/api/explore/groupspgn/" + userId;
 	const groupResponse = await axios.get(groupsNURL);
     return groupResponse;
 };
@@ -35,7 +35,7 @@ const getPages = async (userId) => {
 // making a new expanded array 
 // in a foor loop for every single record it does the getGroup() with the ids, returning json array
 const loopingPages = async (userId, groupResponse) => {
-    const groupsIds = "http://localhost:8080//api/explore/groups/" + userId  + groupResponse; //pages;
+    const groupsIds = "/api/explore/groups/" + userId  + groupResponse; //pages;
     for (var records = 0; records <= userId.length; records++){
         getGroups(records);
         const response = await axios.get(groupsIds);

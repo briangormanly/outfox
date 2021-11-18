@@ -8,7 +8,7 @@ import Comment from "../models/Comment";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class ResourceController {
-  // Path that is required in order to access the api http://localhost:8080/api/resources
+  // Path that is required in order to access the api /api/resources
   public path = "/api/resources";
   public router = Router();
 

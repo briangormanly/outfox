@@ -7,7 +7,7 @@ import Controller from "../interfaces/ControllerInterface";
  * Examples would be GET, POST, PUT, DELETE.
  */
 class TagsController implements Controller {
-  // Path that is required in order to access the api http://localhost:8080/routes/api/tags
+  // Path that is required in order to access the api /routes/api/tags
   public path = "/api/tags";
   public router = Router();
 

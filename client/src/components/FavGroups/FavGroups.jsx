@@ -28,7 +28,7 @@ const FavGroups = () => {
 
 
   const makeCall = async ()=>{
-    const fGrps = await axios.get("http://localhost:8080/api/groups/favgroups/"+user.id);
+    const fGrps = await axios.get("/api/groups/favgroups/"+user.id);
     setFavGroups(fGrps.data);
   }
 
