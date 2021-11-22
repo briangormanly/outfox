@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import {addoldLessonResource} from "../../redux/actions/lessonsActions";
+import {addoldLessonResource, editLesson} from "../../redux/actions/lessonsActions";
 
 import {
   ResourceContainer,
@@ -21,7 +21,9 @@ import { FaClipboard } from "react-icons/fa";
 import {Modal, AddResourceForm} from "../index";
 
 
-const ResourceLesson = ({lessonId, setShowModal}) => {
+const ResourceLesson = ({lessonID, setShowModal}) => {
+
+  console.log(lessonID);
 
   const { user } = useSelector((state) => state.userDetail);
   const [ showAddModal, setShowAddModal ] = useState(false);
@@ -34,17 +36,20 @@ const ResourceLesson = ({lessonId, setShowModal}) => {
   //redux
   const dispatch = useDispatch();
 
-  const addoldLessonResource = async (resourceID) => {
-    const response = await lessonService.getLessonData(id);
+  const handleAddResource = async (resourceID) => {
+    const response = await lessonService.getLessonData(lessonID);
 
     console.log(resourceID);
+    console.log(lessonID);
 
     const { Resources, description, title} = response;
   
     const newObject = {
-      Resources,
-      description,
+      id : lessonID,
       title,
+      description,
+      creatorid : id,
+      Resources
     };
     console.log(newObject);
 
@@ -56,7 +61,7 @@ const ResourceLesson = ({lessonId, setShowModal}) => {
     <Fragment>
       {showAddModal && (
         <Modal large setShowModal={setShowAddModal}>
-          <AddResourceForm lessonId={lessonId} setShowModal={setShowAddModal} />
+          <AddResourceForm lessonID={lessonID} setShowModal={setShowAddModal} />
         </Modal>
       )}
       
@@ -64,47 +69,45 @@ const ResourceLesson = ({lessonId, setShowModal}) => {
           
           <InnerContainer>
             <Content>
+
                     <button onClick={() => setShowAddModal(true)}>
                     Create 
                     </button>
                     <br />
+
               {Resources.map((resource) => (
                 
                     <ResourceContainer1>
                     <h1 style = {style} >{resource.title}</h1>
                        
                     <ButtonContainer>
-                    <button primary = "true" onClick={() => addoldLessonResource(resource.id)}>
+                    <button primary = "true" onClick={() => handleAddResource(resource.id)}>
                     Select
                     </button>
                     </ButtonContainer>
                     <br />
+                    </ResourceContainer1>
 
-                    
-                    </ResourceContainer1> 
-                    
-                     
-               ))
-               }
-                  <br />
-                  <button onClick={() => setShowModal(false)}>          
+                ))}
+               
+                    <br />
+                    <button onClick={() => setShowModal(false)}>          
                     Add
                     </button>
                     
 
-                
-            {Resources.length < 1 && (
-              <ResourceContainer>
-              
-              <FaClipboard style = {style1}/>
-              <p> You do not have any Resources</p>
-              <button onClick={() => setShowAddModal(true)}>
-                Create 
-              </button>
-              </ResourceContainer>
-            )}
-            </Content>
-            </InnerContainer>
+                {Resources.length < 1 && (
+                  <ResourceContainer>
+                  
+                  <FaClipboard style = {style1}/>
+                  <p> You do not have any Resources</p>
+                  <button onClick={() => setShowAddModal(true)}>
+                    Create Resource
+                  </button>
+                  </ResourceContainer>
+                )}
+                </Content>
+                </InnerContainer>
 
     </Fragment>
   );

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import {addoldLessonAssignment} from "../../redux/actions/lessonsActions";
+import {addLessonAssignment} from "../../redux/actions/lessonsActions";
 import {createLessonAction} from "../../redux/actions/userActions";
 import {
   AssignmentContainer,
@@ -18,7 +18,7 @@ import { FaClipboard } from "react-icons/fa";
 import { CreateAssignmentForm, Modal } from "../index";
 
 
-const AssignmentLesson = ({lessonId, setShowModal}) => {
+const AssignmentLesson = ({lessonID, setShowModal}) => {
 
   const { user } = useSelector((state) => state.userDetail);
   const [showAssignmentModal, setShowAssignmentModal] = useState(false);
@@ -28,10 +28,11 @@ const AssignmentLesson = ({lessonId, setShowModal}) => {
 
   const dispatch = useDispatch();
 
-  const addoldLessonAssignment = async (assignmentID) => {
-    const response = await lessonService.getLessonData(lessonId);
+  const addLessonAssignment = async (assignmentID) => {
+    const response = await lessonService.getLessonData(lessonID);
 
     console.log(assignmentID);
+    console.log(lessonID);
 
     const { Assignments, description, title} = response;
   
@@ -50,25 +51,27 @@ const AssignmentLesson = ({lessonId, setShowModal}) => {
     <Fragment>
       {showAssignmentModal && (
         <Modal setShowModal={setShowAssignmentModal}>
-          <CreateAssignmentForm lessonid = {lessonId} setShowModal={setShowAssignmentModal} />
+          <CreateAssignmentForm lessonID = {lessonID} setShowModal={setShowAssignmentModal} />
         </Modal>
       )}
 
-          <h1>My Assignments</h1>
+        <h1>My Assignments</h1>
+          
           <InnerContainer>
-            <Content>
+          <Content>
 
                     <button onClick={() => setShowAssignmentModal(true)}>
                     Create 
                     </button>
                     <br />
+
               {Assignments.map((assignment) => (
 
                   <AssignmentContainer1>
                   <h1 style = {style} > {assignment.title}</h1>
 
                   <ButtonContainer>
-                  <button primary = "true" onClick={() => addoldLessonAssignment(assignment.id)}> 
+                  <button primary = "true" onClick={() => addLessonAssignment(assignment.id)}> 
                   Select
                   </button>
                   </ButtonContainer>

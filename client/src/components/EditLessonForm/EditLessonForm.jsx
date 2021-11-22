@@ -33,12 +33,7 @@ function reducer(state, { field, value }) {
     };
 }
 
-const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
-
-    const [newNote, setNewNote] = useState('')
-    const setValue = value =>
-        setTimeout(() =>
-            setNewNote(value))
+const EditLessonForm = ({ creatorid, lessonID, setShowModal, setUpdateFlag, updateFlag }) => {
 
     const [ state, dispatch ] = useReducer(reducer, initialState);
     const { title, description} = state;
@@ -47,9 +42,10 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
     
     const { user: { id } } = useSelector((state) => state.userDetail);
 
-    const stylequill = { background: "white", height: "35em", width: "54em", overflowy:"auto"};
-
+    const stylequill = { background: "white", height: "35em", width: "54em", minheight: "100% ", overflowy:"auto"};
    
+    console.log(lessonID);
+
  
     // redux
     const storeDispatch = useDispatch();
@@ -74,6 +70,9 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
     //console.log(lessonID);
 
     const handleSubmit = async (e) => {
+
+        console.log('Please');
+
         e.preventDefault();
 
         if (!title) {
@@ -86,7 +85,14 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
         try {
             
             storeDispatch(editUserLesson(lessonID, newObject));
+
+            if (updateFlag) {
+                setUpdateFlag(updateFlag + 1);
+            }
+
+
             setShowModal(false);
+
 
         } catch (error) {
             console.log('An Error Occurred');
@@ -104,13 +110,14 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
         <React.Fragment>
         {showPlusModal && (
             <Modal small setShowModal={setShowPlusModal}>
-            <PlusForm creatorid={id} setShowModal={setShowPlusModal} />
+            <PlusForm lessonID={lessonID} setShowModal={setShowPlusModal} />
             </Modal>
         )}
 
         <BodyContainer>
         <Fragment>
-        <HeaderText>Edit Lesson</HeaderText>
+        <br />
+            <HeaderText>Edit Lesson</HeaderText>
             <form onSubmit={handleSubmit}>
                 <FormContainer>
                 <FormInput
@@ -120,25 +127,13 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
                     value={title}
                     onChange={handleInput}
                 />
-                <FormInput
-
-                    type="text"
-                    name="description"
-                    value={newNote}
-                    onChange={handleInput}
-                />
                 </FormContainer>
             </form> 
                 
+   
+                <br />
                 
-                <QuillContainer>
-                <ReactQuill 
-                theme="snow" 
-                 
-                value = {description}   
-                onChange={setValue} 
-                style={stylequill}  />  
-                </QuillContainer>
+                <br />
                 
                 <br />
                 <br />
@@ -156,12 +151,12 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
                 <br />
 
                 <CreateContainer>
-                <ActionButton edit = "true" fullWidth type="submit" value= "Upload">
+                <ActionButton fullWidth type="submit" value= "Upload">
                     Update Lesson
                 </ActionButton>
                 </CreateContainer>
             
-        </Fragment>
+                </Fragment>
         </BodyContainer>
         </React.Fragment>
     );

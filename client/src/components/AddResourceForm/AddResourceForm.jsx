@@ -2,8 +2,7 @@ import React, { useReducer, Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUserResource } from "../../redux/actions/userActions";
 import { addGroupResource } from "../../redux/actions/groupPageActions";
-import { addnewLessonResource } from "../../redux/actions/lessonsActions";
-import { addAssignmentResource } from "../../redux/actions/assignmentActions";
+import { addLessonResource } from "../../redux/actions/lessonsActions";
 import FormInput from "../Form-Input/Form-Input";
 
 import ReactQuill from "react-quill";
@@ -36,7 +35,6 @@ function reducer(state, { field, value }) {
 const AddResourceForm = ({
   creatorid,
   GroupId,
-  AssignmentId,
   LessonId,
   setShowModal,
   isWithAssignments,
@@ -101,9 +99,6 @@ const AddResourceForm = ({
     console.log("Group ID:");
     console.log(GroupId);
 
-    console.log("Assignment ID");
-    console.log(AssignmentId);
-
     console.log("Lesson ID:");
     console.log(LessonId);
 
@@ -120,11 +115,6 @@ const AddResourceForm = ({
       newObject = { ...state, mutable: true, LessonId: LessonId };
     }
 
-    if (AssignmentId) {
-      formData.append("AssignmentId", AssignmentId);
-      newObject = { ...state, mutable: true, AssignmentId: AssignmentId };
-    }
-
     if (creatorid) {
       formData.append("creatorid", creatorid);
       newObject = { ...state, mutable: true, creatorid: creatorid };
@@ -134,19 +124,20 @@ const AddResourceForm = ({
       if (GroupId) {
         // storeDispatch(addGroupResource(newObject));
         storeDispatch(addGroupResource(formData));
-        setShowModal(false);
-      } else if (LessonId) {
-        storeDispatch(addnewLessonResource(formData));
-      } else if (AssignmentId) {
-        storeDispatch(addAssignmentResource(formData));
-        setShowModal = false; // gets rid of setshowmodal is not a function error
-      } else {
+      } 
+      
+      else if (LessonId){
+        
+        storeDispatch(addLessonResource(formData));
+      } 
+      
+      else {
         // storeDispatch(addUserResource(newObject));
         storeDispatch(addUserResource(formData));
       }
+      setShowModal(false);
     } catch (error) {
       console.log("An Error Occurred");
-      console.log(error.toString());
     }
   };
 
@@ -159,11 +150,11 @@ const AddResourceForm = ({
     setFileName(e.target.files[0].name);
   };
 
-  const togglePagesOneThree = (e) => {
-    let page1 = document.getElementById("edit-assignment-page1");
-    page1.classList.toggle("is-active");
+  const togglePagesTwoThree = (e) => {
+    let page2 = document.getElementById("create-assignment-page2");
+    page2.classList.toggle("is-active");
 
-    let page3 = document.getElementById("edit-assignment-page3");
+    let page3 = document.getElementById("create-assignment-page3");
     page3.classList.toggle("is-active");
   };
   return (
@@ -238,7 +229,7 @@ const AddResourceForm = ({
             fullWidth
             type="submit"
             value="Upload"
-            onClick={togglePagesOneThree}
+            onClick={togglePagesTwoThree}
           >
             Create Resource
           </ActionButton>

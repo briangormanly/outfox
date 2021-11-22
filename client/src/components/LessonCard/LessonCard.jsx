@@ -24,9 +24,13 @@ const LessonCard = ({
     createdAt,
     updatedAt,
     showDescription,
+    setUpdateFlag,
+    updateFlag
 }) => {
    
-
+    console.log(id);
+    
+    
     const { user } = useSelector((state) => state.userDetail);
     const { Resources } = user;
     const { Assignments } = user;
@@ -40,7 +44,10 @@ const LessonCard = ({
         <React.Fragment>
         {showEditModal && (
             <Modal large setShowModal={setShowEditModal}>
-            <EditLessonForm setShowModal={setShowEditModal} lessonID={id} />
+            <EditLessonForm setShowModal={setShowEditModal} 
+                            lessonID={id} 
+                            setUpdateFlag={setUpdateFlag}
+                            updateFlag={updateFlag}/>
             </Modal>
         )}
         {showDeleteModal && (
@@ -78,7 +85,7 @@ const LessonCard = ({
                 {Resources.map((resource) => (
                     <ResourceContainer1>
                 <ResourceCard 
-                    key={resource.LessonID}
+                    key={resource.id}
                     {...resource}
                     
                     showDescription

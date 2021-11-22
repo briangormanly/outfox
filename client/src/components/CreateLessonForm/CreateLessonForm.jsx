@@ -105,13 +105,14 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
         try {
             
             storeDispatch(addLesson(formData));
+            setShowModal(false);
            
 
         } catch (error) {
             console.log('An Error Occurred');
         }
 
-
+        setShowModal(false);
     };
 
     
@@ -136,9 +137,7 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
         <Fragment>
         <br />
             <HeaderText>Create Lesson</HeaderText>
-            <RemindContainer>
-            <p>Remember to hit save before you create your lesson!</p>
-            </RemindContainer>
+            
             <form onSubmit={handleSubmit}>
                 <FormContainer>
                 <FormInput
@@ -168,33 +167,18 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
                 <ReactQuill theme="snow" value={value} onChange={setValue} style={stylequill} />  
                 </QuillContainer>
                 <br />
-
-                <SaveContainer>
-                <button edit = "true"  type="submit" value= "Upload" >
-                <span>Save</span> 
-                </button>
-                </SaveContainer>
-
                 
                 <br />
+
                 
                 <CreateContainer>
-                <ActionButton fullWidth onClick={() => setShowModal(false)}>
+                <ActionButton fullWidth edit = "true"  type="submit" value= "Upload">
                     Create Lesson
                 </ActionButton>
                 </CreateContainer>
                 
             </form>
 
-            <PlusContainer>
-                <button onClick={() => setShowPlusModal(true)}>
-                    
-                <ModalsContent>
-                <span><FaPlus style={plus} /></span> 
-                </ModalsContent>
-
-                </button>
-            </PlusContainer>
             
         </Fragment>
         </BodyContainer>

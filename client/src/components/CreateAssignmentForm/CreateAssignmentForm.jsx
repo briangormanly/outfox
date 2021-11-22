@@ -22,7 +22,7 @@ import { addAssignment } from "../../redux/actions/userActions";
 import { FaAngleLeft, FaLayerGroup, FaPlusCircle } from "react-icons/fa";
 import { ResourceCard, AddResourceForm } from "../index";
 
-const CreateAssignmentForm = ({ setShowModal }) => {
+const CreateAssignmentForm = ({ lessonId, setShowModal }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -48,6 +48,8 @@ const CreateAssignmentForm = ({ setShowModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(lessonId);
 
     if (
       !title ||
@@ -89,6 +91,7 @@ const CreateAssignmentForm = ({ setShowModal }) => {
       status: "open",
       grade: null,
       mutable: true,
+      Lessonid : lessonId
     };
 
     try {

@@ -5,6 +5,7 @@ import { FaArrowRight, FaPlus } from "react-icons/fa";
 import { CreateLessonForm, Modal, DashboardLessonCard } from "../index";
 import Collapsible from "react-collapsible";
 import { FaAngleDown } from "react-icons/fa";
+import { Link } from "../../styles";
 
 import {
   LessonsContainer,
@@ -58,16 +59,7 @@ const DashboardLessons = (dashboardPaginate) => {
         <Header>
           <h1>My Lessons</h1>
 
-          <ButtonContainer>
-            <button onClick={() => setShowModal(true)}>
-              <span>Create Lesson</span> <FaPlus />
-            </button>
-
-            <button onClick={handleViewAll}>
-              <span>View All</span>
-              <FaArrowRight />
-            </button>
-          </ButtonContainer>
+ 
 
         </Header>
 
@@ -85,6 +77,9 @@ const DashboardLessons = (dashboardPaginate) => {
               ) : (
                 <NoLessonsContainer>
                   <p> You do not have any Lessons</p>
+                  <button>
+                  <Link to={`${userURL}/lessons`}> Create Assignment</Link>{" "}
+                  </button>
                 </NoLessonsContainer>
               )}
             </LessonsContainer>

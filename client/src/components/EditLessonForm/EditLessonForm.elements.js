@@ -11,7 +11,7 @@ export const QuillContainer = styled.div`
 position: absolute;
   right: 5%;
   left: 5%;
-  top: 35%;
+  top: 25%;
 
 overflow-y: auto
 
@@ -21,12 +21,14 @@ export const PlusContainer = styled.div`
 
 position: absolute;
   right: 90%;
-  left: 90%;
-  top: 85%;
+  left: 85%;
+  top: 75%;
 
   background-color: ${primary};
 
   color: ${primary};
+
+  
 
 `;
 

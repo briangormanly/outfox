@@ -22,7 +22,7 @@ import { Fragment } from "react";
 
 
 
-function Lessons({ dashboardPaginate }) {
+function Lessons({ dashboardPaginate, updateFlag, setUpdateFlag }) {
 
     const { user } = useSelector((state) => state.userDetail); 
     const [showModal, setShowModal] = useState(false);
@@ -72,6 +72,8 @@ function Lessons({ dashboardPaginate }) {
                     key={lesson.id}
                     {...lesson}
                     showDescription
+                    setUpdateFlag={setUpdateFlag}
+                    updateFlag={updateFlag}
                     
                 />
 
