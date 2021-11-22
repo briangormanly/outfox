@@ -85,7 +85,7 @@ const LessonCard = ({
                 {Resources.map((resource) => (
                     <ResourceContainer1>
                 <ResourceCard 
-                    key={resource.id}
+                    key={resource.LessonId}
                     {...resource}
                     
                     showDescription
@@ -102,7 +102,7 @@ const LessonCard = ({
                 {Assignments.map((assignment) => (
                 
                 <AssignmentCard
-                  key={assignment.id}
+                  key={assignment.LessonId}
                   id={assignment.id}
                   title={assignment.title}
                   description={assignment.description}

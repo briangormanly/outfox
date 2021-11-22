@@ -35,7 +35,7 @@ function reducer(state, { field, value }) {
 const AddResourceForm = ({
   creatorid,
   GroupId,
-  LessonId,
+  lessonID,
   setShowModal,
   isWithAssignments,
 }) => {
@@ -100,7 +100,7 @@ const AddResourceForm = ({
     console.log(GroupId);
 
     console.log("Lesson ID:");
-    console.log(LessonId);
+    console.log(lessonID);
 
     console.log("CreatorId:");
     console.log(creatorid);
@@ -110,9 +110,9 @@ const AddResourceForm = ({
       newObject = { ...state, mutable: true, GroupId: GroupId };
     }
 
-    if (LessonId) {
-      formData.append("LessonId", LessonId);
-      newObject = { ...state, mutable: true, LessonId: LessonId };
+    if (lessonID) {
+      formData.append("LessonId", lessonID);
+      newObject = { ...state, mutable: true, LessonId: lessonID };
     }
 
     if (creatorid) {
@@ -126,7 +126,7 @@ const AddResourceForm = ({
         storeDispatch(addGroupResource(formData));
       } 
       
-      else if (LessonId){
+      else if (lessonID){
         
         storeDispatch(addLessonResource(formData));
       } 
