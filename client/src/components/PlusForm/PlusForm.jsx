@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
-import {useSelector } from 'react-redux';
 import {BodyContainer} from './PlusForm.elements';
 import {AddContainer} from './PlusForm.elements';
 import {ButtonsContainer} from './PlusForm.elements';
-
-
-import lessonService from '../../services/lesson';
 
 import { Modal, ResourceLesson, AssignmentLesson} from "../index";
 
@@ -17,9 +13,10 @@ import { ActionButton } from '../../styles';
 
 
 
-const PlusForm = ({lessonID, setShowModal}) => {
+const PlusForm = ({creatorid, lessonID, setShowModal}) => {
 
-    console.log(lessonID);
+    console.log("Plus: " + lessonID);
+    console.log("Plus: " + creatorid);
     
     const [ showAssignmentModal, setShowAssignmentModal ] = useState(false);
     const [ showResourceModal, setShowResourceModal ] = useState(false);
@@ -31,13 +28,13 @@ const PlusForm = ({lessonID, setShowModal}) => {
 
         {showResourceModal && (
             <Modal large setShowModal={setShowResourceModal} >
-            <ResourceLesson lessonID={lessonID} setShowModal={setShowResourceModal} />
+            <ResourceLesson lessonID={lessonID} creatorid = {creatorid} setShowModal={setShowResourceModal} />
             </Modal>
         )}
 
         {showAssignmentModal && (
             <Modal small setShowModal={setShowAssignmentModal} >
-            <AssignmentLesson lessonID={lessonID} setShowModal={setShowAssignmentModal} />
+            <AssignmentLesson lessonID={lessonID} creatorid = {creatorid} setShowModal={setShowAssignmentModal} />
             </Modal>
         )}
        

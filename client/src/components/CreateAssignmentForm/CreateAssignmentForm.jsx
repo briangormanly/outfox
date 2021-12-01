@@ -46,6 +46,8 @@ const CreateAssignmentForm = ({ lessonID, setShowModal }) => {
   const { user } = useSelector((state) => state.userDetail);
   const { id, Resources } = user;
 
+  console.log(lessonID);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -91,7 +93,7 @@ const CreateAssignmentForm = ({ lessonID, setShowModal }) => {
       status: "open",
       grade: null,
       mutable: true,
-      lessonID : lessonID
+      LessonId : lessonID
     };
 
     try {

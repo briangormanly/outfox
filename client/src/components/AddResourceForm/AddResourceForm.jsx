@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addUserResource } from "../../redux/actions/userActions";
 import { addGroupResource } from "../../redux/actions/groupPageActions";
 import { addLessonResource } from "../../redux/actions/lessonsActions";
+import { addAssignmentResource } from "../../redux/actions/assignmentActions";
 import FormInput from "../Form-Input/Form-Input";
 
 import ReactQuill from "react-quill";
@@ -37,6 +38,7 @@ const AddResourceForm = ({
   GroupId,
   lessonID,
   setShowModal,
+  assignmentID,
   isWithAssignments,
 }) => {
   const [type, setType] = useState("Link");
@@ -44,11 +46,15 @@ const AddResourceForm = ({
   const [fileName, setFileName] = useState("");
   const [value, setValue] = useState("");
 
+  
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const { title, description, link } = state;
 
   //redux
   const storeDispatch = useDispatch();
+
+  console.log(assignmentID);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,6 +108,9 @@ const AddResourceForm = ({
     console.log("Lesson ID:");
     console.log(lessonID);
 
+    console.log("Assignment ID:");
+    console.log(assignmentID);
+
     console.log("CreatorId:");
     console.log(creatorid);
 
@@ -115,6 +124,12 @@ const AddResourceForm = ({
       newObject = { ...state, mutable: true, LessonId: lessonID };
     }
 
+    if (assignmentID) {
+      console.log("Assignment id "+ assignmentID)
+      formData.append("AssignmentId", assignmentID);
+      newObject = { ...state, mutable: true, AssignmentId: assignmentID };
+    }
+
     if (creatorid) {
       formData.append("creatorid", creatorid);
       newObject = { ...state, mutable: true, creatorid: creatorid };
@@ -124,20 +139,31 @@ const AddResourceForm = ({
       if (GroupId) {
         // storeDispatch(addGroupResource(newObject));
         storeDispatch(addGroupResource(formData));
+        setShowModal(false);
       } 
       
       else if (lessonID){
-        
+        console.log(lessonID);
         storeDispatch(addLessonResource(formData));
+        setShowModal(false);
       } 
-      
+
+      else if (assignmentID){
+        console.log(assignmentID);
+        storeDispatch(addAssignmentResource(formData));
+        setShowModal(false);
+      } 
+
       else {
         // storeDispatch(addUserResource(newObject));
         storeDispatch(addUserResource(formData));
+        setShowModal(false);
       }
-      setShowModal(false);
+      
+      
+
     } catch (error) {
-      console.log("An Error Occurred");
+      console.log(error.toString());
     }
   };
 
@@ -223,21 +249,12 @@ const AddResourceForm = ({
           <ReactQuill theme="snow" value={value} onChange={setValue} />
         )}
 
-        {isWithAssignments ? (
-          <ActionButton
-            edit
-            fullWidth
-            type="submit"
-            value="Upload"
-            onClick={togglePagesTwoThree}
-          >
-            Create Resource
-          </ActionButton>
-        ) : (
+          
+      
           <ActionButton edit fullWidth type="submit" value="Upload">
             Create Resource
           </ActionButton>
-        )}
+        
       </form>
     </Fragment>
   );

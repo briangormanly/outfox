@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 import { colors } from '../../styles';
 
-const { secondary, white, primary, primaryLight } = colors;
+const { secondary, white, primary } = colors;
 
 export const QuillContainer = styled.div`
 

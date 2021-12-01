@@ -1,6 +1,5 @@
 import {
     GET_LESSON,
-    GET_OLD_LESSON,
     EDIT_LESSON,
     DELETE_LESSON,
     LESSON_ADD_RESOURCE,
@@ -12,7 +11,7 @@ import {
 } from '../constants/lessonsConstants';
 
 import lessonService from '../../services/lesson';
-import groupService from '../../services/groups';
+
 
 export const getLesson = (lessonID) => async (dispatch) => {
     try {
@@ -23,35 +22,15 @@ export const getLesson = (lessonID) => async (dispatch) => {
     }
 };
 
-export const getOldLesson = () => async (dispatch) => {
-    try {
-        const data = await lessonService.getLessonDataNoId();
-        dispatch({ type: GET_OLD_LESSON, payload: data });
-    } catch (error) {
-        console.log('Error with Lesson Request');
-    }
-};
-
-
-
 export const addLessonResource = (newResourceObject) => async (dispatch) => {
     try {
         const { resource } = await lessonService.createResource(newResourceObject);
         dispatch({ type: LESSON_ADD_RESOURCE, payload: resource });
-        console.log(lessonService.getLessonData());
     } catch (error) {
         console.log('An error occurred during add request');
     }
 };
 
-export const addoldLessonResource = (resourceID) => async (dispatch) => {
-    try {
-        const { resource } = await groupService.getResourceData(resourceID);
-        dispatch({ type: LESSON_ADD_RESOURCE, payload: resource });
-    } catch (error) {
-        console.log('An error occurred during add request');
-    }
-};
 
 export const editLesson = (lessonID, newLessonObject) => async (dispatch) => {
     try {
@@ -104,15 +83,6 @@ export const addLessonAssignment = (newAssignmentObject) => async (dispatch) => 
     }
 };
 
-export const addoldLessonAssignment = (assignmentID) => async (dispatch) => {
-    try {
-        const { assignment } = await groupService.getResourceData(assignmentID);
-        dispatch({ type: LESSON_ADD_ASSIGNMENT, payload: assignment });
-    } catch (error) {
-        console.log('An error occurred during add request');
-    }
-};
-
 export const editLessonAssignment = (assignmentID, newAssignmentObject) => async (
     dispatch
 ) => {
@@ -135,4 +105,3 @@ export const deleteLessonAssignment = (assignmentID) => async (dispatch) => {
         console.log('An error occurred during delete request');
     }
 };
-

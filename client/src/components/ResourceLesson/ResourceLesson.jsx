@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import {addoldLessonResource, editLesson} from "../../redux/actions/lessonsActions";
+import {addLessonResource, editLesson} from "../../redux/actions/lessonsActions";
 
 import {
   ResourceContainer,
@@ -10,9 +10,6 @@ import {
   ButtonContainer
 } from "./ResourceLesson.elements";
 
-import {
-  createLessonAction
-} from '../../redux/actions/userActions';
 
 import lessonService from '../../services/lesson.js';
 
@@ -21,9 +18,10 @@ import { FaClipboard } from "react-icons/fa";
 import {Modal, AddResourceForm} from "../index";
 
 
-const ResourceLesson = ({lessonID, setShowModal}) => {
+const ResourceLesson = ({creatorid, lessonID, setShowModal}) => {
 
-  console.log(lessonID);
+  console.log("Resource: " + lessonID);
+  console.log("Resource: " + creatorid);
 
   const { user } = useSelector((state) => state.userDetail);
   const [ showAddModal, setShowAddModal ] = useState(false);
@@ -36,24 +34,13 @@ const ResourceLesson = ({lessonID, setShowModal}) => {
   //redux
   const dispatch = useDispatch();
 
-  const handleAddResource = async (resourceID) => {
+  const addLessonResource = async (resourceID) => {
     const response = await lessonService.getLessonData(lessonID);
 
     console.log(resourceID);
     console.log(lessonID);
 
-    const { Resources, description, title} = response;
-  
-    const newObject = {
-      id : lessonID,
-      title,
-      description,
-      creatorid : id,
-      Resources
-    };
-    console.log(newObject);
 
-    dispatch(createLessonAction(newObject, Resources));
   };
   
 
@@ -61,7 +48,7 @@ const ResourceLesson = ({lessonID, setShowModal}) => {
     <Fragment>
       {showAddModal && (
         <Modal large setShowModal={setShowAddModal}>
-          <AddResourceForm lessonID={lessonID} setShowModal={setShowAddModal} />
+          <AddResourceForm lessonID={lessonID} creatorid = {creatorid} setShowModal={setShowAddModal} />
         </Modal>
       )}
       
@@ -81,7 +68,7 @@ const ResourceLesson = ({lessonID, setShowModal}) => {
                     <h1 style = {style} >{resource.title}</h1>
                        
                     <ButtonContainer>
-                    <button primary = "true" onClick={() => handleAddResource(resource.id)}>
+                    <button primary = "true" onClick={() => addLessonResource(resource.id)}>
                     Select
                     </button>
                     </ButtonContainer>

@@ -1,34 +1,26 @@
-import React, { useReducer, Fragment, useEffect,useState} from 'react';
+import React, { useReducer, Fragment, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ReactDOM, { render } from "react-dom"
-import ReactQuill, { Quill } from "react-quill";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { addLesson } from '../../redux/actions/userActions';
 import FormInput from '../Form-Input/Form-Input';
-import { editUserLesson } from '../../redux/actions/userActions';
-import { getOldLesson } from '../../redux/actions/lessonsActions';
 
 import {BodyContainer, 
         QuillContainer, 
-        PlusContainer, 
         CreateContainer,
-        FormContainer,
-        ModalsContent,
-        SaveContainer,
-        RemindContainer} 
+        FormContainer} 
 from './CreateLessonForm.elements';
 
 import lessonService from '../../services/lesson.js';
-import { Modal, PlusForm, ResourceLesson} from "../index";
+import { Modal, PlusForm} from "../index";
 
-import { FaPlus} from "react-icons/fa";
 
 import {
     HeaderText,
 } from './CreateLessonForm.elements';
 
 import { ActionButton } from '../../styles';
-import LessonCard from '../LessonCard/LessonCard';
+
 
 const initialState = {
     title       : '',
@@ -54,20 +46,14 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
         user: { Lessons },
     } = useSelector((state) => state.userDetail);
     
-    const[data, setData] = useState(0)
+    
     
     const { user: { id } } = useSelector((state) => state.userDetail);
-    const plus = { color: "white", fontSize: "2.5em"};
+    
     const stylequill = { background: "white", height: "35em", width: "54em", minheight: "100% ", overflowy:"auto"};
     const [ showPlusModal, setShowPlusModal ] = useState(false);
     const lessonarray = lessonService.getLessonDataNoId();
     console.log(lessonarray);
-
-    {Lessons.map((lesson) => (
-        console.log(lesson.id)
-    ))}
-
-    //console.log(getOldLesson());
 
 
     //redux
@@ -99,7 +85,7 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
 
         if (creatorid) {
             formData.append('creatorid', creatorid);
-            newObject = { ...state, mutable: true, creatorid: creatorid };
+            
         }
 
         try {

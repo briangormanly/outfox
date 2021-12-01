@@ -7,7 +7,9 @@ import { ActionButton } from "../../styles";
 
 import assignmentService from "../../services/assignments";
 import { FaAngleLeft } from "react-icons/fa";
-import { AddResourceForm } from "../index";
+
+import { FaLayerGroup } from "react-icons/fa";
+import { AddResourceForm, ResourceCard } from "../index";
 
 import {
   EditAssignmentContainer,
@@ -19,15 +21,23 @@ import {
   Page2Container,
   TitleContainer,
   Page3Container,
+  NoResourcesContainer,
+  SelectResourceContainer,
+  VerticalLine
 } from "./EditAssignmentForm.elements";
 
 const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
+
+  console.log("ID: " + assignmentID);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const [openDateMonth, setOpenDateMonth] = useState();
   const [openDateDay, setOpenDateDay] = useState();
   const [openDateYear, setOpenDateYear] = useState();
+
+ 
 
   const [dueDateMonth, setDueDateMonth] = useState();
   const [dueDateDay, setDueDateDay] = useState();
@@ -44,6 +54,7 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
 
   const { user } = useSelector((state) => state.userDetail);
   const { id } = user;
+  const { Resources} = user;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -195,17 +206,17 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
     page3.classList.toggle("is-active");
   };
 
-  /*  const togglePagesTwoThree = () => {
+  const togglePagesTwoThree = () => {
     let page2 = document.getElementById("edit-assignment-page2");
     page2.classList.toggle("is-active");
 
     let page3 = document.getElementById("edit-assignment-page3");
     page3.classList.toggle("is-active");
-  };*/
+  };
   const currentYear = parseInt(new Date().getFullYear().toString());
   return (
     <EditAssignmentContainer>
-      <Page1Container id={"edit-assignment-page1"} className={"is-active"}>
+      <Page1Container assignmentID = {assignmentID} id={"edit-assignment-page1"} className={"is-active"}>
         <h1>Edit Assignment </h1>
         <form onSubmit={handleSubmit}>
           <FormInput
@@ -348,18 +359,18 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
           </ActionButton>
         </form>
       </Page1Container>
-      <Page2Container id={"edit-assignment-page2"}>
+      <Page2Container assignmentID = {assignmentID} id={"edit-assignment-page2"}>
         <TitleContainer>
           <FaAngleLeft onClick={togglePagesOneTwo} />
           <h1>My Resources</h1>
         </TitleContainer>
 
-        {/*        {Resources.length > 0 ? (
+        {Resources.length > 0 ? (
           <SelectResourceContainer>
             {Resources.filter((resource, indx) => indx < 5).map((resource) => (
               <ResourceCard showDropdown key={resource.id} {...resource} />
             ))}
-            <FaPlusCircle onClick={} />
+            
             <button onClick={togglePagesOneTwo}>Add Resource</button>
           </SelectResourceContainer>
         ) : (
@@ -369,15 +380,17 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
             <p> You do not have any resources</p>
             <button onClick={togglePagesTwoThree}>Create Resource</button>
           </NoResourcesContainer>
-        )}*/}
+        )}
+
       </Page2Container>
-      <Page3Container id={"edit-assignment-page3"}>
+      <Page3Container assignmentID = {assignmentID} id={"edit-assignment-page3"}>
         <TitleContainer>
           <FaAngleLeft onClick={togglePagesOneThree} />
         </TitleContainer>
         <AddResourceForm
-          AssignmentId={parseInt(assignmentID)}
-          isWithAssignments
+          assignmentID={assignmentID}
+          //isWithAssignments
+          setShowModal={setShowModal}
         />
       </Page3Container>
     </EditAssignmentContainer>

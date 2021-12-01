@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import { motion } from "framer-motion";
+import styled from "styled-components";
 import { colors } from "../../styles";
 
 const { white, primary, secondary } = colors;
@@ -18,7 +17,7 @@ export const PlusContainer = styled.div`
   position: absolute;
   right: 90%;
   left: 85%;
-  top: 75%;
+  top: 85%;
 
   button {
     background-color: rgba(217, 25, 24, 0);
@@ -53,6 +52,8 @@ export const BodyContainer = styled.div`
   h1 {
     color: ${white};
   }
+
+  
 `;
 
 export const HeaderText = styled.h1`

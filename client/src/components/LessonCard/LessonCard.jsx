@@ -1,6 +1,5 @@
-import React, { useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import React, { useState, useRef} from 'react';
+import { useSelector } from 'react-redux';
 import { ResourceCard } from '../index';
 import { AssignmentCard } from '../index';
 import parse from 'html-react-parser';
@@ -8,7 +7,7 @@ import {
     LessonsContainer,
     Description, 
     ResourceContainer1,
-    
+    CardContainer
 } from './LessonCard.elements';
 
 
@@ -24,21 +23,33 @@ const LessonCard = ({
     createdAt,
     updatedAt,
     showDescription,
-    setUpdateFlag,
-    updateFlag
 }) => {
    
-    console.log(id);
+    console.log("lessoncard: " + id);
+    console.log("lessoncard: " + creatorid);
+    
     
     
     const { user } = useSelector((state) => state.userDetail);
-    const { Resources } = user;
+
+    const { Resources} = user;
+
     const { Assignments } = user;
     const style = { color: "black"};
     const [ showEditModal, setShowEditModal ] = useState(false);
     const [ showDeleteModal, setShowDeleteModal ] = useState(false);
     
-    
+    const scrollRef = useRef(null);
+
+    const onWheel = (e) => {
+        const container = scrollRef.current;
+        const containerScrollPosition = scrollRef.current.scrollLeft;
+
+        container.scrollTo({
+        top: 0,
+        left: containerScrollPosition + e.deltaY,
+        });
+    };
 
     return (
         <React.Fragment>
@@ -46,13 +57,14 @@ const LessonCard = ({
             <Modal large setShowModal={setShowEditModal}>
             <EditLessonForm setShowModal={setShowEditModal} 
                             lessonID={id} 
-                            setUpdateFlag={setUpdateFlag}
-                            updateFlag={updateFlag}/>
+                            creatorid = {creatorid}/>
             </Modal>
         )}
         {showDeleteModal && (
             <Modal setShowModal={setShowDeleteModal}>
-            <DeleteLessonForm setShowModal={setShowDeleteModal} lessonID={id} />
+            <DeleteLessonForm setShowModal={setShowDeleteModal} 
+                              lessonID={id} 
+                              creatorid = {creatorid}/>
             </Modal>
         )}
 
@@ -82,32 +94,38 @@ const LessonCard = ({
              )}
 
             <h1 style = {style }>Resources:</h1>
-                {Resources.map((resource) => (
-                    <ResourceContainer1>
+            {Resources.map((resource) => !!resource.LessonId && (resource.LessonId === id) &&(
+                <ResourceContainer1>
                 <ResourceCard 
-                    key={resource.LessonId}
+                key={resource.LessonId}
                     {...resource}
                     
                     showDescription
-                    
                 />
                 <br />
                 </ResourceContainer1>
-                    ))}
+
+            ))}
+
+
 
                 <br />
                 <br />
 
                 <h1 style = {style }>Assignments:</h1>
-                {Assignments.map((assignment) => (
+                
+            <CardContainer ref={scrollRef} onWheel={onWheel}>
+                {Assignments.map((assignments) => !!assignments.LessonId && (assignments.LessonId === id) &&(
                 
                 <AssignmentCard
-                  key={assignment.LessonId}
-                  id={assignment.id}
-                  title={assignment.title}
-                  description={assignment.description}
+                  key={assignments.LessonId}
+                  
+                  title={assignments.title}
+                  description={assignments.description}
                 />
+                
               ))}
+            </CardContainer>
 
         </React.Fragment>
     );

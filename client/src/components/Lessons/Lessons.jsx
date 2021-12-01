@@ -7,7 +7,6 @@ import {
   TitleContainer,
   InnerContainer,
   Content,
-  VerticalLine,
   LessonsContainer1,
 } from "./Lessons.elements";
 
@@ -22,13 +21,12 @@ import { Fragment } from "react";
 
 
 
-function Lessons({ dashboardPaginate, updateFlag, setUpdateFlag }) {
+function Lessons({ dashboardPaginate}) {
 
     const { user } = useSelector((state) => state.userDetail); 
     const [showModal, setShowModal] = useState(false);
     const { id} = user;
     const {Lessons } = user;
-    const [ data , setData ] = useState(0);
     const plus = { color: "white", fontSize: "2.5em"};
    
     
@@ -72,8 +70,6 @@ function Lessons({ dashboardPaginate, updateFlag, setUpdateFlag }) {
                     key={lesson.id}
                     {...lesson}
                     showDescription
-                    setUpdateFlag={setUpdateFlag}
-                    updateFlag={updateFlag}
                     
                 />
 

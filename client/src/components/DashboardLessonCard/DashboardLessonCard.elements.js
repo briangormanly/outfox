@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { colors } from "../../styles";
 
-const { white, primary, secondary, black } = colors;
+const { white, primary, secondary } = colors;
 
 export const Card = styled.div`
   height: 90%;

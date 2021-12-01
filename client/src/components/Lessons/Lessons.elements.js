@@ -32,6 +32,7 @@ export const LessonsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   button {
     margin-top: 5rem;

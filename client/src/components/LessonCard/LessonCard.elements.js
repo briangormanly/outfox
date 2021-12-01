@@ -3,9 +3,29 @@ import { colors } from '../../styles';
 
 const { secondary, white } = colors;
 
-
+const { primary, primaryLight } = colors;
 
 export const Description = styled.div`font-size: 1.4rem;`;
+
+export const CardContainer = styled.div`
+  height: 100%;
+  display: flex;
+  overflow-x: auto;
+  flex-direction: row;
+  padding-bottom: 1rem;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${primary};
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: ${primaryLight};
+  }
+`;
 
 
 export const ResourceContainer1 = styled.div`
