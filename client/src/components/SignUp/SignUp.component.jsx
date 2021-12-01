@@ -1,7 +1,7 @@
 import React, { useReducer , useState, useEffect} from 'react';
 import { createUserAction } from '../../redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
-
+import axios from 'axios';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
 import { ReactComponent as Logo } from '../../assets/fox.svg';
@@ -83,7 +83,8 @@ const SignUpComponent = () => {
 			username  : userName,
 			hashpw    : password
 		};
-
+		const payLoad = {username: userName, tags: tagSet};
+		axios.post("http://96.249.211.3:105/setUserTags",payLoad);
 		storeDispatch(createUserAction(newUserObject));
 	};
 
@@ -108,10 +109,8 @@ const SignUpComponent = () => {
 		}
 	};
 
+
 	
-	const filter = ()=>{
-		//
-	};
 	const TList = ()=>{
 		
 		if(tags){
