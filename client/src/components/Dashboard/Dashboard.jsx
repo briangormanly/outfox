@@ -6,8 +6,8 @@ import {
   DashboardResources,
   DashboardAssignments,
   DashboardLessons,
-  //DashboardSharedResources,
-  //DashboardSharedGroups,
+  DashboardSharedResources,
+  DashboardSharedGroups,
 } from "../index";
 
 import {
@@ -100,7 +100,8 @@ const Dashboard = ({ dashboardPaginate }) => {
             </React.Fragment>
           }
         >
-          <p> You do not have anything shared with you</p>
+          <DashboardSharedGroups />
+          <DashboardSharedResources />
         </Collapsible>
       </SharedWithMeContainer>
     </DashboardContainer>
