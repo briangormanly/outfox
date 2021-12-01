@@ -17,7 +17,7 @@ export const PlusContainer = styled.div`
   position: absolute;
   right: 90%;
   left: 85%;
-  top: 85%;
+  top: 80%;
 
   button {
     background-color: rgba(217, 25, 24, 0);
