@@ -45,20 +45,23 @@ import {
 
 const AssignmentPage = ({ match }) => {
   const {
-    params: { userID, assignmentID },
+    params: { userID },
   } = match;
   const mutable = true;
+  //const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
+
   const { user } = useSelector((state) => state.userDetail);
 
-  //const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
-  
   const { Resources} = user;
+
   const { secondary } = colors;
   const statusBarSteps = document.getElementsByClassName("RSPBstep");
   const [loading, setLoading] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
- 
+  const {
+    params: { assignmentID },
+  } = match;
 
   //fixes styling issue for status bar
   for (let i = 0; i < statusBarSteps.length; i++) {
@@ -80,8 +83,6 @@ const AssignmentPage = ({ match }) => {
   const dueDateObj = new Date(duedate);
   const closeDateObj = new Date(closedate);
 
-  console.log("id " + assignmentID);
-
   useEffect(() => {
     try {
       dispatch(getAssignment(match.params.assignmentID));
@@ -91,6 +92,8 @@ const AssignmentPage = ({ match }) => {
     }
   }, [match.params.assignmentID, dispatch]);
 
+  console.log("match " + userID);
+
   return (
     <Fragment>
       {showDeleteModal && (
@@ -98,6 +101,7 @@ const AssignmentPage = ({ match }) => {
           <DeleteAssignmentForm
             setShowModal={setShowDeleteModal}
             assignmentID={assignmentID}
+            userID = {userID}
           />
         </Modal>
       )}
@@ -106,6 +110,7 @@ const AssignmentPage = ({ match }) => {
           <EditAssignmentForm
             setShowModal={setShowEditModal}
             assignmentID={assignmentID}
+            userID = {userID}
           />
         </Modal>
       )}
@@ -185,8 +190,6 @@ const AssignmentPage = ({ match }) => {
                 <p>{description}</p>
               </DescriptionContainer>
 
-              
-
               <ActionContainer>
                 <FaComments />
                 {mutable && (
@@ -210,18 +213,22 @@ const AssignmentPage = ({ match }) => {
               </ReceiverResourceContainer>
             )}
 
-
                 <ResourceContainer>
-                {Resources.map((resource) => !!resource.AssignmentId && (resource.AssignmentId === assignmentID) &&(
-                  <ResourceCard
-                    key={resource.AssignmentId}
-                    {...resource}
-                    showButtons
-                    showType
-                    showDates
-                    showDescription
-                  />
-                ))}
+                {Resources.map((resource) => {
+                  
+                  if ((resource.AssignmentId != null) && (resource.AssignmentId == match.params.assignmentID)) {
+                    return (
+                    console.log("resource " + resource.AssignmentId),
+                    console.log("id " + match.params.assignmentID),
+                    <ResourceCard
+
+                      key={resource.AssignmentId}
+                      {...resource}
+                      showButtons
+                      showType
+                      showDates
+                      showDescription
+                    />)}})}
               </ResourceContainer>
           </AssignmentCardContent>
         )}

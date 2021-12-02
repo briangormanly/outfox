@@ -5,6 +5,9 @@ import "react-quill/dist/quill.snow.css";
 import { addLesson } from '../../redux/actions/userActions';
 import FormInput from '../Form-Input/Form-Input';
 
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 import {BodyContainer, 
         QuillContainer, 
         CreateContainer,
@@ -39,14 +42,19 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
 
     const [ value, setValue ] = useState('');
     
-    
+    const [ editorState, seteditorState ] = useState('');
+
     const [ state, dispatch ] = useReducer(reducer, initialState);
     const { title, description} = state;
     const {
         user: { Lessons },
     } = useSelector((state) => state.userDetail);
     
-    
+    //<Editor
+    //editorState={editorState}
+    //onChange={seteditorState}
+    //style = {stylequill}
+    ///>
     
     const { user: { id } } = useSelector((state) => state.userDetail);
     
@@ -148,7 +156,8 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
                 <br />
 
                 
-
+                
+                
                 <QuillContainer> 
                 <ReactQuill theme="snow" value={value} onChange={setValue} style={stylequill} />  
                 </QuillContainer>

@@ -12,11 +12,13 @@ import {
 } from "./Assignments.elements";
 import { FaClipboard } from "react-icons/fa";
 
-const Assignments = () => {
+const Assignments = (creatorid) => {
   const { user } = useSelector((state) => state.userDetail);
   const { Assignments } = user;
 
   const [showModal, setShowModal] = useState(false);
+
+  console.log(creatorid);
 
   return (
     <Fragment>

@@ -26,9 +26,9 @@ import {
   VerticalLine
 } from "./EditAssignmentForm.elements";
 
-const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
+const EditAssignmentForm = ({ assignmentID, setShowModal, userID }) => {
 
-  console.log("ID: " + assignmentID);
+  console.log("ID: " + userID);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -216,7 +216,7 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
   const currentYear = parseInt(new Date().getFullYear().toString());
   return (
     <EditAssignmentContainer>
-      <Page1Container assignmentID = {assignmentID} id={"edit-assignment-page1"} className={"is-active"}>
+      <Page1Container assignmentID = {assignmentID} userID = {userID} id={"edit-assignment-page1"} className={"is-active"}>
         <h1>Edit Assignment </h1>
         <form onSubmit={handleSubmit}>
           <FormInput
@@ -359,7 +359,7 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
           </ActionButton>
         </form>
       </Page1Container>
-      <Page2Container assignmentID = {assignmentID} id={"edit-assignment-page2"}>
+      <Page2Container assignmentID = {assignmentID} userID = {userID} id={"edit-assignment-page2"}>
         <TitleContainer>
           <FaAngleLeft onClick={togglePagesOneTwo} />
           <h1>My Resources</h1>
@@ -383,7 +383,7 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
         )}
 
       </Page2Container>
-      <Page3Container assignmentID = {assignmentID} id={"edit-assignment-page3"}>
+      <Page3Container assignmentID = {assignmentID} userID = {userID} id={"edit-assignment-page3"}>
         <TitleContainer>
           <FaAngleLeft onClick={togglePagesOneThree} />
         </TitleContainer>
@@ -391,6 +391,7 @@ const EditAssignmentForm = ({ assignmentID, setShowModal }) => {
           assignmentID={assignmentID}
           //isWithAssignments
           setShowModal={setShowModal}
+          userID = {userID}
         />
       </Page3Container>
     </EditAssignmentContainer>

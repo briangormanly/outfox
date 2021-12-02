@@ -40,6 +40,7 @@ const AddResourceForm = ({
   setShowModal,
   assignmentID,
   isWithAssignments,
+  userID
 }) => {
   const [type, setType] = useState("Link");
   const [file, setFile] = useState("");
@@ -121,18 +122,23 @@ const AddResourceForm = ({
 
     if (lessonID) {
       formData.append("LessonId", lessonID);
-      newObject = { ...state, mutable: true, LessonId: lessonID };
+      newObject = { ...state, mutable: true, creatorid: creatorid, LessonId: lessonID };
     }
 
     if (assignmentID) {
       console.log("Assignment id "+ assignmentID)
       formData.append("AssignmentId", assignmentID);
-      newObject = { ...state, mutable: true, AssignmentId: assignmentID };
+      newObject = { ...state, mutable: true,  AssignmentId: assignmentID };
     }
 
     if (creatorid) {
       formData.append("creatorid", creatorid);
       newObject = { ...state, mutable: true, creatorid: creatorid };
+    }
+
+    if (userID) {
+      formData.append("creatorid", userID);
+      newObject = { ...state, mutable: true, creatorid: userID};
     }
 
     try {

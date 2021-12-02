@@ -22,8 +22,10 @@ import { FaPlus} from "react-icons/fa";
 
 
 const initialState = {
+    type        : '',
     title       : '',
     description : '',
+    link        : ''
 };
 
 function reducer(state, { field, value }) {
@@ -45,8 +47,9 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
 
     const stylequill = { background: "white", height: "35em", width: "54em", minheight: "100% ", overflowy:"auto"};
    
-    console.log("Edit: " + lessonID);
-    console.log("Edit: " + creatorid);
+    const params = useParams();
+	console.log(params);
+	console.log(params.lessonID);
  
     // redux
     const storeDispatch = useDispatch();
@@ -66,13 +69,11 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
         [ lessonID ]
     );
 
-    //const params = useParams();
-    //console.log(params);
-    //console.log(lessonID);
+    const handleInput = (e) => {
+        dispatch({ field: e.target.name, value: e.target.value });
+    };
 
-    const handleSubmit = async (e) => {
-
-        console.log('Please');
+    const handleSub = async (e) => {
 
         e.preventDefault();
 
@@ -83,7 +84,11 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
 
         let newObject = {...state };
 
+        console.log(lessonID);
+        console.log(id);
+
         try {
+
             
             storeDispatch(editUserLesson(lessonID, newObject));
 
@@ -91,15 +96,10 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
 
 
         } catch (error) {
-            console.log('An Error Occurred');
+            console.log("1 " + error.toString());
         }
-
-        setShowModal(false);
     };
 
-    const handleInput = (e) => {
-        dispatch({ field: e.target.name, value: e.target.value });
-    };
 
     return (
 
@@ -114,7 +114,7 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
         <Fragment>
         <br />
             <HeaderText>Edit Lesson</HeaderText>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSub}>
                 <FormContainer>
                 <FormInput
                     type="text"
@@ -133,7 +133,7 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
                 />
 
                 </FormContainer>
-            </form> 
+            
                 
    
                 <br />
@@ -142,24 +142,22 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
                 </QuillContainer>
                 <br />
                 <br />
-                
+
                 <br />
-                <br />
+ 
+                <CreateContainer>
+                <ActionButton  edit fullWidth type="submit">
+                    Edit Lesson
+                </ActionButton>
+                </CreateContainer>
+            
+                </form>
 
                 <PlusContainer>
                 <button onClick={() => setShowPlusModal(true)}>
                 <span><FaPlus style={plus} /></span> 
                 </button>
                 </PlusContainer>
-
-                <br />
- 
-                <CreateContainer>
-                <ActionButton  edit = "true" fullwidth type="submit" value= "Upload">
-                    Edit Lesson
-                </ActionButton>
-                </CreateContainer>
-            
                 </Fragment>
         </BodyContainer>
         </React.Fragment>
