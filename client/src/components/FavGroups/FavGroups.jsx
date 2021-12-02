@@ -1,5 +1,10 @@
-import React, { Fragment, useState ,useEffect} from "react";
+import React, { Fragment, useState ,useEffect, useRef} from "react";
 import { useSelector } from "react-redux";
+import { useHistory, useParams} from 'react-router-dom';
+import groupService from '../../services/groups';
+import { CardContainer } from "../FavoriteGroups/FavoriteGroups.elements";
+import { FavGroupCard } from "../index";
+import { Link } from "../../styles";
 import axios from 'axios';
 import { CreateGroupForm, GroupAllCard, Modal } from "../index";
 import {
@@ -10,15 +15,22 @@ import {
   NoGroupsContainer,
   VerticalLine,
 } from "./FavGroups.elements";
+
 import { FaRegFolderOpen } from "react-icons/fa";
 
-const FavGroups = () => {
+const FavGroups = ({ name, description, id }) => {
+
+
+
+
   const { user } = useSelector((state) => state.userDetail);
   //const { Groups } = user;
-
+  const locationParams = useParams();
   const [showModal, setShowModal] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [favGroups, setFavGroups] = useState([]);
+  const params = useParams();
+  const [visible, setVisible] = useState(true);
   useEffect(() => {
     if(!loaded){
       makeCall();
@@ -26,19 +38,31 @@ const FavGroups = () => {
     }  
   }, [loaded]);
 
-
   const makeCall = async ()=>{
     const fGrps = await axios.get("http://localhost:8080/api/groups/favgroups/"+user.id);
     setFavGroups(fGrps.data);
   }
+  const scrollRef = useRef(null);
+  const onWheel = (e) => {
+    const container = scrollRef.current;
+    const containerScrollPosition = scrollRef.current.scrollLeft;
+
+    container.scrollTo({
+      top: 0,
+      left: containerScrollPosition + e.deltaY,
+    });
+  };
+  const removeFavorite = async () =>{
+    console.log("doing stuff to group" + id);
+    const resp = await groupService.remFavoriteGroup( params.id, id);
+    setVisible(false);
+  };
 
 
 
 
 
-
-
-
+  const userURL = `/user/${locationParams.id}`;
 
   return (
     <Fragment>
@@ -48,31 +72,27 @@ const FavGroups = () => {
         </Modal>
       )}
       <GroupContainer>
-        <button onClick={() => setShowModal(true)}> Create Group </button>
-        <TitleContainer>
-          <h1>My Favorite Groups</h1>
-          <InnerContainer>
+      {favGroups != []  ? (
+        <CardContainer ref={scrollRef} onWheel={onWheel}>
+          {favGroups.map((group) => (
            
-                <Content>
-                {favGroups != [] ?(
-              favGroups.map((group) => (
-                <GroupAllCard key={group.id} {...group} />
-              ))
-            ) :
-               (
-                <NoGroupsContainer>
-                  <FaRegFolderOpen />
-                  <VerticalLine />
-                  <p> You do not have any groups</p>
-                  <button onClick={() => setShowModal(true)}>
-                    Create Group
-                  </button>
-                </NoGroupsContainer>
-              )}
-            </Content>
-
-          </InnerContainer>
-        </TitleContainer>
+            <FavGroupCard
+              key={group.id}
+              id={group.id}
+              name={group.groupname}
+              description={group.groupdescription}
+            />
+    
+          ))}
+        </CardContainer>
+      ) : (
+        <NoGroupsContainer>
+          <p> You do not have any groups</p>
+          <button>
+            <Link to={`${userURL}/groups`}> Create Group</Link>{" "}
+          </button>
+        </NoGroupsContainer>
+      )}
       </GroupContainer>
     </Fragment>
   );
