@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-const sequelize = new Sequelize("outfoxdb", "salcosser", "salcosser123!", {
+const sequelize = new Sequelize("outfoxdb2", "salcosser", "salcosser123!", {
   host: "pg.terramisha.com",
   username: "salcosser",
   password: "salcosser123!",
