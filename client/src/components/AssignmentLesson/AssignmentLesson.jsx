@@ -29,21 +29,15 @@ const AssignmentLesson = ({ lessonID, setShowModal }) => {
   const dispatch = useDispatch();
 
   const addLessonAssignment = async (assignmentID) => {
-    const response = await lessonService.getLessonData(lessonID);
-
+    
     console.log(assignmentID);
     console.log(lessonID);
 
-    const { Assignments, description, title } = response;
+    {Assignments.map((assignments) => !assignments.LessonId && (assignments.id == assignmentID) &&(
+      
+      assignments.LessonId = lessonID
 
-    const newObject = {
-      Assignments,
-      description,
-      title,
-    };
-    console.log(newObject);
-
-    dispatch(createLessonAction(newObject, Assignments));
+    ))}
   };
 
   return (
@@ -71,10 +65,7 @@ const AssignmentLesson = ({ lessonID, setShowModal }) => {
                 <SelectAssignmentContainer>
                   <h1 style={style}> {assignment.title}</h1>
                   <SelectButtonContainer>
-                    <button
-                      primary="true"
-                      onClick={() => addLessonAssignment(assignment.id)}
-                    >
+                    <button primary="true" onClick={() => addLessonAssignment(assignment.id)}>
                       Select
                     </button>
                   </SelectButtonContainer>

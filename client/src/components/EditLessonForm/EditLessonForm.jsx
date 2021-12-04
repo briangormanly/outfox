@@ -39,7 +39,9 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
 
     const [ value, setValue ] = useState('');
     const [ state, dispatch ] = useReducer(reducer, initialState);
-    const { title, description} = state;
+    //const { title, description} = state;
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
     const plus = { color: "white", fontSize: "2.5em"};
     const [ showPlusModal, setShowPlusModal ] = useState(false);
     
@@ -59,8 +61,9 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
             const fetchData = async () => {
                 const response = await lessonService.getLessonData(lessonID);
                 const {title, description} = response;
-                dispatch({ field: 'title', value: title });
-                dispatch({ field: 'description', value: description });
+            
+                setTitle(title);
+                setDescription(description);
                 
             };
 
@@ -73,7 +76,15 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
         dispatch({ field: e.target.name, value: e.target.value });
     };
 
-    const handleSub = async (e) => {
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+      };
+    
+      const handleDescriptionChange = (e) => {
+        setDescription(e.target.value);
+      };
+
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
@@ -82,7 +93,11 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
             return;
         }
 
-        let newObject = {...state };
+        const newLessonObject = {
+            title: title,
+            description: description,
+            
+        };
 
         console.log(lessonID);
         console.log(id);
@@ -90,7 +105,7 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
         try {
 
             
-            storeDispatch(editUserLesson(lessonID, newObject));
+            storeDispatch(editUserLesson(lessonID, newLessonObject));
 
             setShowModal(false);
 
@@ -114,14 +129,14 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
         <Fragment>
         <br />
             <HeaderText>Edit Lesson</HeaderText>
-            <form onSubmit={handleSub}>
+            <form onSubmit={handleSubmit}>
                 <FormContainer>
                 <FormInput
                     type="text"
                     name="title"
                     label="title"
                     value={title}
-                    onChange={handleInput}
+                    onChange={handleTitleChange}
                 />
 
                 <FormInput
@@ -129,7 +144,7 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
                     name="description"
                     //label="Description"
                     value={value}
-                    onChange={handleInput}
+                    onChange={handleDescriptionChange}
                 />
 
                 </FormContainer>

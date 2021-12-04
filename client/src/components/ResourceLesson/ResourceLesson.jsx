@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, {useReducer, Fragment, useState } from "react";
 import {addLessonResource, editLesson} from "../../redux/actions/lessonsActions";
+import {createLessonAction} from "../../redux/actions/userActions";
 
 import {
   ResourceContainer,
@@ -17,6 +18,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaClipboard } from "react-icons/fa";
 import {Modal, AddResourceForm} from "../index";
 
+const initialState = {
+  title: "",
+  description: "",
+  link: "",
+};
+
+function reducer(state, { field, value }) {
+  return {
+    ...state,
+    [field]: value,
+  };
+}
+
 
 const ResourceLesson = ({creatorid, lessonID, setShowModal}) => {
 
@@ -29,17 +43,25 @@ const ResourceLesson = ({creatorid, lessonID, setShowModal}) => {
   const { Resources} = user;
   const style = { color: "black"};
   const style1 = { margin : "auto"};
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { title, description, link } = state;
   
   
   //redux
-  const dispatch = useDispatch();
+  const storeDispatch = useDispatch();
 
   const addLessonResource = async (resourceID) => {
-    const response = await lessonService.getLessonData(lessonID);
+
 
     console.log(resourceID);
     console.log(lessonID);
 
+    {Resources.map((resource) => !resource.LessonId && (resource.id == resourceID) &&(
+      
+      resource.LessonId = lessonID
+
+    ))}
 
   };
   
