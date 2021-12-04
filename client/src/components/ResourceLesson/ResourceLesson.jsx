@@ -1,5 +1,5 @@
 import React, {useReducer, Fragment, useState } from "react";
-import {addLessonResource, editLesson} from "../../redux/actions/lessonsActions";
+import {addExistingLessonResource, editLesson} from "../../redux/actions/lessonsActions";
 import {createLessonAction} from "../../redux/actions/userActions";
 
 import {
@@ -59,7 +59,8 @@ const ResourceLesson = ({creatorid, lessonID, setShowModal}) => {
 
     {Resources.map((resource) => !resource.LessonId && (resource.id == resourceID) &&(
       
-      resource.LessonId = lessonID
+      resource.LessonId = lessonID,
+      storeDispatch(addExistingLessonResource(resourceID))
 
     ))}
 

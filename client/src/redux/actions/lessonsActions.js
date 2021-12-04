@@ -31,6 +31,15 @@ export const addLessonResource = (newResourceObject) => async (dispatch) => {
     }
 };
 
+export const addExistingLessonResource = (id) => async (dispatch) => {
+    try {
+        const { resource } = await lessonService.getResourceData(id);
+        dispatch({ type: LESSON_ADD_RESOURCE, payload: resource });
+    } catch (error) {
+        console.log('An error occurred during add request');
+    }
+};
+
 
 export const editLesson = (lessonID, newLessonObject) => async (dispatch) => {
     try {
@@ -77,6 +86,15 @@ export const deleteLessonResource = (resourceID) => async (dispatch) => {
 export const addLessonAssignment = (newAssignmentObject) => async (dispatch) => {
     try {
         const { assignment } = await lessonService.createAssignment(newAssignmentObject);
+        dispatch({ type: LESSON_ADD_ASSIGNMENT, payload: assignment });
+    } catch (error) {
+        console.log('An error occurred during add request');
+    }
+};
+
+export const addExistingLessonAssignment = (id) => async (dispatch) => {
+    try {
+        const { assignment } = await lessonService.getAssignmentData(id);
         dispatch({ type: LESSON_ADD_ASSIGNMENT, payload: assignment });
     } catch (error) {
         console.log('An error occurred during add request');

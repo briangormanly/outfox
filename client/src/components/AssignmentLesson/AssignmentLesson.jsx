@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { addLessonAssignment } from "../../redux/actions/lessonsActions";
+import { addExistingLessonAssignment } from "../../redux/actions/lessonsActions";
 import { createLessonAction } from "../../redux/actions/userActions";
 import {
   NoAssignmentsContainer,
@@ -26,7 +26,8 @@ const AssignmentLesson = ({ lessonID, setShowModal }) => {
 
   const { Assignments } = user;
 
-  const dispatch = useDispatch();
+  //redux
+  const storeDispatch = useDispatch();
 
   const addLessonAssignment = async (assignmentID) => {
     
@@ -35,7 +36,8 @@ const AssignmentLesson = ({ lessonID, setShowModal }) => {
 
     {Assignments.map((assignments) => !assignments.LessonId && (assignments.id == assignmentID) &&(
       
-      assignments.LessonId = lessonID
+      assignments.LessonId = lessonID,
+      storeDispatch(addExistingLessonAssignment(assignmentID))
 
     ))}
   };
