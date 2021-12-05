@@ -30,14 +30,22 @@ const AssignmentLesson = ({ lessonID, setShowModal }) => {
   const storeDispatch = useDispatch();
 
   const addLessonAssignment = async (assignmentID) => {
-    
+
+    const response = await lessonService.getAssignmentData(assignmentID);
+    const { title, description, opendate, duedate, closedate } = response;
+
+    let newObject = { ...response };
+
     console.log(assignmentID);
     console.log(lessonID);
+
+    newObject = { ...response, mutable: true, LessonId: lessonID };
+    
 
     {Assignments.map((assignments) => !assignments.LessonId && (assignments.id == assignmentID) &&(
       
       assignments.LessonId = lessonID,
-      storeDispatch(addExistingLessonAssignment(assignmentID))
+      storeDispatch(addExistingLessonAssignment(assignmentID, newObject))
 
     ))}
   };

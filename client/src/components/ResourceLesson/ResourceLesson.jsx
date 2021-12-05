@@ -1,4 +1,4 @@
-import React, {useReducer, Fragment, useState } from "react";
+import React, {useReducer, Fragment, useState, useEffect } from "react";
 import {addExistingLessonResource, editLesson} from "../../redux/actions/lessonsActions";
 import {createLessonAction} from "../../redux/actions/userActions";
 
@@ -43,24 +43,32 @@ const ResourceLesson = ({creatorid, lessonID, setShowModal}) => {
   const { Resources} = user;
   const style = { color: "black"};
   const style1 = { margin : "auto"};
+  
+  const [ state, dispatch ] = useReducer(reducer, initialState);
+	const { type, title, description, link } = state;
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { title, description, link } = state;
-  
-  
   //redux
   const storeDispatch = useDispatch();
 
+ 
+
   const addLessonResource = async (resourceID) => {
 
+    const response = await lessonService.getResourceData(resourceID);
+		const { type, title, description, link } = response;
+
+    let newObject = { ...response };
 
     console.log(resourceID);
     console.log(lessonID);
 
+    newObject = { ...response, mutable: true, creatorid: creatorid, LessonId: lessonID };
+
     {Resources.map((resource) => !resource.LessonId && (resource.id == resourceID) &&(
       
+      
       resource.LessonId = lessonID,
-      storeDispatch(addExistingLessonResource(resourceID))
+      storeDispatch(addExistingLessonResource(resourceID, newObject))
 
     ))}
 
