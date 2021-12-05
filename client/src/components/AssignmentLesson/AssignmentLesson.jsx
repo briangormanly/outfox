@@ -3,7 +3,6 @@ import { addExistingLessonAssignment } from "../../redux/actions/lessonsActions"
 import { createLessonAction } from "../../redux/actions/userActions";
 import {
   NoAssignmentsContainer,
-  AssignmentsContainer,
   SelectAssignmentContainer,
   AddAssignmentButton,
   InnerContainer,
@@ -30,7 +29,6 @@ const AssignmentLesson = ({ lessonID, setShowModal }) => {
   const storeDispatch = useDispatch();
 
   const addLessonAssignment = async (assignmentID) => {
-
     const response = await lessonService.getAssignmentData(assignmentID);
     const { title, description, opendate, duedate, closedate } = response;
 
@@ -40,14 +38,16 @@ const AssignmentLesson = ({ lessonID, setShowModal }) => {
     console.log(lessonID);
 
     newObject = { ...response, mutable: true, LessonId: lessonID };
-    
 
-    {Assignments.map((assignments) => !assignments.LessonId && (assignments.id == assignmentID) &&(
-      
-      assignments.LessonId = lessonID,
-      storeDispatch(addExistingLessonAssignment(assignmentID, newObject))
-
-    ))}
+    {
+      Assignments.map(
+        (assignments) =>
+          !assignments.LessonId &&
+          assignments.id == assignmentID &&
+          ((assignments.LessonId = lessonID),
+          storeDispatch(addExistingLessonAssignment(assignmentID, newObject)))
+      );
+    }
   };
 
   return (
@@ -75,13 +75,17 @@ const AssignmentLesson = ({ lessonID, setShowModal }) => {
                 <SelectAssignmentContainer>
                   <h1 style={style}> {assignment.title}</h1>
                   <SelectButtonContainer>
-                    <button primary="true" onClick={() => addLessonAssignment(assignment.id)}>
+                    <button
+                      primary="true"
+                      onClick={() => addLessonAssignment(assignment.id)}
+                    >
                       Select
                     </button>
                   </SelectButtonContainer>
                   <br />
                 </SelectAssignmentContainer>
               ))}
+              <br />
               <AddAssignmentButton onClick={() => setShowModal(false)}>
                 Add Assignment
               </AddAssignmentButton>

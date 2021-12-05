@@ -19,10 +19,6 @@ export const NoAssignmentsContainer = styled.div`
   }
 `;
 
-export const AssignmentsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 export const AddAssignmentButton = styled.button`
   width: 100%;
 `;
@@ -64,7 +60,6 @@ export const Content = styled.div`
     font-size: 1.6rem;
     padding: 0.7rem 1rem;
     display: flex;
-    margin-left: 1rem;
     justify-content: space-around;
     align-items: center;
     cursor: pointer;
