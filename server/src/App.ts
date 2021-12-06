@@ -23,7 +23,7 @@ class App {
   constructor(controllers: Controller[], port: number) {
     this.app = express(); // Express Application Instance
     this.port = port;
-    this.initializeDatabaseConnection(); // Connects to the database and verifies the connection.
+    // this.initializeDatabaseConnection(); // Connects to the database and verifies the connection.
     sync(); // Synchronizes the models (Probably should switch to migrations)
     this.initializeMiddlewares(); // Connects the middleware methods to the application level (Highest Level)
     this.initializeControllers(controllers); // Connects the applications router to the individual controllers routing
@@ -33,25 +33,25 @@ class App {
    * Used to connect to our database
    * TO DO: Delete the db connection file and then export App and use App.sequelize everywhere (!!!)
    */
-  private async initializeDatabaseConnection(): Promise<void> {
-    this.sequelize = new Sequelize("outfoxdb", "sqlize", "", {
-      host: "localhost",
-      dialect: "postgres",
-    });
-    // this.sequelize = new Sequelize("outfoxdb", "salcosser", "salcosser123!", {
-    //   host: "pg.terramisha.com",
-    //   username: "salcosser",
-    //   password: "salcosser123!",
-    //   dialect: "postgres",
-    //   logging: false,
-    // });
-    try {
-      await this.sequelize.authenticate();
-      console.log("Connection has been established successfully");
-    } catch (err) {
-      console.error("Unable to connect to the databse:", err);
-    }
-  }
+  // private async initializeDatabaseConnection(): Promise<void> {
+  //   this.sequelize = new Sequelize("outfoxdb", "sqlize", "", {
+  //     host: "localhost",
+  //     dialect: "postgres",
+  //   });
+  //   // this.sequelize = new Sequelize("outfoxdb", "salcosser", "salcosser123!", {
+  //   //   host: "pg.terramisha.com",
+  //   //   username: "salcosser",
+  //   //   password: "salcosser123!",
+  //   //   dialect: "postgres",
+  //   //   logging: false,
+  //   // });
+  //   try {
+  //     await this.sequelize.authenticate();
+  //     console.log("Connection has been established successfully");
+  //   } catch (err) {
+  //     console.error("Unable to connect to the databse:", err);
+  //   }
+  // }
 
   // Application Level Middleware Initialization
   private initializeMiddlewares(): void {
