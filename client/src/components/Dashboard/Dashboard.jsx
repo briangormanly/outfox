@@ -104,8 +104,8 @@ const Dashboard = ({ dashboardPaginate }) => {
             </React.Fragment>
           }
         >
-          <DashboardSharedGroups />
-          <DashboardSharedResources />
+          {/* <DashboardSharedGroups /> */}
+          {/* <DashboardSharedResources /> */}
         </Collapsible>
       </SharedWithMeContainer>
 
