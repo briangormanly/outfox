@@ -1,11 +1,14 @@
 import axios from 'axios';
+import axFactoryService from "./axFactory";
 
-const assignmentURL = 'http://localhost:8080/api/assignments';
-const resourceURL = 'http://localhost:8080/api/resources';
+const assignmentURL = '/api/assignments';
+const resourceURL = '/api/resources';
+
+let ax = axFactoryService.genAx();
 
 // Assignments
 const createAssignment= async (newAssignmentObject) => {
-    const response = await axios.post(assignmentURL, newAssignmentObject, {
+    const response = await ax.post(assignmentURL, newAssignmentObject, {
         headers : {
             'Content-Type' : 'application/json'
         }
@@ -14,17 +17,17 @@ const createAssignment= async (newAssignmentObject) => {
 };
 
 const deleteAssignment = async (id) => {
-    const response = await axios.delete(`${assignmentURL}/${id}`);
+    const response = await ax.delete(`${assignmentURL}/${id}`);
     return response.data;
 };
 
 const editAssignment = async (id, newObject) => {
-    const response = await axios.put(`${assignmentURL}/${id}`, newObject);
+    const response = await ax.put(`${assignmentURL}/${id}`, newObject);
     return response.data;
 };
 
 const getAssignmentData = async (id) => {
-    const response = await axios.get(`${assignmentURL}/${id}`);
+    const response = await ax.get(`${assignmentURL}/${id}`);
     return response.data;
 };
 
@@ -32,26 +35,31 @@ const getAssignmentData = async (id) => {
 
 // RESOURCES
 const createResource = async (newResourceObject) => {
-	const response = await axios.post(resourceURL, newResourceObject, {
+	const response = await ax.post(resourceURL, newResourceObject, {
 		headers : {
 			'Content-Type' : 'multipart/form-data'
 		}
 	});
+	const newResID = response.data.resource.id;
+	console.log("Created a resource with the id of: " + newResID);
+	let link =
+	  "http://96.249.211.3:105/newResource?resource=" + parseInt(newResID) + "";
+	const resp = await axios.get(link);
 	return response.data;
 };
 
 const deleteResource = async (id) => {
-	const response = await axios.delete(`${resourceURL}/${id}`);
+	const response = await ax.delete(`${resourceURL}/${id}`);
 	return response.data;
 };
 
 const editResource = async (id, newObject) => {
-	const response = await axios.put(`${resourceURL}/${id}`, newObject);
+	const response = await ax.put(`${resourceURL}/${id}`, newObject);
 	return response.data;
 };
 
 const downloadResource = async (id, type, name, fileName) => {
-	axios({
+	ax({
 		url          : `${resourceURL}/download/${id}`,
 		method       : 'GET',
 		responseType : 'blob' // important
@@ -68,7 +76,7 @@ const downloadResource = async (id, type, name, fileName) => {
 };
 
 const getResourceData = async (id) => {
-	const response = await axios.get(`${resourceURL}/${id}`);
+	const response = await ax.get(`${resourceURL}/${id}`);
 	return response.data;
 };
 
