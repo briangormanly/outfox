@@ -1,5 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
+import Assignments from "./Assignments";
+import Lessons from "./Lessons";
 //import File from "./File";
 import User from "./User";
 
@@ -13,6 +15,8 @@ class Resource extends Model {
   public fileName: string;
   public mutable: boolean;
   public creatorid: number;
+  public AssignmentId: number;
+  public LessonId: number;
   //public fileid: string;
 }
 
@@ -58,6 +62,22 @@ Resource.init(
         key: "id",
       },
     },
+    AssignmentId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: Assignments,
+        key: "id",
+      }
+    },
+    LessonId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: Lessons,
+        key: "id",
+      },
+    }
 /*     fileid:{
       type: DataTypes.STRING,
       allowNull: true,

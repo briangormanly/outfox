@@ -81,19 +81,19 @@ async function Associations(): Promise<void> {
       timestamps: false,
     });
 
-    //Assignments.hasMany(Resource);
+    Assignments.hasMany(Resource);
     Resource.belongsToMany(Assignments, {
       through: "assignmentresources",
       timestamps: false
     });
 
-    //Lessons.hasMany(Resource);
+    Lessons.hasMany(Resource);
     Resource.belongsToMany(Lessons, {
       through: "lessonresources",
       timestamps: false,
     });
 
-    //Lessons.hasMany(Assignments);
+    Lessons.hasMany(Assignments);
     Assignments.belongsToMany(Lessons, {
       through: "lessonassignments",
       timestamps: false,

@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../middleware/databaseConnection";
+import Lessons from "./Lessons";
 import User from "./User";
 
 class Assignments extends Model{
@@ -13,6 +14,7 @@ class Assignments extends Model{
     public status: string;
     public grade: string;
     public mutable: boolean;
+    public LessonId: number;
 }
 
 Assignments.init(
@@ -62,6 +64,14 @@ Assignments.init(
         mutable:{
             type: DataTypes.BOOLEAN,
             allowNull: false
+        },
+        LessonId:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: Lessons,
+                key: "id"
+            }
         }
     },{sequelize, timestamps: true, tableName: "assignments"}
 );
