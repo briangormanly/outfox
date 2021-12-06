@@ -82,7 +82,7 @@ export const FavSideNavButton = styled.button`
   height: 5rem;
   border: none;
   font-size: 1.6rem;
-  color: darkgreen;
+  color: #800000;
   cursor: pointer;
   display: flex;
   justify-content: center;

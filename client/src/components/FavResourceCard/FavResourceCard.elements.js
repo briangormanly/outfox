@@ -169,7 +169,7 @@ export const ShowCommentButton = styled.button`
   margin-top: .1rem!important;
   /* width: 12rem; */
   padding: 1rem 3rem;
-  background-color: darkgreen !important;
+  background-color: #800000 !important;
   border: none;
   color: ${secondary};
   font-size: 1.4rem;

@@ -53,7 +53,7 @@ export const Card = styled.div`
 		font-size: 1.6rem;
 		padding: 0.7rem 1rem;
 		cursor: pointer;
-		background-color: green!important;
+		background-color: #800000!important;
 		border: none;
 		border-radius: 5px;
 		color: ${white};
