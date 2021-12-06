@@ -5,8 +5,8 @@ import "react-quill/dist/quill.snow.css";
 import { addLesson } from '../../redux/actions/userActions';
 import FormInput from '../Form-Input/Form-Input';
 
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+//import { Editor } from "react-draft-wysiwyg";
+//import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import {BodyContainer, 
         QuillContainer, 
