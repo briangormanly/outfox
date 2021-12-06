@@ -32,7 +32,7 @@ const Help = () => {
 			</SubtitleContainer>
 			<SubtitleContainer>
 				<h3>Github Reference</h3>
-				<u><p><a href="https://github.com/briangormanly/outfox">Outfox Github</a></p></u>
+				<u><p><a href="https://github.com/briangormanly/outfox" target="_blank">Outfox Github</a></p></u>
 			</SubtitleContainer>
 		</HelpContainer>
 		
@@ -42,15 +42,3 @@ const Help = () => {
 };
 
 export default Help;
-
-
-
-
-
-
-
-
-
-
-
-
