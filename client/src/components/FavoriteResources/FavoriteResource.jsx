@@ -7,17 +7,14 @@ import {
   Header,
   ButtonContainer,
 } from "../DashboardGroups/DashboardGroups.elements";
-import {
-  ResourcesContainer,
-  ResourceList,
-} from "./FavoriteResource.elements";
+import { ResourcesContainer, ResourceList } from "./FavoriteResource.elements";
 
 import { Modal, AddResourceForm, FavResourceCard } from "../index";
-
+import axFactoryService from "../../services/axFactory";
 function FavoriteResource({ dashboardPaginate }) {
   const [showModal, setShowModal] = useState(false);
   const [favRecs, setFavRecs] = useState([]);
-   const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const { user } = useSelector((state) => state.userDetail);
   const { id, Resources } = user;
 
@@ -30,19 +27,18 @@ function FavoriteResource({ dashboardPaginate }) {
   };
 
   useEffect(() => {
-    if(!loaded){
+    if (!loaded) {
       makeCall();
       setLoaded(true);
-    }  
+    }
   }, [loaded]);
 
+  const makeCall = async () => {
+    let ax = axFactoryService.genAx();
 
-
-  const makeCall = async ()=>{
-    const frcs = await axios.get("http://localhost:8080/api/groups/favrecs/"+params.id);
+    const frcs = await ax.get("/api/groups/favrecs/" + params.id);
     setFavRecs(frcs.data);
-  }
-
+  };
 
   return (
     <React.Fragment>
@@ -52,7 +48,6 @@ function FavoriteResource({ dashboardPaginate }) {
         </Modal>
       )}
       <Header>
-
         <ButtonContainer>
           <button onClick={() => setShowModal(true)}>
             <span>Create Resource</span> <FaPlus />
@@ -64,9 +59,12 @@ function FavoriteResource({ dashboardPaginate }) {
         </ButtonContainer>
       </Header>
       <ResourceList>
-        {favRecs && favRecs.filter((resource, indx) => indx < 5).map((resource) => (
-          <FavResourceCard small showSVG key={resource.id} {...resource} />
-        ))}
+        {favRecs &&
+          favRecs
+            .filter((resource, indx) => indx < 5)
+            .map((resource) => (
+              <FavResourceCard small showSVG key={resource.id} {...resource} />
+            ))}
       </ResourceList>
     </React.Fragment>
   );

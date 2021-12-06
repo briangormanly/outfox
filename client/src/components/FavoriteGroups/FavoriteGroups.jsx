@@ -13,27 +13,28 @@ import {
 import { Link } from "../../styles";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import axFactoryService from "../../services/axFactory";
 const FavoriteGroups = () => {
   const locationParams = useParams();
-  const [favGroups,setFavGroups] = useState([]);
+  const [favGroups, setFavGroups] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const Uparams = useParams();
   const { user } = useSelector((state) => state.userDetail);
   const { id, Resources } = user;
-	//const currentUserId = parseFloat(Uparams.id);
+  //const currentUserId = parseFloat(Uparams.id);
   useEffect(() => {
-    if(!loaded){
+    if (!loaded) {
       makeCall();
       setLoaded(true);
-    }  
+    }
   }, [loaded]);
 
+  const makeCall = async () => {
+    let ax = axFactoryService.genAx();
 
-  const makeCall = async ()=>{
-    const fGrps = await axios.get("http://localhost:8080/api/groups/favgroups/"+locationParams.id);
+    const fGrps = await ax.get("/api/groups/favgroups/" + locationParams.id);
     setFavGroups(fGrps.data);
-  }
+  };
 
   const scrollRef = useRef(null);
 
@@ -47,22 +48,18 @@ const FavoriteGroups = () => {
     });
   };
 
-
-  
   const userURL = `/user/${locationParams.id}`;
   return (
     <GroupsContainer>
-      {favGroups != []  ? (
+      {favGroups != [] ? (
         <CardContainer ref={scrollRef} onWheel={onWheel}>
           {favGroups.map((group) => (
-           
             <FavGroupCard
               key={group.id}
               id={group.id}
               name={group.groupname}
               description={group.groupdescription}
             />
-    
           ))}
         </CardContainer>
       ) : (
