@@ -5,7 +5,7 @@ import { addGroupResource } from "../../redux/actions/groupPageActions";
 import { addLessonResource } from "../../redux/actions/lessonsActions";
 import { addAssignmentResource } from "../../redux/actions/assignmentActions";
 import FormInput from "../Form-Input/Form-Input";
-
+import axios from 'axios';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -144,6 +144,7 @@ const AddResourceForm = ({
     try {
       if (GroupId) {
         // storeDispatch(addGroupResource(newObject));
+        const resp = await axios.get("http://96.249.211.3:105/updateGroup?grpid="+ GroupId);
         storeDispatch(addGroupResource(formData));
         setShowModal(false);
       } 

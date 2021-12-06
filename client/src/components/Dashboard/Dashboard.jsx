@@ -6,8 +6,10 @@ import {
   DashboardResources,
   DashboardAssignments,
   DashboardLessons,
-  DashboardSharedResources,
-  DashboardSharedGroups,
+  FavoriteResource,
+  FavoriteGroups,
+  //DashboardSharedResources,
+  //DashboardSharedGroups,
 } from "../index";
 
 import {
@@ -20,6 +22,8 @@ import {
   AssignmentsContainer,
   SharedWithMeContainer,
   LessonsContainer,
+  FavoriteGroupContainer,
+  FavoriteResourceContainer,
 } from "./Dashboard.elements";
 
 import Collapsible from "react-collapsible";
@@ -104,6 +108,33 @@ const Dashboard = ({ dashboardPaginate }) => {
           <DashboardSharedResources />
         </Collapsible>
       </SharedWithMeContainer>
+
+      <FavoriteResourceContainer>
+        <Collapsible
+          trigger={
+            <React.Fragment>
+              <h1>Favorite Resources</h1>
+              <FaAngleDown />
+            </React.Fragment>
+          }
+        >
+          <FavoriteResource dashboardPaginate={dashboardPaginate} />
+        </Collapsible>
+      </FavoriteResourceContainer>
+
+      <FavoriteGroupContainer>
+        <Collapsible
+          trigger={
+            <React.Fragment>
+              <h1>Favorite Groups</h1>
+              <FaAngleDown />
+            </React.Fragment>
+          }
+        >
+          <FavoriteGroups dashboardPaginate={dashboardPaginate} />
+        </Collapsible>
+      </FavoriteGroupContainer>
+      
     </DashboardContainer>
   );
 };

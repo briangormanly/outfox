@@ -30,6 +30,8 @@ import {
   ExploreGroup,
   Friends,
   Loader,
+  FavGroups,
+  FavRecs
 } from "../../components";
 
 import Assignments from "../../components/Assignments/Assignments";
@@ -50,6 +52,8 @@ const initalState = {
   assignmentsActive: false,
   lessonsActive: false,
   helpActive: false,
+  favgActive: false,
+	favrActive: false
 };
 
 const UserPage = ({ match }) => {
@@ -99,6 +103,9 @@ const UserPage = ({ match }) => {
             <Route exact path={`${match.path}/groups`}>
               <GroupsP />
             </Route>
+            <Route exact path={`${match.path}/favgroups`}>
+              <FavGroups/>
+              </Route>
             <Route
               exact
               path={`/user/:userID/groups/:groupID`}
@@ -107,6 +114,9 @@ const UserPage = ({ match }) => {
 
             <Route exact path={`${match.path}/resources`}>
               <ResourcesP />
+            </Route>
+            <Route exact path={`${match.path}/favresources`}>
+              <FavRecs />
             </Route>
             <Route exact path={`${match.path}/assignments`}>
               <Assignments />

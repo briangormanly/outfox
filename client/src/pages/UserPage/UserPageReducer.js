@@ -10,7 +10,9 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : false,
 				lessonsActive   : false,
 				friendsActive   : false,
-				helpActive      : false
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		:false
 			};
 		case 'groups':
 			return {
@@ -22,7 +24,9 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : false,
 				lessonsActive   : false,
 				friendsActive   : false,
-				helpActive      : false
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		:false
 			};
 		case 'resources':
 			return {
@@ -34,7 +38,9 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : false,
 				lessonsActive   : false,
 				friendsActive   : false,
-				helpActive      : false
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		:false
 			};
 		case 'assignments':
 			return {
@@ -46,7 +52,9 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : false,
 				lessonsActive   : false,
 				friendsActive   : false,
-				helpActive      : false
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		:false
 			};
 		case 'explore':
 			return {
@@ -58,7 +66,9 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : true,
 				lessonsActive   : false,
 				friendsActive   : false,
-				helpActive      : false
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		:false
 			};
 		case 'lessons':
 			return {
@@ -70,7 +80,9 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : false,
 				lessonsActive   : true,
 				friendsActive   : false,
-				helpActive      : false
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		:false
 			};
 		case 'calendar':
 			return {
@@ -82,7 +94,9 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : false,
 				lessonsActive   : false,
 				friendsActive   : false,
-				helpActive      : false
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		:false
 			};
 		case 'friends':
 			return {
@@ -94,7 +108,9 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : false,
 				lessonsActive   : false,
 				friendsActive   : true,
-				helpActive      : false
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		:false
 			};
 		case 'help':
 			return {
@@ -106,7 +122,37 @@ export const userPageReducer = (state = {}, action) => {
 				exploreActive   : false,
 				lessonsActive   : false,
 				friendsActive   : false,
-				helpActive      : true
+				helpActive      : true,
+				favgActive		: false,
+				favrActive		:false
+			};
+		case 'favgroups':
+			return{
+				...state,
+				dashboardActive : false,
+				groupsActive    : false,
+				resourcesActive : false,
+				assignmentsActive : false,
+				exploreActive   : false,
+				lessonsActive   : false,
+				friendsActive   : false,
+				helpActive      : false,
+				favgActive		: true,
+				favrActive		:false
+			};
+		case 'favresources':
+			return{
+				...state,
+				dashboardActive : false,
+				groupsActive    : false,
+				resourcesActive : false,
+				assignmentsActive : false,
+				exploreActive   : false,
+				lessonsActive   : false,
+				friendsActive   : false,
+				helpActive      : false,
+				favgActive		: false,
+				favrActive		: true
 			};
 		default:
 			return state;

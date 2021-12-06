@@ -2,8 +2,10 @@ import { Router, Request, Response } from "express";
 import Group from "../models/Group";
 import Controller from "../interfaces/ControllerInterface";
 import Resource from "../models/Resource";
+import FavoriteResource from "../models/FavoriteResource";
+import FavoriteGroup from "../models/FavoriteGroup";
 import GroupResource from "../models/GroupResource";
-
+import sequelize from "../middleware/databaseConnection";
 /**
  * The group controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
@@ -31,6 +33,12 @@ class GroupsController implements Controller {
     this.router
       .route(this.path + "/groupsandresources/" + ":id")
       .get(this.getGroupsandResources);
+    this.router.route(this.path + "/favgroups/:id").get(this.getFavGroups);
+    this.router.route(this.path + "/favrecs/:id").get(this.getFavResources);
+    this.router.route(this.path + "/addfavgrp/:id/:grpid").get(this.setFavGroup);
+    this.router.route(this.path + "/remfavgrp/:id/:grpid").get(this.remFavGroup);
+    this.router.route(this.path+"/addfavrec/:id/:recid").get(this.setFavResource);
+    this.router.route(this.path+"/remfavrec/:id/:recid").get(this.remFavResource);
     // Need to add patch
   }
 
@@ -169,6 +177,111 @@ class GroupsController implements Controller {
       response.status(500).send(error.message);
     }
   };
+
+    /**
+   * gets favorite groups fpr homepage
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getFavGroups = async (request: Request, response: Response): Promise<void> =>{
+      try{
+        const{id} = request.params;
+        const qry = `SELECT groups.* FROM favoritegroup, groups WHERE favoritegroup.userid = ${parseInt(id)} AND favoritegroup.groupid = groups.id;`;
+        const favGroups = await sequelize.query(qry, {
+          model: Group,
+          mapToModel: true // pass true here if you have any mapped fields
+        });
+        response.status(200).json(favGroups);
+      } catch(error){
+        response.status(500).send(error.message);
+      }
+  };
+    /**
+   * gets favorite resources fpr homepage
+   * @param request HTTP browser request
+   * @param response HTTP browser response
+   */
+  getFavResources = async (request: Request, response: Response): Promise<void> =>{
+    try{
+      const{id} = request.params;
+      const qry = `SELECT resources.* FROM favoriteresource, resources WHERE favoriteresource.userid = ${parseInt(id)} AND favoriteresource.resourceid = resources.id;`;
+      const favResources = await sequelize.query(qry, {
+        model: Group,
+        mapToModel: true // pass true here if you have any mapped fields
+      });
+     
+        response.status(200).json(favResources);
+      
+     
+    } catch(error){
+      response.status(500).send(error.message);
+    }
+};
+setFavGroup = async(request: Request, response: Response): Promise<void> =>{
+  try{
+    const{id, grpid} =  request.params;
+
+    
+   
+    const qry = `INSERT INTO favoritegroup (groupid, userid) VALUES (${grpid},${id})`;
+    const resp = await sequelize.query(qry);
+  
+    response.status(200).json({"send":"success"});
+  }catch(error){
+    response.status(500).send(error.message);
+    
+    }
+};
+
+remFavGroup = async(request: Request, response: Response): Promise<void> =>{
+  try{
+    const{id, grpid} =  request.params;
+
+    
+   
+    const qry = `DELETE FROM favoritegroup WHERE groupid = ${grpid} AND userid = ${id}`;
+    
+    const resp = await sequelize.query(qry);
+  
+    response.status(200).json({"send":"success"});
+  }catch(error){
+    response.status(500).send(error.message);
+    
+    }
+};
+
+
+
+setFavResource = async(request: Request, response: Response): Promise<void> =>{
+  try{
+    const{id, recid} =  request.params;
+
+    
+    const qry = `INSERT INTO favoriteresource (resourceid, userid) VALUES (${recid},${id})`;
+    const resp = await sequelize.query(qry);
+    response.status(200).json({"status": "created"});
+  }catch(error){
+    response.status(500).send(error.message);
+  }
+};
+
+remFavResource = async(request: Request, response: Response): Promise<void> =>{
+  try{
+    const{id, recid} =  request.params;
+
+    
+   
+    const qry = `DELETE FROM favoriteresource WHERE resourceid = ${recid} AND userid = ${id}`;
+    
+    const resp = await sequelize.query(qry);
+  
+    response.status(200).json({"send":"success"});
+  }catch(error){
+    response.status(500).send(error.message);
+    
+    }
+}; 
+
 }
 
 export default GroupsController;

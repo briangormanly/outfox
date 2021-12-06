@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useParams, useEffect} from 'react';
 import { FaFileAlt } from 'react-icons/fa';
 import { useHistory, useLocation } from 'react-router-dom';
-
+import groupService from '../../services/groups';
 import {
 	ExploreCard,
 	Content,
@@ -10,14 +10,31 @@ import {
 	IconContainer,
 	Button,
 	Headline,
-	SubRow
+	SubRow,
+	FavedBlk
 } from './ExploreResourceCard.elements';
 
 const ExploreResourceCard = (props) => {
-	const { title, type, creator, id, tags, city, country, email, createdAt,updatedAt, description } = props;
+	const {myid, title, type, creator, id, tags, city, country, email, createdAt,updatedAt, description } = props;
 	const history = useHistory();
 	const location = useLocation();
 	const [expanded, setExpanded] = useState(false);
+	const [faved, setFaved] = useState(false);
+
+
+
+	const favResource = async() =>{
+		setFaved(true);
+		const resp = await groupService.setfavoriteResource(myid, id);
+		setTimeout(() =>{setFaved(false)},3000);
+	};
+
+	// useEffect(()=>{
+	// 	if(faved){
+
+	// 	}
+	// })
+
 	const handleClick = () => {
 		history.push(`${location.pathname}/${id}`);
 	};
@@ -25,7 +42,7 @@ const ExploreResourceCard = (props) => {
 		const tExp = expanded;
 		setExpanded(!tExp);
 	}
-
+	
 
 const ExpRecExpanded = () =>{
 	return(
@@ -51,6 +68,14 @@ const ExpRecExpanded = () =>{
 	);
 }
 
+const FavedRecBlock = () =>{
+	return(
+		<FavedBlk>
+		<h4><span>{`${title}`}</span></h4>
+		<h5>has been added to your favorites.</h5>
+	</FavedBlk>
+	)
+};
 
 
 
@@ -81,6 +106,15 @@ const ExpRecExpanded = () =>{
 				<li>{`${tags[2].toLowerCase()}`}</li>
 			</ul>
 			</Text>
+			<ButtonGroup>
+			<Button edit onClick={favResource}>
+					Favorite
+				</Button>
+				<br/>
+				{
+					faved && <FavedRecBlock/>
+				}
+			</ButtonGroup>
 			<ButtonGroup>
 				
 				<Button edit onClick={toggleExpand}>

@@ -25,6 +25,34 @@ export const SignUpContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  li{
+	font-size:1.2rem;
+	padding-top: .2rem;
+	background-color:rgba(245, 153, 39, 0.54) !important;
+	border-radius: 10px;
+	margin-top:3px;
+	text-align:center;
+}
+h3{
+	margin-top:10px;
+}
+ul button {
+	font-size:1.2rem;
+	padding-top: .2rem;
+	background-color:transparent;
+	border-radius: 10px;
+	margin-top:3px;
+	text-align:center;
+	width:100%;
+
+}
+ul button li:hover{
+	background-color:lightblue !important;
+}
+ul{
+	overflow-y:scroll;
+	height:270px;
+}
 `;
 
 export const HeaderContainer = styled(LogoContainer)`
@@ -96,3 +124,67 @@ export const ErrorMessage = styled.p`
 	color: #ff0000;
 	margin-top: 1rem;
 `;
+export const TagSelector = styled.div`
+li{
+	
+	padding-top: .2rem;
+	background-color:rgba(245, 153, 39, 0.54) !important;
+	border-radius: 10px;
+	margin-top:3px;
+	text-align:center;
+}
+
+
+`;
+
+export const TagSet = styled.li`
+font-size:1.2rem;
+padding-top: .2rem;
+
+border-radius: 10px;
+margin-top:3px;
+text-align:center;
+`;
+export const SelList = styled.div`
+	
+
+	width:50%;
+
+display:inline-block !important;
+button{
+	border:none;
+}
+li{
+	font-size:1.4rem !important;
+}
+
+`;
+
+
+export const TagList = styled.div`
+
+	display:inline-block!important;
+	width:50% !important;
+	div{
+		width:51%!important;
+	}
+	button{
+		border:none;
+	}
+
+	
+
+`;
+
+
+export const TagContainer = styled.div`
+ width:30vw;
+ aligh-content:center;
+h3{
+	font-size: 2.5rem;
+}
+li{
+	width:60%;
+	margin-left:20%;
+}
+`

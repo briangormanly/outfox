@@ -1,20 +1,40 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+
 import { useSelector } from "react-redux";
 
-import { GroupCard } from "../index";
+import { FavGroupCard } from "../index";
 
 import {
   GroupsContainer,
   CardContainer,
   NoGroupsContainer,
-} from "./DashboardGroups.elements";
+  RemFavBtn,
+} from "./FavoriteGroups.elements";
 import { Link } from "../../styles";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import axFactoryService from "../../services/axFactory";
+const FavoriteGroups = () => {
+  const locationParams = useParams();
+  const [favGroups, setFavGroups] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const Uparams = useParams();
+  const { user } = useSelector((state) => state.userDetail);
+  const { id, Resources } = user;
+  //const currentUserId = parseFloat(Uparams.id);
+  useEffect(() => {
+    if (!loaded) {
+      makeCall();
+      setLoaded(true);
+    }
+  }, [loaded]);
 
-const DashboardGroups = () => {
-  const {
-    user: { Groups },
-  } = useSelector((state) => state.userDetail);
+  const makeCall = async () => {
+    let ax = axFactoryService.genAx();
+
+    const fGrps = await ax.get("/api/groups/favgroups/" + locationParams.id);
+    setFavGroups(fGrps.data);
+  };
 
   const scrollRef = useRef(null);
 
@@ -27,14 +47,14 @@ const DashboardGroups = () => {
       left: containerScrollPosition + e.deltaY,
     });
   };
-  const locationParams = useParams();
+
   const userURL = `/user/${locationParams.id}`;
   return (
     <GroupsContainer>
-      {Groups.length > 0 ? (
+      {favGroups != [] ? (
         <CardContainer ref={scrollRef} onWheel={onWheel}>
-          {Groups.map((group) => (
-            <GroupCard
+          {favGroups.map((group) => (
+            <FavGroupCard
               key={group.id}
               id={group.id}
               name={group.groupname}
@@ -54,4 +74,4 @@ const DashboardGroups = () => {
   );
 };
 // this is a comment
-export default DashboardGroups;
+export default FavoriteGroups;

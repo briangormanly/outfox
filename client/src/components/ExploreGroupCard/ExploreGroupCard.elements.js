@@ -25,6 +25,50 @@ export const Headline = styled.div`
 	padding: 1rem;
 	width:100%;
 `;
+export const FavedBlk = styled.div`
+margin-top:2rem;
+display: block;
+right:2%;
+bottom:5%;
+justify-content: space-between;
+height: 15rem;
+border:5px solid ${darkGrey};
+border-radius:10px;
+border-bottom: 1px solid ${mediumGrey};
+margin-bottom: 1rem;
+font-size:3vh;
+animation: .2s ease-in 0s 1 slideIn;
+
+
+padding: 1rem 4rem 1rem 4rem;
+width:30%;
+z-index:+3;
+background-color:${mediumGrey};
+position:absolute;
+text-align:center;
+-webkit-box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62); 
+box-shadow: 0px 10px 28px -3px rgba(0,0,0,0.62);
+
+span{
+	color:red;
+	
+}
+
+
+@keyframes slideIn {
+	0% {
+	  transform: translateX(200%);
+	  transform: translateY(200%);
+	}
+	
+	100%{
+		transform:translateX(0);
+		transform: translateY(0);
+	}
+  }
+
+}
+`;
 export const SubRow = styled.div`
 	margin-top:2rem;
 	display: block;

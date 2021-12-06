@@ -9,6 +9,8 @@ import Assignments from "../models/Assignments";
 import Lessons from "../models/Lessons";
 import ShareAssignments from "../models/ShareAssignments";
 import ShareLessons from "../models/ShareLessons";
+import FavoriteGroup from "../models/FavoriteGroup";
+import FavoriteResource from "../models/FavoriteResource";
 //import File from "../models/File";
 
 // Going to be Reconnected once we begin querying
@@ -36,6 +38,20 @@ async function Associations(): Promise<void> {
 
     User.hasMany(Lessons, { foreignKey: "creatorid", sourceKey: "id"});
     Lessons.belongsTo(User, { foreignKey: "creatorid", targetKey: "id"});
+
+
+
+    Resource.hasMany(FavoriteResource,{foreignKey:"resourceid", sourceKey: "id"} );
+    FavoriteResource.belongsTo(Resource, {foreignKey:"resourceid", targetKey:"id"});
+
+    User.hasMany(FavoriteResource,{foreignKey:"userid", sourceKey: "id"} );
+    FavoriteResource.belongsTo(User, {foreignKey:"userid", targetKey:"id"});
+
+    Group.hasMany(FavoriteGroup,{foreignKey:"groupid", sourceKey: "id"} );
+    FavoriteGroup.belongsTo(Group, {foreignKey:"groupid", targetKey:"id"});
+
+    User.hasMany(FavoriteGroup,{foreignKey:"userid", sourceKey: "id"} );
+    FavoriteGroup.belongsTo(User, {foreignKey:"userid", targetKey:"id"});
 
     //User.hasMany(File, {foreignKey: "userid", sourceKey: "id"});
     //File.belongsTo(User, {foreignKey: "userid", targetKey: "id"});

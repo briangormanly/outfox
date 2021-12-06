@@ -1,9 +1,9 @@
 import { date } from 'faker';
-import React, { useState} from 'react';
+import React, { useState, useParams, useEffect} from 'react';
 import { FaLayerGroup } from 'react-icons/fa';
 import { useHistory, useLocation } from 'react-router-dom';
 import 'animate.css';
-
+import groupService from '../../services/groups';
 import {
 	ExploreCard,
 	Content,
@@ -12,14 +12,22 @@ import {
 	IconContainer,
 	Button,
 	Headline,
-	SubRow
+	SubRow,
+	FavedBlk
 } from './ExploreGroupCard.elements';
 
 const ExploreGroupCard = (props) => {
-	const { groupname,datetimeadd,creator,creatorid, id,email, tags, groupdescription, city, country } = props;
+	const {myid, groupname,datetimeadd,creator,creatorid, id,email, tags, groupdescription, city, country } = props;
 	const history = useHistory();
 	const location = useLocation();
+	const [faved, setFaved] = useState(false);
 	const [expanded, setExpanded] = useState(false);
+	
+
+
+
+
+
 	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     console.log("datetimeadd:  ["+datetimeadd+"], datatype: "+ typeof(datetimeadd));
 	const tdt = datetimeadd;
@@ -52,14 +60,24 @@ const ExploreGroupCard = (props) => {
 
 	//http://localhost:3000/user/669/groups/4566
 
-	const handleClick = () => {
-		history.push(`http://localhost:3000/user/${creatorid}/groups/${id}`);
-	};
+	// const handleClick = () => {
+	// 	history.push(`http://localhost:3000/user/${creatorid}/groups/${id}`);
+	// };
 	const toggleExpand = () =>{
+		
 		const tExp = expanded;
 		setExpanded(!tExp);
 	}
 
+
+
+
+
+	const favGroup = async() =>{
+		setFaved(true);
+		const resp = await groupService.setfavoriteGroup(myid, id);
+		setTimeout(() =>{setFaved(false)},3000);
+	};
 
 	const ExpGroupExpanded = () => {
 		console.log("made it here");
@@ -85,7 +103,14 @@ const ExploreGroupCard = (props) => {
 
 
 
-
+	const FavedGrpBlock = () =>{
+		return(
+			<FavedBlk>
+				<h4><span>{`${groupname}`}</span></h4>
+				<h5>has been added to your favorites.</h5>
+			</FavedBlk>
+		)
+	};
 
 
 
@@ -113,6 +138,15 @@ const ExploreGroupCard = (props) => {
 				<li>{`${tags[2].toLowerCase()}`}</li>
 			</ul>
 			</Text>
+			<ButtonGroup>
+			<Button edit onClick={favGroup}>
+					Favorite
+				</Button>
+				<br/>
+				{
+					faved && <FavedGrpBlock/>
+				}
+			</ButtonGroup>
 			<ButtonGroup>
 				
 				<Button edit onClick={toggleExpand}>
