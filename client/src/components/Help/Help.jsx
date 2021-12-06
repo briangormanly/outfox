@@ -32,7 +32,7 @@ const Help = () => {
 			</SubtitleContainer>
 			<SubtitleContainer>
 				<h3>Github Reference</h3>
-				<p><a href="https://github.com/briangormanly/outfox">Outfox Github</a></p>
+				<u><p><a href="https://github.com/briangormanly/outfox">Outfox Github</a></p></u>
 			</SubtitleContainer>
 		</HelpContainer>
 		
