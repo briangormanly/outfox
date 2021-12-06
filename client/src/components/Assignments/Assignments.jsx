@@ -12,17 +12,13 @@ import {
 } from "./Assignments.elements";
 import { FaClipboard } from "react-icons/fa";
 
-const Assignments = () => {
+const Assignments = (creatorid) => {
   const { user } = useSelector((state) => state.userDetail);
   const { Assignments } = user;
 
   const [showModal, setShowModal] = useState(false);
 
-  const alertAssignments = () => {
-    if (Assignments) {
-      alert("assignments length: " + Assignments.length);
-    }
-  };
+  console.log(creatorid);
 
   return (
     <Fragment>
@@ -34,7 +30,7 @@ const Assignments = () => {
       <AssignmentContainer>
         <button onClick={() => setShowModal(true)}> Create Assignment </button>
         <TitleContainer>
-          <h1 onClick={alertAssignments}>My Assignments</h1>
+          <h1>My Assignments</h1>
           <InnerContainer>
             <Content>
               {Assignments.map((assignment) => (

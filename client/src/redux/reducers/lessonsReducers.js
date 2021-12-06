@@ -1,6 +1,5 @@
 import {
     GET_LESSON,
-    GET_OLD_LESSON,
     EDIT_LESSON,
     DELETE_LESSON,
     LESSON_ADD_RESOURCE,
@@ -31,19 +30,6 @@ export const lessonsReducer = (
                 assignments  : [ ...Assignments ],
                 title       : title,
                 description : description,
-            
-            };
-        }
-        case GET_OLD_LESSON: {
-            const { Resources, Assignments, title, description, id} = action.payload;
-
-            return {
-                ...state,
-                resources   : [ ...Resources ],
-                assignments  : [ ...Assignments ],
-                title       : title,
-                description : description,
-                id : id,
             
             };
         }
@@ -88,6 +74,7 @@ export const lessonsReducer = (
 
         case LESSON_ADD_ASSIGNMENT:
             return { ...state, assignments: [ ...state.assignments, action.payload ] };
+            
         case LESSON_DELETE_ASSIGNMENT: {
             const filteredAssignments = state.assignments.filter(
                 (assignment) => assignment.id !== action.payload

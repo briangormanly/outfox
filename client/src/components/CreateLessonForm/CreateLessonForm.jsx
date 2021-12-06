@@ -1,34 +1,29 @@
-import React, { useReducer, Fragment, useEffect,useState} from 'react';
+import React, { useReducer, Fragment, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ReactDOM, { render } from "react-dom"
-import ReactQuill, { Quill } from "react-quill";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { addLesson } from '../../redux/actions/userActions';
 import FormInput from '../Form-Input/Form-Input';
-import { editUserLesson } from '../../redux/actions/userActions';
-import { getOldLesson } from '../../redux/actions/lessonsActions';
+
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import {BodyContainer, 
         QuillContainer, 
-        PlusContainer, 
         CreateContainer,
-        FormContainer,
-        ModalsContent,
-        SaveContainer,
-        RemindContainer} 
+        FormContainer} 
 from './CreateLessonForm.elements';
 
 import lessonService from '../../services/lesson.js';
-import { Modal, PlusForm, ResourceLesson} from "../index";
+import { Modal, PlusForm} from "../index";
 
-import { FaPlus} from "react-icons/fa";
 
 import {
     HeaderText,
 } from './CreateLessonForm.elements';
 
 import { ActionButton } from '../../styles';
-import LessonCard from '../LessonCard/LessonCard';
+
 
 const initialState = {
     title       : '',
@@ -47,27 +42,26 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
 
     const [ value, setValue ] = useState('');
     
-    
+    const [ editorState, seteditorState ] = useState('');
+
     const [ state, dispatch ] = useReducer(reducer, initialState);
     const { title, description} = state;
     const {
         user: { Lessons },
     } = useSelector((state) => state.userDetail);
     
-    const[data, setData] = useState(0)
+    //<Editor
+    //editorState={editorState}
+    //onChange={seteditorState}
+    //style = {stylequill}
+    ///>
     
     const { user: { id } } = useSelector((state) => state.userDetail);
-    const plus = { color: "white", fontSize: "2.5em"};
+    
     const stylequill = { background: "white", height: "35em", width: "54em", minheight: "100% ", overflowy:"auto"};
     const [ showPlusModal, setShowPlusModal ] = useState(false);
     const lessonarray = lessonService.getLessonDataNoId();
     console.log(lessonarray);
-
-    {Lessons.map((lesson) => (
-        console.log(lesson.id)
-    ))}
-
-    //console.log(getOldLesson());
 
 
     //redux
@@ -99,19 +93,20 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
 
         if (creatorid) {
             formData.append('creatorid', creatorid);
-            newObject = { ...state, mutable: true, creatorid: creatorid };
+            
         }
 
         try {
             
             storeDispatch(addLesson(formData));
+            setShowModal(false);
            
 
         } catch (error) {
             console.log('An Error Occurred');
         }
 
-
+        setShowModal(false);
     };
 
     
@@ -136,9 +131,7 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
         <Fragment>
         <br />
             <HeaderText>Create Lesson</HeaderText>
-            <RemindContainer>
-            <p>Remember to hit save before you create your lesson!</p>
-            </RemindContainer>
+            
             <form onSubmit={handleSubmit}>
                 <FormContainer>
                 <FormInput
@@ -163,38 +156,24 @@ const CreateLessonForm = ({ creatorid, setShowModal }) => {
                 <br />
 
                 
-
+                
+                
                 <QuillContainer> 
                 <ReactQuill theme="snow" value={value} onChange={setValue} style={stylequill} />  
                 </QuillContainer>
                 <br />
-
-                <SaveContainer>
-                <button edit = "true"  type="submit" value= "Upload" >
-                <span>Save</span> 
-                </button>
-                </SaveContainer>
-
                 
                 <br />
+
                 
                 <CreateContainer>
-                <ActionButton fullWidth onClick={() => setShowModal(false)}>
+                <ActionButton fullWidth edit = "true"  type="submit" value= "Upload">
                     Create Lesson
                 </ActionButton>
                 </CreateContainer>
                 
             </form>
 
-            <PlusContainer>
-                <button onClick={() => setShowPlusModal(true)}>
-                    
-                <ModalsContent>
-                <span><FaPlus style={plus} /></span> 
-                </ModalsContent>
-
-                </button>
-            </PlusContainer>
             
         </Fragment>
         </BodyContainer>

@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
-import {useSelector } from 'react-redux';
 import {BodyContainer} from './PlusForm.elements';
 import {AddContainer} from './PlusForm.elements';
 import {ButtonsContainer} from './PlusForm.elements';
-
-
-import lessonService from '../../services/lesson';
 
 import { Modal, ResourceLesson, AssignmentLesson} from "../index";
 
@@ -17,9 +13,10 @@ import { ActionButton } from '../../styles';
 
 
 
-const PlusForm = ({lessonId, setShowModal}) => {
+const PlusForm = ({creatorid, lessonID, setShowModal}) => {
 
-    
+    console.log("Plus: " + lessonID);
+    console.log("Plus: " + creatorid);
     
     const [ showAssignmentModal, setShowAssignmentModal ] = useState(false);
     const [ showResourceModal, setShowResourceModal ] = useState(false);
@@ -31,13 +28,13 @@ const PlusForm = ({lessonId, setShowModal}) => {
 
         {showResourceModal && (
             <Modal large setShowModal={setShowResourceModal} >
-            <ResourceLesson lessonId={lessonId} setShowModal={setShowResourceModal} />
+            <ResourceLesson lessonID={lessonID} creatorid = {creatorid} setShowModal={setShowResourceModal} />
             </Modal>
         )}
 
         {showAssignmentModal && (
             <Modal small setShowModal={setShowAssignmentModal} >
-            <AssignmentLesson lessonId={lessonId} setShowModal={setShowAssignmentModal} />
+            <AssignmentLesson lessonID={lessonID} creatorid = {creatorid} setShowModal={setShowAssignmentModal} />
             </Modal>
         )}
        
@@ -45,7 +42,7 @@ const PlusForm = ({lessonId, setShowModal}) => {
             <HeaderText>Add</HeaderText>
 
             <ButtonsContainer>
-            <button fullWidth onClick={() => setShowAssignmentModal(true)} disabled={!lessonId}>
+            <button  onClick={() => setShowAssignmentModal(true)} >
                 <span>Assignment</span> 
             </button>
             </ButtonsContainer>
@@ -53,7 +50,7 @@ const PlusForm = ({lessonId, setShowModal}) => {
             <br />
             
             <ButtonsContainer>
-            <button fullWidth onClick={() => setShowResourceModal(true)} disabled={!lessonId} >  
+            <button  onClick={() => setShowResourceModal(true)} >  
                 <span>Resource</span>    
             </button>
             </ButtonsContainer>
@@ -61,7 +58,7 @@ const PlusForm = ({lessonId, setShowModal}) => {
             <br />
             <br />
 
-            <h1>Remember to hit save before you add an Assignment or Resource</h1>
+           
 
             <AddContainer>
             <ActionButton fullWidth onClick={() => setShowModal(false)}>

@@ -2,7 +2,7 @@ import React, { useReducer, Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUserResource } from "../../redux/actions/userActions";
 import { addGroupResource } from "../../redux/actions/groupPageActions";
-import { addnewLessonResource } from "../../redux/actions/lessonsActions";
+import { addLessonResource } from "../../redux/actions/lessonsActions";
 import { addAssignmentResource } from "../../redux/actions/assignmentActions";
 import FormInput from "../Form-Input/Form-Input";
 
@@ -36,21 +36,26 @@ function reducer(state, { field, value }) {
 const AddResourceForm = ({
   creatorid,
   GroupId,
-  AssignmentId,
-  LessonId,
+  lessonID,
   setShowModal,
+  assignmentID,
   isWithAssignments,
+  userID
 }) => {
   const [type, setType] = useState("Link");
   const [file, setFile] = useState("");
   const [fileName, setFileName] = useState("");
   const [value, setValue] = useState("");
 
+  
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const { title, description, link } = state;
 
   //redux
   const storeDispatch = useDispatch();
+
+  console.log(assignmentID);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,11 +106,11 @@ const AddResourceForm = ({
     console.log("Group ID:");
     console.log(GroupId);
 
-    console.log("Assignment ID");
-    console.log(AssignmentId);
-
     console.log("Lesson ID:");
-    console.log(LessonId);
+    console.log(lessonID);
+
+    console.log("Assignment ID:");
+    console.log(assignmentID);
 
     console.log("CreatorId:");
     console.log(creatorid);
@@ -115,14 +120,15 @@ const AddResourceForm = ({
       newObject = { ...state, mutable: true, GroupId: GroupId };
     }
 
-    if (LessonId) {
-      formData.append("LessonId", LessonId);
-      newObject = { ...state, mutable: true, LessonId: LessonId };
+    if (lessonID) {
+      formData.append("LessonId", lessonID);
+      newObject = { ...state, mutable: true, creatorid: creatorid, LessonId: lessonID };
     }
 
-    if (AssignmentId) {
-      formData.append("AssignmentId", AssignmentId);
-      newObject = { ...state, mutable: true, AssignmentId: AssignmentId };
+    if (assignmentID) {
+      console.log("Assignment id "+ assignmentID)
+      formData.append("AssignmentId", assignmentID);
+      newObject = { ...state, mutable: true,  AssignmentId: assignmentID };
     }
 
     if (creatorid) {
@@ -130,21 +136,40 @@ const AddResourceForm = ({
       newObject = { ...state, mutable: true, creatorid: creatorid };
     }
 
+    if (userID) {
+      formData.append("creatorid", userID);
+      newObject = { ...state, mutable: true, creatorid: userID};
+    }
+
     try {
       if (GroupId) {
         // storeDispatch(addGroupResource(newObject));
         storeDispatch(addGroupResource(formData));
-      } else if (LessonId) {
-        storeDispatch(addnewLessonResource(formData));
-      } else if (AssignmentId) {
+        setShowModal(false);
+      } 
+      
+      else if (lessonID){
+        console.log(lessonID);
+        storeDispatch(addLessonResource(formData));
+        setShowModal(false);
+      } 
+
+      else if (assignmentID){
+        console.log(assignmentID);
         storeDispatch(addAssignmentResource(formData));
-      } else {
+        setShowModal(false);
+      } 
+
+      else {
         // storeDispatch(addUserResource(newObject));
         storeDispatch(addUserResource(formData));
+        setShowModal(false);
       }
-      setShowModal(false);
+      
+      
+
     } catch (error) {
-      console.log("An Error Occurred");
+      console.log(error.toString());
     }
   };
 
@@ -157,11 +182,11 @@ const AddResourceForm = ({
     setFileName(e.target.files[0].name);
   };
 
-  const togglePagesOneThree = (e) => {
-    let page1 = document.getElementById("edit-assignment-page1");
-    page1.classList.toggle("is-active");
+  const togglePagesTwoThree = (e) => {
+    let page2 = document.getElementById("create-assignment-page2");
+    page2.classList.toggle("is-active");
 
-    let page3 = document.getElementById("edit-assignment-page3");
+    let page3 = document.getElementById("create-assignment-page3");
     page3.classList.toggle("is-active");
   };
   return (
@@ -230,21 +255,12 @@ const AddResourceForm = ({
           <ReactQuill theme="snow" value={value} onChange={setValue} />
         )}
 
-        {isWithAssignments ? (
-          <ActionButton
-            edit
-            fullWidth
-            type="submit"
-            value="Upload"
-            onClick={togglePagesOneThree}
-          >
-            Create Resource
-          </ActionButton>
-        ) : (
+          
+      
           <ActionButton edit fullWidth type="submit" value="Upload">
             Create Resource
           </ActionButton>
-        )}
+        
       </form>
     </Fragment>
   );

@@ -23,6 +23,7 @@ import {
   ViewResourceButton,
   SubmitButton,
   ReturnLink,
+  ResourceContainer
 } from "./AssignmentPage.elements";
 
 import {
@@ -39,6 +40,7 @@ import {
   DeleteAssignmentForm,
   EditAssignmentForm,
   Loader,
+  ResourceCard
 } from "../../components/index";
 
 const AssignmentPage = ({ match }) => {
@@ -47,6 +49,10 @@ const AssignmentPage = ({ match }) => {
   } = match;
   const mutable = true;
   //const setShowSubmitAssignmentModal = props.setShowSubmitAssignmentModal;
+
+  const { user } = useSelector((state) => state.userDetail);
+
+  const { Resources} = user;
 
   const { secondary } = colors;
   const statusBarSteps = document.getElementsByClassName("RSPBstep");
@@ -68,7 +74,7 @@ const AssignmentPage = ({ match }) => {
   }
   // redux
   const dispatch = useDispatch();
-  const { title, description, opendate, duedate, closedate } = useSelector(
+  const { resources, title, description, opendate, duedate, closedate } = useSelector(
     (state) => state.assignmentPageDetail
   );
   // need to change opendate, duedate, and closedate into date objects because state returns the dates as strings
@@ -86,6 +92,8 @@ const AssignmentPage = ({ match }) => {
     }
   }, [match.params.assignmentID, dispatch]);
 
+  console.log("match " + userID);
+
   return (
     <Fragment>
       {showDeleteModal && (
@@ -93,6 +101,7 @@ const AssignmentPage = ({ match }) => {
           <DeleteAssignmentForm
             setShowModal={setShowDeleteModal}
             assignmentID={assignmentID}
+            userID = {userID}
           />
         </Modal>
       )}
@@ -101,6 +110,7 @@ const AssignmentPage = ({ match }) => {
           <EditAssignmentForm
             setShowModal={setShowEditModal}
             assignmentID={assignmentID}
+            userID = {userID}
           />
         </Modal>
       )}
@@ -194,7 +204,7 @@ const AssignmentPage = ({ match }) => {
             </DatesDescriptionActionContainer>
             {mutable ? (
               <OwnerResourceContainer>
-                <ViewResourceButton> View Resource </ViewResourceButton>
+                {/*<ViewResourceButton> View Resource </ViewResourceButton> */}
               </OwnerResourceContainer>
             ) : (
               <ReceiverResourceContainer>
@@ -202,6 +212,24 @@ const AssignmentPage = ({ match }) => {
                 <SubmitButton> Submit Assignment </SubmitButton>
               </ReceiverResourceContainer>
             )}
+
+                <ResourceContainer>
+                {Resources.map((resource) => {
+                  
+                  if ((resource.AssignmentId != null) && (resource.AssignmentId == match.params.assignmentID)) {
+                    return (
+                    console.log("resource " + resource.AssignmentId),
+                    console.log("id " + match.params.assignmentID),
+                    <ResourceCard
+
+                      key={resource.AssignmentId}
+                      {...resource}
+                      showButtons
+                      showType
+                      showDates
+                      showDescription
+                    />)}})}
+              </ResourceContainer>
           </AssignmentCardContent>
         )}
       </AssignmentCardContainer>

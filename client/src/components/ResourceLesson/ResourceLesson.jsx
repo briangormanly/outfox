@@ -1,114 +1,137 @@
-import React, { Fragment, useState } from "react";
-import {addoldLessonResource} from "../../redux/actions/lessonsActions";
+import React, { useReducer, Fragment, useState } from "react";
+import { addExistingLessonResource } from "../../redux/actions/lessonsActions";
 
 import {
-  ResourceContainer,
   InnerContainer,
   Content,
   VerticalLine,
-  ResourceContainer1,
-  ButtonContainer
+  SelectResourceContainer,
+  SelectButtonContainer,
+  NoResourcesContainer,
+  AddResourceButton,
 } from "./ResourceLesson.elements";
 
-import {
-  createLessonAction
-} from '../../redux/actions/userActions';
+import lessonService from "../../services/lesson.js";
 
-import lessonService from '../../services/lesson.js';
+import { useDispatch, useSelector } from "react-redux";
+import { FaLayerGroup } from "react-icons/fa";
+import { Modal, AddResourceForm } from "../index";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { FaClipboard } from "react-icons/fa";
-import {Modal, AddResourceForm} from "../index";
+const initialState = {
+  title: "",
+  description: "",
+  link: "",
+};
 
+function reducer(state, { field, value }) {
+  return {
+    ...state,
+    [field]: value,
+  };
+}
 
-const ResourceLesson = ({lessonId, setShowModal}) => {
+const ResourceLesson = ({ creatorid, lessonID, setShowModal }) => {
+  console.log("Resource: " + lessonID);
+  console.log("Resource: " + creatorid);
 
   const { user } = useSelector((state) => state.userDetail);
-  const [ showAddModal, setShowAddModal ] = useState(false);
-  const { user: { id } } = useSelector((state) => state.userDetail);
-  const { Resources} = user;
-  const style = { color: "black"};
-  const style1 = { margin : "auto"};
-  
-  
-  //redux
-  const dispatch = useDispatch();
+  const [showAddModal, setShowAddModal] = useState(false);
+  const {
+    user: { id },
+  } = useSelector((state) => state.userDetail);
+  const { Resources } = user;
+  const style = { color: "black" };
+  const style1 = { margin: "auto" };
 
-  const addoldLessonResource = async (resourceID) => {
-    const response = await lessonService.getLessonData(id);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { type, title, description, link } = state;
+
+  //redux
+  const storeDispatch = useDispatch();
+
+  const addLessonResource = async (resourceID) => {
+    const response = await lessonService.getResourceData(resourceID);
+    const { type, title, description, link } = response;
+
+    let newObject = { ...response };
 
     console.log(resourceID);
+    console.log(lessonID);
 
-    const { Resources, description, title} = response;
-  
-    const newObject = {
-      Resources,
-      description,
-      title,
+    newObject = {
+      ...response,
+      mutable: true,
+      creatorid: creatorid,
+      LessonId: lessonID,
     };
-    console.log(newObject);
 
-    dispatch(createLessonAction(newObject, Resources));
+    {
+      Resources.map(
+        (resource) =>
+          !resource.LessonId &&
+          resource.id == resourceID &&
+          ((resource.LessonId = lessonID),
+          storeDispatch(addExistingLessonResource(resourceID, newObject)))
+      );
+    }
   };
-  
 
   return (
     <Fragment>
       {showAddModal && (
         <Modal large setShowModal={setShowAddModal}>
-          <AddResourceForm lessonId={lessonId} setShowModal={setShowAddModal} />
+          <AddResourceForm
+            lessonID={lessonID}
+            creatorid={creatorid}
+            setShowModal={setShowAddModal}
+          />
         </Modal>
       )}
-      
-          <h1>My Resources</h1>
-          
-          <InnerContainer>
-            <Content>
-                    <button onClick={() => setShowAddModal(true)}>
-                    Create 
-                    </button>
-                    <br />
+
+      <h1>My Resources</h1>
+
+      <InnerContainer>
+        <Content>
+          <br />
+          {Resources.length > 0 ? (
+            <div>
+              <button onClick={() => setShowAddModal(true)}>Create</button>
+
               {Resources.map((resource) => (
-                
-                    <ResourceContainer1>
-                    <h1 style = {style} >{resource.title}</h1>
-                       
-                    <ButtonContainer>
-                    <button primary = "true" onClick={() => addoldLessonResource(resource.id)}>
-                    Select
-                    </button>
-                    </ButtonContainer>
-                    <br />
+                <SelectResourceContainer>
+                  <h1 style={style}>{resource.title}</h1>
 
-                    
-                    </ResourceContainer1> 
-                    
-                     
-               ))
-               }
+                  <SelectButtonContainer>
+                    <button
+                      primary="true"
+                      onClick={() => addLessonResource(resource.id)}
+                    >
+                      Select
+                    </button>
+                  </SelectButtonContainer>
                   <br />
-                  <button onClick={() => setShowModal(false)}>          
-                    Add
-                    </button>
-                    
+                </SelectResourceContainer>
+              ))}
 
-                
-            {Resources.length < 1 && (
-              <ResourceContainer>
-              
-              <FaClipboard style = {style1}/>
+              <br />
+              <AddResourceButton onClick={() => setShowModal(false)}>
+                Add Resource
+              </AddResourceButton>
+            </div>
+          ) : (
+            <NoResourcesContainer>
+              <VerticalLine />
+              <FaLayerGroup style={style1} />
               <p> You do not have any Resources</p>
               <button onClick={() => setShowAddModal(true)}>
-                Create 
+                Create Resource
               </button>
-              </ResourceContainer>
-            )}
-            </Content>
-            </InnerContainer>
-
+            </NoResourcesContainer>
+          )}
+        </Content>
+      </InnerContainer>
     </Fragment>
   );
-  
 };
 
 export default ResourceLesson;

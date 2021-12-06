@@ -1,4 +1,4 @@
-import fileUpload, { UploadedFile } from "express-fileupload";
+import { UploadedFile } from "express-fileupload";
 import { Router, Request, Response, request } from "express";
 import File from "../models/File";
 import * as fs from "fs";
@@ -25,7 +25,7 @@ class FileController {
     ): Promise<void> => {
         try{
             const uuid = uuidv4();
-            const upfile = request.files.file;
+            const upfile = request.files.file as UploadedFile;
             const moveTo = `${__dirname}/../storage/`+uuid;
             const uri = `/storage/`+uuid;
 /*             upfile.mv(moveTo, (error: Error) => {

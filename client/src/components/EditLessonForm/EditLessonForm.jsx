@@ -2,7 +2,7 @@ import React, { useReducer, Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import FormInput from '../Form-Input/Form-Input';
-import ReactQuill, { Quill } from "react-quill";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { ActionButton } from '../../styles';
@@ -15,15 +15,17 @@ import { QuillContainer,
         FormContainer, 
         CreateContainer,
         PlusContainer,
-        ModalsContent } from './EditLessonForm.elements';
+         } from './EditLessonForm.elements';
 import { Modal, PlusForm} from "../index";
 
 import { FaPlus} from "react-icons/fa";
 
 
 const initialState = {
+    type        : '',
     title       : '',
     description : '',
+    link        : ''
 };
 
 function reducer(state, { field, value }) {
@@ -33,23 +35,23 @@ function reducer(state, { field, value }) {
     };
 }
 
-const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
+const EditLessonForm = ({ creatorid, lessonID, setShowModal}) => {
 
-    const [newNote, setNewNote] = useState('')
-    const setValue = value =>
-        setTimeout(() =>
-            setNewNote(value))
-
+    const [ value, setValue ] = useState('');
     const [ state, dispatch ] = useReducer(reducer, initialState);
-    const { title, description} = state;
+    //const { title, description} = state;
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
     const plus = { color: "white", fontSize: "2.5em"};
     const [ showPlusModal, setShowPlusModal ] = useState(false);
     
     const { user: { id } } = useSelector((state) => state.userDetail);
 
-    const stylequill = { background: "white", height: "35em", width: "54em", overflowy:"auto"};
-
+    const stylequill = { background: "white", height: "35em", width: "54em", minheight: "100% ", overflowy:"auto"};
    
+    const params = useParams();
+	console.log(params);
+	console.log(params.lessonID);
  
     // redux
     const storeDispatch = useDispatch();
@@ -59,8 +61,9 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
             const fetchData = async () => {
                 const response = await lessonService.getLessonData(lessonID);
                 const {title, description} = response;
-                dispatch({ field: 'title', value: title });
-                dispatch({ field: 'description', value: description });
+            
+                setTitle(title);
+                setDescription(description);
                 
             };
 
@@ -69,11 +72,20 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
         [ lessonID ]
     );
 
-    const params = useParams();
-    //console.log(params);
-    //console.log(lessonID);
+    const handleInput = (e) => {
+        dispatch({ field: e.target.name, value: e.target.value });
+    };
+
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+      };
+    
+      const handleDescriptionChange = (e) => {
+        setDescription(e.target.value);
+      };
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
         if (!title) {
@@ -81,36 +93,42 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
             return;
         }
 
-        let newObject = {...state };
+        const newLessonObject = {
+            title: title,
+            description: description,
+            
+        };
+
+        console.log(lessonID);
+        console.log(id);
 
         try {
+
             
-            storeDispatch(editUserLesson(lessonID, newObject));
+            storeDispatch(editUserLesson(lessonID, newLessonObject));
+
             setShowModal(false);
 
+
         } catch (error) {
-            console.log('An Error Occurred');
+            console.log("1 " + error.toString());
         }
-
-        setShowModal(false);
     };
 
-    const handleInput = (e) => {
-        dispatch({ field: e.target.name, value: e.target.value });
-    };
 
     return (
 
         <React.Fragment>
         {showPlusModal && (
             <Modal small setShowModal={setShowPlusModal}>
-            <PlusForm creatorid={id} setShowModal={setShowPlusModal} />
+            <PlusForm lessonID={lessonID} creatorid = {creatorid} setShowModal={setShowPlusModal} />
             </Modal>
         )}
 
         <BodyContainer>
         <Fragment>
-        <HeaderText>Edit Lesson</HeaderText>
+        <br />
+            <HeaderText>Edit Lesson</HeaderText>
             <form onSubmit={handleSubmit}>
                 <FormContainer>
                 <FormInput
@@ -118,50 +136,44 @@ const EditLessonForm = ({ creatorid, lessonID, setShowModal }) => {
                     name="title"
                     label="title"
                     value={title}
-                    onChange={handleInput}
+                    onChange={handleTitleChange}
                 />
-                <FormInput
 
+                <FormInput
                     type="text"
                     name="description"
-                    value={newNote}
-                    onChange={handleInput}
+                    //label="Description"
+                    value={value}
+                    onChange={handleDescriptionChange}
                 />
+
                 </FormContainer>
-            </form> 
+            
                 
-                
-                <QuillContainer>
-                <ReactQuill 
-                theme="snow" 
-                 
-                value = {description}   
-                onChange={setValue} 
-                style={stylequill}  />  
+   
+                <br />
+                <QuillContainer> 
+                <ReactQuill theme="snow" value={description} onChange={setValue} style={stylequill} />  
                 </QuillContainer>
-                
                 <br />
                 <br />
 
-                <PlusContainer>
-                <button onClick={() => setShowPlusModal(true)}>
-                    
-                <ModalsContent>
-                <span><FaPlus style={plus} /></span> 
-                </ModalsContent>
-
-                </button>
-                </PlusContainer>
-
                 <br />
-
+ 
                 <CreateContainer>
-                <ActionButton edit = "true" fullWidth type="submit" value= "Upload">
-                    Update Lesson
+                <ActionButton  edit fullWidth type="submit">
+                    Edit Lesson
                 </ActionButton>
                 </CreateContainer>
             
-        </Fragment>
+                </form>
+
+                <PlusContainer>
+                <button onClick={() => setShowPlusModal(true)}>
+                <span><FaPlus style={plus} /></span> 
+                </button>
+                </PlusContainer>
+                </Fragment>
         </BodyContainer>
         </React.Fragment>
     );

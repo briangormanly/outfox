@@ -1,18 +1,14 @@
 import React, { useState, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FaArrowRight, FaPlus } from "react-icons/fa";
 import { CreateLessonForm, Modal, DashboardLessonCard } from "../index";
-import Collapsible from "react-collapsible";
-import { FaAngleDown } from "react-icons/fa";
+import { Link } from "../../styles";
 
 import {
   LessonsContainer,
   NoLessonsContainer,
   CardContainer,
-  ButtonContainer,
   Header,
-  
 } from "./DashboardLessons.elements";
 
 const DashboardLessons = (dashboardPaginate) => {
@@ -23,9 +19,9 @@ const DashboardLessons = (dashboardPaginate) => {
 
   const { user } = useSelector((state) => state.userDetail);
   const {
-        user: { Lessons },
+    user: { Lessons },
   } = useSelector((state) => state.userDetail);
-  
+
   const { id } = user;
 
   const history = useHistory();
@@ -43,53 +39,40 @@ const DashboardLessons = (dashboardPaginate) => {
     });
   };
 
-  const handleViewAll = () => {
-    dashboardPaginate({ type: "lessons" });
-    history.push(`/user/${params.id}/lessons`);
-  };
   return (
     <React.Fragment>
-       {showModal && (
-            <Modal large setShowModal={setShowModal} >
-            <CreateLessonForm creatorid={id} setShowModal={setShowModal}/>
-            </Modal>
+      {showModal && (
+        <Modal large setShowModal={setShowModal}>
+          <CreateLessonForm creatorid={id} setShowModal={setShowModal} />
+        </Modal>
+      )}
+
+      <Header>
+        <h1>My Lessons</h1>
+      </Header>
+
+      <LessonsContainer>
+        {Lessons.length > 0 ? (
+          <CardContainer ref={scrollRef} onWheel={onWheel}>
+            {Lessons.map((lesson) => (
+              <DashboardLessonCard
+                key={lesson.id}
+                id={lesson.id}
+                title={lesson.title}
+              />
+            ))}
+          </CardContainer>
+        ) : (
+          <NoLessonsContainer>
+            <p> You do not have any Lessons</p>
+            <button>
+              <Link to={`${userURL}/lessons`}> Create Lesson</Link>{" "}
+            </button>
+          </NoLessonsContainer>
         )}
-
-        <Header>
-          <h1>My Lessons</h1>
-
-          <ButtonContainer>
-            <button onClick={() => setShowModal(true)}>
-              <span>Create Lesson</span> <FaPlus />
-            </button>
-
-            <button onClick={handleViewAll}>
-              <span>View All</span>
-              <FaArrowRight />
-            </button>
-          </ButtonContainer>
-
-        </Header>
-
-        <LessonsContainer>
-              {Lessons.length > 0 ? (
-                <CardContainer ref={scrollRef} onWheel={onWheel}>
-                  {Lessons.map((lesson) => (
-                    <DashboardLessonCard
-                      key={lesson.id}
-                      id={lesson.id}
-                      title={lesson.title}
-                    />
-                  ))}
-                </CardContainer>
-              ) : (
-                <NoLessonsContainer>
-                  <p> You do not have any Lessons</p>
-                </NoLessonsContainer>
-              )}
-            </LessonsContainer>
-            </React.Fragment>
-          );
-        };
+      </LessonsContainer>
+    </React.Fragment>
+  );
+};
 
 export default DashboardLessons;

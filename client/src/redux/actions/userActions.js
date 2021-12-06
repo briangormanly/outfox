@@ -351,9 +351,7 @@ export const addLesson = (newLessonObject) => async (dispatch) => {
   }
 };
 
-export const editUserLesson = (lessonID, newLessonObject) => async (
-  dispatch
-) => {
+export const editUserLesson = (lessonID, newLessonObject) => async (dispatch) => {
   try {
     const { lesson } = await lessonService.editLesson(
       lessonID,
@@ -362,7 +360,9 @@ export const editUserLesson = (lessonID, newLessonObject) => async (
 
     dispatch({ type: USER_EDIT_LESSON, payload: lesson });
   } catch (error) {
-    console.log("An error occurred during edit request");
+    console.log("2 " + error.toString());
+    console.log(lessonID);
+    console.log(newLessonObject);
   }
 };
 

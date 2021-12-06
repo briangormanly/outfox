@@ -4,34 +4,12 @@ import { colors } from "../../styles";
 
 const { white, primary, secondary, black } = colors;
 
-
-export const Position = styled.div`
-
-  position: absolute;
-  right: 0%;
-  left: 0%;
-  top: 40%;
- 
-
-  `;
-
-  export const ResourceContainer1 = styled.div`
-
-
-  padding: 2rem;
-  background-color: ${white};
-  border: 1px solid ${white};
-  
-  
-  
-    
-  `;
-
 export const LessonsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   button {
     margin-top: 5rem;
@@ -91,7 +69,7 @@ export const Content = styled.div`
   border-radius: 5px;
   padding: 2rem;
   background-color: ${white};
-  
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -114,7 +92,6 @@ export const Content = styled.div`
     color: ${white};
     align-self: center;
     border: 1px solid ${black};
-  
   }
 `;
 
@@ -128,7 +105,6 @@ export const VerticalLine = styled.div`
 `;
 
 export const MContent = styled.div`
-
   position: absolute;
   right: 0%;
   left: 0%;
@@ -137,27 +113,21 @@ export const MContent = styled.div`
   height: 100vh;
   width: 100vw;
   z-index: 10;
-  
 `;
 
-
 const ChildContainerDropdown = styled.div`
-  
   border-radius: 5px;
   background: none;
 
   .Collapsible {
     border-radius: 5px;
     background-color: ${primary};
-    
+
     padding: 3rem;
     width: 100%;
     border: none;
-    
-   
 
     span {
-      
       flex-wrap: wrap;
       justify-content: space-between;
 
@@ -199,33 +169,21 @@ const ChildContainerDropdown = styled.div`
     background-color: ${white};
     display: flex;
     flex-direction: column;
-    
-    
-
-    
   }
 `;
 
-const ChildContainer = styled.div`
-  padding: 2rem;
-  border-radius: 25px;
-  background-color: ${white};
-
+export const Description = styled.div`
+  font-size: 1.4rem;
 `;
-
-export const Description = styled.div`font-size: 1.4rem;`;
-
 
 export const LessonsContainer1 = styled(ChildContainerDropdown)`
   grid-area: lessons;
 
   background-color: ${white};
 
-
   button {
     margin-top: 0;
     margin-right: 0;
     color: ${white};
   }
-  
 `;

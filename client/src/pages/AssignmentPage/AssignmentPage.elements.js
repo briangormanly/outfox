@@ -22,6 +22,15 @@ export const AssignmentCardContainer = styled.div`
   }
 `;
 
+export const ResourceContainer = styled.div`
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  /*  */
+`;
+
 export const AssignmentCardContent = styled.div`
   position: relative;
   min-height: 15rem;

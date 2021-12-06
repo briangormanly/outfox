@@ -1,100 +1,107 @@
 import React, { Fragment, useState } from "react";
-import {addoldLessonAssignment} from "../../redux/actions/lessonsActions";
-import {createLessonAction} from "../../redux/actions/userActions";
+import { addExistingLessonAssignment } from "../../redux/actions/lessonsActions";
+import { createLessonAction } from "../../redux/actions/userActions";
 import {
-  AssignmentContainer,
-  AssignmentContainer1,
+  NoAssignmentsContainer,
+  SelectAssignmentContainer,
+  AddAssignmentButton,
   InnerContainer,
   Content,
   VerticalLine,
-  ButtonContainer,
+  SelectButtonContainer,
 } from "./AssignmentLesson.elements";
 
-import lessonService from '../../services/lesson.js';
+import lessonService from "../../services/lesson.js";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 import { FaClipboard } from "react-icons/fa";
 import { CreateAssignmentForm, Modal } from "../index";
 
-
-const AssignmentLesson = ({lessonId, setShowModal}) => {
-
+const AssignmentLesson = ({ lessonID, setShowModal }) => {
   const { user } = useSelector((state) => state.userDetail);
   const [showAssignmentModal, setShowAssignmentModal] = useState(false);
-  const style = { color: "black"};
+  const style = { color: "black" };
 
   const { Assignments } = user;
 
-  const dispatch = useDispatch();
+  //redux
+  const storeDispatch = useDispatch();
 
-  const addoldLessonAssignment = async (assignmentID) => {
-    const response = await lessonService.getLessonData(lessonId);
+  const addLessonAssignment = async (assignmentID) => {
+    const response = await lessonService.getAssignmentData(assignmentID);
+    const { title, description, opendate, duedate, closedate } = response;
+
+    let newObject = { ...response };
 
     console.log(assignmentID);
+    console.log(lessonID);
 
-    const { Assignments, description, title} = response;
-  
-    const newObject = {
-      Assignments,
-      description,
-      title,
-    };
-    console.log(newObject);
+    newObject = { ...response, mutable: true, LessonId: lessonID };
 
-    dispatch(createLessonAction(newObject, Assignments));
+    {
+      Assignments.map(
+        (assignments) =>
+          !assignments.LessonId &&
+          assignments.id == assignmentID &&
+          ((assignments.LessonId = lessonID),
+          storeDispatch(addExistingLessonAssignment(assignmentID, newObject)))
+      );
+    }
   };
-  
-  
+
   return (
     <Fragment>
       {showAssignmentModal && (
         <Modal setShowModal={setShowAssignmentModal}>
-          <CreateAssignmentForm lessonid = {lessonId} setShowModal={setShowAssignmentModal} />
+          <CreateAssignmentForm
+            lessonID={lessonID}
+            setShowModal={setShowAssignmentModal}
+          />
         </Modal>
       )}
 
-          <h1>My Assignments</h1>
-          <InnerContainer>
-            <Content>
+      <h1>My Assignments</h1>
 
-                    <button onClick={() => setShowAssignmentModal(true)}>
-                    Create 
-                    </button>
-                    <br />
+      <InnerContainer>
+        <Content>
+          <br />
+          {Assignments.length > 0 ? (
+            <div>
+              <button onClick={() => setShowAssignmentModal(true)}>
+                Create
+              </button>
               {Assignments.map((assignment) => (
-
-                  <AssignmentContainer1>
-                  <h1 style = {style} > {assignment.title}</h1>
-
-                  <ButtonContainer>
-                  <button primary = "true" onClick={() => addoldLessonAssignment(assignment.id)}> 
-                  Select
-                  </button>
-                  </ButtonContainer>
-
-                  <br/>
-                </AssignmentContainer1>
-              ))}
-
+                <SelectAssignmentContainer>
+                  <h1 style={style}> {assignment.title}</h1>
+                  <SelectButtonContainer>
+                    <button
+                      primary="true"
+                      onClick={() => addLessonAssignment(assignment.id)}
+                    >
+                      Select
+                    </button>
+                  </SelectButtonContainer>
                   <br />
-                  <button onClick={() => setShowModal(false)}>          
-                  Add
-                  </button>
- 
-              {Assignments.length < 1 && (
-                <AssignmentContainer>
-                <VerticalLine />
-                <FaClipboard />
-                <p> You do not have any assignments</p>
-                <button onClick={() => setShowAssignmentModal(true)}>
+                </SelectAssignmentContainer>
+              ))}
+              <br />
+              <AddAssignmentButton onClick={() => setShowModal(false)}>
+                Add Assignment
+              </AddAssignmentButton>
+            </div>
+          ) : (
+            <NoAssignmentsContainer>
+              <VerticalLine />
+              <FaClipboard />
+              <p> You do not have any assignments</p>
+              <button onClick={() => setShowAssignmentModal(true)}>
                 Create Assignment
-                </button>
-                </AssignmentContainer>
-              )}
-
-            </Content>
-          </InnerContainer>
+              </button>
+            </NoAssignmentsContainer>
+          )}
+        </Content>
+      </InnerContainer>
     </Fragment>
   );
 };

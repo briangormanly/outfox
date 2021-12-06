@@ -140,6 +140,8 @@ const AssignmentCard = ({ title, description, id }) => {
     history.push(`/user/${params.id}/assignments/${id}`);
   };
 
+  console.log("id " + params.id);
+
   return (
     <Card>
       <h2>{title}</h2>

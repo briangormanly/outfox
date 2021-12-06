@@ -157,7 +157,7 @@ export const userReducer = (
 
       return {
         ...state,
-        user: { ...state.user, Lessons: [...newAssignmentList] },
+        user: { ...state.user, Assignments: [...newAssignmentList] },
       };
     }
     case USER_DELETE_ASSIGNMENT: {

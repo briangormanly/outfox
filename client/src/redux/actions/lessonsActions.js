@@ -1,6 +1,5 @@
 import {
     GET_LESSON,
-    GET_OLD_LESSON,
     EDIT_LESSON,
     DELETE_LESSON,
     LESSON_ADD_RESOURCE,
@@ -11,8 +10,15 @@ import {
     LESSON_DELETE_ASSIGNMENT,
 } from '../constants/lessonsConstants';
 
+
+
+import {
+    USER_EDIT_ASSIGNMENT,
+    USER_EDIT_RESOURCE
+} from '../constants/userConstants';
+
 import lessonService from '../../services/lesson';
-import groupService from '../../services/groups';
+
 
 export const getLesson = (lessonID) => async (dispatch) => {
     try {
@@ -23,18 +29,7 @@ export const getLesson = (lessonID) => async (dispatch) => {
     }
 };
 
-export const getOldLesson = () => async (dispatch) => {
-    try {
-        const data = await lessonService.getLessonDataNoId();
-        dispatch({ type: GET_OLD_LESSON, payload: data });
-    } catch (error) {
-        console.log('Error with Lesson Request');
-    }
-};
-
-
-
-export const addnewLessonResource = (newResourceObject) => async (dispatch) => {
+export const addLessonResource = (newResourceObject) => async (dispatch) => {
     try {
         const { resource } = await lessonService.createResource(newResourceObject);
         dispatch({ type: LESSON_ADD_RESOURCE, payload: resource });
@@ -43,14 +38,16 @@ export const addnewLessonResource = (newResourceObject) => async (dispatch) => {
     }
 };
 
-export const addoldLessonResource = (resourceID) => async (dispatch) => {
+export const addExistingLessonResource = (resourceid, newresobject) => async (dispatch) => {
     try {
-        const { resource } = await groupService.getResourceData(resourceID);
-        dispatch({ type: LESSON_ADD_RESOURCE, payload: resource });
+        const { resource } = await lessonService.editResource(resourceid, newresobject);
+        console.log(resource.id);
+        dispatch({ type: USER_EDIT_RESOURCE, payload: resource });
     } catch (error) {
         console.log('An error occurred during add request');
     }
 };
+
 
 export const editLesson = (lessonID, newLessonObject) => async (dispatch) => {
     try {
@@ -94,7 +91,7 @@ export const deleteLessonResource = (resourceID) => async (dispatch) => {
 };
 
 
-export const addnewLessonAssignment = (newAssignmentObject) => async (dispatch) => {
+export const addLessonAssignment = (newAssignmentObject) => async (dispatch) => {
     try {
         const { assignment } = await lessonService.createAssignment(newAssignmentObject);
         dispatch({ type: LESSON_ADD_ASSIGNMENT, payload: assignment });
@@ -103,10 +100,11 @@ export const addnewLessonAssignment = (newAssignmentObject) => async (dispatch) 
     }
 };
 
-export const addoldLessonAssignment = (assignmentID) => async (dispatch) => {
+export const addExistingLessonAssignment = (assignmentid, newassignmentobject) => async (dispatch) => {
     try {
-        const { assignment } = await groupService.getResourceData(assignmentID);
-        dispatch({ type: LESSON_ADD_ASSIGNMENT, payload: assignment });
+        const { assignment } = await lessonService.editAssignment(assignmentid, newassignmentobject);
+        console.log(assignment.id);
+        dispatch({ type: USER_EDIT_ASSIGNMENT, payload: assignment });
     } catch (error) {
         console.log('An error occurred during add request');
     }
