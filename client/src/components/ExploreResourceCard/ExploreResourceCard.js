@@ -100,7 +100,7 @@ const FavedRecBlock = () =>{
 			<Text>
 				<h3>Related Tags</h3>
 				<ul>
-				{tags.map((tag)=> {return (<li>{tag.toLowerCase()}}</li>)}) }
+				{tags.map((tag)=> {return (<li>{`${tag.toLowerCase()}`}</li>)}) }
 				
 			</ul>
 			</Text>
