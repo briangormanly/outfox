@@ -201,20 +201,20 @@ const Explore = (props) => {
       setLoading(true);
       switch (expType) {
         case "user":
-          setExpData(currentUserId, 0);
+          setExpData(currentUserId, 0).then(setLoading(false));
           setSetUp(true);
           break;
         case "group":
-          setExpData(currentUserId, 0);
+          setExpData(currentUserId, 0).then(setLoading(false));
           setSetUp(true);
           break;
         case "resource":
-          setExpData(currentUserId, 0);
+          setExpData(currentUserId, 0).then(setLoading(false));
           setSetUp(true);
           break;
       }
       setPg(0);
-      setLoading(false);
+      //setLoading(false);
     }
   }, [setUp]);
 
@@ -247,17 +247,18 @@ const Explore = (props) => {
     if (pgn - 1 >= 0) {
       let nVal = pgn - 1;
       setPg(nVal);
-
-      setExpData(currentUserId, nVal);
-      setLoading(false);
+      setLoading(true);
+      setExpData(currentUserId, nVal).then(setLoading(false));
+      //setLoading(false);
     }
   };
   const nextPage = () => {
     if (pgn + 1 <= pageMax) {
       let nVal = pgn + 1;
       setPg(nVal);
-      setExpData(currentUserId, nVal);
-      setLoading(false);
+      setLoading(true);
+      setExpData(currentUserId, nVal).then(setLoading(false));
+      //setLoading(false);
     }
   };
 
