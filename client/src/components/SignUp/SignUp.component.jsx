@@ -5,7 +5,7 @@ import axios from 'axios';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
 import { ReactComponent as Logo } from '../../assets/fox.svg';
-
+import axFactoryService from "../../axFactory";
 import {
 	SignUpSection,
 	SignUpContainer,
@@ -84,7 +84,8 @@ const SignUpComponent = () => {
 			hashpw    : password
 		};
 		const payLoad = {username: userName, tags: tagSet};
-		axios.post("http://10.10.9.130:105/setUserTags",payLoad);
+		let ax = axFactoryService.genAx();
+		ax.post("/setUserTags",payLoad);
 		storeDispatch(createUserAction(newUserObject));
 	};
 

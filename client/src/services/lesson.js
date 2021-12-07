@@ -49,8 +49,8 @@ const createResource = async (newResourceObject) => {
     const newResID = response.data.resource.id;
     console.log("Created a resource with the id of: " + newResID);
     let link =
-      "http://10.10.9.130:105/newResource?resource=" + parseInt(newResID) + "";
-    const resp = await axios.get(link);
+      "/newResource?resource=" + parseInt(newResID) + "";
+    const resp = await ax.get(link);
     return response.data;
 };
 

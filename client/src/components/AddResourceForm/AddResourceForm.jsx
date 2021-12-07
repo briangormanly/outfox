@@ -8,7 +8,7 @@ import FormInput from "../Form-Input/Form-Input";
 import axios from 'axios';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
+import axFactoryService from "../../axFactory";
 import {
   ButtonGroup,
   FileInput,
@@ -144,7 +144,8 @@ const AddResourceForm = ({
     try {
       if (GroupId) {
         // storeDispatch(addGroupResource(newObject));
-        const resp = await axios.get("http://10.10.9.130:105/updateGroup?grpid="+ GroupId);
+        let ax = axFactoryService.genAx();
+        const resp = await ax.get("/updateGroup?grpid="+ GroupId);
         storeDispatch(addGroupResource(formData));
         setShowModal(false);
       } 
