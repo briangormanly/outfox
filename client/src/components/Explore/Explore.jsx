@@ -119,7 +119,7 @@ const Explore = (props) => {
         const userData = await aiCall(userId, pageNumber, "user");
         var resJsonRaw = userData.data;
         var resJson = resJsonRaw.users;
-        setPgMax(parseInt(resJsonRaw.pgcount));
+        setPgMax((parseInt(resJsonRaw.pgcount)-1));
         console.log("response was: " + JSON.stringify(resJson));
         // if(resJson.stringify() == ""){
         // 	setExpRecords({"error": "noData"});
@@ -142,7 +142,7 @@ const Explore = (props) => {
         const groupData = await aiCall(userId, pageNumber, "group");
         var resJsonRaw = groupData.data;
         var resJson = resJsonRaw.groups;
-        setPgMax(parseInt(resJsonRaw.pgcount));
+        setPgMax((parseInt(resJsonRaw.pgcount)-1));
         console.log("response was: " + JSON.stringify(resJson));
         // if(resJson.stringify() == ""){
         // 	setExpRecords({"error": "noData"});
@@ -166,7 +166,7 @@ const Explore = (props) => {
         const resourceData = await aiCall(userId, pageNumber, "resource");
         var resJsonRaw = resourceData.data;
         var resJson = resJsonRaw.resources;
-        setPgMax(parseInt(resJsonRaw.pgcount));
+        setPgMax((parseInt(resJsonRaw.pgcount)-1));
         console.log("response was: " + JSON.stringify(resJson));
         // if(resJson.stringify() == ""){
         // 	setExpRecords({"error": "noData"});
