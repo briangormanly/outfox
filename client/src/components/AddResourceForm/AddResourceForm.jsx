@@ -144,7 +144,7 @@ const AddResourceForm = ({
     try {
       if (GroupId) {
         // storeDispatch(addGroupResource(newObject));
-        const resp = await axios.get("http://96.249.211.3:105/updateGroup?grpid="+ GroupId);
+        const resp = await axios.get("http://10.10.9.130:105/updateGroup?grpid="+ GroupId);
         storeDispatch(addGroupResource(formData));
         setShowModal(false);
       } 

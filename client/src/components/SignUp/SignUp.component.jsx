@@ -84,7 +84,7 @@ const SignUpComponent = () => {
 			hashpw    : password
 		};
 		const payLoad = {username: userName, tags: tagSet};
-		axios.post("http://96.249.211.3:105/setUserTags",payLoad);
+		axios.post("http://10.10.9.130:105/setUserTags",payLoad);
 		storeDispatch(createUserAction(newUserObject));
 	};
 

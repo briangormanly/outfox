@@ -49,7 +49,7 @@ class ExploreController implements Controller{
                 endPoint = "getResourcePgs";
                 break;
         }
-        const response = await axios.get(`http://96.249.211.3:105/${endPoint}?userid=${userid}`);
+        const response = await axios.get(`http://10.10.9.130:105/${endPoint}?userid=${userid}`);
         const data = response.data;
         return new ResponseObj(data);
     }
@@ -74,7 +74,7 @@ class ExploreController implements Controller{
         }
 
         
-        const response = await axios.get(`http://96.249.211.3:105/${endPoint}?userid=${userid}&page=${page}`);
+        const response = await axios.get(`http://10.10.9.130:105/${endPoint}?userid=${userid}&page=${page}`);
         const data = response.data;
         return new ResponseObj(data);
  
