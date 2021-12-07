@@ -8,7 +8,7 @@ import FormInput from "../Form-Input/Form-Input";
 import axios from 'axios';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import axFactoryService from "../../axFactory";
+import axFactoryService from "../../services/axFactory";
 import {
   ButtonGroup,
   FileInput,

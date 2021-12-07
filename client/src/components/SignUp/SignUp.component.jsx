@@ -5,7 +5,7 @@ import axios from 'axios';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import FormInput from '../Form-Input/Form-Input';
 import { ReactComponent as Logo } from '../../assets/fox.svg';
-import axFactoryService from "../../axFactory";
+import axFactoryService from "../../services/axFactory";
 import {
 	SignUpSection,
 	SignUpContainer,
