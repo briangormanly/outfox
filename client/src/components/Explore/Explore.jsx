@@ -63,6 +63,7 @@ async function aiCall(id, page, type) {
 
   // loop through every single record, and do getUsers() with the userids, return json array
   const response = await ax.get(url);
+  
   return response;
 }
 
@@ -90,7 +91,7 @@ const Explore = (props) => {
   const history = useHistory();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const pageMax = 3; // this will be a state variable in the future
+  const [pageMax,setPgMax] = useState(1); // this will be a state variable in the future
 
   const startUserReload = () => {
     setLoading(true);
@@ -118,6 +119,7 @@ const Explore = (props) => {
         const userData = await aiCall(userId, pageNumber, "user");
         var resJsonRaw = userData.data;
         var resJson = resJsonRaw.users;
+        setPgMax(parseInt(resJsonRaw.pgcount));
         console.log("response was: " + JSON.stringify(resJson));
         // if(resJson.stringify() == ""){
         // 	setExpRecords({"error": "noData"});
@@ -140,6 +142,7 @@ const Explore = (props) => {
         const groupData = await aiCall(userId, pageNumber, "group");
         var resJsonRaw = groupData.data;
         var resJson = resJsonRaw.groups;
+        setPgMax(parseInt(resJsonRaw.pgcount));
         console.log("response was: " + JSON.stringify(resJson));
         // if(resJson.stringify() == ""){
         // 	setExpRecords({"error": "noData"});
@@ -163,6 +166,7 @@ const Explore = (props) => {
         const resourceData = await aiCall(userId, pageNumber, "resource");
         var resJsonRaw = resourceData.data;
         var resJson = resJsonRaw.resources;
+        setPgMax(parseInt(resJsonRaw.pgcount));
         console.log("response was: " + JSON.stringify(resJson));
         // if(resJson.stringify() == ""){
         // 	setExpRecords({"error": "noData"});

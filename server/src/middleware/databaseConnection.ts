@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 const sequelize = new Sequelize("outfoxdb2", "salcosser", "salcosser123!", {
-  host: "pg.terramisha.com",
+  host: "localhost",
   username: "salcosser",
   password: "salcosser123!",
   dialect: "postgres",
