@@ -249,6 +249,7 @@ const Explore = (props) => {
       setPg(nVal);
 
       setExpData(currentUserId, nVal);
+      setLoading(false);
     }
   };
   const nextPage = () => {
@@ -256,6 +257,7 @@ const Explore = (props) => {
       let nVal = pgn + 1;
       setPg(nVal);
       setExpData(currentUserId, nVal);
+      setLoading(false);
     }
   };
 
