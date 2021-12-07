@@ -88,7 +88,7 @@ const ExploreGroupCard = (props) => {
 				<p>{`Created by: ${creator}`}</p>
 				<h5>Related Tags</h5>
 			<ul>
-				{tags.map((tag)=> {return (<li>{`${tag}.toLowerCase()}`}</li>)}) }
+			{tags.map((tag)=> {return (<li>{`${tag.toLowerCase()}`}</li>)}) }
 				
 			</ul>
 				<p>{"Location: "+city + ", "+ country}</p>
