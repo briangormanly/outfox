@@ -79,10 +79,9 @@ const ExploreUserCard = (props) => {
         </span>
         <h5>Related Tags</h5>
         <ul>
-          <li>{`${tags[0]}`}</li>
-          <li>{`${tags[1]}`}</li>
-          <li>{`${tags[2]}`}</li>
-        </ul>
+				{tags.map((tag)=> {return (<li>{`${tag}.toLowerCase()}`}</li>)}) }
+				
+			</ul>
         <p>{"Location: " + city + ", " + country}</p>
         <p>
           <a href={`mailto:${email}`}>{email}</a>
@@ -112,10 +111,9 @@ const ExploreUserCard = (props) => {
         <Text>
           <h3>Related Tags</h3>
           <ul>
-            <li>{`${tags[0]}`}</li>
-            <li>{`${tags[1]}`}</li>
-            <li>{`${tags[2]}`}</li>
-          </ul>
+				{tags.map((tag)=> {return (<li>{`${tag}.toLowerCase()}`}</li>)}) }
+				
+			</ul>
         </Text>
         <ButtonGroup>
           <Button edit onClick={addFriend}>

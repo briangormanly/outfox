@@ -53,11 +53,10 @@ const ExpRecExpanded = () =>{
 					<p>{`Created by: ${creator}`}</p>
                     
 			<h5>Related Tags</h5>
-		<ul>
-			<li>{`${tags[0].toLowerCase()}`}</li>
-			<li>{`${tags[1].toLowerCase()}`}</li>
-			<li>{`${tags[2].toLowerCase()}`}</li>
-		</ul>
+			<ul>
+				{tags.map((tag)=> {return (<li>{`${tag}.toLowerCase()}`}</li>)}) }
+				
+			</ul>
 			<p>{"Location: "+city + ", "+ country}</p>
 			<p>Creator's email:<a href={`mailto:${email}`}> {email}</a></p>
 			<p><i>{`Created: ${createdAt}`}</i></p>
@@ -100,10 +99,9 @@ const FavedRecBlock = () =>{
 			</Content>
 			<Text>
 				<h3>Related Tags</h3>
-			<ul>
-				<li>{`${tags[0].toLowerCase()}`}</li>
-				<li>{`${tags[1].toLowerCase()}`}</li>
-				<li>{`${tags[2].toLowerCase()}`}</li>
+				<ul>
+				{tags.map((tag)=> {return (<li>{`${tag}.toLowerCase()}`}</li>)}) }
+				
 			</ul>
 			</Text>
 			<ButtonGroup>
