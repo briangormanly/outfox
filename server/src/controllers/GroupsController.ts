@@ -294,5 +294,6 @@ upGroup = async(request: Request, response: Response): Promise<Response> =>{
     
     }
 }; 
+}
 
 export default GroupsController;
