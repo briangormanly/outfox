@@ -3,7 +3,7 @@ import axFactoryService from "./axFactory";
 
 const assignmentURL = '/api/assignments';
 const resourceURL = '/api/resources';
-
+const groupsURL = 'api/groups';
 let ax = axFactoryService.genAx();
 
 // Assignments
@@ -43,8 +43,8 @@ const createResource = async (newResourceObject) => {
 	const newResID = response.data.resource.id;
 	console.log("Created a resource with the id of: " + newResID);
 	let link =
-	  "/newResource?resource=" + parseInt(newResID) + "";
-	const resp = await ax.get(link);
+    groupsURL +"newRes/" + parseInt(newResID) + "";
+  const resp = await ax.get(link);
 	return response.data;
 };
 

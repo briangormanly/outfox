@@ -41,6 +41,7 @@ class GroupsController implements Controller {
     this.router.route(this.path+"/addfavrec/:id/:recid").get(this.setFavResource);
     this.router.route(this.path+"/remfavrec/:id/:recid").get(this.remFavResource);
     this.router.route(this.path + "/uGroup/:groupid").get(this.upGroup);
+    this.router.route(this.path+ "newRes/:rescid").get(this.uNewResc);
     // Need to add patch
   }
 
@@ -294,6 +295,20 @@ upGroup = async(request: Request, response: Response): Promise<void> =>{
     
     }
 }; 
+uNewResc= async(request: Request, response: Response): Promise<void> =>{
+  try{
+    const {rescid} = request.params;
+    const resp = await axios.get("http://localhost:105/newResource?resource="+rescid );
+    response.status(200).json({"send":"success"});
+  }catch(error){
+    response.status(500).send(error.message);
+    
+    }
+}; 
+
+
+
+
 }
 
 export default GroupsController;
