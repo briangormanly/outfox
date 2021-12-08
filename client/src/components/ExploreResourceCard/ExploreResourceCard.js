@@ -13,7 +13,6 @@ import {
 	SubRow,
 	FavedBlk
 } from './ExploreResourceCard.elements';
-import axFactoryService from "../../services/axFactory";
 
 const ExploreResourceCard = (props) => {
 	const {myid, title, type, creator, id, tags, city, country, email, createdAt,updatedAt, description } = props;
@@ -27,8 +26,8 @@ const ExploreResourceCard = (props) => {
 	const favResource = async() =>{
 		setFaved(true);
 		const resp = await groupService.setfavoriteResource(myid, id);
-		let ax = axFactoryService.genAx();
-		const rr = await ax.get("/triggerCache?userid="+ myid );
+		
+		
 		setTimeout(() =>{setFaved(false)},3000);
 	};
 

@@ -1,5 +1,5 @@
-import React from "react";
-import {useParams } from "react-router-dom";
+import React, { useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 
 import {
   DashboardGroups,
@@ -33,9 +33,23 @@ import { FaAngleDown } from "react-icons/fa";
 const Dashboard = ({ dashboardPaginate }) => {
 
   const params = useParams();
-  let ax = axFactoryService.genAx();
-  const rr = await ax.get("/triggerCache?userid="+ params.id );
+  
+  const [sending, setSending] = useState(true);
 
+
+  useEffect(
+		() => {
+      if(sending){
+        let ax = axFactoryService.genAx();
+        const rr = await ax.get("/triggerCache?userid="+ params.id );
+        setSending(false);
+      }
+
+
+
+		},
+		[sending ]
+	);
 
 
 

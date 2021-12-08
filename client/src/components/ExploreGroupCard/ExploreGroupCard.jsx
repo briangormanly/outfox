@@ -15,7 +15,7 @@ import {
 	SubRow,
 	FavedBlk
 } from './ExploreGroupCard.elements';
-import axFactoryService from "../../services/axFactory";
+
 const ExploreGroupCard = (props) => {
 	const {myid, groupname,datetimeadd,creator,creatorid, id,email, tags, groupdescription, city, country } = props;
 	const history = useHistory();
@@ -23,7 +23,7 @@ const ExploreGroupCard = (props) => {
 	const [faved, setFaved] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	
-	let ax = axFactoryService.genAx();
+	
 
 
 
@@ -77,7 +77,7 @@ const ExploreGroupCard = (props) => {
 		setFaved(true);
 		const resp = await groupService.setfavoriteGroup(myid, id);
 		
-		const rr = await ax.get("/triggerCache?userid="+ myid );
+		
 		setTimeout(() =>{setFaved(false)},3000);
 	};
 
