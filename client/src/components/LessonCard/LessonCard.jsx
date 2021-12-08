@@ -119,7 +119,7 @@ const LessonCard = ({
                 
                 <AssignmentCard
                   key={assignments.LessonId}
-                  
+                  id={assignments.id}
                   title={assignments.title}
                   description={assignments.description}
                 />
