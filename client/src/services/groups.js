@@ -27,7 +27,7 @@ const editGroup = async (id, newObject) => {
 };
 const setfavoriteGroup = async (id, grpid) => {
   const response = await ax.get(`${groupsURL}/addfavgrp/${id}/${grpid}`);
-  const rr = await ax.get("/triggerCache?userid="+ id );
+  const rr = await ax.get("api/users/trigcache/"+ id );
   return response.status;
 };
 const remFavoriteGroup = async (id, grpid) => {
@@ -84,7 +84,7 @@ const getResourceData = async (id) => {
 };
 const setfavoriteResource = async (id, recid) => {
   const response = await ax.get(`${groupsURL}/addfavrec/${id}/${recid}`);
-  const rr = await ax.get("/triggerCache?userid="+ id );
+  const rr = await ax.get("api/users/trigcache/"+ id );
   return response.status;
 };
 const remFavoriteResource = async (id, recid) => {

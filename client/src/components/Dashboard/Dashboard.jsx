@@ -47,7 +47,7 @@ const Dashboard = ({ dashboardPaginate }) => {
       () => {
         if(sending){
           let ax = axFactoryService.genAx();
-           ax.get("/triggerCache?userid="+ params.id);
+          ax.get("api/users/trigcache/"+ params.id );
           setSending(false);
         }
   

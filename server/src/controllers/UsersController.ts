@@ -6,6 +6,7 @@ import Resource from "../models/Resource";
 import Friend from "../models/Friend";
 import Lessons from "../models/Lessons";
 import Assignments from "../models/Assignments";
+import axios from "axios";
 
 /**
  * The user controller is responsible for handling the HTTP requests.
@@ -37,6 +38,7 @@ class UsersController implements Controller {
     this.router
       .route(this.path + "/userfriends/" + ":id")
       .get(this.getUserFriends);
+    this.router.route(this.path+"/trigcache/:userid").get(this.tCache);
   }
 
   // Goes to route /api/users
@@ -195,6 +197,21 @@ class UsersController implements Controller {
       response.status(400).json({ message: "Something went wrong" });
     }
   };
-}
 
+
+tCache = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const {userid} = request.params;
+  try{
+    const resp=  await axios.get("http://localhost:105/triggerCache?userid="+ userid);
+    const data = {goodData: "true"};
+    return response.status(200).json(data);
+  }catch(err){
+    return  response.status(500).json({"error": "error making connection to outfox-ai", "erText": err.stack});
+  }
+  
+};
+}
 export default UsersController;
