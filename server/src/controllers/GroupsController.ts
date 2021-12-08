@@ -284,7 +284,7 @@ remFavResource = async(request: Request, response: Response): Promise<void> =>{
     }
 }; 
 
-upGroup = async(request: Request, response: Response): Promise<Response> =>{
+upGroup = async(request: Request, response: Response): Promise<void> =>{
   try{
     const {groupid} = request.params;
     const resp = await axios.get("http://localhost:105/updateGroup?group="+groupid );
