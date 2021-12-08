@@ -7,7 +7,7 @@ import { ExploreUser } from "../index";
 import { Friend } from "../index";
 
 import friendService from "../../services/friends";
-
+import axFactoryService from "../../services/axFactory";
 import {
   ExploreCard,
   Content,
@@ -30,6 +30,7 @@ const ExploreUserCard = (props) => {
   const [requested, setReq] = useState(false);
   const Uparams = useParams();
   const currentUserId = parseFloat(Uparams.id);
+  let ax = axFactoryService.genAx();
 
   const addFriend = () => {
     setReq(true);
@@ -39,9 +40,9 @@ const ExploreUserCard = (props) => {
 
   async function friendAdder() {
     const url =
-      "10.10.9.131:8080/api/friends" + `/makeFriend/${currentUserId}/${id}`;
+      "/api/friends" + `/makeFriend/${currentUserId}/${id}`;
     // need to pass the sendFriendRequest function the user object
-    const response = await axios.get(url);
+    const response = await ax.get(url);
     friendService.sendFriendRequest(response.data);
   }
 
