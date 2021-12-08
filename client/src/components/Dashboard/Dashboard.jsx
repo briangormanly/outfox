@@ -47,7 +47,7 @@ const Dashboard = ({ dashboardPaginate }) => {
       () => {
         if(sending){
           let ax = axFactoryService.genAx();
-          const rr = await ax.get("/triggerCache?userid="+ params.id );
+           ax.get("/triggerCache?userid="+ params.id);
           setSending(false);
         }
   
