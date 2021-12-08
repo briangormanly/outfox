@@ -1,4 +1,5 @@
 import React from "react";
+import {useParams } from "react-router-dom";
 
 import {
   DashboardGroups,
@@ -25,11 +26,19 @@ import {
   FavoriteGroupContainer,
   FavoriteResourceContainer,
 } from "./Dashboard.elements";
-
+import axFactoryService from "../../services/axFactory";
 import Collapsible from "react-collapsible";
 import { FaAngleDown } from "react-icons/fa";
 
 const Dashboard = ({ dashboardPaginate }) => {
+
+  const params = useParams();
+  let ax = axFactoryService.genAx();
+  const rr = await ax.get("/triggerCache?userid="+ params.id );
+
+
+
+
   return (
     <DashboardContainer>
       <GroupContainer>
