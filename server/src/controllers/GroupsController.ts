@@ -6,6 +6,7 @@ import FavoriteResource from "../models/FavoriteResource";
 import FavoriteGroup from "../models/FavoriteGroup";
 import GroupResource from "../models/GroupResource";
 import sequelize from "../middleware/databaseConnection";
+import axios from "axios";
 /**
  * The group controller is responsible for handling the HTTP requests.
  * Examples would be GET, POST, PUT, DELETE.
@@ -39,6 +40,7 @@ class GroupsController implements Controller {
     this.router.route(this.path + "/remfavgrp/:id/:grpid").get(this.remFavGroup);
     this.router.route(this.path+"/addfavrec/:id/:recid").get(this.setFavResource);
     this.router.route(this.path+"/remfavrec/:id/:recid").get(this.remFavResource);
+    this.router.route(this.path + "/uGroup/:groupid").get(this.upGroup);
     // Need to add patch
   }
 
@@ -282,6 +284,15 @@ remFavResource = async(request: Request, response: Response): Promise<void> =>{
     }
 }; 
 
-}
+upGroup = async(request: Request, response: Response): Promise<Response> =>{
+  try{
+    const {groupid} = request.params;
+    const resp = await axios.get("http://localhost:105/updateGroup?group="+groupid );
+    response.status(200).json({"send":"success"});
+  }catch(error){
+    response.status(500).send(error.message);
+    
+    }
+}; 
 
 export default GroupsController;
