@@ -145,7 +145,7 @@ const AddResourceForm = ({
       if (GroupId) {
         // storeDispatch(addGroupResource(newObject));
         let ax = axFactoryService.genAx();
-        const resp = await ax.get("/uGroup/"+ GroupId);
+        const resp = await ax.get("/api/groups/uGroup/"+ GroupId);
         storeDispatch(addGroupResource(formData));
         setShowModal(false);
       } 
