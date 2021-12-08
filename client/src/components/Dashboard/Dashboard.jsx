@@ -39,15 +39,15 @@ const Dashboard = ({ dashboardPaginate }) => {
 
   
 
-    const sendTrigger = async() =>{
-      let ax = axFactoryService.genAx();
-      const rr = await ax.get("/triggerCache?userid="+ params.id );
-    }
+    // const sendTrigger = async() =>{
+      
+    // }
 
     useEffect(
       () => {
         if(sending){
-          sendTrigger();
+          let ax = axFactoryService.genAx();
+          const rr = await ax.get("/triggerCache?userid="+ params.id );
           setSending(false);
         }
   
