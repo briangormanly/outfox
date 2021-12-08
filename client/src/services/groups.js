@@ -84,7 +84,7 @@ const getResourceData = async (id) => {
 };
 const setfavoriteResource = async (id, recid) => {
   const response = await ax.get(`${groupsURL}/addfavrec/${id}/${recid}`);
-  const rr = await ax.get("/triggerCache?userid="+ myid );
+  const rr = await ax.get("/triggerCache?userid="+ id );
   return response.status;
 };
 const remFavoriteResource = async (id, recid) => {
