@@ -37,22 +37,26 @@ const Dashboard = ({ dashboardPaginate }) => {
   const [sending, setSending] = useState(true);
 
 
-  useEffect(
-		() => {
-      if(sending){
-        let ax = axFactoryService.genAx();
-        const rr = await ax.get("/triggerCache?userid="+ params.id );
-        setSending(false);
-      }
+  
 
+    const sendTrigger = async() =>{
+      let ax = axFactoryService.genAx();
+      const rr = ax.get("/triggerCache?userid="+ params.id );
+    }
 
-
-		},
-		[sending ]
-	);
-
-
-
+    useEffect(
+      () => {
+        if(sending){
+          sendTrigger();
+          setSending(false);
+        }
+  
+  
+  
+      },
+      [sending ]
+    );
+  
   return (
     <DashboardContainer>
       <GroupContainer>
